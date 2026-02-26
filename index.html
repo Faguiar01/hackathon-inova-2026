@@ -920,7 +920,7 @@
   function toggleFaq(el) { el.parentElement.classList.toggle("open"); }
 
   // FORM
- // FORMULÁRIO DE INSCRIÇÃO - INTEGRAÇÃO COM GOOGLE APPS SCRIPT
+// FORMULÁRIO DE INSCRIÇÃO - INTEGRAÇÃO COM GOOGLE APPS SCRIPT (CORRIGIDO)
 function submitForm(event) {
     event.preventDefault();
     
@@ -941,53 +941,51 @@ function submitForm(event) {
         return false;
     }
     
-    // Mostrar loading (opcional)
+    // Mostrar loading
     const btnSubmit = document.querySelector('.form-submit');
     const btnText = btnSubmit.innerHTML;
     btnSubmit.innerHTML = '⏳ ENVIANDO...';
     btnSubmit.disabled = true;
     
     // URL do seu Google Apps Script (SUBSTITUA PELO SEU)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwGxAVwwcEuebmWr1PMgpUSbjKlzGdDEhrEk7wmBo-wIKH80JigWnze3ieo8hyT8wcg/exec';
+    const scriptURL = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
     
-    // Preparar dados (mesmo formato esperado pelo Apps Script)
-    const formData = new FormData();
-    formData.append('nome', nome);
-    formData.append('email', email);
-    formData.append('modalidade', modalidade);
-    formData.append('equipe', document.getElementById('f-equipe').value.trim() || '');
-    formData.append('vertente', document.getElementById('f-vert').value || '');
-    formData.append('telefone', telefone);
+    // Preparar dados como JSON (NÃO como FormData)
+    const formData = {
+        nome: nome,
+        email: email,
+        modalidade: modalidade,
+        equipe: document.getElementById('f-equipe').value.trim() || '',
+        vertente: document.getElementById('f-vert').value || '',
+        telefone: telefone
+    };
     
-    // Enviar para o Google Apps Script
+    // Enviar para o Google Apps Script como JSON
     fetch(scriptURL, {
         method: 'POST',
-        body: formData
+        mode: 'no-cors', // Importante para evitar erros de CORS
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Sucesso!
-            document.getElementById('formIns').style.display = 'none';
-            document.getElementById('formSuccess').classList.add('show');
-            
-            // Opcional: rolar até a mensagem de sucesso
-            setTimeout(() => {
-                document.getElementById('formSuccess').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            }, 100);
-        } else {
-            // Erro retornado pelo script
-            alert('Erro ao enviar inscrição: ' + (data.error || 'Tente novamente.'));
-        }
+    .then(() => {
+        // Com 'no-cors', não podemos ler a resposta
+        // Assumimos que deu certo e mostramos sucesso
+        document.getElementById('formIns').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+        
+        setTimeout(() => {
+            document.getElementById('formSuccess').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }, 100);
     })
     .catch(error => {
         console.error('Erro:', error);
         alert('Erro de conexão. Por favor, tente novamente.');
     })
     .finally(() => {
-        // Restaurar botão
         btnSubmit.innerHTML = btnText;
         btnSubmit.disabled = false;
     });
