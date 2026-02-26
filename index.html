@@ -920,11 +920,11 @@
   function toggleFaq(el) { el.parentElement.classList.toggle("open"); }
 
   // FORM
- // FORMULÁRIO DE INSCRição - INTEGRAÇÃO COM FORMSPREE (GRATUITO)
+ // FORMULÁRIO DE INSCRIÇÃO - INTEGRAÇÃO COM GOOGLE APPS SCRIPT
 function submitForm(event) {
     event.preventDefault();
     
-    // Validação básica
+    // Validação dos campos obrigatórios
     const nome = document.getElementById('f-nome').value.trim();
     const email = document.getElementById('f-email').value.trim();
     const modalidade = document.getElementById('f-mod').value;
@@ -935,73 +935,64 @@ function submitForm(event) {
         return false;
     }
     
-    // Validação simples de email
+    // Validação de email
     if (!email.includes('@') || !email.includes('.')) {
         alert('Por favor, insira um e-mail válido.');
         return false;
     }
     
-    // Opção 1: FormSubmit.co (mais simples - envia por email)
-    // Para usar, descomente as linhas abaixo e comente a opção 2
+    // Mostrar loading (opcional)
+    const btnSubmit = document.querySelector('.form-submit');
+    const btnText = btnSubmit.innerHTML;
+    btnSubmit.innerHTML = '⏳ ENVIANDO...';
+    btnSubmit.disabled = true;
     
-    /*
-    const form = document.getElementById('formIns');
-    form.action = 'https://formsubmit.co/seu-email@gmail.com'; // SUBSTITUA PELO SEU EMAIL
-    form.method = 'POST';
-    form.submit();
-    */
+    // URL do seu Google Apps Script (SUBSTITUA PELO SEU)
+    const scriptURL = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
     
-    // Opção 2: Google Forms via fetch (recomendado)
-    // Primeiro, crie um Google Forms e obtenha o action URL
+    // Preparar dados (mesmo formato esperado pelo Apps Script)
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('email', email);
+    formData.append('modalidade', modalidade);
+    formData.append('equipe', document.getElementById('f-equipe').value.trim() || '');
+    formData.append('vertente', document.getElementById('f-vert').value || '');
+    formData.append('telefone', telefone);
     
-    const formData = {
-        'Nome Completo': nome,
-        'E-mail': email,
-        'Modalidade': modalidade === 'presencial' ? 'Presencial' : 'Online',
-        'Equipe': document.getElementById('f-equipe').value.trim() || 'Não informado',
-        'Vertente': document.getElementById('f-vert').value || 'Sem preferência',
-        'Telefone': telefone,
-        'Data Inscrição': new Date().toLocaleString('pt-BR')
-    };
-    
-    // Aqui você pode:
-    // A) Salvar no localStorage (temporário)
-    salvarInscricaoLocal(formData);
-    
-    // B) Enviar para Google Sheets (veja instruções abaixo)
-    // enviarParaGoogleSheets(formData);
-    
-    // Mostra mensagem de sucesso
-    document.getElementById('formIns').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-    
-    // Opcional: Rolar até a mensagem de sucesso
-    document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth' });
+    // Enviar para o Google Apps Script
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Sucesso!
+            document.getElementById('formIns').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+            
+            // Opcional: rolar até a mensagem de sucesso
+            setTimeout(() => {
+                document.getElementById('formSuccess').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 100);
+        } else {
+            // Erro retornado pelo script
+            alert('Erro ao enviar inscrição: ' + (data.error || 'Tente novamente.'));
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro de conexão. Por favor, tente novamente.');
+    })
+    .finally(() => {
+        // Restaurar botão
+        btnSubmit.innerHTML = btnText;
+        btnSubmit.disabled = false;
+    });
     
     return false;
-}
-
-// Função para salvar no localStorage (para teste)
-function salvarInscricaoLocal(dados) {
-    let inscricoes = JSON.parse(localStorage.getItem('inscricoes')) || [];
-    inscricoes.push(dados);
-    localStorage.setItem('inscricoes', JSON.stringify(inscricoes));
-    console.log('Inscrição salva:', dados);
-}
-
-// FUNÇÃO PARA ENVIAR PARA GOOGLE SHEETS
-function enviarParaGoogleSheets(dados) {
-    // URL do seu Apps Script (veja instruções abaixo)
-    const url = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
-    
-    fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dados)
-    }).catch(error => console.log('Erro:', error));
 }
   // MOBILE SIDEBAR
   function toggleSidebar() {
