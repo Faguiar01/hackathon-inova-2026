@@ -920,46 +920,63 @@
   function toggleFaq(el) { el.parentElement.classList.toggle("open"); }
 
   // FORM
-  // FORM - ENVIA PARA GOOGLE SHEETS
+  // FORM - ENVIA PARA GOOGLE SHEETS COM CONFIRMAÇÃO VISUAL
 function submitForm(e) {
   e.preventDefault();
+  
+  // Mostrar mensagem de "Enviando..." (feedback imediato)
+  const btn = document.querySelector('.form-submit');
+  const textoOriginal = btn.innerHTML;
+  btn.innerHTML = '⏳ ENVIANDO...';
+  btn.disabled = true;
   
   // Pegar dados do formulário
   const dados = {
     nome: document.getElementById('f-nome').value,
     email: document.getElementById('f-email').value,
     modalidade: document.getElementById('f-mod').value,
-    equipe: document.getElementById('f-equipe').value,
-    vertente: document.getElementById('f-vert').value,
+    equipe: document.getElementById('f-equipe').value || 'Individual',
+    vertente: document.getElementById('f-vert').value || 'Sorteio',
     telefone: document.getElementById('f-tel').value
   };
   
   // URL DO SEU APPS SCRIPT (COLE AQUI A URL QUE VOCÊ COPIOU!)
-  const url = 'https://script.google.com/macros/s/AKfycbwGxAVwwcEuebmWr1PMgpUSbjKlzGdDEhrEk7wmBo-wIKH80JigWnze3ieo8hyT8wcg/exec';
+  const url = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
   
   // Enviar para o Google Sheets
   fetch(url, {
     method: 'POST',
-    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(dados)
   })
-  .then(() => {
-    // Mostrar mensagem de sucesso
-    document.getElementById('formIns').reset();
-    const succ = document.getElementById('formSuccess');
-    succ.classList.add('show');
-    succ.scrollIntoView({behavior:'smooth', block:'center'});
-    setTimeout(() => succ.classList.remove('show'), 8000);
+  .then(response => response.json())
+  .then(data => {
+    // Restaurar botão
+    btn.innerHTML = textoOriginal;
+    btn.disabled = false;
     
-    // Mostrar os dados no console (opcional - só para verificação)
-    console.log('Inscrição enviada:', dados);
+    if (data.success) {
+      // Mostrar mensagem de sucesso
+      document.getElementById('formIns').reset();
+      const succ = document.getElementById('formSuccess');
+      succ.classList.add('show');
+      succ.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(() => succ.classList.remove('show'), 8000);
+      
+      console.log('✅ Inscrição confirmada:', dados);
+    } else {
+      alert('Erro ao processar inscrição. Tente novamente.');
+    }
   })
   .catch(error => {
-    console.error('Erro ao enviar:', error);
-    alert('Erro ao enviar inscrição. Tente novamente.');
+    // Restaurar botão
+    btn.innerHTML = textoOriginal;
+    btn.disabled = false;
+    
+    console.error('Erro:', error);
+    alert('Erro de conexão. Verifique sua internet e tente novamente.');
   });
   
   return false;
