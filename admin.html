@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Hackathon Inova+ 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --yellow: #FFD600;
+            --cyan: #00F0FF;
+            --dark: #07090F;
+            --panel: #0C1020;
+            --text: #E8EAF6;
+            --error: #ff4444;
+            --success: #00C851;
+            --border: rgba(255,214,0,0.15);
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--yellow);
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+        
+        h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan);
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--cyan);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,240,255,0.2);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(255,214,0,0.1);
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: var(--yellow);
+            color: var(--dark);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: var(--cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,240,255,0.3);
+        }
+        
+        .error-message {
+            background: rgba(255,68,68,0.1);
+            border-left: 4px solid var(--error);
+            padding: 10px;
+            margin: 20px 0;
+            color: #ff8888;
+            display: none;
+        }
+        
+        .success-message {
+            background: rgba(0,200,81,0.1);
+            border-left: 4px solid var(--success);
+            padding: 10px;
+            margin: 20px 0;
+            color: #88ff88;
+            display: none;
+        }
+        
+        .password-requirements {
+            background: rgba(255,214,0,0.05);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 0.8rem;
+        }
+        
+        .password-requirements h3 {
+            color: var(--yellow);
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .password-requirements ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+        }
+        
+        .password-requirements li {
+            margin-bottom: 5px;
+        }
+        
+        .requirement-met {
+            color: #00ff99;
+        }
+        
+        .requirement-unmet {
+            color: #ff8888;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginForm">
+        <h1>INOVA+</h1>
+        <h2>PAINEL ADMINISTRATIVO</h2>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <div id="loginPanel">
+            <div class="form-group">
+                <label>USUÁRIO</label>
+                <input type="text" id="username" placeholder="admin" value="admin">
+            </div>
+            
+            <div class="form-group">
+                <label>SENHA</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            
+            <button class="btn-login" onclick="fazerLogin()">ENTRAR</button>
+        </div>
+        
+        <div id="changePasswordPanel" style="display: none;">
+            <div class="password-requirements">
+                <h3>🔒 REQUISITOS DE SEGURANÇA</h3>
+                <ul>
+                    <li id="req-length">❌ Mínimo 8 caracteres</li>
+                    <li id="req-upper">❌ Pelo menos 1 letra maiúscula</li>
+                    <li id="req-lower">❌ Pelo menos 1 letra minúscula</li>
+                    <li id="req-number">❌ Pelo menos 1 número</li>
+                    <li id="req-special">❌ Pelo menos 1 caractere especial (!@#$%^&*)</li>
+                </ul>
+            </div>
+            
+            <div class="form-group">
+                <label>SENHA ATUAL</label>
+                <input type="password" id="currentPassword" placeholder="••••••••">
+            </div>
+            
+            <div class="form-group">
+                <label>NOVA SENHA</label>
+                <input type="password" id="newPassword" placeholder="••••••••" onkeyup="validarSenha()">
+            </div>
+            
+            <div class="form-group">
+                <label>CONFIRMAR NOVA SENHA</label>
+                <input type="password" id="confirmPassword" placeholder="••••••••">
+            </div>
+            
+            <button class="btn-login" onclick="alterarSenha()">ALTERAR SENHA</button>
+        </div>
+    </div>
+
+    <script>
+        // USE A MESMA URL DO SEU APPS SCRIPT (a mesma do formulário)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMKaQ-8fopOYoehbYpZNs1veUWuI6yztzF2uRAOkMX9GWi3FrcPFpfTfwN0WLoxo12/exec';
+        
+        function fazerLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                mostrarErro('Preencha todos os campos');
+                return;
+            }
+            
+            fetch(`${SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.primeiro_acesso) {
+                            document.getElementById('loginPanel').style.display = 'none';
+                            document.getElementById('changePasswordPanel').style.display = 'block';
+                            document.getElementById('currentPassword').value = password;
+                            mostrarSucesso('Primeiro acesso! Crie uma nova senha forte.');
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    } else {
+                        mostrarErro(data.error || 'Usuário ou senha inválidos');
+                    }
+                })
+                .catch(error => {
+                    mostrarErro('Erro de conexão');
+                });
+        }
+        
+        function validarSenha() {
+            const senha = document.getElementById('newPassword').value;
+            
+            const requisitos = {
+                length: senha.length >= 8,
+                upper: /[A-Z]/.test(senha),
+                lower: /[a-z]/.test(senha),
+                number: /[0-9]/.test(senha),
+                special: /[!@#$%^&*]/.test(senha)
+            };
+            
+            document.getElementById('req-length').innerHTML = (requisitos.length ? '✅' : '❌') + ' Mínimo 8 caracteres';
+            document.getElementById('req-upper').innerHTML = (requisitos.upper ? '✅' : '❌') + ' Pelo menos 1 letra maiúscula';
+            document.getElementById('req-lower').innerHTML = (requisitos.lower ? '✅' : '❌') + ' Pelo menos 1 letra minúscula';
+            document.getElementById('req-number').innerHTML = (requisitos.number ? '✅' : '❌') + ' Pelo menos 1 número';
+            document.getElementById('req-special').innerHTML = (requisitos.special ? '✅' : '❌') + ' Pelo menos 1 caractere especial';
+            
+            return requisitos.length && requisitos.upper && requisitos.lower && requisitos.number && requisitos.special;
+        }
+        
+        function alterarSenha() {
+            const username = document.getElementById('username').value;
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!validarSenha()) {
+                mostrarErro('A nova senha não atende aos requisitos de segurança');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                mostrarErro('As senhas não conferem');
+                return;
+            }
+            
+            fetch(`${SCRIPT_URL}?action=changePassword&username=${encodeURIComponent(username)}&currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        mostrarSucesso('Senha alterada com sucesso! Redirecionando...');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 2000);
+                    } else {
+                        mostrarErro(data.error || 'Erro ao alterar senha');
+                    }
+                })
+                .catch(error => {
+                    mostrarErro('Erro de conexão');
+                });
+        }
+        
+        function mostrarErro(msg) {
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').innerHTML = msg;
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        function mostrarSucesso(msg) {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('successMessage').innerHTML = msg;
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
