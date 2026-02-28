@@ -123,42 +123,10 @@
             color: #88ff88;
             display: none;
         }
-        
-        .password-requirements {
-            background: rgba(255,214,0,0.05);
-            padding: 15px;
-            border-radius: 4px;
-            margin: 20px 0;
-            font-size: 0.8rem;
-        }
-        
-        .password-requirements h3 {
-            color: var(--yellow);
-            margin: 0 0 10px 0;
-            font-size: 0.9rem;
-        }
-        
-        .password-requirements ul {
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text);
-        }
-        
-        .password-requirements li {
-            margin-bottom: 5px;
-        }
-        
-        .requirement-met {
-            color: #00ff99;
-        }
-        
-        .requirement-unmet {
-            color: #ff8888;
-        }
     </style>
 </head>
 <body>
-    <div class="login-container" id="loginForm">
+    <div class="login-container">
         <h1>INOVA+</h1>
         <h2>PAINEL ADMINISTRATIVO</h2>
         
@@ -173,142 +141,50 @@
             
             <div class="form-group">
                 <label>SENHA</label>
-                <input type="password" id="password" placeholder="••••••••">
+                <input type="password" id="password" placeholder="••••••••" value="admin123">
             </div>
             
             <button class="btn-login" onclick="fazerLogin()">ENTRAR</button>
         </div>
-        
-        <div id="changePasswordPanel" style="display: none;">
-            <div class="password-requirements">
-                <h3>🔒 REQUISITOS DE SEGURANÇA</h3>
-                <ul>
-                    <li id="req-length">❌ Mínimo 8 caracteres</li>
-                    <li id="req-upper">❌ Pelo menos 1 letra maiúscula</li>
-                    <li id="req-lower">❌ Pelo menos 1 letra minúscula</li>
-                    <li id="req-number">❌ Pelo menos 1 número</li>
-                    <li id="req-special">❌ Pelo menos 1 caractere especial (!@#$%^&*)</li>
-                </ul>
-            </div>
-            
-            <div class="form-group">
-                <label>SENHA ATUAL</label>
-                <input type="password" id="currentPassword" placeholder="••••••••">
-            </div>
-            
-            <div class="form-group">
-                <label>NOVA SENHA</label>
-                <input type="password" id="newPassword" placeholder="••••••••" onkeyup="validarSenha()">
-            </div>
-            
-            <div class="form-group">
-                <label>CONFIRMAR NOVA SENHA</label>
-                <input type="password" id="confirmPassword" placeholder="••••••••">
-            </div>
-            
-            <button class="btn-login" onclick="alterarSenha()">ALTERAR SENHA</button>
-        </div>
     </div>
 
     <script>
-        // USE A MESMA URL DO SEU APPS SCRIPT (a mesma do formulário)
+        // !!! USE A URL CORRETA DA SUA IMPLANTAÇÃO !!!
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMKaQ-8fopOYoehbYpZNs1veUWuI6yztzF2uRAOkMX9GWi3FrcPFpfTfwN0WLoxo12/exec';
         
         function fazerLogin() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    if (!username || !password) {
-        mostrarErro('Preencha todos os campos');
-        return;
-    }
-    
-    mostrarErro('Conectando...');
-    
-    // Usando JSONP em vez de fetch
-    const callbackName = 'jsonpCallback_' + Date.now();
-    
-    window[callbackName] = function(data) {
-        if (data.success) {
-            if (data.primeiro_acesso) {
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('changePasswordPanel').style.display = 'block';
-                document.getElementById('currentPassword').value = password;
-                mostrarSucesso('Primeiro acesso! Crie uma nova senha forte.');
-            } else {
-                window.location.href = 'dashboard.html';
-            }
-        } else {
-            mostrarErro(data.error || 'Usuário ou senha inválidos');
-        }
-        
-        // Limpeza
-        delete window[callbackName];
-        document.body.removeChild(script);
-    };
-    
-    const script = document.createElement('script');
-    script.src = `${SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&callback=${callbackName}`;
-    script.onerror = function() {
-        mostrarErro('Erro de conexão');
-        delete window[callbackName];
-        document.body.removeChild(script);
-    };
-    
-    document.body.appendChild(script);
-}
-        
-        function validarSenha() {
-            const senha = document.getElementById('newPassword').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             
-            const requisitos = {
-                length: senha.length >= 8,
-                upper: /[A-Z]/.test(senha),
-                lower: /[a-z]/.test(senha),
-                number: /[0-9]/.test(senha),
-                special: /[!@#$%^&*]/.test(senha)
+            mostrarErro('Conectando...');
+            
+            // Usando JSONP para evitar erro de CORS
+            const callbackName = 'callback_' + Date.now();
+            
+            window[callbackName] = function(data) {
+                if (data.success) {
+                    if (data.primeiro_acesso) {
+                        window.location.href = 'trocar-senha.html'; // Página para trocar senha
+                    } else {
+                        window.location.href = 'dashboard.html'; // Página do dashboard
+                    }
+                } else {
+                    mostrarErro(data.error || 'Usuário ou senha inválidos');
+                }
+                
+                delete window[callbackName];
+                document.body.removeChild(script);
             };
             
-            document.getElementById('req-length').innerHTML = (requisitos.length ? '✅' : '❌') + ' Mínimo 8 caracteres';
-            document.getElementById('req-upper').innerHTML = (requisitos.upper ? '✅' : '❌') + ' Pelo menos 1 letra maiúscula';
-            document.getElementById('req-lower').innerHTML = (requisitos.lower ? '✅' : '❌') + ' Pelo menos 1 letra minúscula';
-            document.getElementById('req-number').innerHTML = (requisitos.number ? '✅' : '❌') + ' Pelo menos 1 número';
-            document.getElementById('req-special').innerHTML = (requisitos.special ? '✅' : '❌') + ' Pelo menos 1 caractere especial';
+            const script = document.createElement('script');
+            script.src = `${SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&callback=${callbackName}`;
+            script.onerror = function() {
+                mostrarErro('Erro de conexão com o servidor');
+                delete window[callbackName];
+                document.body.removeChild(script);
+            };
             
-            return requisitos.length && requisitos.upper && requisitos.lower && requisitos.number && requisitos.special;
-        }
-        
-        function alterarSenha() {
-            const username = document.getElementById('username').value;
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (!validarSenha()) {
-                mostrarErro('A nova senha não atende aos requisitos de segurança');
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                mostrarErro('As senhas não conferem');
-                return;
-            }
-            
-            fetch(`${SCRIPT_URL}?action=changePassword&username=${encodeURIComponent(username)}&currentPassword=${encodeURIComponent(currentPassword)}&newPassword=${encodeURIComponent(newPassword)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        mostrarSucesso('Senha alterada com sucesso! Redirecionando...');
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html';
-                        }, 2000);
-                    } else {
-                        mostrarErro(data.error || 'Erro ao alterar senha');
-                    }
-                })
-                .catch(error => {
-                    mostrarErro('Erro de conexão');
-                });
+            document.body.appendChild(script);
         }
         
         function mostrarErro(msg) {
