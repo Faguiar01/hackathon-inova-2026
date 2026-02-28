@@ -215,34 +215,48 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMKaQ-8fopOYoehbYpZNs1veUWuI6yztzF2uRAOkMX9GWi3FrcPFpfTfwN0WLoxo12/exec';
         
         function fazerLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (!username || !password) {
-                mostrarErro('Preencha todos os campos');
-                return;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    if (!username || !password) {
+        mostrarErro('Preencha todos os campos');
+        return;
+    }
+    
+    mostrarErro('Conectando...');
+    
+    // Usando JSONP em vez de fetch
+    const callbackName = 'jsonpCallback_' + Date.now();
+    
+    window[callbackName] = function(data) {
+        if (data.success) {
+            if (data.primeiro_acesso) {
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('changePasswordPanel').style.display = 'block';
+                document.getElementById('currentPassword').value = password;
+                mostrarSucesso('Primeiro acesso! Crie uma nova senha forte.');
+            } else {
+                window.location.href = 'dashboard.html';
             }
-            
-            fetch(`${SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        if (data.primeiro_acesso) {
-                            document.getElementById('loginPanel').style.display = 'none';
-                            document.getElementById('changePasswordPanel').style.display = 'block';
-                            document.getElementById('currentPassword').value = password;
-                            mostrarSucesso('Primeiro acesso! Crie uma nova senha forte.');
-                        } else {
-                            window.location.href = 'dashboard.html';
-                        }
-                    } else {
-                        mostrarErro(data.error || 'Usuário ou senha inválidos');
-                    }
-                })
-                .catch(error => {
-                    mostrarErro('Erro de conexão');
-                });
+        } else {
+            mostrarErro(data.error || 'Usuário ou senha inválidos');
         }
+        
+        // Limpeza
+        delete window[callbackName];
+        document.body.removeChild(script);
+    };
+    
+    const script = document.createElement('script');
+    script.src = `${SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&callback=${callbackName}`;
+    script.onerror = function() {
+        mostrarErro('Erro de conexão');
+        delete window[callbackName];
+        document.body.removeChild(script);
+    };
+    
+    document.body.appendChild(script);
+}
         
         function validarSenha() {
             const senha = document.getElementById('newPassword').value;
