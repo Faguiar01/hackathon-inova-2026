@@ -15,11 +15,9 @@
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:10px 24px;background:rgba(7,9,15,.97);border-bottom:1px solid var(--border)}
     .tb-left{display:flex;align-items:center;gap:12px}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--cyan);letter-spacing:2px}
-    .tb-team{font-family:'Space Mono', monospace;font-size:.7rem;color:var(--muted);letter-spacing:1px}
+    .tb-team{font-family:'Space Mono', monospace;font-size:.8rem;color:var(--yellow);letter-spacing:1px; display:none;}
     .tb-center{text-align:center}
     .tb-timer{font-family:'Bebas Neue', sans-serif;font-size:2.5rem;color:var(--cyan);text-shadow:0 0 20px rgba(0,240,255,.3);letter-spacing:4px;line-height:1;display:block}
-    .tb-timer.warning{color:var(--yellow);text-shadow:0 0 20px rgba(255,214,0,.5);animation:pulse-glow .8s ease-in-out infinite}
-    .tb-timer.danger{color:#ff4444;text-shadow:0 0 20px rgba(255,68,68,.5)}
     .tb-sprint{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--muted);letter-spacing:2px;margin-top:2px;display:block}
     .tb-right{display:flex;align-items:center;justify-content:flex-end;gap:12px}
     
@@ -27,57 +25,34 @@
     .badge-cyan { color:var(--cyan); border-color:var(--cyan); background:rgba(0,240,255,.08); }
     .badge-amber { color:var(--yellow); border-color:var(--yellow); background:rgba(255,214,0,.08); }
     
-    /* MAIN & TABS */
     .main{padding:80px 24px 40px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
-    .page-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
-    .page-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
-    .page-tab:hover,.page-tab.active{background:rgba(0,240,255,.1);border-color:var(--cyan);color:var(--cyan)}
     
-    /* SPRINT INDICATOR */
-    .sprint-indicator{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-    .si-item{flex:1;min-width:100px;padding:10px 16px;border:1px solid var(--border);background:var(--panel);text-align:center;transition:all .3s;cursor:default; border-radius:4px;}
-    .si-item.active{border-color:var(--cyan);background:rgba(0,240,255,.08)}
-    .si-item.done{border-color:rgba(0,200,81,.3);background:rgba(0,200,81,.04)}
-    .si-num{font-family:'Bebas Neue', sans-serif;font-size:1rem;display:block;margin-bottom:2px}
-    .si-item .si-num{color:var(--muted)}
-    .si-item.active .si-num{color:var(--cyan)}
-    .si-item.done .si-num{color:#00C851}
-    .si-name{font-family:'Syne', sans-serif;font-size:.78rem;color:var(--muted);display:block}
-    .si-item.active .si-name{color:#fff}
-    
-    /* MISSAO UI (GAMIFICATION) */
+    /* CAIXA PRINCIPAL DE INTERFACE */
     .mission-box{background:var(--panel);border:1px solid var(--border);padding:32px;margin-bottom:24px;position:relative;overflow:hidden; border-radius:8px; min-height: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
     
-    .btn-sortear{background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.8rem; padding:16px 40px; border:none; border-radius:8px; cursor:pointer; letter-spacing:2px; box-shadow: 0 0 20px rgba(0,240,255,0.4); transition:all 0.2s; animation: pulse-btn 2s infinite;}
+    /* FORMULÁRIO DE CHECK-IN */
+    .form-group { text-align: left; margin-bottom: 20px; width: 100%; max-width: 400px; }
+    .form-group label { display: block; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--cyan); margin-bottom: 8px; letter-spacing: 1px; }
+    .form-group input, .form-group select { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; border-radius: 4px; font-family: 'Syne', sans-serif; font-size: 1rem; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cyan); }
+    /* HOTFIX: Cor de fundo e texto visível nas opções do dropdown */
+    .form-group select option { background: #141e3c; color: #fff; font-family: 'Syne', sans-serif; }
+    
+    /* BOTÕES E EFEITOS */
+    .btn-action {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.5rem; padding:12px 32px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s;}
+    .btn-action:hover {background:#fff; transform:scale(1.02);}
+    .btn-sortear{background:var(--yellow); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.8rem; padding:16px 40px; border:none; border-radius:8px; cursor:pointer; letter-spacing:2px; box-shadow: 0 0 20px rgba(255,214,0,0.4); transition:all 0.2s; animation: pulse-btn 2s infinite;}
     .btn-sortear:hover{transform:scale(1.05); background:#fff;}
-    @keyframes pulse-btn { 0%, 100% { box-shadow: 0 0 20px rgba(0,240,255,0.4); } 50% { box-shadow: 0 0 40px rgba(0,240,255,0.8); } }
+    @keyframes pulse-btn { 0%, 100% { box-shadow: 0 0 20px rgba(255,214,0,0.4); } 50% { box-shadow: 0 0 40px rgba(255,214,0,0.8); } }
 
+    /* LAYOUT DA MISSÃO */
     .mission-content{display:none; text-align:left; width: 100%;}
     .mission-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;}
     .mission-title{font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:1px; line-height: 1.1; margin-top: 8px;}
-    
     .boss-card{background:rgba(255,214,0,.05); border-left:4px solid var(--yellow); padding:16px; border-radius:4px; margin-bottom: 20px;}
     .boss-title{font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--yellow); letter-spacing:2px; display:block; margin-bottom:8px;}
-    .boss-text{font-size:1rem; color:var(--text); line-height:1.6;}
-    
     .challenge-card{background:rgba(0,240,255,.05); border:1px solid rgba(0,240,255,.3); padding:20px; border-radius:8px;}
     .challenge-title{font-family:'Bebas Neue', sans-serif; font-size:1.5rem; color:var(--cyan); letter-spacing:1px; margin-bottom:10px;}
-    .challenge-text{font-size:1.1rem; color:#fff; line-height:1.6; font-weight: 600;}
-
-    /* BUTTONS */
-    .btn{padding:12px 24px;font-family:'Bebas Neue', sans-serif;font-size:1.1rem;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;transition:all .2s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;}
-    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
-    
-    @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 8px rgba(0,240,255,.2); } 50% { box-shadow: 0 0 24px rgba(0,240,255,.6); } }
-    
-    @media(max-width:768px){
-      .topbar{grid-template-columns:1fr auto;gap:8px;padding:8px 14px}
-      .tb-right{display:none}
-      .tb-timer{font-size:1.8rem}
-      .main{padding:72px 16px 32px}
-      .mission-header{flex-direction: column; gap: 16px;}
-    }
   </style>
 </head>
 <body>
@@ -85,204 +60,173 @@
 <header class="topbar">
   <div class="tb-left">
     <span class="tb-logo">INOVA+</span>
-    <span class="tb-team" id="team-name-display">⚡ Nova Equipe</span>
+    <span class="tb-team" id="team-name-display"></span>
   </div>
   <div class="tb-center">
     <span class="tb-timer" id="sprint-timer">90:00</span>
-    <span class="tb-sprint" id="sprint-label">// SPRINT 1 — EMPATIA HUMANA</span>
+    <span class="tb-sprint" id="sprint-label">// PREPARAÇÃO</span>
   </div>
   <div class="tb-right">
-    <span class="badge badge-cyan" id="sprint-badge">SPRINT 1/5</span>
-    <button class="btn btn-ghost" onclick="window.AUTH.logout()" style="padding:6px 14px;font-size:.8rem;">SAIR</button>
+    <button class="btn-action" onclick="window.AUTH.logout()" style="padding:6px 14px;font-size:1rem;background:transparent;border:1px solid var(--border);color:var(--muted);">SAIR</button>
   </div>
 </header>
 
 <main class="main">
-
-  <div class="sprint-indicator">
-    <div class="si-item active" id="si-1"><span class="si-num">SPRINT 01</span><span class="si-name">Empatia</span></div>
-    <div class="si-item" id="si-2"><span class="si-num">SPRINT 02</span><span class="si-name">Co-Piloto IA</span></div>
-    <div class="si-item" id="si-3"><span class="si-num">SPRINT 03</span><span class="si-name">Toque Humano</span></div>
-    <div class="si-item" id="si-4"><span class="si-num">SPRINT 04</span><span class="si-name">Ponte Digital</span></div>
-    <div class="si-item" id="si-5"><span class="si-num">SPRINT 05</span><span class="si-name">Pitch Final</span></div>
-  </div>
-
-  <div class="page-tabs">
-    <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
-    <button class="page-tab" data-tab="regras">📖 Regras de Ouro</button>
-    <button class="page-tab" data-tab="links">🔗 Central IA</button>
-  </div>
-
-  <div id="tab-cenario">
-    <div class="mission-box" id="mission-container">
+  <div class="mission-box" id="main-container">
+    
+    <div id="checkin-view" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:2px; margin-bottom:8px;">CHECK-IN DA EQUIPE</h2>
+      <p style="color:var(--muted); margin-bottom:32px;">Identifique seu Squad e sua área de especialidade para configurarmos a roleta.</p>
       
-      <div id="sorteio-view">
-        <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px;">SUA JORNADA COMEÇA AQUI</h2>
-        <p style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Sua equipe precisa de um desafio real da indústria de Joinville para resolver. O destino escolherá a sua missão.</p>
-        <button class="btn-sortear" onclick="sortearMissao()">🎲 SORTEAR MISSÃO</button>
+      <div class="form-group">
+        <label>NOME DA EQUIPE / SQUAD</label>
+        <input type="text" id="input-equipe" placeholder="Ex: Manutenção Alpha" autocomplete="off">
       </div>
-
-      <div class="mission-content" id="mission-view">
-        <div class="mission-header">
-          <div>
-            <span class="badge badge-cyan" id="m-vertente">📦 LOGÍSTICA</span>
-            <h2 class="mission-title" id="m-titulo">A Caça ao Tesouro</h2>
-          </div>
-          <span class="badge badge-amber" style="font-size: 0.7rem;">CENÁRIO OFICIAL INOVA+</span>
-        </div>
-
-        <div class="boss-card">
-          <span class="boss-title">👤 O PROBLEMA (A DOR HUMANA)</span>
-          <p class="boss-text" id="m-dor">No almoxarifado de uma fabricante de fixadores, o separador caminha quilômetros por dia buscando itens minúsculos em prateleiras gigantes.</p>
-        </div>
-
-        <div class="challenge-card">
-          <span class="challenge-title">🎯 O SEU DESAFIO</span>
-          <p class="challenge-text" id="m-desafio">Como garantir que o separador encontre o item exato sem esforço físico exaustivo e sem erro de código?</p>
-        </div>
-        
-        <div style="margin-top:20px; padding:16px; background:rgba(213,0,249,.05); border:1px solid rgba(213,0,249,.3); border-radius:4px;">
-           <span style="font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--purple); letter-spacing:2px; display:block; margin-bottom:6px;">🤖 PROMPT CO-PILOTO (SUGESTÃO PARA IA)</span>
-           <p style="font-size:0.85rem; color:var(--muted); font-style: italic;" id="m-prompt">"Aja como um especialista em inovação industrial. Temos este desafio: [COLE O DESAFIO]. Sugira 3 soluções tecnológicas que coloquem o bem-estar do trabalhador em primeiro lugar."</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div id="tab-regras" style="display:none">
-    <div style="background:var(--panel); border:1px solid var(--border); padding:32px; border-radius:8px;">
-      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:24px;">REGRAS DE OURO - INDÚSTRIA 5.0</h2>
       
-      <div style="display:grid; gap:16px;">
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">1. HUMAN-CENTRIC</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">A tecnologia existe para servir o trabalhador, não substituí-lo. O ser humano é o centro da sua solução.</p>
+      <div class="form-group">
+        <label>VERTENTE DO DESAFIO (ESPECIALIDADE)</label>
+        <select id="input-vertente">
+          <option value="">Selecione a sua área...</option>
+          <option value="PRODUÇÃO">Produção / Processos</option>
+          <option value="MANUTENÇÃO">Manutenção</option>
+          <option value="LOGÍSTICA">Logística / Suprimentos</option>
+          <option value="ESG">Sustentabilidade (ESG)</option>
+          <option value="ADMINISTRAÇÃO">Administrativo (RH/Finanças/Mkt)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>FORMATO DE PARTICIPAÇÃO</label>
+        <select id="input-formato">
+          <option value="Presencial">Presencial (Auditório / Sala SENAI)</option>
+          <option value="Online">Online (Remoto)</option>
+        </select>
+      </div>
+      
+      <button class="btn-action" onclick="salvarCheckin()" style="margin-top:16px; width:100%; max-width:400px;">CONFIRMAR SQUAD</button>
+    </div>
+
+    <div id="sorteio-view" style="display:none;">
+      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px;">SUA JORNADA COMEÇA AQUI</h2>
+      <p style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Como equipe de <strong id="lbl-vertente-escolhida" style="color:var(--cyan);"></strong>, o destino escolherá um problema real da indústria de Joinville para vocês resolverem.</p>
+      <button class="btn-sortear" onclick="sortearMissao()">🎲 SORTEAR DESAFIO</button>
+    </div>
+
+    <div class="mission-content" id="mission-view">
+      <div class="mission-header">
+        <div>
+          <span class="badge badge-cyan" id="m-vertente"></span>
+          <h2 class="mission-title" id="m-titulo"></h2>
         </div>
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">2. EVIDÊNCIA REAL</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Pesquise no Google! Toda solução precisa de ao menos um dado estatístico ou notícia que comprove que essa dor existe no Brasil.</p>
-        </div>
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">3. TOQUE HUMANO 5.0</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Não copie a resposta do ChatGPT. A ideia da IA deve ser corrigida e refinada pela sua equipe (empatia e ética) antes de virar um protótipo.</p>
-        </div>
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">4. IMPACTO MENSURÁVEL</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">O seu Pitch de 2 minutos precisa deixar claro: O que melhorou na vida de quem trabalha? O que melhorou para o planeta?</p>
-        </div>
+        <span class="badge badge-amber" style="font-size: 0.7rem;">CENÁRIO OFICIAL INOVA+</span>
+      </div>
+      <div class="boss-card">
+        <span class="boss-title">👤 O PROBLEMA (A DOR HUMANA)</span>
+        <p style="font-size:1rem; color:var(--text); line-height:1.6;" id="m-dor"></p>
+      </div>
+      <div class="challenge-card">
+        <span class="challenge-title">🎯 O SEU DESAFIO</span>
+        <p style="font-size:1.1rem; color:#fff; line-height:1.6; font-weight: 600;" id="m-desafio"></p>
       </div>
     </div>
-  </div>
 
-  <div id="tab-links" style="display:none">
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
-      <a href="https://chat.openai.com" target="_blank" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px; transition:all 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
-        <span style="font-size:2.5rem;">🤖</span>
-        <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Seu co-piloto de Ideação</span></div>
-      </a>
-      <a href="https://gemini.google.com" target="_blank" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px; transition:all 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
-        <span style="font-size:2.5rem;">✨</span>
-        <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Google Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Excelente para pesquisa com fontes</span></div>
-      </a>
-      <a href="https://www.bing.com/images/create" target="_blank" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px; transition:all 0.2s;" onmouseover="this.style.borderColor='var(--yellow)'" onmouseout="this.style.borderColor='var(--border)'">
-        <span style="font-size:2.5rem;">🖼️</span>
-        <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Bing Image Creator</strong><span style="color:var(--yellow); font-size:0.85rem;">Gerador Oficial do Render 3D</span></div>
-      </a>
-    </div>
   </div>
-
 </main>
 
 <script src="../assets/js/app.js"></script>
 <script>
   window.AUTH.require('participante');
 
-  // Recupera nome da equipe se tiver (Faremos o formulário de entrada depois)
-  const nomeEq = localStorage.getItem('temp_equipe') || 'Sua Equipe';
-  document.getElementById('team-name-display').textContent = '⚡ ' + nomeEq;
-
-  // Tabs Logic
-  document.querySelectorAll('.page-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      ['cenario','regras','links'].forEach(id => {
-        document.getElementById('tab-'+id).style.display = tab.dataset.tab === id ? '' : 'none';
-      });
-    });
-  });
-
-  // Timer Logic
-  const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
-  setInterval(() => {
-    const rem = window.SprintTimer.getRemaining();
-    const state = window.SprintTimer.getState();
-    document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
-    document.getElementById('sprint-timer').className = 'tb-timer' + (rem <= 300 && rem > 60 ? ' warning' : '') + (rem <= 60 ? ' danger' : '');
-    document.getElementById('sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()}`;
-    document.getElementById('sprint-badge').textContent = `SPRINT ${state.sprint}/5`;
-    
-    document.querySelectorAll('.si-item').forEach((el,i) => {
-      el.className = 'si-item';
-      if (i+1 < state.sprint) el.classList.add('done');
-      if (i+1 === state.sprint) el.classList.add('active');
-    });
-  }, 1000);
-
-  // ==========================================
-  // BANCO DE DADOS DAS MISSÕES (SENAI JOINVILLE)
-  // ==========================================
+  // BANCO DE DADOS (15 Cenários)
   const missoes = [
-    { vertente: "PRODUÇÃO", titulo: "A Linha de Montagem Infinita", dor: "Um operador monta 1.200 componentes por turno. O movimento repetitivo causa dores nos pulsos e a monotonia faz com que ele perca a concentração, gerando falhas.", desafio: "Como redesenhar a rotina de montagem para que ela se adapte ao ritmo humano, eliminando lesões e a fadiga mental?" },
-    { vertente: "PRODUÇÃO", titulo: "O Calor da Fundição", dor: "Operadores trabalham próximos a fornos de alta temperatura. O calor radiante causa desidratação rápida e tonturas, afetando a segurança e o julgamento.", desafio: "Como garantir que o operador realize suas tarefas de supervisão sem ser afetado pelo calor extremo e risco de queimaduras?" },
-    { vertente: "PRODUÇÃO", titulo: "A Inspeção Visual de Vidro", dor: "O inspetor olha garrafas passando em alta velocidade contra uma luz de fundo para achar trincas. Causa dor de cabeça intensa e visão turva após 2 horas.", desafio: "Como garantir a qualidade total das peças sem exigir que o olho humano realize um esforço visual impossível e doloroso?" },
-    
-    { vertente: "MANUTENÇÃO", titulo: "O Painel das Sombras", dor: "Técnico conserta painel elétrico no turno da noite. Segura a lanterna com a boca enquanto tenta ler diagramas minúsculos e mexer em alta tensão.", desafio: "Como permitir que o técnico realize o conserto com mãos livres e total clareza visual, eliminando o risco de acidentes?" },
-    { vertente: "MANUTENÇÃO", titulo: "A Máquina Barulhenta", dor: "O mecânico precisa achar um ruído estranho num motor gigante. O barulho da fábrica impede ouvir com precisão, obrigando-o a chegar perto de áreas de risco.", desafio: "Como identificar a origem exata da falha sem expor o técnico ao ruído excessivo ou peças móveis perigosas?" },
-    { vertente: "MANUTENÇÃO", titulo: "O Manual Perdido", dor: "Máquina CNC para por falha rara. O manual de 800 páginas está em outro prédio e a pressão do gerente gera bloqueio mental no técnico.", desafio: "Como entregar o conhecimento exato no local da falha, eliminando o estresse da busca por informação e a adivinhação?" },
-
-    { vertente: "LOGÍSTICA", titulo: "A Caça ao Tesouro", dor: "No almoxarifado, o separador caminha quilômetros por dia buscando itens minúsculos em prateleiras gigantes. O erro de código para a fábrica.", desafio: "Como garantir que o separador encontre o item exato sem esforço físico exaustivo e sem erro de código?" },
-    { vertente: "LOGÍSTICA", titulo: "O Gargalo da Doca", dor: "Caminhões chegam juntos. O conferente precisa validar notas e decidir destinos sob sol ou chuva, com barulho de empilhadeiras.", desafio: "Como organizar a entrada para que o conferente saiba a prioridade no segundo em que o caminhão encosta, sem estresse?" },
-    { vertente: "LOGÍSTICA", titulo: "O Milk Run Estressante", dor: "Operador de transporte precisa abastecer linhas antes que peças acabem. Sinais sonoros por toda parte geram sobrecarga de 'quem atender primeiro?'.", desafio: "Como transformar o abastecimento em algo previsível e silencioso, eliminando a ansiedade do operador?" },
-
-    { vertente: "ESG", titulo: "O Mistério do Descarte", dor: "Fábrica gera 20 tipos de resíduos. Na pressa, funcionários descartam tudo no mesmo cesto por não saberem o destino correto, gerando impacto ambiental.", desafio: "Como tornar o descarte correto algo instintivo e impossível de errar, mesmo para quem está com pressa?" },
-    { vertente: "ESG", titulo: "O Vazamento Invisível", dor: "Milhares de litros de água ou ar são desperdiçados em vazamentos que ninguém vê ou ouve. O gestor só descobre no fim do mês quando a conta chega.", desafio: "Como dar 'voz' aos recursos naturais para que o desperdício seja identificado e corrigido no momento em que começa?" },
-    { vertente: "ESG", titulo: "Fábrica para Todos", dor: "A empresa quer contratar pessoas com deficiência, mas máquinas e escritórios foram feitos para um padrão único, excluindo esses talentos.", desafio: "Como adaptar o ambiente de trabalho industrial para ser 100% inclusivo a qualquer tipo de limitação física ou cognitiva?" },
-
-    { vertente: "ADMINISTRAÇÃO", titulo: "A Integração Fria", dor: "O RH contrata 50 pessoas de vez. O assistente repete as mesmas regras 50 vezes, trabalho robótico sem dar atenção real aos novos colegas.", desafio: "Como automatizar a burocracia da integração para que o RH foque em acolher humanamente cada novo colaborador?" },
-    { vertente: "ADMINISTRAÇÃO", titulo: "O Labirinto das Notas Fiscais", dor: "Assistente financeiro digita números de notas o dia todo em telas cinzas, com medo de errar um dígito e prejudicar um fornecedor.", desafio: "Como transformar o processamento de documentos em algo visual, eliminando a digitação repetitiva e o medo de errar?" },
-    { vertente: "ADMINISTRAÇÃO", titulo: "O Silo de Informação", dor: "O Marketing cria campanhas vitais de segurança, mas a informação não chega no operário que não usa e-mail corporativo.", desafio: "Como fazer com que a comunicação interna seja compreendida por todos na fábrica, sem depender de murais de papel ignorados?" }
+    { vertente: "PRODUÇÃO", titulo: "A Linha de Montagem Infinita", dor: "Um operador monta 1.200 componentes por turno. O movimento repetitivo causa dores nos pulsos e a monotonia gera falhas.", desafio: "Como redesenhar a rotina de montagem para adaptar ao ritmo humano, eliminando lesões?" },
+    { vertente: "PRODUÇÃO", titulo: "O Calor da Fundição", dor: "Operadores sofrem com desidratação e tonturas próximos a fornos de alta temperatura.", desafio: "Como garantir a supervisão do metal sem expor o operador ao calor extremo?" },
+    { vertente: "PRODUÇÃO", titulo: "A Inspeção Visual de Vidro", dor: "A inspeção contra luz em alta velocidade causa dor de cabeça intensa e visão turva.", desafio: "Como inspecionar qualidade total sem exigir esforço visual humano doloroso?" },
+    { vertente: "MANUTENÇÃO", titulo: "O Painel das Sombras", dor: "Técnico segura lanterna na boca para consertar painel com fios de alta tensão à noite.", desafio: "Como consertar com mãos livres e clareza visual, eliminando riscos?" },
+    { vertente: "MANUTENÇÃO", titulo: "A Máquina Barulhenta", dor: "Ruído da fábrica obriga técnico a chegar perigosamente perto de peças móveis para ouvir falhas.", desafio: "Como identificar a origem da falha mecânica sem expor o técnico a riscos físicos?" },
+    { vertente: "MANUTENÇÃO", titulo: "O Manual Perdido", dor: "Manual de 800 páginas está longe e pressão por resultado gera bloqueio mental no técnico.", desafio: "Como entregar conhecimento exato no local da falha, eliminando estresse?" },
+    { vertente: "LOGÍSTICA", titulo: "A Caça ao Tesouro", dor: "Separador caminha quilômetros buscando itens minúsculos. Erro para a linha de montagem.", desafio: "Como achar o item exato sem exaustão física e erro de código?" },
+    { vertente: "LOGÍSTICA", titulo: "O Gargalo da Doca", dor: "Caminhões chegam juntos e o conferente precisa validar notas sob chuva e barulho intenso.", desafio: "Como organizar a entrada para que a prioridade fique clara instantaneamente?" },
+    { vertente: "LOGÍSTICA", titulo: "O Milk Run Estressante", dor: "Sinais sonoros de abastecimento geram sobrecarga sobre qual linha atender primeiro.", desafio: "Como transformar o abastecimento em um fluxo silencioso e sem ansiedade?" },
+    { vertente: "ESG", titulo: "O Mistério do Descarte", dor: "Na pressa, funcionários descartam 20 tipos de resíduos no mesmo local, gerando impacto grave.", desafio: "Como tornar o descarte correto algo instintivo e impossível de errar?" },
+    { vertente: "ESG", titulo: "O Vazamento Invisível", dor: "Recursos vazam silenciosamente e a gestão só descobre ao fim do mês com a conta alta.", desafio: "Como dar 'voz' aos desperdícios para correção imediata?" },
+    { vertente: "ESG", titulo: "Fábrica para Todos", dor: "Máquinas foram projetadas em padrão único, excluindo contratação de pessoas com deficiência.", desafio: "Como adaptar o ambiente para ser 100% inclusivo a qualquer limitação?" },
+    { vertente: "ADMINISTRAÇÃO", titulo: "A Integração Fria", dor: "Assistente repete regras 50 vezes, sentindo que seu trabalho é robótico e sem acolhimento.", desafio: "Como automatizar burocracia para que o RH foque na recepção humana?" },
+    { vertente: "ADMINISTRAÇÃO", titulo: "O Labirinto das Notas Fiscais", dor: "Digitação manual de centenas de notas em telas cinzas causa medo de erro financeiro.", desafio: "Como processar documentos visualmente, eliminando digitação e medo?" },
+    { vertente: "ADMINISTRAÇÃO", titulo: "O Silo de Informação", dor: "Operários de fábrica não recebem campanhas de segurança feitas apenas por e-mail corporativo.", desafio: "Como fazer a comunicação interna alcançar a todos sem depender de telas?" }
   ];
 
-  // Lógica do Sorteador de Missão (Persistente no LocalStorage)
-  function carregarMissao() {
-    const missaoSalva = localStorage.getItem('inova_missao');
-    if (missaoSalva) {
-      exibirMissao(JSON.parse(missaoSalva));
+  // Lógica de Persistência Local (Impede perda de dados se o WiFi cair)
+  function initApp() {
+    const equipSaved = localStorage.getItem('inova_equipe');
+    const vertSaved = localStorage.getItem('inova_vertente');
+    const missaoSaved = localStorage.getItem('inova_missao');
+
+    if (missaoSaved) {
+      // Já sorteou, mostra a missão
+      showTeamName(equipSaved);
+      exibirMissao(JSON.parse(missaoSaved));
+    } else if (equipSaved && vertSaved) {
+      // Já fez check-in, vai pra roleta
+      showTeamName(equipSaved);
+      mostrarRoleta(vertSaved);
+    } else {
+      // Começa do zero, mostra formulário
+      document.getElementById('checkin-view').style.display = 'flex';
     }
   }
 
+  function salvarCheckin() {
+    const equipe = document.getElementById('input-equipe').value;
+    const vertente = document.getElementById('input-vertente').value;
+    const formato = document.getElementById('input-formato').value;
+
+    if (!equipe || !vertente) {
+      window.toast("Preencha o nome da equipe e escolha uma vertente!", "warning");
+      return;
+    }
+
+    // Salva na memória do celular do aluno
+    localStorage.setItem('inova_equipe', equipe);
+    localStorage.setItem('inova_vertente', vertente);
+    localStorage.setItem('inova_formato', formato);
+
+    showTeamName(equipe);
+    mostrarRoleta(vertente);
+  }
+
+  function showTeamName(nome) {
+    const el = document.getElementById('team-name-display');
+    el.textContent = '⚡ SQUAD: ' + nome.toUpperCase();
+    el.style.display = 'block';
+  }
+
+  function mostrarRoleta(vertente) {
+    document.getElementById('checkin-view').style.display = 'none';
+    document.getElementById('lbl-vertente-escolhida').textContent = vertente;
+    document.getElementById('sorteio-view').style.display = 'block';
+  }
+
   function sortearMissao() {
-    // Efeito de roleta rápida visual
     document.querySelector('.btn-sortear').textContent = "SORTEANDO...";
     
     setTimeout(() => {
-      const indexAleatorio = Math.floor(Math.random() * missoes.length);
-      const missaoSorteada = missoes[indexAleatorio];
+      const vertenteEscolhida = localStorage.getItem('inova_vertente');
       
-      // Salva no navegador para não perder se der F5
+      // FILTRO ESPECIALISTA: Pega só as missões da área da equipe
+      const missoesFiltradas = missoes.filter(m => m.vertente === vertenteEscolhida);
+      const indexAleatorio = Math.floor(Math.random() * missoesFiltradas.length);
+      const missaoSorteada = missoesFiltradas[indexAleatorio];
+      
+      // Salva no navegador e exibe
       localStorage.setItem('inova_missao', JSON.stringify(missaoSorteada));
       exibirMissao(missaoSorteada);
-      
       window.toast("Missão revelada! Que os Sprints comecem.", "success");
-    }, 1500); // 1.5 segundos de suspense
+    }, 1500);
   }
 
   function exibirMissao(missao) {
     document.getElementById('sorteio-view').style.display = 'none';
-    document.getElementById('mission-container').style.display = 'block';
-    document.getElementById('mission-container').style.padding = '0';
     document.getElementById('mission-view').style.display = 'block';
 
     document.getElementById('m-vertente').textContent = "📦 " + missao.vertente;
@@ -291,8 +235,8 @@
     document.getElementById('m-desafio').textContent = missao.desafio;
   }
 
-  // Ao iniciar a página, verifica se já sorteou antes
-  carregarMissao();
+  // Inicializa
+  initApp();
 
 </script>
 </body>
