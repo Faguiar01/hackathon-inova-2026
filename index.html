@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hackathon Inova+ 2026 | SENAI Joinville</title>
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo-wrap">
+                <img id="brandLogo" src="assets/images/logo.png" alt="Hackathon Inova+ SENAI" />
+            </div>
+            <div>
+                <div class="brand-name">INOVA<span>+</span></div>
+                <div class="brand-sub">SENAI JOINVILLE &middot; 2026</div>
+            </div>
+        </div>
+
+        <div class="sidebar-countdown">
+            <div class="sc-label">// FALTAM PARA O EVENTO</div>
+            <div class="sc-digits">
+                <div class="sc-unit"><span class="sc-num" id="cd-d">--</span><span class="sc-unit-label">DIAS</span></div>
+                <div class="sc-sep">:</div>
+                <div class="sc-unit"><span class="sc-num" id="cd-h">--</span><span class="sc-unit-label">HRS</span></div>
+                <div class="sc-sep">:</div>
+                <div class="sc-unit"><span class="sc-num" id="cd-m">--</span><span class="sc-unit-label">MIN</span></div>
+                <div class="sc-sep">:</div>
+                <div class="sc-unit"><span class="sc-num" id="cd-s">--</span><span class="sc-unit-label">SEG</span></div>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav-label">// Evento</div>
+            <a class="nav-item active" href="#" onclick="openSection('sobre',this)"><span class="nav-icon">&#127968;</span> Sobre o Hackathon</a>
+            <a class="nav-item" href="#" onclick="openSection('sprints',this)"><span class="nav-icon">&#9889;</span> Os 5 Sprints</a>
+            <a class="nav-item" href="#" onclick="openSection('vertentes',this)"><span class="nav-icon">&#128197;</span> Vertentes &amp; Cenários <span class="nav-badge">15</span></a>
+
+            <div class="nav-label">// Competição</div>
+            <a class="nav-item" href="#" onclick="openSection('avaliacao',this)"><span class="nav-icon">&#127942;</span> Avaliação</a>
+            <a class="nav-item" href="#" onclick="openSection('cronograma',this)"><span class="nav-icon">&#128336;</span> Cronograma</a>
+            <a class="nav-item" href="#" onclick="openSection('premiacao',this)"><span class="nav-icon">&#129351;</span> Premiação</a>
+
+            <div class="nav-label">// Informações</div>
+            <a class="nav-item" href="#" onclick="openSection('regulamento',this)"><span class="nav-icon">&#128203;</span> Regulamento</a>
+            <a class="nav-item" href="#" onclick="openSection('faq',this)"><span class="nav-icon">&#10067;</span> FAQ</a>
+            <a class="nav-item" href="#" onclick="openSection('inscricao',this)"><span class="nav-icon">&#9997;&#65039;</span> Inscrição</a>
+        </nav>
+
+        <div class="sidebar-cta">
+            <button class="cta-btn" onclick="openSection('inscricao')">&#9889; INSCREVA-SE JÁ</button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main id="main">
+        <!-- HERO -->
+        <div class="page-hero">
+            <div class="hero-left">
+                <div class="hero-tag"><span class="live-dot"></span> SENAI JOINVILLE &middot; 02 E 09 ABRIL 2026</div>
+                <h1 class="hero-title">A MENTE <span class="hy">HUMANA</span><br>NO COMANDO <span class="hc">DA IA.</span></h1>
+                <p class="hero-desc">O maior evento de Indústria 5.0 de Santa Catarina. 90 minutos para transformar desafios industriais reais em soluções de alto impacto — sem sucata física, 100% cognitivo e digital.</p>
+                <div class="hero-pills">
+                    <div class="pill"><span>&#128205;</span> SENAI Joinville</div>
+                    <div class="pill"><span>&#9203;</span> 90 Minutos</div>
+                    <div class="pill"><span>&#127919;</span> 15 Cenários Reais</div>
+                    <div class="pill"><span>&#129302;</span> Indústria 5.0</div>
+                    <div class="pill"><span>&#127942;</span> Premiação Híbrida</div>
+                </div>
+            </div>
+
+            <!-- SVG industrial -->
+            <div class="hero-visual">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" stroke="rgba(255,214,0,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+                    <circle cx="100" cy="100" r="70" stroke="rgba(0,240,255,0.1)" stroke-width="1"/>
+                    <g opacity="0.7">
+                        <path d="M100 18 L104 10 L108 18 L116 16 L116 24 L124 26 L120 34 L126 40 L120 44 L122 52 L114 52 L112 60 L104 58 L100 66 L96 58 L88 60 L86 52 L78 52 L80 44 L74 40 L80 34 L76 26 L84 24 L84 16 Z" stroke="#FFD600" stroke-width="1.5" fill="none" opacity="0.4"/>
+                    </g>
+                    <line x1="30" y1="100" x2="55" y2="100" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <line x1="55" y1="100" x2="55" y2="75" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <line x1="55" y1="75" x2="75" y2="75" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <line x1="170" y1="100" x2="145" y2="100" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <line x1="145" y1="100" x2="145" y2="125" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <line x1="145" y1="125" x2="125" y2="125" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
+                    <circle cx="30" cy="100" r="3" fill="#00F0FF" opacity="0.6"/>
+                    <circle cx="170" cy="100" r="3" fill="#00F0FF" opacity="0.6"/>
+                    <circle cx="55" cy="75" r="3" fill="#FFD600" opacity="0.6"/>
+                    <circle cx="145" cy="125" r="3" fill="#FFD600" opacity="0.6"/>
+                    <path d="M100 65 C85 65 72 76 70 90 C65 90 60 95 62 102 C60 108 64 114 70 115 C72 122 76 128 82 130 C84 136 90 140 96 138 L100 145 L104 138 C110 140 116 136 118 130 C124 128 128 122 130 115 C136 114 140 108 138 102 C140 95 135 90 130 90 C128 76 115 65 100 65Z" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.06)"/>
+                    <path d="M82 85 C86 82 92 84 94 90" stroke="#FFD600" stroke-width="1" opacity="0.5" fill="none"/>
+                    <path d="M118 85 C114 82 108 84 106 90" stroke="#FFD600" stroke-width="1" opacity="0.5" fill="none"/>
+                    <path d="M78 105 C82 110 88 108 90 102" stroke="#00F0FF" stroke-width="1" opacity="0.5" fill="none"/>
+                    <path d="M122 105 C118 110 112 108 110 102" stroke="#00F0FF" stroke-width="1" opacity="0.5" fill="none"/>
+                    <path d="M90 115 C94 120 106 120 110 115" stroke="#FF1F8E" stroke-width="1" opacity="0.5" fill="none"/>
+                    <circle cx="100" cy="100" r="8" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.15)"/>
+                    <circle cx="100" cy="100" r="3" fill="#FFD600" opacity="0.8"/>
+                    <circle cx="100" cy="100" r="12" stroke="#FFD600" stroke-width="0.8" fill="none" opacity="0">
+                        <animate attributeName="r" values="12;22;12" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="100" cy="100" r="20" stroke="#00F0FF" stroke-width="0.6" fill="none" opacity="0">
+                        <animate attributeName="r" values="20;36;20" dur="3s" begin="1s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" begin="1s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="78" cy="78" r="4" fill="rgba(0,240,255,0.6)"/>
+                    <line x1="82" y1="82" x2="96" y2="96" stroke="#00F0FF" stroke-width="0.8" opacity="0.4"/>
+                    <circle cx="122" cy="78" r="4" fill="rgba(255,31,142,0.6)"/>
+                    <line x1="118" y1="82" x2="104" y2="96" stroke="#FF1F8E" stroke-width="0.8" opacity="0.4"/>
+                    <circle cx="78" cy="122" r="4" fill="rgba(255,214,0,0.6)"/>
+                    <line x1="82" y1="118" x2="96" y2="104" stroke="#FFD600" stroke-width="0.8" opacity="0.4"/>
+                    <circle cx="122" cy="122" r="4" fill="rgba(0,240,255,0.6)"/>
+                    <line x1="118" y1="118" x2="104" y2="104" stroke="#00F0FF" stroke-width="0.8" opacity="0.4"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- SOBRE -->
+        <div class="accordion" id="acc-sobre">
+            <div class="acc-header open" onclick="toggleAcc('sobre')">
+                <div class="acc-icon">&#127968;</div>
+                <div class="acc-meta"><div class="acc-title">Sobre o Hackathon</div><div class="acc-sub">// O QUE É O INOVA+ 2026</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body open" id="body-sobre">
+                <div class="acc-inner">
+                    <div class="sobre-grid">
+                        <!-- SVG mão + chip -->
+                        <div class="sobre-visual">
+                            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="30" y="80" width="100" height="55" rx="8" stroke="rgba(255,214,0,0.3)" stroke-width="1.5" fill="rgba(255,214,0,0.04)"/>
+                                <rect x="38" y="58" width="14" height="26" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
+                                <rect x="56" y="50" width="14" height="34" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
+                                <rect x="74" y="48" width="14" height="36" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
+                                <rect x="92" y="52" width="14" height="32" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
+                                <rect x="50" y="90" width="60" height="36" rx="4" stroke="#00F0FF" stroke-width="1.5" fill="rgba(0,240,255,0.06)"/>
+                                <rect x="58" y="98" width="44" height="20" rx="2" stroke="rgba(0,240,255,0.5)" stroke-width="1" fill="none"/>
+                                <line x1="58" y1="96" x2="58" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="66" y1="96" x2="66" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="74" y1="96" x2="74" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="82" y1="96" x2="82" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="90" y1="96" x2="90" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="98" y1="96" x2="98" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
+                                <line x1="68" y1="100" x2="68" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
+                                <line x1="78" y1="100" x2="78" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
+                                <line x1="88" y1="100" x2="88" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
+                                <line x1="60" y1="108" x2="100" y2="108" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
+                                <circle cx="80" cy="108" r="5" fill="rgba(0,240,255,0.3)">
+                                    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M130 30 L132 38 L140 40 L132 42 L130 50 L128 42 L120 40 L128 38 Z" fill="#FFD600" opacity="0.8">
+                                    <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+                                </path>
+                                <path d="M25 25 L26.5 30 L32 31.5 L26.5 33 L25 38 L23.5 33 L18 31.5 L23.5 30 Z" fill="#FF1F8E" opacity="0.6">
+                                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
+                                </path>
+                            </svg>
+                        </div>
+
+                        <div class="sobre-text">
+                            <p>O Hackathon Inova+ 2026 é o maior evento de Indústria 5.0 de Santa Catarina, voltado para jovens aprendizes do SENAI Joinville. A metodologia é o <strong style="color:var(--text)">Design Thinking</strong>, e a IA atua como "co-piloto" da criatividade humana.</p>
+                            <p>Cada equipe (Squad) recebe um cenário real do chão de fábrica — inspirado em empresas como <strong style="color:var(--yellow)">Tupy, Nidec, Tigre, Schulz e Ciser</strong> — e tem 90 minutos para criar uma solução humana e sustentável.</p>
+                            <p>A grande inovação é a <strong style="color:var(--cyan)">"Ponte Digital"</strong>: a sucata física é substituída por um Blueprint desenhado à mão que se transforma em render 3D fotorrealista via IA generativa.</p>
+
+                            <div class="pillar-row">
+                                <div class="pillar-chip"><span class="pillar-chip-icon">&#129504;</span><div><div class="pillar-chip-label">Human-Centric</div><div class="pillar-chip-sub">A mente humana no centro de tudo</div></div></div>
+                                <div class="pillar-chip"><span class="pillar-chip-icon">&#9851;&#65039;</span><div><div class="pillar-chip-label">Sustentável</div><div class="pillar-chip-sub">Soluções que respeitam o planeta</div></div></div>
+                                <div class="pillar-chip"><span class="pillar-chip-icon">&#128279;</span><div><div class="pillar-chip-label">Resiliente</div><div class="pillar-chip-sub">Tecnologia a serviço da indústria</div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPRINTS -->
+        <div class="accordion" id="acc-sprints">
+            <div class="acc-header" onclick="toggleAcc('sprints')">
+                <div class="acc-icon">&#9889;</div>
+                <div class="acc-meta"><div class="acc-title">Os 5 Sprints</div><div class="acc-sub">// A JORNADA DE 90 MINUTOS</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-sprints">
+                <div class="acc-inner">
+                    <p style="color:var(--muted);font-size:.86rem;margin-bottom:24px;max-width:540px;">Cada sprint dura 15 minutos. O cronômetro é implacável — assim como a indústria.</p>
+                    <div class="sprints-grid">
+                        <div class="sprint-card" data-n="01">
+                            <div class="sprint-icon">
+                                <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="16" r="8" stroke="#FFD600" stroke-width="1.8"/><path d="M10 38 C10 30 34 30 34 38" stroke="#FFD600" stroke-width="1.8" stroke-linecap="round"/><path d="M28 12 C30 10 34 10 34 14" stroke="#00F0FF" stroke-width="1.2" stroke-linecap="round"/><circle cx="31" cy="10" r="2" fill="#00F0FF" opacity="0.7"/></svg>
+                            </div>
+                            <div class="sprint-name">Empatia Humana</div>
+                            <div class="sprint-desc">Escaneie o QR Code, entenda o cenário e pesquise dados reais que comprovem a dor do trabalhador.</div>
+                            <span class="sprint-time">00 -- 15 MIN</span>
+                        </div>
+                        <div class="sprint-card" data-n="02">
+                            <div class="sprint-icon">
+                                <svg viewBox="0 0 44 44" fill="none"><rect x="6" y="8" width="32" height="24" rx="3" stroke="#00F0FF" stroke-width="1.8"/><line x1="14" y1="18" x2="30" y2="18" stroke="#00F0FF" stroke-width="1.2" opacity="0.6"/><line x1="14" y1="23" x2="24" y2="23" stroke="#00F0FF" stroke-width="1.2" opacity="0.6"/><path d="M14 35 L22 32 L30 35" stroke="#00F0FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="34" cy="10" r="5" fill="rgba(255,214,0,0.15)" stroke="#FFD600" stroke-width="1.2"/><path d="M32 10 L33.5 11.5 L36 8.5" stroke="#FFD600" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            </div>
+                            <div class="sprint-name">Co-Piloto IA</div>
+                            <div class="sprint-desc">Consulte ChatGPT ou Gemini com prompts específicos sobre o ambiente fabril e o problema identificado.</div>
+                            <span class="sprint-time">15 -- 30 MIN</span>
+                        </div>
+                        <div class="sprint-card" data-n="03">
+                            <div class="sprint-icon">
+                                <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="14" stroke="#FFD600" stroke-width="1.8" stroke-dasharray="3 2"/><path d="M16 22 L20 26 L28 18" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="12" r="5" stroke="#FF1F8E" stroke-width="1.2" fill="rgba(255,31,142,0.1)"/><line x1="32" y1="12" x2="36" y2="12" stroke="#FF1F8E" stroke-width="1.2"/><line x1="34" y1="10" x2="34" y2="14" stroke="#FF1F8E" stroke-width="1.2"/></svg>
+                            </div>
+                            <div class="sprint-name">Toque Humano 5.0</div>
+                            <div class="sprint-desc">Questione a IA. Refine com ética, segurança, ergonomia e sustentabilidade.</div>
+                            <span class="sprint-time">30 -- 45 MIN</span>
+                        </div>
+                        <div class="sprint-card" data-n="04">
+                            <div class="sprint-icon">
+                                <svg viewBox="0 0 44 44" fill="none"><rect x="8" y="28" width="28" height="10" rx="2" stroke="#00F0FF" stroke-width="1.5" fill="rgba(0,240,255,0.06)"/><polygon points="22,8 36,28 8,28" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.06)"/><line x1="22" y1="8" x2="22" y2="28" stroke="rgba(255,214,0,0.3)" stroke-width="1" stroke-dasharray="2 2"/><circle cx="36" cy="10" r="4" fill="rgba(255,31,142,0.2)" stroke="#FF1F8E" stroke-width="1.2"/><path d="M34.5 10 Q36 8 37.5 10" stroke="#FF1F8E" stroke-width="1" fill="none"/></svg>
+                            </div>
+                            <div class="sprint-name">Ponte Digital</div>
+                            <div class="sprint-desc">Blueprint no papel → Prompt no gerador → Render 3D fotorrealista. Zero sucata física.</div>
+                            <span class="sprint-time">45 -- 75 MIN</span>
+                        </div>
+                        <div class="sprint-card" data-n="05">
+                            <div class="sprint-icon">
+                                <svg viewBox="0 0 44 44" fill="none"><path d="M8 36 L22 12 L36 36 Z" stroke="#FFD600" stroke-width="1.8" fill="rgba(255,214,0,0.06)" stroke-linejoin="round"/><line x1="22" y1="20" x2="22" y2="28" stroke="#FFD600" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="31" r="1.5" fill="#FFD600"/><circle cx="22" cy="12" r="3" fill="rgba(255,214,0,0.3)" stroke="#FFD600" stroke-width="1"><animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle></svg>
+                            </div>
+                            <div class="sprint-name">Impacto &amp; Pitch</div>
+                            <div class="sprint-desc">2 minutos para apresentar. Clareza, impacto e proposta de valor para os jurados.</div>
+                            <span class="sprint-time">75 -- 90 MIN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VERTENTES -->
+        <div class="accordion" id="acc-vertentes">
+            <div class="acc-header" onclick="toggleAcc('vertentes')">
+                <div class="acc-icon">&#128197;</div>
+                <div class="acc-meta"><div class="acc-title">Vertentes &amp; Cenários</div><div class="acc-sub">// 5 ÁREAS &middot; 15 DESAFIOS REAIS</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-vertentes">
+                <div class="acc-inner">
+                    <p style="color:var(--muted);font-size:.84rem;margin-bottom:24px;">Escolha sua vertente. O cenário específico (A, B ou C) é sorteado ao escanear o QR Code no dia do evento.</p>
+
+                    <div class="vert-tabs">
+                        <div class="vert-tab active" onclick="switchVert(this,'logistica')">&#128230; Logística</div>
+                        <div class="vert-tab" onclick="switchVert(this,'manutencao')">&#128295; Manutenção</div>
+                        <div class="vert-tab" onclick="switchVert(this,'producao')">&#9881;&#65039; Produção</div>
+                        <div class="vert-tab" onclick="switchVert(this,'adm')">&#128421;&#65039; Administrativo</div>
+                        <div class="vert-tab" onclick="switchVert(this,'sust')">&#9851;&#65039; Sustentabilidade</div>
+                    </div>
+
+                    <div class="vert-panel active" id="vp-logistica">
+                        <div class="sc-grid">
+                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; LOGÍSTICA</div><div class="sc-card-title">A Caça ao Tesouro</div><div class="sc-card-body">No almoxarifado de uma fabricante de fixadores (ex: Ciser), o separador caminha quilômetros por dia buscando itens minúsculos em prateleiras gigantes. O erro de um código significa parar uma linha inteira.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir que o separador encontre o item exato sem esforço físico exaustivo e sem erro de código?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; LOGÍSTICA</div><div class="sc-card-title">O Gargalo da Doca</div><div class="sc-card-body">Caminhões chegam simultaneamente para descarregar matérias-primas. O conferente valida notas, confere etiquetas e decide o destino de cada palete sob sol ou chuva, em meio ao barulho de empilhadeiras.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como organizar a entrada de materiais para que o conferente saiba o que é prioridade no segundo em que o caminhão encosta?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; LOGÍSTICA</div><div class="sc-card-title">O Milk Run Estressante</div><div class="sc-card-body">O operador de transporte interno abastece as linhas antes que as peças acabem. Sinais sonoros por toda a fábrica geram sobrecarga mental.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como transformar o fluxo de abastecimento em algo previsível e silencioso, eliminando a ansiedade do operador?</div></div>
+                        </div>
+                    </div>
+
+                    <div class="vert-panel" id="vp-manutencao">
+                        <div class="sc-grid">
+                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; MANUTENÇÃO</div><div class="sc-card-title">O Painel das Sombras</div><div class="sc-card-body">Um técnico conserta um painel elétrico complexo durante o turno da noite. Ele segura uma lanterna com a boca enquanto tenta ler diagramas minúsculos e manipular fios de alta tensão.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como permitir que o técnico realize o conserto com as mãos livres e total clareza visual?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; MANUTENÇÃO</div><div class="sc-card-title">A Máquina Barulhenta</div><div class="sc-card-body">Um mecânico precisa identificar um ruído estranho em um motor gigante (ex: Tupy). O barulho da fábrica impede que ele ouça de onde vem a falha, obrigando-o a chegar perigosamente perto de partes móveis.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como identificar a origem do problema mecânico sem expor o técnico ao ruído excessivo ou a áreas de risco?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; MANUTENÇÃO</div><div class="sc-card-title">O Manual Perdido</div><div class="sc-card-body">Uma máquina CNC para por falha rara. O técnico não conhece o erro e o manual de 800 páginas está em outro prédio. A pressão da gerência gera bloqueio mental no profissional.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como entregar o conhecimento técnico exato para o mecânico no local da falha?</div></div>
+                        </div>
+                    </div>
+
+                    <div class="vert-panel" id="vp-producao">
+                        <div class="sc-grid">
+                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; PRODUÇÃO</div><div class="sc-card-title">A Linha de Montagem Infinita</div><div class="sc-card-body">Um operador monta 1.200 componentes pequenos por turno (ex: Nidec). O movimento repetitivo causa dores nos pulsos e a monotonia faz com que ele perca concentração, gerando falhas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como redesenhar a rotina de montagem para eliminar lesões por esforço repetitivo e a fadiga mental?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; PRODUÇÃO</div><div class="sc-card-title">O Calor da Fundição</div><div class="sc-card-body">Operadores trabalham próximos a fornos de alta temperatura (ex: Schulz). O calor radiante causa desidratação rápida e tonturas, afetando segurança e julgamento do trabalhador.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir que o operador realize suas tarefas sem ser afetado pelo calor extremo?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; PRODUÇÃO</div><div class="sc-card-title">A Inspeção Visual de Vidro</div><div class="sc-card-body">Em uma linha de embalagens, o inspetor olha garrafas em alta velocidade contra luz de fundo para achar trincas. Isso causa dor de cabeça intensa e "visão turva" após duas horas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir qualidade total das peças sem exigir que o olho humano realize um esforço visual impossível e doloroso?</div></div>
+                        </div>
+                    </div>
+
+                    <div class="vert-panel" id="vp-adm">
+                        <div class="sc-grid">
+                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; ADMINISTRATIVO</div><div class="sc-card-title">A Integração Fria</div><div class="sc-card-body">O RH contrata 50 pessoas de uma vez (ex: Tigre). O assistente repete as mesmas regras de segurança 50 vezes, sentindo que seu trabalho é robótico.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como automatizar a parte burocrática para que o assistente de RH foque em acolher humanamente cada novo colaborador?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; ADMINISTRATIVO</div><div class="sc-card-title">O Labirinto das Notas Fiscais</div><div class="sc-card-body">O setor financeiro recebe centenas de notas por dia com formatos diferentes. O assistente passa o dia digitando números com medo constante de errar um dígito.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como transformar o processamento de documentos em algo visual e intuitivo, eliminando a digitação repetitiva?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; ADMINISTRATIVO</div><div class="sc-card-title">O Silo de Informação</div><div class="sc-card-body">O Marketing cria campanhas de segurança, mas a informação não chega ao funcionário que não usa e-mail. O assistente se sente frustrado porque suas mensagens são ignoradas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como fazer a comunicação interna ser sentida e compreendida por todos?</div></div>
+                        </div>
+                    </div>
+
+                    <div class="vert-panel" id="vp-sust">
+                        <div class="sc-grid">
+                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; SUSTENTABILIDADE</div><div class="sc-card-title">O Mistério do Descarte</div><div class="sc-card-body">A fábrica gera 20 tipos de resíduos. Na pressa do turno, os funcionários descartam tudo no mesmo cesto por não saberem o correto, gerando impacto ambiental grave.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como tornar o descarte correto algo instintivo e impossível de errar, mesmo para quem está com pressa?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; SUSTENTABILIDADE</div><div class="sc-card-title">O Vazamento Invisível</div><div class="sc-card-body">Milhares de litros de água ou ar comprimido são desperdiçados em vazamentos invisíveis. O gestor ambiental só percebe quando a conta chega altíssima no fim do mês.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como dar "voz" aos recursos naturais da fábrica para que qualquer desperdício seja identificado no momento em que começa?</div></div>
+                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; SUSTENTABILIDADE</div><div class="sc-card-title">Fábrica para Todos</div><div class="sc-card-body">Uma empresa quer contratar mais pessoas com deficiência física ou neurodiversas, mas máquinas e escritórios foram projetados para um padrão único, excluindo esses talentos.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como adaptar o ambiente de trabalho industrial para ser 100% inclusivo e adaptável a qualquer limitação física ou cognitiva?</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVALIAÇÃO -->
+        <div class="accordion" id="acc-avaliacao">
+            <div class="acc-header" onclick="toggleAcc('avaliacao')">
+                <div class="acc-icon">&#127942;</div>
+                <div class="acc-meta"><div class="acc-title">Sistema de Avaliação</div><div class="acc-sub">// OS 3 PILARES DE PONTUAÇÃO</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-avaliacao">
+                <div class="acc-inner">
+                    <div class="aval-grid">
+                        <div class="aval-card soft">
+                            <div class="aval-icon-wrap">
+                                <svg viewBox="0 0 42 42" fill="none"><circle cx="21" cy="14" r="7" stroke="#00ff99" stroke-width="1.8"/><path d="M9 37 C9 29 33 29 33 37" stroke="#00ff99" stroke-width="1.8" stroke-linecap="round"/><path d="M27 9 L29 13 L33 11 L31 15 L35 17 L31 17 L31 21 L29 18 L27 21 L27 17 L23 17 L27 15 L25 11 Z" fill="rgba(0,255,153,0.3)" stroke="#00ff99" stroke-width="0.8"/></svg>
+                            </div>
+                            <div class="aval-name">Soft Skills</div>
+                            <p style="font-size:.76rem;color:var(--muted);margin-bottom:12px;">Avaliação individual pelos monitores em tempo real durante os sprints.</p>
+                            <div class="aval-items"><div class="aval-item">Liderança</div><div class="aval-item">Comunicação</div><div class="aval-item">Proatividade</div><div class="aval-item">Pensamento Crítico</div></div>
+                        </div>
+                        <div class="aval-card tec">
+                            <div class="aval-icon-wrap">
+                                <svg viewBox="0 0 42 42" fill="none"><rect x="6" y="6" width="30" height="22" rx="3" stroke="#00F0FF" stroke-width="1.8"/><line x1="12" y1="14" x2="30" y2="14" stroke="#00F0FF" stroke-width="1.2" opacity="0.6"/><line x1="12" y1="19" x2="24" y2="19" stroke="#00F0FF" stroke-width="1.2" opacity="0.6"/><path d="M13 34 L21 31 L29 34" stroke="#00F0FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="30" cy="10" r="4" fill="rgba(255,214,0,0.15)" stroke="#FFD600" stroke-width="1.2"/><path d="M28.5 10 L30 11.5 L31.5 9" stroke="#FFD600" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            </div>
+                            <div class="aval-name">Solução Técnica</div>
+                            <p style="font-size:.76rem;color:var(--muted);margin-bottom:12px;">Avaliado pelos jurados no pitch final de 2 minutos.</p>
+                            <div class="aval-items"><div class="aval-item">Qualidade da Empatia</div><div class="aval-item">Proposta de Valor</div><div class="aval-item">Clareza do Pitch</div><div class="aval-item">Qualidade do Render</div></div>
+                        </div>
+                        <div class="aval-card dig">
+                            <div class="aval-icon-wrap">
+                                <svg viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="14" stroke="#FF1F8E" stroke-width="1.8"/><path d="M21 9 C14 9 9 14.5 9 21" stroke="#FF1F8E" stroke-width="1.2" opacity="0.5"/><path d="M21 9 C28 9 33 14.5 33 21" stroke="#FF1F8E" stroke-width="1.2" opacity="0.5"/><line x1="9" y1="21" x2="33" y2="21" stroke="#FF1F8E" stroke-width="1.2" opacity="0.4"/><path d="M15 15 L15 27" stroke="#FF1F8E" stroke-width="1" opacity="0.4"/><path d="M27 15 L27 27" stroke="#FF1F8E" stroke-width="1" opacity="0.4"/><circle cx="21" cy="21" r="3" fill="#FF1F8E" opacity="0.8"><animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/></circle></svg>
+                            </div>
+                            <div class="aval-name">Engajamento Digital</div>
+                            <p style="font-size:.76rem;color:var(--muted);margin-bottom:12px;">Mobilização nas redes durante a Semana de Engajamento.</p>
+                            <div class="aval-items"><div class="aval-item">Like → 1 ponto</div><div class="aval-item">Comentário → 5 pontos</div><div class="aval-item">Compartilhamento → 3 pontos</div><div class="aval-item">Pessoas distintas</div></div>
+                        </div>
+                    </div>
+
+                    <div class="monitor-box">
+                        <h4>&#128204; Papel do Monitor</h4>
+                        <p>Os monitores <strong style="color:var(--text)">não dão respostas</strong> — eles fazem as perguntas certas para destravar o pensamento crítico da equipe. São os guardiões do tempo, da metodologia e da criatividade. A nota individual de Soft Skills é responsabilidade deles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRONOGRAMA -->
+        <div class="accordion" id="acc-cronograma">
+            <div class="acc-header" onclick="toggleAcc('cronograma')">
+                <div class="acc-icon">&#128336;</div>
+                <div class="acc-meta"><div class="acc-title">Cronograma</div><div class="acc-sub">// 90 MINUTOS DETALHADOS</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-cronograma">
+                <div class="acc-inner">
+                    <div class="crono-list">
+                        <div class="crono-row"><div class="crono-time">00 -- 10 min</div><div class="crono-desc"><strong>Abertura Oficial</strong>Boas-vindas, vídeo do Mascote Jota, contextualização Indústria 5.0 e explicação do site com QR Codes.</div></div>
+                        <div class="crono-row"><div class="crono-time">10 -- 25 min</div><div class="crono-desc"><strong>Sprint 1 --- Empatia Humana</strong>Escaneamento do QR Code, leitura do cenário e pesquisa de dados reais (notícia, número ou estatística).</div></div>
+                        <div class="crono-row"><div class="crono-time">25 -- 45 min</div><div class="crono-desc"><strong>Sprints 2 &amp; 3 --- Co-Piloto IA + Toque Humano</strong>Ideiação com ChatGPT/Gemini e refinamento ético: segurança, ergonomia, sustentabilidade.</div></div>
+                        <div class="crono-row"><div class="crono-time">45 -- 75 min</div><div class="crono-desc"><strong>Sprint 4 --- Ponte Digital</strong>Blueprint desenhado à mão → montagem do prompt → render 3D fotorrealista → envio ao site do evento.</div></div>
+                        <div class="crono-row"><div class="crono-time">75 -- 90 min</div><div class="crono-desc"><strong>Sprint 5 --- Pitch Final</strong>Exatos 2 minutos por equipe. Defina o porta-voz, explique o problema, a solução e o render gerado.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREMIAÇÃO -->
+        <div class="accordion" id="acc-premiacao">
+            <div class="acc-header" onclick="toggleAcc('premiacao')">
+                <div class="acc-icon">&#129351;</div>
+                <div class="acc-meta"><div class="acc-title">Premiação</div><div class="acc-sub">// TOP 4 &middot; MODALIDADE HÍBRIDA</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-premiacao">
+                <div class="acc-inner">
+                    <div class="prem-wrap">
+                        <div class="prem-card pres">
+                            <div class="prem-head">
+                                <svg viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 15 L2 15 L2 12 L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M24 15 L26 15 L26 12 L24 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 10 L9 7 C9 5.3 10.3 4 12 4 L16 4 C17.7 4 19 5.3 19 7 L19 10" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="17" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+                                PRESENCIAL
+                            </div>
+                            <div class="podio"><div class="podio-row"><div class="podio-num">1</div><div class="podio-label">&#129351; Campeão do Auditório</div></div><div class="podio-row"><div class="podio-num">2</div><div class="podio-label">&#129352; Vice-Campeão</div></div><div class="podio-row"><div class="podio-num">3</div><div class="podio-label">&#129353; Terceiro Lugar</div></div><div class="podio-row"><div class="podio-num">4</div><div class="podio-label">&#127885; Quarto Lugar</div></div></div>
+                        </div>
+                        <div class="prem-card onl">
+                            <div class="prem-head">
+                                <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.5"/><path d="M14 3 C10 3 7 8 7 14 C7 20 10 25 14 25" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><path d="M14 3 C18 3 21 8 21 14 C21 20 18 25 14 25" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><line x1="3" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="1.2" opacity="0.5"/><line x1="5" y1="9" x2="23" y2="9" stroke="currentColor" stroke-width="0.8" opacity="0.3"/><line x1="5" y1="19" x2="23" y2="19" stroke="currentColor" stroke-width="0.8" opacity="0.3"/></svg>
+                                ONLINE
+                            </div>
+                            <div class="podio"><div class="podio-row"><div class="podio-num">1</div><div class="podio-label">&#129351; Campeão Digital</div></div><div class="podio-row"><div class="podio-num">2</div><div class="podio-label">&#129352; Vice-Campeão Digital</div></div><div class="podio-row"><div class="podio-num">3</div><div class="podio-label">&#129353; Terceiro Digital</div></div><div class="podio-row"><div class="podio-num">4</div><div class="podio-label">&#127885; Quarto Digital</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGULAMENTO -->
+        <div class="accordion" id="acc-regulamento">
+            <div class="acc-header" onclick="toggleAcc('regulamento')">
+                <div class="acc-icon">&#128203;</div>
+                <div class="acc-meta"><div class="acc-title">Regulamento</div><div class="acc-sub">// REGRAS E DIRETRIZES DO EVENTO</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-regulamento">
+                <div class="acc-inner">
+                    <div class="reg-grid">
+                        <div class="reg-block">
+                            <div class="reg-block-head"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="#FFD600" stroke-width="1.5"/><circle cx="5" cy="8" r="3" stroke="#FFD600" stroke-width="1.2" opacity="0.6"/><circle cx="17" cy="8" r="3" stroke="#FFD600" stroke-width="1.2" opacity="0.6"/><path d="M3 19 C3 14 19 14 19 19" stroke="#FFD600" stroke-width="1.5" stroke-linecap="round"/></svg><h4>Equipes</h4></div>
+                            <ul><li>Squads de até 5 participantes</li><li>Mínimo de 3 integrantes por equipe</li><li>Cada equipe recebe 1 Canvas A3/A2</li><li>Kit de Post-its: Amarelo, Azul, Verde e Rosa</li><li>Canetões, canetas, tesoura e cola fornecidos</li></ul>
+                        </div>
+                        <div class="reg-block">
+                            <div class="reg-block-head"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="2" stroke="#FFD600" stroke-width="1.5"/><line x1="7" y1="10" x2="15" y2="10" stroke="#FFD600" stroke-width="1" opacity="0.6"/><line x1="7" y1="13" x2="12" y2="13" stroke="#FFD600" stroke-width="1" opacity="0.6"/><circle cx="17" cy="7" r="3" fill="rgba(0,240,255,0.2)" stroke="#00F0FF" stroke-width="1"/><path d="M16 7 L17 8 L18.5 6" stroke="#00F0FF" stroke-width="1" stroke-linecap="round"/></svg><h4>Uso da IA</h4></div>
+                            <ul><li>IA é obrigatória — ChatGPT, Gemini ou similar</li><li>Celular com internet é permitido</li><li>ZERO sucata física — Blueprint + Render digital</li><li>O render deve ser enviado ao site antes do pitch</li><li>Use: "Renderização 3D, Design Industrial, Fotorrealista"</li></ul>
+                        </div>
+                        <div class="reg-block">
+                            <div class="reg-block-head"><svg viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="18" rx="2" stroke="#FFD600" stroke-width="1.5"/><line x1="2" y1="8" x2="20" y2="8" stroke="#FFD600" stroke-width="1" opacity="0.5"/><line x1="8" y1="8" x2="8" y2="20" stroke="#FFD600" stroke-width="1" opacity="0.5"/><rect x="10" y="10" width="4" height="4" fill="rgba(0,240,255,0.3)" stroke="#00F0FF" stroke-width="0.8"/><rect x="4" y="3" width="2" height="4" rx="1" fill="#FFD600" opacity="0.6"/><rect x="16" y="3" width="2" height="4" rx="1" fill="#FFD600" opacity="0.6"/></svg><h4>Canvas &amp; Pesquisa</h4></div>
+                            <ul><li>Toda afirmação deve ter fonte ou pesquisa real</li><li>Monitor valida os dados antes de avançar de fase</li><li>5 quadrantes: Empatia, IA, Toque Humano, Protótipo e Impacto</li><li>Post-its devem ser usados no quadrante correspondente</li></ul>
+                        </div>
+                        <div class="reg-block">
+                            <div class="reg-block-head"><svg viewBox="0 0 22 22" fill="none"><path d="M11 3 L19 19 L11 16 L3 19 Z" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)" stroke-linejoin="round"/><line x1="11" y1="8" x2="11" y2="13" stroke="#FFD600" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="15.5" r="1" fill="#FFD600"/></svg><h4>Pitch Final</h4></div>
+                            <ul><li>Tempo máximo: 2 minutos exatos por equipe</li><li>Apresentação do render digital é obrigatória</li><li>Explique: problema, solução e impacto</li><li>Qualquer integrante pode ser porta-voz</li><li>Jurados avaliam ao vivo após cada pitch</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="accordion" id="acc-faq">
+            <div class="acc-header" onclick="toggleAcc('faq')">
+                <div class="acc-icon">&#10067;</div>
+                <div class="acc-meta"><div class="acc-title">FAQ</div><div class="acc-sub">// DÚVIDAS FREQUENTES</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-faq">
+                <div class="acc-inner">
+                    <div class="faq-list">
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quem pode participar?<span class="faq-arr">&#9660;</span></div><div class="faq-a">Jovens aprendizes do SENAI Joinville. O evento tem modalidade presencial (no SENAI) e online — ambas com premiação independente.</div></div>
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso saber programar?<span class="faq-arr">&#9660;</span></div><div class="faq-a">Não! O foco é criatividade, empatia e pensamento crítico. Usamos ChatGPT, Gemini e geradores de imagem. Nenhuma linha de código necessária.</div></div>
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que é a "Ponte Digital"?<span class="faq-arr">&#9660;</span></div><div class="faq-a">É o processo de transformar um rascunho desenhado à mão (Blueprint Analógico) em um protótipo 3D fotorrealista usando IA generativa. Zero sucata física — 100% cognitivo e digital.</div></div>
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como funciona o sorteio de cenários?<span class="faq-arr">&#9660;</span></div><div class="faq-a">A vertente pode ser escolhida. O cenário específico (A, B ou C) dentro dela é sorteado ao escanear o QR Code da mesa no dia do evento. Prepare-se para os três!</div></div>
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O que os monitores fazem exatamente?<span class="faq-arr">&#9660;</span></div><div class="faq-a">Monitores são facilitadores que circulam pelas mesas, garantem o ritmo dos sprints e verificam se as pesquisas têm fontes reais. Eles NÃO dão respostas — fazem perguntas que destravam o pensamento. Também avaliam individualmente as Soft Skills de cada participante.</div></div>
+                        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como funciona o Engajamento Digital?<span class="faq-arr">&#9660;</span></div><div class="faq-a">Durante a Semana de Engajamento (antes do evento), as equipes mobilizam suas redes sociais. Cada curtida, comentário e compartilhamento de pessoas distintas gera pontos que somam à pontuação final.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSCRIÇÃO -->
+        <div class="accordion" id="acc-inscricao">
+            <div class="acc-header" onclick="toggleAcc('inscricao')">
+                <div class="acc-icon">&#9997;&#65039;</div>
+                <div class="acc-meta"><div class="acc-title">Inscrição</div><div class="acc-sub">// GARANTA SUA VAGA</div></div>
+                <div class="acc-arrow">&#9660;</div>
+            </div>
+            <div class="acc-body" id="body-inscricao">
+                <div class="acc-inner">
+                    <div class="form-wrap">
+                        <form id="formIns" onsubmit="return submitForm(event)">
+                            <div class="form-row"><label>NOME COMPLETO *</label><input type="text" id="f-nome" required placeholder="Seu nome completo" /></div>
+                            <div class="form-row"><label>E-MAIL *</label><input type="email" id="f-email" required placeholder="seu@email.com" /></div>
+                            <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">&#127963;&#65039; PRESENCIAL --- SENAI Joinville (02/04)</option><option value="online">&#127760; ONLINE (09/04)</option></select></div>
+                            <div class="form-row"><label>NOME DA EQUIPE</label><input type="text" id="f-equipe" placeholder="Ex: Squad Alpha (deixe em branco se não tiver)" /></div>
+                            <div class="form-row"><label>VERTENTE DE INTERESSE</label><select id="f-vert"><option value="">SEM PREFERÊNCIA (SORTEIO)</option><option>&#128230; Logística</option><option>&#128295; Manutenção</option><option>&#9881;&#65039; Produção</option><option>&#128421;&#65039; Administrativo</option><option>&#9851;&#65039; Sustentabilidade</option></select></div>
+                            <div class="form-row"><label>TELEFONE (WhatsApp) *</label><input type="text" id="f-tel" required placeholder="(47) 99999-9999" /></div>
+                            <button type="submit" class="form-submit">&#9889; CONFIRMAR INSCRIÇÃO</button>
+                            <div class="form-note">Ao se inscrever, você concorda com o regulamento do Hackathon Inova+ 2026. Vagas limitadas. O cenário específico é sorteado no dia do evento.</div>
+                        </form>
+                        <div class="form-success" id="formSuccess">
+                            <h4>&#9989; INSCRIÇÃO RECEBIDA!</h4>
+                            <p>Em breve você receberá mais instruções por e-mail e WhatsApp. Fique atento!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
