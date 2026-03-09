@@ -27,26 +27,35 @@
     
     .main{padding:80px 24px 40px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
     
-    /* CAIXA PRINCIPAL DE INTERFACE */
+    /* CAIXAS DE CONTEÚDO */
     .mission-box{background:var(--panel);border:1px solid var(--border);padding:32px;margin-bottom:24px;position:relative;overflow:hidden; border-radius:8px; min-height: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
+    .content-box{background:var(--panel);border:1px solid var(--border);padding:32px;border-radius:8px; text-align: left;}
     
-    /* FORMULÁRIO DE CHECK-IN */
-    .form-group { text-align: left; margin-bottom: 20px; width: 100%; max-width: 400px; }
-    .form-group label { display: block; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--cyan); margin-bottom: 8px; letter-spacing: 1px; }
-    .form-group input, .form-group select { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; border-radius: 4px; font-family: 'Syne', sans-serif; font-size: 1rem; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--cyan); }
-    /* HOTFIX: Cor de fundo e texto visível nas opções do dropdown */
-    .form-group select option { background: #141e3c; color: #fff; font-family: 'Syne', sans-serif; }
-    
-    /* BOTÕES E EFEITOS */
+    /* BOTÕES */
     .btn-action {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.5rem; padding:12px 32px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s;}
     .btn-action:hover {background:#fff; transform:scale(1.02);}
     .btn-sortear{background:var(--yellow); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.8rem; padding:16px 40px; border:none; border-radius:8px; cursor:pointer; letter-spacing:2px; box-shadow: 0 0 20px rgba(255,214,0,0.4); transition:all 0.2s; animation: pulse-btn 2s infinite;}
     .btn-sortear:hover{transform:scale(1.05); background:#fff;}
     @keyframes pulse-btn { 0%, 100% { box-shadow: 0 0 20px rgba(255,214,0,0.4); } 50% { box-shadow: 0 0 40px rgba(255,214,0,0.8); } }
 
-    /* LAYOUT DA MISSÃO */
-    .mission-content{display:none; text-align:left; width: 100%;}
+    /* SPRINT INDICATOR */
+    .sprint-indicator{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .si-item{flex:1;min-width:100px;padding:10px 16px;border:1px solid var(--border);background:var(--panel);text-align:center;transition:all .3s;cursor:default; border-radius:4px;}
+    .si-item.active{border-color:var(--cyan);background:rgba(0,240,255,.08)}
+    .si-item.done{border-color:rgba(0,200,81,.3);background:rgba(0,200,81,.04)}
+    .si-num{font-family:'Bebas Neue', sans-serif;font-size:1rem;display:block;margin-bottom:2px}
+    .si-item .si-num{color:var(--muted)}
+    .si-item.active .si-num{color:var(--cyan)}
+    .si-item.done .si-num{color:#00C851}
+    .si-name{font-family:'Syne', sans-serif;font-size:.78rem;color:var(--muted);display:block}
+    .si-item.active .si-name{color:#fff}
+
+    /* ABAS (TABS) */
+    .page-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+    .page-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
+    .page-tab:hover,.page-tab.active{background:rgba(0,240,255,.1);border-color:var(--cyan);color:var(--cyan)}
+
+    /* ESTILO DA MISSÃO */
     .mission-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;}
     .mission-title{font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:1px; line-height: 1.1; margin-top: 8px;}
     .boss-card{background:rgba(255,214,0,.05); border-left:4px solid var(--yellow); padding:16px; border-radius:4px; margin-bottom: 20px;}
@@ -72,47 +81,30 @@
 </header>
 
 <main class="main">
-  <div class="mission-box" id="main-container">
+  
+  <div class="mission-box" id="view-sorteio" style="display:none;">
+    <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px;">SUA JORNADA COMEÇA AQUI</h2>
+    <p style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Como equipe de <strong id="lbl-vertente-escolhida" style="color:var(--cyan);"></strong>, o destino escolherá um problema real da indústria de Joinville para vocês resolverem.</p>
+    <button class="btn-sortear" onclick="sortearMissao()">🎲 SORTEAR DESAFIO</button>
+  </div>
+
+  <div id="view-dashboard" style="display:none;">
     
-    <div id="checkin-view" style="width:100%; display:flex; flex-direction:column; align-items:center;">
-      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:2px; margin-bottom:8px;">CHECK-IN DA EQUIPE</h2>
-      <p style="color:var(--muted); margin-bottom:32px;">Identifique seu Squad e sua área de especialidade para configurarmos a roleta.</p>
-      
-      <div class="form-group">
-        <label>NOME DA EQUIPE / SQUAD</label>
-        <input type="text" id="input-equipe" placeholder="Ex: Manutenção Alpha" autocomplete="off">
-      </div>
-      
-      <div class="form-group">
-        <label>VERTENTE DO DESAFIO (ESPECIALIDADE)</label>
-        <select id="input-vertente">
-          <option value="">Selecione a sua área...</option>
-          <option value="PRODUÇÃO">Produção / Processos</option>
-          <option value="MANUTENÇÃO">Manutenção</option>
-          <option value="LOGÍSTICA">Logística / Suprimentos</option>
-          <option value="ESG">Sustentabilidade (ESG)</option>
-          <option value="ADMINISTRAÇÃO">Administrativo (RH/Finanças/Mkt)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>FORMATO DE PARTICIPAÇÃO</label>
-        <select id="input-formato">
-          <option value="Presencial">Presencial (Auditório / Sala SENAI)</option>
-          <option value="Online">Online (Remoto)</option>
-        </select>
-      </div>
-      
-      <button class="btn-action" onclick="salvarCheckin()" style="margin-top:16px; width:100%; max-width:400px;">CONFIRMAR SQUAD</button>
+    <div class="sprint-indicator">
+      <div class="si-item active" id="si-1"><span class="si-num">SPRINT 01</span><span class="si-name">Empatia</span></div>
+      <div class="si-item" id="si-2"><span class="si-num">SPRINT 02</span><span class="si-name">Co-Piloto IA</span></div>
+      <div class="si-item" id="si-3"><span class="si-num">SPRINT 03</span><span class="si-name">Toque Humano</span></div>
+      <div class="si-item" id="si-4"><span class="si-num">SPRINT 04</span><span class="si-name">Ponte Digital</span></div>
+      <div class="si-item" id="si-5"><span class="si-num">SPRINT 05</span><span class="si-name">Pitch Final</span></div>
     </div>
 
-    <div id="sorteio-view" style="display:none;">
-      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px;">SUA JORNADA COMEÇA AQUI</h2>
-      <p style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Como equipe de <strong id="lbl-vertente-escolhida" style="color:var(--cyan);"></strong>, o destino escolherá um problema real da indústria de Joinville para vocês resolverem.</p>
-      <button class="btn-sortear" onclick="sortearMissao()">🎲 SORTEAR DESAFIO</button>
+    <div class="page-tabs">
+      <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
+      <button class="page-tab" data-tab="regras">📖 Regras de Ouro</button>
+      <button class="page-tab" data-tab="links">🔗 Central IA</button>
     </div>
 
-    <div class="mission-content" id="mission-view">
+    <div class="content-box" id="tab-cenario">
       <div class="mission-header">
         <div>
           <span class="badge badge-cyan" id="m-vertente"></span>
@@ -130,6 +122,33 @@
       </div>
     </div>
 
+    <div class="content-box" id="tab-regras" style="display:none;">
+      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:24px;">REGRAS DE OURO - INDÚSTRIA 5.0</h2>
+      <div style="display:grid; gap:16px;">
+        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
+          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">1. HUMAN-CENTRIC</strong>
+          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">A tecnologia existe para servir o trabalhador, não substituí-lo.</p>
+        </div>
+        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
+          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">2. TOQUE HUMANO 5.0</strong>
+          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Não copie a resposta do ChatGPT. A ideia da IA deve ser corrigida pela equipe antes de virar protótipo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-links" style="display:none;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
+        <a href="https://chat.openai.com" target="_blank" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
+          <span style="font-size:2.5rem;">🤖</span>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Ideação</span></div>
+        </a>
+        <a href="https://gemini.google.com" target="_blank" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
+          <span style="font-size:2.5rem;">✨</span>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa</span></div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </main>
 
@@ -137,62 +156,75 @@
 <script>
   window.AUTH.require('participante');
 
-  // BANCO DE DADOS (15 Cenários)
+  // BANCO DE DADOS (Cenários)
   const missoes = [
-    { vertente: "PRODUÇÃO", titulo: "A Linha de Montagem Infinita", dor: "Um operador monta 1.200 componentes por turno. O movimento repetitivo causa dores nos pulsos e a monotonia gera falhas.", desafio: "Como redesenhar a rotina de montagem para adaptar ao ritmo humano, eliminando lesões?" },
-    { vertente: "PRODUÇÃO", titulo: "O Calor da Fundição", dor: "Operadores sofrem com desidratação e tonturas próximos a fornos de alta temperatura.", desafio: "Como garantir a supervisão do metal sem expor o operador ao calor extremo?" },
-    { vertente: "PRODUÇÃO", titulo: "A Inspeção Visual de Vidro", dor: "A inspeção contra luz em alta velocidade causa dor de cabeça intensa e visão turva.", desafio: "Como inspecionar qualidade total sem exigir esforço visual humano doloroso?" },
-    { vertente: "MANUTENÇÃO", titulo: "O Painel das Sombras", dor: "Técnico segura lanterna na boca para consertar painel com fios de alta tensão à noite.", desafio: "Como consertar com mãos livres e clareza visual, eliminando riscos?" },
-    { vertente: "MANUTENÇÃO", titulo: "A Máquina Barulhenta", dor: "Ruído da fábrica obriga técnico a chegar perigosamente perto de peças móveis para ouvir falhas.", desafio: "Como identificar a origem da falha mecânica sem expor o técnico a riscos físicos?" },
-    { vertente: "MANUTENÇÃO", titulo: "O Manual Perdido", dor: "Manual de 800 páginas está longe e pressão por resultado gera bloqueio mental no técnico.", desafio: "Como entregar conhecimento exato no local da falha, eliminando estresse?" },
-    { vertente: "LOGÍSTICA", titulo: "A Caça ao Tesouro", dor: "Separador caminha quilômetros buscando itens minúsculos. Erro para a linha de montagem.", desafio: "Como achar o item exato sem exaustão física e erro de código?" },
-    { vertente: "LOGÍSTICA", titulo: "O Gargalo da Doca", dor: "Caminhões chegam juntos e o conferente precisa validar notas sob chuva e barulho intenso.", desafio: "Como organizar a entrada para que a prioridade fique clara instantaneamente?" },
-    { vertente: "LOGÍSTICA", titulo: "O Milk Run Estressante", dor: "Sinais sonoros de abastecimento geram sobrecarga sobre qual linha atender primeiro.", desafio: "Como transformar o abastecimento em um fluxo silencioso e sem ansiedade?" },
-    { vertente: "ESG", titulo: "O Mistério do Descarte", dor: "Na pressa, funcionários descartam 20 tipos de resíduos no mesmo local, gerando impacto grave.", desafio: "Como tornar o descarte correto algo instintivo e impossível de errar?" },
-    { vertente: "ESG", titulo: "O Vazamento Invisível", dor: "Recursos vazam silenciosamente e a gestão só descobre ao fim do mês com a conta alta.", desafio: "Como dar 'voz' aos desperdícios para correção imediata?" },
-    { vertente: "ESG", titulo: "Fábrica para Todos", dor: "Máquinas foram projetadas em padrão único, excluindo contratação de pessoas com deficiência.", desafio: "Como adaptar o ambiente para ser 100% inclusivo a qualquer limitação?" },
-    { vertente: "ADMINISTRAÇÃO", titulo: "A Integração Fria", dor: "Assistente repete regras 50 vezes, sentindo que seu trabalho é robótico e sem acolhimento.", desafio: "Como automatizar burocracia para que o RH foque na recepção humana?" },
-    { vertente: "ADMINISTRAÇÃO", titulo: "O Labirinto das Notas Fiscais", dor: "Digitação manual de centenas de notas em telas cinzas causa medo de erro financeiro.", desafio: "Como processar documentos visualmente, eliminando digitação e medo?" },
-    { vertente: "ADMINISTRAÇÃO", titulo: "O Silo de Informação", dor: "Operários de fábrica não recebem campanhas de segurança feitas apenas por e-mail corporativo.", desafio: "Como fazer a comunicação interna alcançar a todos sem depender de telas?" }
+    { vertente: "Produção", titulo: "A Linha de Montagem Infinita", dor: "Um operador monta 1.200 componentes por turno. O movimento repetitivo causa dores nos pulsos e a monotonia gera falhas.", desafio: "Como redesenhar a rotina de montagem para adaptar ao ritmo humano, eliminando lesões?" },
+    { vertente: "Produção", titulo: "O Calor da Fundição", dor: "Operadores sofrem com desidratação e tonturas próximos a fornos de alta temperatura.", desafio: "Como garantir a supervisão do metal sem expor o operador ao calor extremo?" },
+    { vertente: "Produção", titulo: "A Inspeção Visual de Vidro", dor: "A inspeção contra luz em alta velocidade causa dor de cabeça intensa e visão turva.", desafio: "Como inspecionar qualidade total sem exigir esforço visual humano doloroso?" },
+    { vertente: "Manutenção", titulo: "O Painel das Sombras", dor: "Técnico segura lanterna na boca para consertar painel com fios de alta tensão à noite.", desafio: "Como consertar com mãos livres e clareza visual, eliminando riscos?" },
+    { vertente: "Manutenção", titulo: "A Máquina Barulhenta", dor: "Ruído da fábrica obriga técnico a chegar perigosamente perto de peças móveis para ouvir falhas.", desafio: "Como identificar a origem da falha mecânica sem expor o técnico a riscos físicos?" },
+    { vertente: "Manutenção", titulo: "O Manual Perdido", dor: "Manual de 800 páginas está longe e pressão por resultado gera bloqueio mental no técnico.", desafio: "Como entregar conhecimento exato no local da falha, eliminando estresse?" },
+    { vertente: "Logística", titulo: "A Caça ao Tesouro", dor: "Separador caminha quilômetros buscando itens minúsculos. Erro para a linha de montagem.", desafio: "Como achar o item exato sem exaustão física e erro de código?" },
+    { vertente: "Logística", titulo: "O Gargalo da Doca", dor: "Caminhões chegam juntos e o conferente precisa validar notas sob chuva e barulho intenso.", desafio: "Como organizar a entrada para que a prioridade fique clara instantaneamente?" },
+    { vertente: "Logística", titulo: "O Milk Run Estressante", dor: "Sinais sonoros de abastecimento geram sobrecarga sobre qual linha atender primeiro.", desafio: "Como transformar o abastecimento em um fluxo silencioso e sem ansiedade?" },
+    { vertente: "Sustentabilidade", titulo: "O Mistério do Descarte", dor: "Na pressa, funcionários descartam 20 tipos de resíduos no mesmo local, gerando impacto grave.", desafio: "Como tornar o descarte correto algo instintivo e impossível de errar?" },
+    { vertente: "Sustentabilidade", titulo: "O Vazamento Invisível", dor: "Recursos vazam silenciosamente e a gestão só descobre ao fim do mês com a conta alta.", desafio: "Como dar 'voz' aos desperdícios para correção imediata?" },
+    { vertente: "Sustentabilidade", titulo: "Fábrica para Todos", dor: "Máquinas foram projetadas em padrão único, excluindo contratação de pessoas com deficiência.", desafio: "Como adaptar o ambiente para ser 100% inclusivo a qualquer limitação?" },
+    { vertente: "Administrativo", titulo: "A Integração Fria", dor: "Assistente repete regras 50 vezes, sentindo que seu trabalho é robótico e sem acolhimento.", desafio: "Como automatizar burocracia para que o RH foque na recepção humana?" },
+    { vertente: "Administrativo", titulo: "O Labirinto das Notas Fiscais", dor: "Digitação manual de centenas de notas em telas cinzas causa medo de erro financeiro.", desafio: "Como processar documentos visualmente, eliminando digitação e medo?" },
+    { vertente: "Administrativo", titulo: "O Silo de Informação", dor: "Operários de fábrica não recebem campanhas de segurança feitas apenas por e-mail corporativo.", desafio: "Como fazer a comunicação interna alcançar a todos sem depender de telas?" }
   ];
 
-  // Lógica de Persistência Local (Impede perda de dados se o WiFi cair)
+  // Lógica de Abas
+  document.querySelectorAll('.page-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      ['cenario','regras','links'].forEach(id => {
+        document.getElementById('tab-'+id).style.display = tab.dataset.tab === id ? 'block' : 'none';
+        if(id === 'links' && tab.dataset.tab === 'links') document.getElementById('tab-links').style.display = 'block';
+      });
+    });
+  });
+
+  // Timer e Sprints (Simulação Visual)
+  const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
+  setInterval(() => {
+    if(!window.SprintTimer) return;
+    const rem = window.SprintTimer.getRemaining();
+    const state = window.SprintTimer.getState();
+    document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
+    document.getElementById('sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1] ? sprintNames[state.sprint-1].toUpperCase() : 'EVENTO ENCERROU'}`;
+    
+    document.querySelectorAll('.si-item').forEach((el,i) => {
+      el.className = 'si-item';
+      if (i+1 < state.sprint) el.classList.add('done');
+      if (i+1 === state.sprint) el.classList.add('active');
+    });
+  }, 1000);
+
+  // Lógica Principal de Telas (Puxando direto da Sessão do Login)
   function initApp() {
-    const equipSaved = localStorage.getItem('inova_equipe');
-    const vertSaved = localStorage.getItem('inova_vertente');
-    const missaoSaved = localStorage.getItem('inova_missao');
+    const equipSaved = sessionStorage.getItem('inova_equipe');
+    const vertSaved = sessionStorage.getItem('inova_vertente');
+    
+    // Se tentou acessar sem login, chuta pra tela de login
+    if (!equipSaved || !vertSaved) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Salva a missão amarrada ao nome da equipe para evitar bugs se eles logarem em outra máquina
+    const missaoKey = 'inova_missao_' + equipSaved;
+    const missaoSaved = localStorage.getItem(missaoKey);
+
+    showTeamName(equipSaved);
 
     if (missaoSaved) {
-      // Já sorteou, mostra a missão
-      showTeamName(equipSaved);
-      exibirMissao(JSON.parse(missaoSaved));
-    } else if (equipSaved && vertSaved) {
-      // Já fez check-in, vai pra roleta
-      showTeamName(equipSaved);
-      mostrarRoleta(vertSaved);
+      exibirDashboard(JSON.parse(missaoSaved));
     } else {
-      // Começa do zero, mostra formulário
-      document.getElementById('checkin-view').style.display = 'flex';
+      mostrarRoleta(vertSaved);
     }
-  }
-
-  function salvarCheckin() {
-    const equipe = document.getElementById('input-equipe').value;
-    const vertente = document.getElementById('input-vertente').value;
-    const formato = document.getElementById('input-formato').value;
-
-    if (!equipe || !vertente) {
-      window.toast("Preencha o nome da equipe e escolha uma vertente!", "warning");
-      return;
-    }
-
-    // Salva na memória do celular do aluno
-    localStorage.setItem('inova_equipe', equipe);
-    localStorage.setItem('inova_vertente', vertente);
-    localStorage.setItem('inova_formato', formato);
-
-    showTeamName(equipe);
-    mostrarRoleta(vertente);
   }
 
   function showTeamName(nome) {
@@ -202,40 +234,37 @@
   }
 
   function mostrarRoleta(vertente) {
-    document.getElementById('checkin-view').style.display = 'none';
     document.getElementById('lbl-vertente-escolhida').textContent = vertente;
-    document.getElementById('sorteio-view').style.display = 'block';
+    document.getElementById('view-sorteio').style.display = 'flex';
   }
 
   function sortearMissao() {
     document.querySelector('.btn-sortear').textContent = "SORTEANDO...";
-    
     setTimeout(() => {
-      const vertenteEscolhida = localStorage.getItem('inova_vertente');
+      const vertenteEscolhida = sessionStorage.getItem('inova_vertente');
+      const equipe = sessionStorage.getItem('inova_equipe');
       
-      // FILTRO ESPECIALISTA: Pega só as missões da área da equipe
-      const missoesFiltradas = missoes.filter(m => m.vertente === vertenteEscolhida);
+      const missoesFiltradas = missoes.filter(m => m.vertente.toLowerCase() === vertenteEscolhida.toLowerCase());
       const indexAleatorio = Math.floor(Math.random() * missoesFiltradas.length);
       const missaoSorteada = missoesFiltradas[indexAleatorio];
       
-      // Salva no navegador e exibe
-      localStorage.setItem('inova_missao', JSON.stringify(missaoSorteada));
-      exibirMissao(missaoSorteada);
+      localStorage.setItem('inova_missao_' + equipe, JSON.stringify(missaoSorteada));
+      exibirDashboard(missaoSorteada);
       window.toast("Missão revelada! Que os Sprints comecem.", "success");
     }, 1500);
   }
 
-  function exibirMissao(missao) {
-    document.getElementById('sorteio-view').style.display = 'none';
-    document.getElementById('mission-view').style.display = 'block';
+  function exibirDashboard(missao) {
+    document.getElementById('view-sorteio').style.display = 'none';
+    document.getElementById('view-dashboard').style.display = 'block';
 
-    document.getElementById('m-vertente').textContent = "📦 " + missao.vertente;
+    document.getElementById('m-vertente').textContent = "📦 " + missao.vertente.toUpperCase();
     document.getElementById('m-titulo').textContent = missao.titulo;
     document.getElementById('m-dor').textContent = missao.dor;
     document.getElementById('m-desafio').textContent = missao.desafio;
   }
 
-  // Inicializa
+  // Inicializa apenas se o firebase já validou
   initApp();
 
 </script>

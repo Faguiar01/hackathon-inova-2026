@@ -9,29 +9,32 @@
     body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
     .login-wrap{width:100%;max-width:440px;position:relative;z-index:2}
     .login-header{text-align:center;margin-bottom:36px}
-    .login-logo{font-family:var(--font-d);font-size:1.8rem;font-weight:900;color:var(--cyan);letter-spacing:4px;text-shadow:var(--glow);display:block;margin-bottom:6px}
-    .login-sub{font-family:var(--font-m);font-size:.62rem;color:var(--text2);letter-spacing:3px}
-    .login-box{background:rgba(8,12,18,.95);border:1px solid var(--border);padding:36px}
+    .login-logo{font-family:'Bebas Neue', sans-serif;font-size:1.8rem;font-weight:900;color:var(--cyan);letter-spacing:4px;text-shadow:0 0 10px rgba(0,240,255,0.4);display:block;margin-bottom:6px}
+    .login-sub{font-family:'Space Mono', monospace;font-size:.62rem;color:var(--text);letter-spacing:3px}
+    .login-box{background:rgba(8,12,18,.95);border:1px solid var(--border);padding:36px;border-radius:8px;}
     .role-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
-    .role-btn{padding:14px 8px;background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s}
+    .role-btn{padding:14px 8px;background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s; border-radius:4px;}
     .role-btn .r-icon{font-size:1.4rem}
-    .role-btn .r-label{font-family:var(--font-d);font-size:.58rem;font-weight:700;letter-spacing:1px;color:var(--text2);transition:color .2s}
+    .role-btn .r-label{font-family:'Bebas Neue', sans-serif;font-size:.8rem;letter-spacing:1px;color:var(--text);transition:color .2s}
     .role-btn.active[data-role=participante]{border-color:var(--cyan);background:rgba(0,229,255,.08)}
     .role-btn.active[data-role=participante] .r-label{color:var(--cyan)}
-    .role-btn.active[data-role=monitor]{border-color:var(--amber);background:rgba(255,179,0,.08)}
-    .role-btn.active[data-role=monitor] .r-label{color:var(--amber)}
+    .role-btn.active[data-role=monitor]{border-color:var(--yellow);background:rgba(255,214,0,.08)}
+    .role-btn.active[data-role=monitor] .r-label{color:var(--yellow)}
     .role-btn.active[data-role=adm]{border-color:var(--purple);background:rgba(213,0,249,.08)}
     .role-btn.active[data-role=adm] .r-label{color:var(--purple)}
     .role-btn:hover{border-color:rgba(0,229,255,.3)}
     .login-form{display:grid;gap:16px}
+    .field label { display:block; font-family:'Space Mono', monospace; font-size:.6rem; color:var(--cyan); margin-bottom:6px; letter-spacing:1px; }
+    .field input { width:100%; padding:12px; background:rgba(255,255,255,.04); border:1px solid rgba(0,240,255,.2); color:var(--text); font-family:'Syne', sans-serif; font-size:.9rem; border-radius:4px; transition:.2s; }
+    .field input:focus { outline:none; border-color:var(--yellow); }
     .login-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
-    .login-divider span{font-family:var(--font-m);font-size:.58rem;color:var(--text2);letter-spacing:2px;white-space:nowrap}
+    .login-divider span{font-family:'Space Mono', monospace;font-size:.58rem;color:var(--text);letter-spacing:2px;white-space:nowrap}
     .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-    .back-link{display:block;text-align:center;margin-top:20px;font-family:var(--font-m);font-size:.65rem;color:var(--text2);text-decoration:none;letter-spacing:1px;transition:color .2s}
+    .back-link{display:block;text-align:center;margin-top:20px;font-family:'Space Mono', monospace;font-size:.65rem;color:var(--text);text-decoration:none;letter-spacing:1px;transition:color .2s}
     .back-link:hover{color:var(--cyan)}
-    .hint{font-family:var(--font-m);font-size:.62rem;color:var(--text2);text-align:center;padding:12px;border:1px dashed var(--border);margin-top:12px;line-height:1.6}
-    .hint strong{color:var(--cyan)}
-    .error-msg{background:rgba(255,23,68,.08);border:1px solid var(--red);padding:10px 14px;font-family:var(--font-m);font-size:.7rem;color:var(--red);letter-spacing:1px;display:none}
+    .btn-login {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; padding:15px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s; width:100%; margin-top:4px;}
+    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; }
+    .error-msg{background:rgba(255,23,68,.08);border:1px solid #ff4444;padding:10px 14px;font-family:'Space Mono', monospace;font-size:.7rem;color:#ff4444;letter-spacing:1px;display:none; border-radius:4px;}
     .error-msg.show{display:block}
   </style>
 </head>
@@ -40,7 +43,7 @@
 <div class="login-wrap z1">
   <div class="login-header">
     <span class="login-logo">INOVA+</span>
-    <span class="login-sub">SENAI JOINVILLE · 2026 · PLATAFORMA DO EVENTO</span>
+    <span class="login-sub">SENAI JOINVILLE · PLATAFORMA</span>
   </div>
 
   <div class="login-box">
@@ -55,7 +58,7 @@
       </button>
       <button class="role-btn" data-role="adm">
         <span class="r-icon">🖥️</span>
-        <span class="r-label">COORDENAÇÃO</span>
+        <span class="r-label">ADMIN</span>
       </button>
     </div>
 
@@ -64,22 +67,25 @@
     <form class="login-form" id="login-form" novalidate>
       <div class="field">
         <label>Perfil Selecionado</label>
-        <input type="text" id="role-display" readonly placeholder="← Selecione seu perfil acima" style="cursor:default;color:var(--cyan);font-family:var(--font-m);font-size:.85rem"/>
+        <input type="text" id="role-display" readonly placeholder="← Selecione seu perfil acima" style="cursor:default;color:var(--cyan);"/>
       </div>
+      
+      <div class="field" id="field-equipe" style="display:none;">
+        <label>Nome da Equipe</label>
+        <input type="text" id="teamName" placeholder="Digite o nome exato da equipe cadastrada"/>
+      </div>
+      
       <div class="field">
         <label>Senha de Acesso</label>
-        <input type="password" id="password" placeholder="Digite a senha do seu perfil" autocomplete="current-password"/>
+        <input type="password" id="password" placeholder="Digite sua senha" autocomplete="current-password"/>
       </div>
-      <div class="error-msg" id="error-msg">⛔ Senha incorreta. Verifique e tente novamente.</div>
-      <button type="submit" class="btn btn-primary" id="login-btn" style="width:100%;padding:15px;margin-top:4px" disabled>
+      
+      <div class="error-msg" id="error-msg">⛔ Dados incorretos. Verifique e tente novamente.</div>
+      
+      <button type="submit" class="btn-login" id="login-btn" disabled>
         ENTRAR NA PLATAFORMA →
       </button>
     </form>
-
-    <div class="hint">
-      <strong>Senhas de demonstração:</strong><br>
-      Participante: <strong>inova2026</strong> · Monitor: <strong>monitor2026</strong> · ADM: <strong>adm2026</strong>
-    </div>
   </div>
 
   <a href="../index.html" class="back-link">← Voltar ao site público</a>
@@ -88,14 +94,6 @@
 <script src="../assets/js/app.js"></script>
 <script>
   let selectedRole = null;
-
-  // Pre-select from URL param
-  const params = new URLSearchParams(location.search);
-  const preRole = params.get('role') || sessionStorage.getItem('inova_preselect');
-  if (preRole) {
-    sessionStorage.removeItem('inova_preselect');
-    selectRole(preRole);
-  }
 
   document.querySelectorAll('.role-btn').forEach(btn => {
     btn.addEventListener('click', () => selectRole(btn.dataset.role));
@@ -106,39 +104,55 @@
     document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
     const btn = document.querySelector(`.role-btn[data-role="${role}"]`);
     if (btn) btn.classList.add('active');
+    
     const labels = { participante: 'PARTICIPANTE', monitor: 'MONITOR', adm: 'COORDENAÇÃO ADM' };
     document.getElementById('role-display').value = labels[role] || role;
+    
+    // Mostra o campo Nome da Equipe apenas se for Participante
+    document.getElementById('field-equipe').style.display = (role === 'participante') ? 'block' : 'none';
+    
     document.getElementById('login-btn').disabled = false;
     document.getElementById('error-msg').classList.remove('show');
-    document.getElementById('password').focus();
+    
+    if(role === 'participante') {
+        document.getElementById('teamName').focus();
+    } else {
+        document.getElementById('password').focus();
+    }
   }
 
-  document.getElementById('login-form').addEventListener('submit', e => {
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!selectedRole) { toast('Selecione seu perfil primeiro!', 'error'); return; }
+    
     const pw = document.getElementById('password').value;
-    const btn = document.getElementById('login-btn');
-    btn.textContent = 'VERIFICANDO...'; btn.disabled = true;
+    const team = document.getElementById('teamName').value;
+    
+    if (selectedRole === 'participante' && !team) {
+      toast('Digite o nome da equipe!', 'warning');
+      return;
+    }
 
-    setTimeout(() => {
-      if (AUTH.login(selectedRole, pw)) {
-        btn.textContent = '✓ ACESSO CONCEDIDO';
-        setTimeout(() => {
-          const redirects = {
-            participante: 'area-prova.html',
-            monitor:      'area-monitor.html',
-            adm:          'area-adm.html'
-          };
-          window.location.href = redirects[selectedRole];
-        }, 500);
-      } else {
-        document.getElementById('error-msg').classList.add('show');
-        btn.textContent = 'ENTRAR NA PLATAFORMA →';
-        btn.disabled = false;
-        document.getElementById('password').value = '';
-        document.getElementById('password').focus();
-      }
-    }, 700);
+    const btn = document.getElementById('login-btn');
+    btn.textContent = 'VERIFICANDO NO BANCO...'; 
+    btn.disabled = true;
+
+    // Aguarda a resposta do Firebase configurada no app.js
+    const isLogged = await window.AUTH.login(selectedRole, pw, team);
+    
+    if (isLogged) {
+      btn.textContent = '✓ ACESSO CONCEDIDO';
+      setTimeout(() => {
+        window.location.href = window.AUTH.redirects[selectedRole];
+      }, 500);
+    } else {
+      document.getElementById('error-msg').classList.add('show');
+      btn.textContent = 'ENTRAR NA PLATAFORMA →';
+      btn.disabled = false;
+      document.getElementById('password').value = '';
+      if(selectedRole === 'participante') document.getElementById('teamName').focus();
+      else document.getElementById('password').focus();
+    }
   });
 </script>
 </body>

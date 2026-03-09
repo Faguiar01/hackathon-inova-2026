@@ -4,19 +4,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Centro de Comando | Inova+ 2026</title>
-  
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/base.css"/>
-  
   <style>
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; }
-    
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(213,0,249,.2);backdrop-filter:blur(8px)}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--purple);letter-spacing:2px;text-shadow:0 0 20px rgba(213,0,249,.3)}
     .tb-role{font-family:'Space Mono', monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(213,0,249,.3);color:var(--purple); border-radius:4px;}
     .main{padding:72px 28px 48px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
-    
-    /* MASTER TIMER */
     .master-timer-card{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:32px;margin-bottom:28px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center; border-radius:8px;}
     .mt-display{text-align:center}
     .mt-time{font-family:'Bebas Neue', sans-serif;font-size:clamp(2.5rem,6vw,5rem);color:var(--purple);text-shadow:0 0 30px rgba(213,0,249,.4);letter-spacing:8px;display:block;line-height:1}
@@ -24,8 +19,6 @@
     .mt-sprint{font-family:'Space Mono', monospace;font-size:.7rem;color:var(--muted);letter-spacing:3px;margin-top:8px;display:block}
     .mt-controls{display:flex;flex-direction:column;gap:12px;min-width:200px}
     .mt-controls .btn{width:100%;justify-content:center}
-    
-    /* SPRINT STEPPER */
     .sprint-stepper{display:flex;gap:8px;margin-bottom:28px;align-items:center;flex-wrap:wrap}
     .ss-step{flex:1;min-width:100px;padding:12px 8px;text-align:center;border:1px solid var(--border);background:var(--panel);cursor:pointer;transition:all .2s; border-radius:4px;}
     .ss-step.active{border-color:var(--purple);background:rgba(213,0,249,.1)}
@@ -35,67 +28,38 @@
     .ss-step.active .ss-num{color:var(--purple)}
     .ss-step.done .ss-num{color:#00C851}
     .ss-name{font-family:'Syne', sans-serif;font-size:.78rem;color:var(--muted)}
-    
-    /* DASHBOARD GRID */
     .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
     .metric-card{background:var(--panel);border:1px solid var(--border);padding:20px 24px;transition:border-color .2s; border-radius:8px;}
-    .metric-card:hover{border-color:rgba(213,0,249,.3)}
     .metric-val{font-family:'Bebas Neue', sans-serif;font-size:2.8rem;display:block;line-height:1;margin-bottom:4px}
     .metric-lbl{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--muted);letter-spacing:2px}
-    
-    /* TEAMS TABLE */
     .teams-wrap{background:var(--panel);border:1px solid var(--border);overflow:auto;margin-bottom:28px; border-radius:8px;}
     .teams-wrap table{width:100%;border-collapse:collapse;min-width:800px}
     .teams-wrap th{padding:12px 16px;font-family:'Space Mono', monospace;font-size:.62rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left;background:rgba(213,0,249,.03)}
     .teams-wrap td{padding:10px 16px;border-bottom:1px solid rgba(213,0,249,.06);vertical-align:middle;font-size:.9rem}
-    .teams-wrap tr:last-child td{border-bottom:none}
-    .teams-wrap tr:hover td{background:rgba(213,0,249,.02)}
     .td-input{width:100%;padding:8px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Syne', sans-serif;font-size:.85rem;outline:none;transition:border-color .2s; border-radius:4px;}
-    .td-input:focus{border-color:var(--purple)}
-    
-    /* PROGRESS BAR */
     .progress-bar{height:6px;background:rgba(213,0,249,.15);width:100%;min-width:80px;overflow:hidden; border-radius:3px;}
     .progress-fill{height:100%;background:var(--purple);transition:width .5s}
-    
-    /* ENGAGEMENT */
     .eng-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
     .eng-card{background:var(--panel);border:1px solid var(--border);padding:20px; border-radius:8px;}
     .eng-card h4{font-family:'Bebas Neue', sans-serif;font-size:1.2rem;color:#fff;letter-spacing:1px;margin-bottom:12px}
     .score-input{width:60px;padding:8px;text-align:center;background:var(--card);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono', monospace;font-size:.9rem;outline:none; border-radius:4px;}
-    
-    /* MURAL */
     .mural-feed{display:grid;gap:8px;max-height:340px;overflow-y:auto}
     .mural-post{background:var(--card);border:1px solid var(--border);padding:14px 16px; border-radius:6px;}
     .mp-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
     .mp-author{font-family:'Space Mono', monospace;font-size:.65rem;color:var(--purple);letter-spacing:1px}
     .mp-time{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--muted)}
     .mp-text{font-size:.9rem;color:var(--text);line-height:1.5}
-    
     .announce-box{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:24px;margin-bottom:28px; border-radius:8px;}
-    
-    /* TABS */
     .adm-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
     .adm-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
     .adm-tab:hover,.adm-tab.active{background:rgba(213,0,249,.1);border-color:var(--purple);color:var(--purple)}
-    
-    /* BUTTONS */
     .btn{padding:12px 24px;font-family:'Bebas Neue', sans-serif;font-size:1.1rem;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;transition:all .2s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;}
     .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
     .btn-primary{background:var(--cyan);color:var(--dark);}
-    .btn-primary:hover{background:var(--yellow);transform:translateY(-2px);}
     .btn-purple{background:var(--purple);color:#fff;}
-    .btn-purple:hover{filter:brightness(1.1);transform:translateY(-2px);}
     .btn-green{background:#00C851;color:var(--dark);}
-    .btn-green:hover{filter:brightness(1.1);transform:translateY(-2px);}
     .btn-amber{background:var(--yellow);color:var(--dark);}
     .btn-danger{background:#ff4444;color:#fff;}
-
-    @media(max-width:1024px){
-      .dash-grid{grid-template-columns:repeat(2,1fr)}
-      .eng-grid{grid-template-columns:1fr 1fr}
-      .master-timer-card{grid-template-columns:1fr}
-    }
   </style>
 </head>
 <body>
@@ -104,8 +68,8 @@
   <span class="tb-logo">INOVA+</span>
   <span class="tb-role">🖥️ COORDENAÇÃO</span>
   <div style="display:flex;align-items:center;gap:16px;margin-left:auto">
-    <span class="badge badge-purple" id="event-status">PRÉ-EVENTO</span>
-    <button class="btn btn-ghost" onclick="AUTH.logout()" style="padding:6px 14px;font-size:.8rem;">SAIR</button>
+    <span class="badge badge-purple" id="event-status" style="padding:4px 12px; font-family:'Space Mono',monospace; font-size:.6rem; border:1px solid var(--purple); color:var(--purple); border-radius:4px;">PRÉ-EVENTO</span>
+    <button class="btn btn-ghost" onclick="window.AUTH.logout()" style="padding:6px 14px;font-size:.8rem;">SAIR</button>
   </div>
 </header>
 
@@ -113,14 +77,14 @@
 
   <div class="master-timer-card">
     <div class="mt-display">
-      <div class="badge badge-purple" style="margin-bottom:12px;justify-content:center">CRONÔMETRO MESTRE — VISÍVEL PARA TODOS</div>
-      <span class="mt-time" id="master-time">90:00</span>
+      <div style="margin-bottom:12px;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--purple);border:1px solid var(--purple);padding:4px 12px;border-radius:4px;display:inline-block;">CRONÔMETRO MESTRE — VISÍVEL PARA TODOS</div>
+      <span class="mt-time" id="master-time">--:--</span>
       <span class="mt-sprint" id="master-sprint-label">// SPRINT 1 — EMPATIA HUMANA · AGUARDANDO INÍCIO</span>
     </div>
     <div class="mt-controls">
-      <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR EVENTO</button>
+      <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR TIMER</button>
       <button class="btn btn-amber" id="btn-pause" onclick="masterPause()" disabled>⏸ PAUSAR</button>
-      <button class="btn btn-danger" id="btn-reset" onclick="masterReset()">↺ RESETAR TIMER</button>
+      <button class="btn btn-danger" id="btn-reset" onclick="masterReset()">↺ RESETAR SPRINT ATUAL</button>
       <button class="btn btn-purple" id="btn-next" onclick="masterNextSprint()">⏭ PRÓXIMO SPRINT</button>
     </div>
   </div>
@@ -131,7 +95,7 @@
     <div class="ss-step" id="ss3"><span class="ss-num">SPRINT 03</span><span class="ss-name">Toque Humano</span></div>
     <div class="ss-step" id="ss4"><span class="ss-num">SPRINT 04</span><span class="ss-name">Ponte Digital</span></div>
     <div class="ss-step" id="ss5"><span class="ss-num">SPRINT 05</span><span class="ss-name">Pitch Final</span></div>
-    <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:var(--muted);padding:8px;white-space:nowrap">→ clique para saltar</span>
+    <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:var(--muted);padding:8px;white-space:nowrap">→ clique para trocar a fase do evento</span>
   </div>
 
   <div class="adm-tabs">
@@ -162,26 +126,13 @@
     </div>
 
     <div style="background:var(--panel);border:1px solid var(--border);padding:24px;margin-bottom:28px; border-radius:8px;">
-      <div class="badge badge-cyan" style="margin-bottom:16px">PROGRESSO DO EVENTO EM TEMPO REAL</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--cyan);border:1px solid var(--cyan);padding:4px 12px;border-radius:4px;display:inline-block;margin-bottom:16px;">PROGRESSO DO EVENTO EM TEMPO REAL</div>
       <div style="display:grid;gap:12px" id="progress-bars">
         </div>
-    </div>
-
-    <div style="background:var(--panel);border:1px solid rgba(213,0,249,.2);padding:24px; border-radius:8px;">
-      <div class="badge badge-purple" style="margin-bottom:12px">AÇÕES RÁPIDAS</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn btn-purple" onclick="incrementMetric('m-pitches')">+ Pitch Realizado</button>
-        <button class="btn btn-green" onclick="incrementMetric('m-renders')">+ Render Enviado</button>
-        <button class="btn btn-ghost" onclick="incrementMetric('m-equipes')">+ Equipe Inscrita</button>
-      </div>
     </div>
   </div>
 
   <div id="tab-equipes" style="display:none">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
-      <div class="badge badge-cyan">LISTA DE EQUIPES CADASTRADAS</div>
-      <button class="btn btn-primary" onclick="addEquipe()" style="padding:9px 20px;font-size:.9rem">+ ADICIONAR EQUIPE</button>
-    </div>
     <div class="teams-wrap">
       <table>
         <thead>
@@ -195,43 +146,34 @@
             <th>RENDER</th>
           </tr>
         </thead>
-        <tbody id="teams-tbody"></tbody>
+        <tbody id="teams-tbody">
+            <tr><td colspan="7" style="text-align:center; color:var(--muted);">Carregando equipes do Firebase...</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
 
   <div id="tab-engajamento" style="display:none">
-    <div class="badge badge-cyan" style="margin-bottom:16px">RANKING DE ENGAJAMENTO DIGITAL</div>
-    <p style="color:var(--muted);font-size:.9rem;margin-bottom:24px">Atualize as pontuações manualmente conforme a equipe de mídia envia os dados.</p>
     <div class="eng-grid">
-      <div class="eng-card">
-        <h4>📱 SISTEMA DE PONTUAÇÃO</h4>
-        <ul style="list-style:none;display:grid;gap:8px">
-          <li style="font-size:.9rem;color:var(--text);display:flex;justify-content:space-between">Like <span style="color:var(--cyan);font-family:'Space Mono', monospace">1 pt</span></li>
-          <li style="font-size:.9rem;color:var(--text);display:flex;justify-content:space-between">Comentário <span style="color:var(--cyan);font-family:'Space Mono', monospace">5 pts</span></li>
-          <li style="font-size:.9rem;color:var(--text);display:flex;justify-content:space-between">Compartilhamento <span style="color:var(--cyan);font-family:'Space Mono', monospace">3 pts</span></li>
-        </ul>
-      </div>
-      <div class="eng-card" style="grid-column:span 2">
+      <div class="eng-card" style="grid-column:span 3">
         <h4>🏆 RANKING AO VIVO</h4>
         <div style="overflow:auto">
           <table style="width:100%;border-collapse:collapse;min-width:400px">
-            <thead><tr><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left">EQUIPE</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">LIKES</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMENT.</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMPART.</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">TOTAL</th></tr></thead>
-            <tbody id="eng-tbody"></tbody>
+            <thead><tr><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left">EQUIPE</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">LIKES (1pt)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMENT. (5pts)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMPART. (3pts)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">TOTAL</th></tr></thead>
+            <tbody id="eng-tbody">
+                <tr><td colspan="5" style="text-align:center; color:var(--muted);">Carregando...</td></tr>
+            </tbody>
           </table>
         </div>
-        <button class="btn btn-primary" onclick="addEngEquipe()" style="margin-top:16px;padding:9px 20px;font-size:.9rem">+ ADICIONAR EQUIPE</button>
       </div>
     </div>
   </div>
 
   <div id="tab-mural" style="display:none">
     <div class="announce-box">
-      <div class="badge badge-purple" style="margin-bottom:14px">📢 PUBLICAR MENSAGEM DO JOTA</div>
-      <p style="color:var(--muted); font-size: 0.9rem; margin-bottom: 12px;">Escreva aqui. Quando você clicar em Publicar, um alerta vai pipocar na tela de todos os Participantes e Monitores!</p>
-      
+      <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--purple);border:1px solid var(--purple);padding:4px 12px;border-radius:4px;display:inline-block;margin-bottom:14px;">📢 PUBLICAR MENSAGEM DO JOTA</div>
       <div style="margin-bottom:14px">
-        <label style="display:block;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px">MENSAGEM</label>
+        <label style="display:block;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px">MENSAGEM RÁPIDA PARA O TELÃO</label>
         <input type="text" id="mural-msg" class="td-input" placeholder="Ex: Acelera galera! Faltam 5 minutos para o final do Sprint! ⏳" />
       </div>
       <div style="display:flex;gap:12px; align-items: flex-end;">
@@ -239,13 +181,12 @@
           <label style="display:block;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px">AUTOR</label>
           <input type="text" id="mural-author" class="td-input" value="🤖 Jota" />
         </div>
-        <button class="btn btn-purple" onclick="postMural()" style="padding:11px 24px">🚀 PUBLICAR PARA TODOS</button>
+        <button class="btn btn-purple" onclick="postMural()" style="padding:11px 24px">🚀 PUBLICAR NO TELÃO E APP</button>
       </div>
     </div>
 
-    <div class="badge badge-cyan" style="margin-bottom:14px">FEED DO EVENTO</div>
     <div class="mural-feed" id="mural-feed">
-      <div id="mural-loading" style="padding: 14px; color: var(--muted); font-size: 0.8rem;">Carregando histórico da nuvem...</div>
+      <div id="mural-loading" style="padding: 14px; color: var(--muted); font-size: 0.8rem;">Carregando histórico...</div>
     </div>
   </div>
 
@@ -253,91 +194,113 @@
 
 <script src="../assets/js/app.js"></script>
 <script>
-  AUTH.require('adm');
+  window.AUTH.require('adm');
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
   let timerInterval;
-  const metrics = { 'm-equipes': 0, 'm-sprint': 1, 'm-pitches': 0, 'm-renders': 0 };
 
-  // ── MASTER TIMER ──
   function updateMasterDisplay() {
-    const rem = SprintTimer.getRemaining();
-    const state = SprintTimer.getState();
+    const rem = window.SprintTimer.getRemaining();
+    const state = window.SprintTimer.getState();
     const timeEl = document.getElementById('master-time');
-    timeEl.textContent = fmtTime(rem);
+    timeEl.textContent = window.fmtTime(rem);
     timeEl.className = 'mt-time' + (state.running ? ' running' : '');
     document.getElementById('master-sprint-label').textContent =
       `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} · ${state.running ? 'EM ANDAMENTO' : 'PAUSADO'}`;
     document.getElementById('m-sprint').textContent = state.sprint;
-    // Update stepper
+    
     for (let i=1;i<=5;i++) {
       const el = document.getElementById('ss'+i);
       el.className = 'ss-step';
       if (i < state.sprint) el.classList.add('done');
       if (i === state.sprint) el.classList.add('active');
     }
-    // Status badge
+
     const statusEl = document.getElementById('event-status');
-    if (state.running) { statusEl.textContent='EM ANDAMENTO'; statusEl.className='badge badge-green'; }
-    else if (state.sprint > 1) { statusEl.textContent='PAUSADO'; statusEl.className='badge badge-amber'; }
-    else { statusEl.textContent='PRÉ-EVENTO'; statusEl.className='badge badge-purple'; }
+    if (state.running) { statusEl.textContent='EM ANDAMENTO'; statusEl.style.color='#00C851'; statusEl.style.borderColor='#00C851'; }
+    else if (state.sprint > 1) { statusEl.textContent='PAUSADO'; statusEl.style.color='var(--yellow)'; statusEl.style.borderColor='var(--yellow)'; }
+    else { statusEl.textContent='PRÉ-EVENTO'; statusEl.style.color='var(--purple)'; statusEl.style.borderColor='var(--purple)'; }
   }
 
   function masterStart() {
-    SprintTimer.start();
+    window.SprintTimer.start();
     document.getElementById('btn-start').disabled = true;
     document.getElementById('btn-pause').disabled = false;
-    toast('Evento iniciado! Cronômetro rodando para todos. ▶','success');
+    window.toast('Cronômetro rodando! ▶','success');
     if (!timerInterval) timerInterval = setInterval(updateMasterDisplay, 500);
   }
 
   function masterPause() {
-    SprintTimer.pause();
+    window.SprintTimer.pause();
     document.getElementById('btn-start').textContent = '▶ RETOMAR';
     document.getElementById('btn-start').disabled = false;
     document.getElementById('btn-pause').disabled = true;
-    toast('Timer pausado.','info');
+    window.toast('Timer pausado.','info');
     updateMasterDisplay();
   }
 
   function masterReset() {
-    if (!confirm('Resetar para 90:00 e Sprint 1?')) return;
-    SprintTimer.reset();
+    if (!confirm('Isso vai zerar o relógio deste sprint. Confirma?')) return;
+    window.SprintTimer.reset();
     clearInterval(timerInterval); timerInterval = null;
-    document.getElementById('btn-start').textContent = '▶ INICIAR EVENTO';
+    document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
     document.getElementById('btn-start').disabled = false;
     document.getElementById('btn-pause').disabled = true;
     updateMasterDisplay();
-    toast('Timer resetado para Sprint 1.','info');
   }
 
   function masterNextSprint() {
-    const state = SprintTimer.getState();
-    if (state.sprint >= 5) { toast('Já está no Sprint 5 (final)!','error'); return; }
-    SprintTimer.nextSprint();
-    SprintTimer.start();
-    document.getElementById('btn-start').disabled = true;
-    document.getElementById('btn-pause').disabled = false;
-    if (!timerInterval) timerInterval = setInterval(updateMasterDisplay, 500);
+    const state = window.SprintTimer.getState();
+    if (state.sprint >= 5) { window.toast('Já está no Sprint final!','error'); return; }
+    window.SprintTimer.nextSprint();
+    clearInterval(timerInterval); timerInterval = null; 
+    document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
+    document.getElementById('btn-start').disabled = false;
+    document.getElementById('btn-pause').disabled = true;
     updateMasterDisplay();
-    toast(`Sprint ${state.sprint+1} iniciado!`,'success');
+    window.toast(`Avançou para o Sprint ${state.sprint+1}. Relógio carregado e pausado.`,`success`);
   }
 
-  // Click stepper to jump
   for (let i=1;i<=5;i++) {
     document.getElementById('ss'+i).addEventListener('click',()=>{
-      const s = SprintTimer.getState();
-      s.sprint = i; s.remaining = 5400; s.running = false; s.startedAt = null;
-      SprintTimer.setState(s);
+      window.SprintTimer.setSprint(i);
+      clearInterval(timerInterval); timerInterval = null;
+      document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-pause').disabled = true;
       updateMasterDisplay();
-      toast(`Saltou para Sprint ${i}.`,'info');
+      window.toast(`Pulou para o Sprint ${i}. Relógio carregado e pausado.`,`info`);
     });
   }
 
   setInterval(updateMasterDisplay, 1000);
-  updateMasterDisplay();
 
-  // ── TABS ──
+  // ── PROGRESS BARS ADM ──
+  function renderProgressBars() {
+    const state = window.SprintTimer.getState();
+    const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
+    const container = document.getElementById('progress-bars');
+    
+    container.innerHTML = sprintNames.map((name,i)=>{
+      let pct = 0;
+      if (i+1 < state.sprint) pct = 100;
+      else if (i+1 === state.sprint) {
+          const maxTime = SPRINT_TIMES[i];
+          const rem = window.SprintTimer.getRemaining();
+          pct = Math.max(5, Math.round((1 - rem/maxTime)*100)); 
+      }
+      
+      const color = i+1 < state.sprint ? '#00C851' : i+1===state.sprint ? 'var(--purple)' : 'var(--muted)';
+      return `<div style="display:grid;grid-template-columns:160px 1fr 40px;align-items:center;gap:12px">
+        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};letter-spacing:1px">SPRINT ${i+1}: ${name.toUpperCase()}</span>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
+        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};text-align:right">${pct}%</span>
+      </div>`;
+    }).join('');
+  }
+  setInterval(renderProgressBars, 1500);
+
+  // Tabs
   document.querySelectorAll('.adm-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
@@ -348,123 +311,89 @@
     });
   });
 
-  // ── METRICS ──
-  function incrementMetric(id) {
-    metrics[id] = (metrics[id]||0) + 1;
-    document.getElementById(id).textContent = metrics[id];
+  // DB Equipes
+  let teams = [];
+  window.updateEquipeDB = function(key, field, value) {
+      if(!window.InovaDB || !window.InovaDB.update) return;
+      const updates = {};
+      updates['equipes/' + key + '/' + field] = value;
+      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+          .then(() => window.toast('Salvo na nuvem!', 'success'))
+          .catch(err => window.toast('Erro ao salvar.', 'error'));
   }
 
-  // ── PROGRESS BARS ──
-  function renderProgressBars() {
-    const state = SprintTimer.getState();
-    const container = document.getElementById('progress-bars');
-    container.innerHTML = sprintNames.map((name,i)=>{
-      const pct = i+1 < state.sprint ? 100 : i+1===state.sprint ? Math.max(5, Math.round((1 - SprintTimer.getRemaining()/5400)*100)) : 0;
-      const color = i+1 < state.sprint ? '#00C851' : i+1===state.sprint ? 'var(--purple)' : 'var(--muted)';
-      return `<div style="display:grid;grid-template-columns:160px 1fr 40px;align-items:center;gap:12px">
-        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};letter-spacing:1px">SPRINT ${i+1}: ${name.toUpperCase()}</span>
-        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
-        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};text-align:right">${pct}%</span>
-      </div>`;
-    }).join('');
+  function carregarEquipesDoBanco() {
+    if(!window.InovaDB) { setTimeout(carregarEquipesDoBanco, 500); return; }
+    import("https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js").then(({ onValue, update }) => {
+        window.InovaDB.update = update;
+        onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+           const data = snapshot.val();
+           teams = [];
+           if(data) {
+               Object.keys(data).forEach(key => {
+                   teams.push({ id: key, ...data[key] });
+               });
+           }
+           document.getElementById('m-equipes').textContent = teams.length;
+           renderTeams();
+           renderEng();
+        });
+    });
   }
-  setInterval(renderProgressBars, 2000);
-  renderProgressBars();
-
-  // ── TEAMS ──
-  const teams = [
-    {nome:'Squad Alfa',membros:'Ana, Bruno, Carla',mesa:'01',vertente:'Logística',sprint:1,render:false},
-    {nome:'Team Omega',membros:'Diego, Eva, Felipe, Gio',mesa:'02',vertente:'Manutenção',sprint:1,render:false},
-    {nome:'Grupo Sigma',membros:'Helena, Igor, Julia',mesa:'03',vertente:'Produção',sprint:1,render:false},
-  ];
-  metrics['m-equipes'] = teams.length;
-  document.getElementById('m-equipes').textContent = teams.length;
 
   function renderTeams() {
     const tbody = document.getElementById('teams-tbody');
+    if(teams.length === 0) return tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma equipe cadastrada.</td></tr>';
     tbody.innerHTML = teams.map((t,i)=>`<tr>
-      <td style="font-family:'Space Mono', monospace;font-size:.75rem;color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
-      <td><input class="td-input" value="${t.nome}" onchange="teams[${i}].nome=this.value"/></td>
-      <td><input class="td-input" value="${t.membros}" style="font-size:.8rem" onchange="teams[${i}].membros=this.value"/></td>
-      <td><input class="td-input" value="${t.mesa}" style="width:60px; text-align:center;" onchange="teams[${i}].mesa=this.value"/></td>
-      <td><input class="td-input" value="${t.vertente}" style="width:120px" onchange="teams[${i}].vertente=this.value"/></td>
-      <td><select class="td-input" style="width:80px" onchange="teams[${i}].sprint=parseInt(this.value)">
-        ${[1,2,3,4,5].map(n=>`<option ${t.sprint===n?'selected':''}>${n}</option>`).join('')}
+      <td style="color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
+      <td style="font-weight:bold; color:var(--text);">${t.nomeEquipe || 'Sem Nome'}</td>
+      <td><input class="td-input" value="${t.membros || ''}" onchange="updateEquipeDB('${t.id}', 'membros', this.value)"/></td>
+      <td><input class="td-input" value="${t.mesa || ''}" style="width:60px; text-align:center;" placeholder="01" onchange="updateEquipeDB('${t.id}', 'mesa', this.value)"/></td>
+      <td style="color:var(--cyan); font-size: 0.85rem;">${(t.vertente || '').toUpperCase()}</td>
+      <td><select class="td-input" style="width:80px" onchange="updateEquipeDB('${t.id}', 'sprintAtual', parseInt(this.value))">
+        ${[1,2,3,4,5].map(n=>`<option ${(t.sprintAtual||1)===n?'selected':''}>${n}</option>`).join('')}
       </select></td>
-      <td style="text-align:center"><input type="checkbox" style="width:18px; height:18px; accent-color: var(--purple);" ${t.render?'checked':''} onchange="teams[${i}].render=this.checked" title="Render enviado"/></td>
+      <td style="text-align:center"><input type="checkbox" style="width:18px; height:18px; accent-color: var(--purple);" ${t.renderEnviado?'checked':''} onchange="updateEquipeDB('${t.id}', 'renderEnviado', this.checked)"/></td>
     </tr>`).join('');
   }
 
-  function addEquipe() {
-    teams.push({nome:`Equipe ${teams.length+1}`,membros:'',mesa:'',vertente:'',sprint:1,render:false});
-    metrics['m-equipes']++;
-    document.getElementById('m-equipes').textContent = metrics['m-equipes'];
-    renderTeams();
-  }
-
-  renderTeams();
-
-  // ── ENGAGEMENT ──
-  const engTeams = [{nome:'Squad Alfa',likes:12,comments:3,shares:5},{nome:'Team Omega',likes:8,comments:5,shares:2},{nome:'Grupo Sigma',likes:20,comments:1,shares:8}];
   function renderEng() {
-    const sorted = [...engTeams].sort((a,b)=>(b.likes+b.comments*5+b.shares*3)-(a.likes+a.comments*5+a.shares*3));
+    const sorted = [...teams].sort((a,b)=>((b.eng_likes||0)+(b.eng_comments||0)*5+(b.eng_shares||0)*3)-((a.eng_likes||0)+(a.eng_comments||0)*5+(a.eng_shares||0)*3));
     document.getElementById('eng-tbody').innerHTML = sorted.map((t,i)=>{
-      const total = t.likes + t.comments*5 + t.shares*3;
+      const total = (t.eng_likes||0) + (t.eng_comments||0)*5 + (t.eng_shares||0)*3;
       return `<tr>
-        <td style="font-weight:600;color:#fff">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'·'} ${t.nome}</td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.likes}" onchange="engTeams[${engTeams.indexOf(t)}].likes=parseInt(this.value)||0;renderEng()"/></td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.comments}" onchange="engTeams[${engTeams.indexOf(t)}].comments=parseInt(this.value)||0;renderEng()"/></td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.shares}" onchange="engTeams[${engTeams.indexOf(t)}].shares=parseInt(this.value)||0;renderEng()"/></td>
-        <td style="text-align:center;font-family:'Bebas Neue', sans-serif;font-size:1.5rem;font-weight:700;color:var(--cyan)">${total}</td>
+        <td style="font-weight:600;color:#fff">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'·'} ${t.nomeEquipe}</td>
+        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_likes||0}" onchange="updateEquipeDB('${t.id}', 'eng_likes', parseInt(this.value)||0)"/></td>
+        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_comments||0}" onchange="updateEquipeDB('${t.id}', 'eng_comments', parseInt(this.value)||0)"/></td>
+        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_shares||0}" onchange="updateEquipeDB('${t.id}', 'eng_shares', parseInt(this.value)||0)"/></td>
+        <td style="text-align:center;font-family:'Bebas Neue', sans-serif;font-size:1.5rem;color:var(--cyan)">${total}</td>
       </tr>`;
     }).join('');
   }
-  function addEngEquipe(){engTeams.push({nome:`Equipe ${engTeams.length+1}`,likes:0,comments:0,shares:0});renderEng();}
-  renderEng();
+  carregarEquipesDoBanco();
 
-  // ── MURAL DO JOTA (FIREBASE) ──
-  function postMural() {
+  window.postMural = function() {
     const msg = document.getElementById('mural-msg').value.trim();
     const author = document.getElementById('mural-author').value.trim() || '🤖 Jota';
-    if (!msg) { toast('Digite uma mensagem!','error'); return; }
-
+    if (!msg) { window.toast('Digite uma mensagem!','error'); return; }
     const now = new Date();
     const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-    // Manda para a nuvem do Firebase
     if (window.Mural && window.Mural.pushFirebase) {
-      window.Mural.pushFirebase(window.Mural.dbRef, {
-        author: author,
-        text: msg,
-        time: time
-      });
+      window.Mural.pushFirebase(window.Mural.dbRef, { author: author, text: msg, time: time });
       document.getElementById('mural-msg').value = '';
-      toast('Mensagem enviada para todas as telas! 🚀', 'success');
-    } else {
-      toast('Aguarde a conexão com o servidor...', 'error');
+      window.toast('Mensagem enviada! 🚀', 'success');
     }
   }
 
-  // Permite enviar com a tecla Enter
-  document.getElementById('mural-msg').addEventListener('keypress', e => { 
-      if(e.key === 'Enter') postMural(); 
-  });
-
-  // Função que o app.js chama quando chega mensagem da nuvem
   window.renderNovoPost = function(msg) {
     const feed = document.getElementById('mural-feed');
-    // Remove a mensagem de "carregando" se existir
-    const loadingMsg = document.getElementById('mural-loading');
-    if (loadingMsg) loadingMsg.remove();
-
+    if (document.getElementById('mural-loading')) document.getElementById('mural-loading').remove();
     const post = document.createElement('div');
     post.className = 'mural-post';
     post.innerHTML = `<div class="mp-header"><span class="mp-author">${msg.author.toUpperCase()}</span><span class="mp-time">${msg.time}</span></div><div class="mp-text">${msg.text}</div>`;
-    
-    // Coloca a mensagem mais nova sempre no topo
     feed.insertBefore(post, feed.firstChild);
   };
-
 </script>
 </body>
 </html>

@@ -11,7 +11,6 @@
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
     <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
 
-    <!-- SIDEBAR -->
     <aside id="sidebar">
         <div class="sidebar-brand">
             <div class="brand-logo-wrap">
@@ -51,6 +50,9 @@
             <a class="nav-item" href="#" onclick="openSection('regulamento',this)"><span class="nav-icon">&#128203;</span> Regulamento</a>
             <a class="nav-item" href="#" onclick="openSection('faq',this)"><span class="nav-icon">&#10067;</span> FAQ</a>
             <a class="nav-item" href="#" onclick="openSection('inscricao',this)"><span class="nav-icon">&#9997;&#65039;</span> Inscrição</a>
+            
+            <div class="nav-label">// Acesso</div>
+            <a class="nav-item" href="plataforma/login.html" style="color: var(--cyan); border-left-color: var(--cyan);"><span class="nav-icon">🔑</span> Login na Plataforma</a>
         </nav>
 
         <div class="sidebar-cta">
@@ -58,9 +60,7 @@
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main id="main">
-        <!-- HERO -->
         <div class="page-hero">
             <div class="hero-left">
                 <div class="hero-tag"><span class="live-dot"></span> SENAI JOINVILLE &middot; 02 E 09 ABRIL 2026</div>
@@ -75,7 +75,6 @@
                 </div>
             </div>
 
-            <!-- SVG industrial -->
             <div class="hero-visual">
                 <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="100" cy="100" r="90" stroke="rgba(255,214,0,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
@@ -121,7 +120,6 @@
             </div>
         </div>
 
-        <!-- SOBRE -->
         <div class="accordion" id="acc-sobre">
             <div class="acc-header open" onclick="toggleAcc('sobre')">
                 <div class="acc-icon">&#127968;</div>
@@ -131,7 +129,6 @@
             <div class="acc-body open" id="body-sobre">
                 <div class="acc-inner">
                     <div class="sobre-grid">
-                        <!-- SVG mão + chip -->
                         <div class="sobre-visual">
                             <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="30" y="80" width="100" height="55" rx="8" stroke="rgba(255,214,0,0.3)" stroke-width="1.5" fill="rgba(255,214,0,0.04)"/>
@@ -179,7 +176,6 @@
             </div>
         </div>
 
-        <!-- SPRINTS -->
         <div class="accordion" id="acc-sprints">
             <div class="acc-header" onclick="toggleAcc('sprints')">
                 <div class="acc-icon">&#9889;</div>
@@ -235,7 +231,6 @@
             </div>
         </div>
 
-        <!-- VERTENTES -->
         <div class="accordion" id="acc-vertentes">
             <div class="acc-header" onclick="toggleAcc('vertentes')">
                 <div class="acc-icon">&#128197;</div>
@@ -297,7 +292,6 @@
             </div>
         </div>
 
-        <!-- AVALIAÇÃO -->
         <div class="accordion" id="acc-avaliacao">
             <div class="acc-header" onclick="toggleAcc('avaliacao')">
                 <div class="acc-icon">&#127942;</div>
@@ -341,7 +335,6 @@
             </div>
         </div>
 
-        <!-- CRONOGRAMA -->
         <div class="accordion" id="acc-cronograma">
             <div class="acc-header" onclick="toggleAcc('cronograma')">
                 <div class="acc-icon">&#128336;</div>
@@ -361,7 +354,6 @@
             </div>
         </div>
 
-        <!-- PREMIAÇÃO -->
         <div class="accordion" id="acc-premiacao">
             <div class="acc-header" onclick="toggleAcc('premiacao')">
                 <div class="acc-icon">&#129351;</div>
@@ -390,7 +382,6 @@
             </div>
         </div>
 
-        <!-- REGULAMENTO -->
         <div class="accordion" id="acc-regulamento">
             <div class="acc-header" onclick="toggleAcc('regulamento')">
                 <div class="acc-icon">&#128203;</div>
@@ -421,7 +412,6 @@
             </div>
         </div>
 
-        <!-- FAQ -->
         <div class="accordion" id="acc-faq">
             <div class="acc-header" onclick="toggleAcc('faq')">
                 <div class="acc-icon">&#10067;</div>
@@ -442,7 +432,6 @@
             </div>
         </div>
 
-        <!-- INSCRIÇÃO -->
         <div class="accordion" id="acc-inscricao">
             <div class="acc-header" onclick="toggleAcc('inscricao')">
                 <div class="acc-icon">&#9997;&#65039;</div>
@@ -452,19 +441,25 @@
             <div class="acc-body" id="body-inscricao">
                 <div class="acc-inner">
                     <div class="form-wrap">
-                        <form id="formIns" onsubmit="return submitForm(event)">
-                            <div class="form-row"><label>NOME COMPLETO *</label><input type="text" id="f-nome" required placeholder="Seu nome completo" /></div>
-                            <div class="form-row"><label>E-MAIL *</label><input type="email" id="f-email" required placeholder="seu@email.com" /></div>
-                            <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">&#127963;&#65039; PRESENCIAL --- SENAI Joinville (02/04)</option><option value="online">&#127760; ONLINE (09/04)</option></select></div>
-                            <div class="form-row"><label>NOME DA EQUIPE</label><input type="text" id="f-equipe" placeholder="Ex: Squad Alpha (deixe em branco se não tiver)" /></div>
-                            <div class="form-row"><label>VERTENTE DE INTERESSE</label><select id="f-vert"><option value="">SEM PREFERÊNCIA (SORTEIO)</option><option>&#128230; Logística</option><option>&#128295; Manutenção</option><option>&#9881;&#65039; Produção</option><option>&#128421;&#65039; Administrativo</option><option>&#9851;&#65039; Sustentabilidade</option></select></div>
+                        <form id="formIns">
+                            <div class="form-row"><label>NOME DO LÍDER *</label><input type="text" id="f-nome" required placeholder="Quem vai gerenciar a equipe no app?" /></div>
+                            
+                            <div style="margin-bottom: 24px; padding: 16px; border: 1px dashed rgba(0,240,255,0.4); background: rgba(0,240,255,0.02); border-radius: 6px;">
+                              <div class="form-row"><label style="color:var(--yellow)">NOME DA EQUIPE (SQUAD) *</label><input type="text" id="f-equipe" required placeholder="Ex: Manutenção Alpha" /></div>
+                              <div class="form-row"><label style="color:var(--yellow)">SENHA DA EQUIPE *</label><input type="password" id="f-senha" required placeholder="Crie uma senha para acessar a plataforma" /></div>
+                              <div class="form-row" style="margin-bottom:0;"><label>INTEGRANTES (Nome dos outros membros)</label><input type="text" id="f-membros" placeholder="Ex: Ana, Bruno e Carlos" /></div>
+                            </div>
+
+                            <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (02/04)</option><option value="online">🌐 ONLINE (09/04)</option></select></div>
+                            <div class="form-row"><label>VERTENTE DO DESAFIO *</label><select id="f-vert" required><option value="">ESCOLHA UMA ÁREA...</option><option value="Logística">📦 Logística</option><option value="Manutenção">🔧 Manutenção</option><option value="Produção">⚙️ Produção</option><option value="Administrativo">🗂️ Administrativo</option><option value="Sustentabilidade">♻️ Sustentabilidade</option></select></div>
                             <div class="form-row"><label>TELEFONE (WhatsApp) *</label><input type="text" id="f-tel" required placeholder="(47) 99999-9999" /></div>
-                            <button type="submit" class="form-submit">&#9889; CONFIRMAR INSCRIÇÃO</button>
-                            <div class="form-note">Ao se inscrever, você concorda com o regulamento do Hackathon Inova+ 2026. Vagas limitadas. O cenário específico é sorteado no dia do evento.</div>
+                            
+                            <button type="submit" class="form-submit" id="btn-submit-cad">⚡ CADASTRAR SQUAD</button>
+                            <div class="form-note">Ao se inscrever, você concorda com o regulamento do Hackathon Inova+ 2026. Lembre-se do Nome da Equipe e Senha, eles serão necessários para login no evento.</div>
                         </form>
                         <div class="form-success" id="formSuccess">
-                            <h4>&#9989; INSCRIÇÃO RECEBIDA!</h4>
-                            <p>Em breve você receberá mais instruções por e-mail e WhatsApp. Fique atento!</p>
+                            <h4>✅ SQUAD CADASTRADO COM SUCESSO!</h4>
+                            <p>Sua equipe já pode acessar a <a href="plataforma/login.html" style="color:var(--cyan); text-decoration:none; font-weight:bold;">Plataforma de Prova</a> usando o Nome e a Senha criados.</p>
                         </div>
                     </div>
                 </div>
@@ -473,28 +468,117 @@
     </main>
 
     <script src="assets/js/app.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script>
+      // Lógica de manipulação de Accordions e Sidebar da sua página
+      function toggleSidebar() {
+          const sidebar = document.getElementById('sidebar');
+          const overlay = document.getElementById('sidebarOverlay');
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('show');
+      }
+      function closeSidebar() {
+          document.getElementById('sidebar').classList.remove('open');
+          document.getElementById('sidebarOverlay').classList.remove('show');
+      }
+      function openSection(id, btn=null) {
+          if(btn) {
+              document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+              btn.classList.add('active');
+          }
+          if(window.innerWidth <= 960) closeSidebar();
+          const accHeader = document.querySelector(`#acc-${id} .acc-header`);
+          if(accHeader && !accHeader.classList.contains('open')) {
+              toggleAcc(id);
+          }
+          const element = document.getElementById(`acc-${id}`);
+          if(element) {
+              window.scrollTo({
+                  top: element.offsetTop - 20,
+                  behavior: 'smooth'
+              });
+          }
+      }
+      function toggleAcc(id) {
+          const body = document.getElementById(`body-${id}`);
+          const header = body.previousElementSibling;
+          body.classList.toggle('open');
+          header.classList.toggle('open');
+      }
+      function toggleFaq(el) {
+          el.parentElement.classList.toggle('open');
+      }
+      function switchVert(btn, id) {
+          document.querySelectorAll('.vert-tab').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.vert-panel').forEach(p=>p.classList.remove('active'));
+          document.getElementById('vp-'+id).classList.add('active');
+      }
 
-      <script>
-        // Configuração da Data: 02 de Abril de 2026 às 13:30
-        const dataEvento = '2026-04-02T13:30:00';
-        
-        // Captura as caixinhas do HTML onde os números vão aparecer
-        const els = {
+      // Configuração da Data do Evento
+      const dataEvento = '2026-04-02T13:30:00';
+      const els = {
           days: document.getElementById('cd-d'),
           hours: document.getElementById('cd-h'),
           mins: document.getElementById('cd-m'),
           secs: document.getElementById('cd-s')
-        };
-        
-        // Dispara a função que criamos lá no app.js
-        if (els.days && els.hours && els.mins && els.secs) {
-          startCountdown(dataEvento, els, () => {
-            // Quando o cronômetro zerar, ele mostra essa mensagem:
-            document.querySelector('.sidebar-countdown').innerHTML = 
-              '<div style="font-family:\'Bebas Neue\', sans-serif; font-size:1.5rem; color:var(--cyan); text-align:center; padding:10px; letter-spacing:2px;">O EVENTO COMEÇOU! 🚀</div>';
+      };
+      
+      if (els.days && els.hours && els.mins && els.secs && window.startCountdown) {
+          window.startCountdown(dataEvento, els, () => {
+              document.querySelector('.sidebar-countdown').innerHTML = 
+                '<div style="font-family:\'Bebas Neue\', sans-serif; font-size:1.5rem; color:var(--cyan); text-align:center; padding:10px; letter-spacing:2px;">O EVENTO COMEÇOU! 🚀</div>';
           });
-        }
-      </script>
-    </body>
+      }
+
+      // Submissão do Formulário para o Firebase
+      document.getElementById('formIns').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          if(!window.InovaDB) {
+             alert("Aguardando conexão com o servidor. Tente novamente em 2 segundos.");
+             return;
+          }
+
+          const btn = document.getElementById('btn-submit-cad');
+          btn.textContent = "CADASTRANDO...";
+          btn.disabled = true;
+
+          const equipeNome = document.getElementById('f-equipe').value;
+          const senha = document.getElementById('f-senha').value;
+          const lider = document.getElementById('f-nome').value;
+          const membros = document.getElementById('f-membros').value;
+          const modalidade = document.getElementById('f-mod').value;
+          const vertente = document.getElementById('f-vert').value;
+          const telefone = document.getElementById('f-tel').value;
+
+          const teamKey = equipeNome.trim().toLowerCase().replace(/\s+/g, '_');
+
+          try {
+            const dbRef = window.InovaDB.ref(window.InovaDB.db, `equipes/${teamKey}`);
+            await window.InovaDB.set(dbRef, {
+              nomeEquipe: equipeNome.trim(),
+              senha: senha,
+              lider: lider,
+              membros: membros,
+              modalidade: modalidade,
+              vertente: vertente,
+              telefone: telefone,
+              dataCadastro: new Date().toISOString()
+            });
+
+            document.getElementById('formIns').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+            
+            // Faz a tela rolar para mostrar a mensagem de sucesso
+            document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+          } catch (error) {
+            console.error(error);
+            alert("Erro ao cadastrar equipe. Tente novamente.");
+            btn.textContent = "⚡ CADASTRAR SQUAD";
+            btn.disabled = false;
+          }
+      });
+    </script>
+</body>
 </html>
