@@ -8,185 +8,149 @@
   <link rel="stylesheet" href="../assets/css/base.css"/>
   <style>
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; }
+    
+    /* TOPBAR & NAVIGATION */
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(213,0,249,.2);backdrop-filter:blur(8px)}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--purple);letter-spacing:2px;text-shadow:0 0 20px rgba(213,0,249,.3)}
     .tb-role{font-family:'Space Mono', monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(213,0,249,.3);color:var(--purple); border-radius:4px;}
-    .main{padding:72px 28px 48px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
-    .master-timer-card{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:32px;margin-bottom:28px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center; border-radius:8px;}
+    
+    .main{padding:100px 28px 48px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
+    
+    /* TIMER CARD */
+    .master-timer-card{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:32px;margin-bottom:35px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center; border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
     .mt-display{text-align:center}
-    .mt-time{font-family:'Bebas Neue', sans-serif;font-size:clamp(2.5rem,6vw,5rem);color:var(--purple);text-shadow:0 0 30px rgba(213,0,249,.4);letter-spacing:8px;display:block;line-height:1}
-    .mt-time.running{animation:pulse-glow .8s ease-in-out infinite}
-    .mt-sprint{font-family:'Space Mono', monospace;font-size:.7rem;color:var(--muted);letter-spacing:3px;margin-top:8px;display:block}
-    .mt-controls{display:flex;flex-direction:column;gap:12px;min-width:200px}
-    .mt-controls .btn{width:100%;justify-content:center}
-    .sprint-stepper{display:flex;gap:8px;margin-bottom:28px;align-items:center;flex-wrap:wrap}
-    .ss-step{flex:1;min-width:100px;padding:12px 8px;text-align:center;border:1px solid var(--border);background:var(--panel);cursor:pointer;transition:all .2s; border-radius:4px;}
-    .ss-step.active{border-color:var(--purple);background:rgba(213,0,249,.1)}
-    .ss-step.done{border-color:rgba(0,200,81,.3);background:rgba(0,200,81,.04)}
-    .ss-step:hover{border-color:rgba(213,0,249,.3)}
-    .ss-num{font-family:'Bebas Neue', sans-serif;font-size:1.1rem;display:block;color:var(--muted);margin-bottom:2px}
-    .ss-step.active .ss-num{color:var(--purple)}
-    .ss-step.done .ss-num{color:#00C851}
-    .ss-name{font-family:'Syne', sans-serif;font-size:.78rem;color:var(--muted)}
-    .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-    .metric-card{background:var(--panel);border:1px solid var(--border);padding:20px 24px;transition:border-color .2s; border-radius:8px;}
-    .metric-val{font-family:'Bebas Neue', sans-serif;font-size:2.8rem;display:block;line-height:1;margin-bottom:4px}
-    .metric-lbl{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--muted);letter-spacing:2px}
-    .teams-wrap{background:var(--panel);border:1px solid var(--border);overflow:auto;margin-bottom:28px; border-radius:8px;}
-    .teams-wrap table{width:100%;border-collapse:collapse;min-width:800px}
-    .teams-wrap th{padding:12px 16px;font-family:'Space Mono', monospace;font-size:.62rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left;background:rgba(213,0,249,.03)}
-    .teams-wrap td{padding:10px 16px;border-bottom:1px solid rgba(213,0,249,.06);vertical-align:middle;font-size:.9rem}
-    .td-input{width:100%;padding:8px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Syne', sans-serif;font-size:.85rem;outline:none;transition:border-color .2s; border-radius:4px;}
-    .progress-bar{height:6px;background:rgba(213,0,249,.15);width:100%;min-width:80px;overflow:hidden; border-radius:3px;}
-    .progress-fill{height:100%;background:var(--purple);transition:width .5s}
-    .eng-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
-    .eng-card{background:var(--panel);border:1px solid var(--border);padding:20px; border-radius:8px;}
-    .eng-card h4{font-family:'Bebas Neue', sans-serif;font-size:1.2rem;color:#fff;letter-spacing:1px;margin-bottom:12px}
-    .score-input{width:60px;padding:8px;text-align:center;background:var(--card);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono', monospace;font-size:.9rem;outline:none; border-radius:4px;}
-    .mural-feed{display:grid;gap:8px;max-height:340px;overflow-y:auto}
-    .mural-post{background:var(--card);border:1px solid var(--border);padding:14px 16px; border-radius:6px;}
-    .mp-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-    .mp-author{font-family:'Space Mono', monospace;font-size:.65rem;color:var(--purple);letter-spacing:1px}
-    .mp-time{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--muted)}
-    .mp-text{font-size:.9rem;color:var(--text);line-height:1.5}
-    .announce-box{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:24px;margin-bottom:28px; border-radius:8px;}
-    .adm-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-    .adm-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
-    .adm-tab:hover,.adm-tab.active{background:rgba(213,0,249,.1);border-color:var(--purple);color:var(--purple)}
-    .btn{padding:12px 24px;font-family:'Bebas Neue', sans-serif;font-size:1.1rem;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;transition:all .2s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;}
-    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-primary{background:var(--cyan);color:var(--dark);}
-    .btn-purple{background:var(--purple);color:#fff;}
-    .btn-green{background:#00C851;color:var(--dark);}
-    .btn-amber{background:var(--yellow);color:var(--dark);}
-    .btn-danger{background:#ff4444;color:#fff;}
+    .mt-time{font-family:'Bebas Neue', sans-serif;font-size:5rem;color:var(--purple);text-shadow:0 0 30px rgba(213,0,249,.4);letter-spacing:8px; line-height:1;}
+    .mt-sprint{font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--muted); margin-top:15px; letter-spacing:2px;}
+
+    /* TABS NAV */
+    .adm-tabs{display:flex;gap:30px;margin-bottom:30px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom:5px;}
+    .adm-tab{padding:10px 5px; background:transparent; border:none; color:var(--muted); font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:1px; cursor:pointer; transition:0.3s; position:relative;}
+    .adm-tab.active { color: var(--purple); }
+    .adm-tab.active::after { content:''; position:absolute; bottom:-7px; left:0; width:100%; height:3px; background:var(--purple); box-shadow: 0 0 15px var(--purple); }
+
+    /* DASHBOARD KPIS */
+    .dash-grid-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+    .kpi-card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 12px; border-left: 4px solid var(--purple); }
+    .kpi-val { font-family: 'Bebas Neue'; font-size: 3rem; color: #fff; line-height: 1; margin-bottom: 5px; display:block; }
+    .kpi-lbl { font-family: 'Space Mono'; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* PROFESSIONAL TABLES */
+    .table-container { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 18px 20px; background: rgba(255,255,255,0.02); font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
+    td { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(213,0,249,0.02); }
+
+    /* MODERN INPUTS */
+    .adm-score-input { 
+      width: 60px; background: rgba(0,0,0,0.4); border: 1px solid #333; 
+      color: #fff; text-align: center; padding: 10px; border-radius: 6px; 
+      font-family: 'Space Mono', monospace; font-size: 0.9rem; transition: 0.3s;
+    }
+    .adm-score-input:focus { border-color: var(--purple); box-shadow: 0 0 10px rgba(213,0,249,0.2); outline: none; }
+
+    .textarea-terminal {
+      width: 100%; height: 180px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+      color: var(--cyan); font-family: 'Space Mono', monospace; padding: 20px; border-radius: 8px;
+      font-size: 1rem; line-height: 1.6; outline: none; transition: 0.3s;
+    }
+    .textarea-terminal:focus { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0,240,255,0.1); }
+
+    /* STATUS COMPONENTS */
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; margin-right: 8px; }
+    .status-dot.online { background: #00C851; box-shadow: 0 0 10px #00C851; }
+    .rank-pos { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--muted); width: 40px; }
+    .total-pts { font-family: 'Bebas Neue'; font-size: 2rem; color: #fff; text-shadow: 0 0 10px var(--purple); }
+
+    .btn { padding: 14px 24px; font-family: 'Bebas Neue'; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 1.1rem; letter-spacing: 1px; }
+    .btn-green { background: #00C851; color: #000; }
+    .btn-purple { background: var(--purple); color: #fff; box-shadow: 0 0 20px rgba(213,0,249,0.2); }
+    .btn-danger { background: #ff4444; color: #fff; font-size: 0.8rem; padding: 8px 15px; }
   </style>
 </head>
 <body>
 
 <header class="topbar">
-  <span class="tb-logo">INOVA+</span>
-  <span class="tb-role">🖥️ COORDENAÇÃO</span>
-  <div style="display:flex;align-items:center;gap:16px;margin-left:auto">
-    <span class="badge badge-purple" id="event-status" style="padding:4px 12px; font-family:'Space Mono',monospace; font-size:.6rem; border:1px solid var(--purple); color:var(--purple); border-radius:4px;">PRÉ-EVENTO</span>
-    <button class="btn btn-ghost" onclick="window.AUTH.logout()" style="padding:6px 14px;font-size:.8rem;">SAIR</button>
-  </div>
+  <span class="tb-logo">INOVA+ 2026</span>
+  <span class="tb-role">COORDENAÇÃO MESTRE</span>
+  <button onclick="window.AUTH.logout()" style="margin-left:auto; background:none; border:1px solid #333; color:var(--muted); padding:6px 18px; border-radius:4px; font-size:0.7rem; cursor:pointer;">LOGOUT</button>
 </header>
 
 <main class="main">
 
   <div class="master-timer-card">
     <div class="mt-display">
-      <div style="margin-bottom:12px;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--purple);border:1px solid var(--purple);padding:4px 12px;border-radius:4px;display:inline-block;">CRONÔMETRO MESTRE — VISÍVEL PARA TODOS</div>
       <span class="mt-time" id="master-time">--:--</span>
-      <span class="mt-sprint" id="master-sprint-label">// SPRINT 1 — EMPATIA HUMANA · AGUARDANDO INÍCIO</span>
+      <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO COMANDO //</div>
     </div>
-    <div class="mt-controls">
+    <div style="display:flex; flex-direction:column; gap:12px;">
       <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR TIMER</button>
-      <button class="btn btn-amber" id="btn-pause" onclick="masterPause()" disabled>⏸ PAUSAR</button>
-      <button class="btn btn-danger" id="btn-reset" onclick="masterReset()">↺ RESETAR SPRINT ATUAL</button>
-      <button class="btn btn-purple" id="btn-next" onclick="masterNextSprint()">⏭ PRÓXIMO SPRINT</button>
+      <button class="btn btn-purple" onclick="masterNextSprint()">⏭ PRÓXIMO SPRINT</button>
+      <button class="btn btn-danger" onclick="masterReset()">↺ RESET</button>
     </div>
   </div>
 
-  <div class="sprint-stepper">
-    <div class="ss-step active" id="ss1"><span class="ss-num">SPRINT 01</span><span class="ss-name">Empatia</span></div>
-    <div class="ss-step" id="ss2"><span class="ss-num">SPRINT 02</span><span class="ss-name">Co-Piloto IA</span></div>
-    <div class="ss-step" id="ss3"><span class="ss-num">SPRINT 03</span><span class="ss-name">Toque Humano</span></div>
-    <div class="ss-step" id="ss4"><span class="ss-num">SPRINT 04</span><span class="ss-name">Ponte Digital</span></div>
-    <div class="ss-step" id="ss5"><span class="ss-num">SPRINT 05</span><span class="ss-name">Pitch Final</span></div>
-    <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:var(--muted);padding:8px;white-space:nowrap">→ clique para trocar a fase do evento</span>
-  </div>
-
-  <div class="adm-tabs">
-    <button class="adm-tab active" data-tab="dashboard">📊 Dashboard</button>
-    <button class="adm-tab" data-tab="equipes">👥 Equipes</button>
-    <button class="adm-tab" data-tab="engajamento">📱 Engajamento</button>
-    <button class="adm-tab" data-tab="mural">📢 Mural Jota</button>
-  </div>
+  <nav class="adm-tabs">
+    <button class="adm-tab active" data-tab="dashboard">📊 DASHBOARD LIVE</button>
+    <button class="adm-tab" data-tab="engajamento">🏆 RANKING & NOTAS</button>
+    <button class="adm-tab" data-tab="equipes">👥 GERENCIAR EQUIPES</button>
+    <button class="adm-tab" data-tab="mural">📢 MURAL JOTA</button>
+  </nav>
 
   <div id="tab-dashboard">
-    <div class="dash-grid">
-      <div class="metric-card">
-        <span class="metric-val" style="color:var(--cyan)" id="m-equipes">0</span>
-        <span class="metric-lbl">EQUIPES INSCRITAS</span>
-      </div>
-      <div class="metric-card">
-        <span class="metric-val" style="color:#00C851" id="m-sprint">1</span>
-        <span class="metric-lbl">SPRINT ATUAL</span>
-      </div>
-      <div class="metric-card">
-        <span class="metric-val" style="color:var(--yellow)" id="m-pitches">0</span>
-        <span class="metric-lbl">PITCHES REALIZADOS</span>
-      </div>
-      <div class="metric-card">
-        <span class="metric-val" style="color:var(--purple)" id="m-renders">0</span>
-        <span class="metric-lbl">RENDERS ENVIADOS</span>
-      </div>
+    <div class="dash-grid-top">
+        <div class="kpi-card"><span class="kpi-lbl">Equipes</span><span class="kpi-val" id="kpi-teams">0</span></div>
+        <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
+        <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Fase Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">--</span></div>
+        <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
     </div>
-
-    <div style="background:var(--panel);border:1px solid var(--border);padding:24px;margin-bottom:28px; border-radius:8px;">
-      <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--cyan);border:1px solid var(--cyan);padding:4px 12px;border-radius:4px;display:inline-block;margin-bottom:16px;">PROGRESSO DO EVENTO EM TEMPO REAL</div>
-      <div style="display:grid;gap:12px" id="progress-bars">
-        </div>
-    </div>
-  </div>
-
-  <div id="tab-equipes" style="display:none">
-    <div class="teams-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>NOME DA EQUIPE</th>
-            <th>MEMBROS</th>
-            <th>MESA</th>
-            <th>VERTENTE</th>
-            <th>SPRINT ATUAL</th>
-            <th>RENDER</th>
-          </tr>
-        </thead>
-        <tbody id="teams-tbody">
-            <tr><td colspan="7" style="text-align:center; color:var(--muted);">Carregando equipes do Firebase...</td></tr>
-        </tbody>
-      </table>
+    <div class="table-container" style="padding: 20px;">
+        <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px; letter-spacing:1px;">MONITORAMENTO DE SQUAD (ATIVIDADE)</div>
+        <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;">
+            </div>
     </div>
   </div>
 
   <div id="tab-engajamento" style="display:none">
-    <div class="eng-grid">
-      <div class="eng-card" style="grid-column:span 3">
-        <h4>🏆 RANKING AO VIVO</h4>
-        <div style="overflow:auto">
-          <table style="width:100%;border-collapse:collapse;min-width:400px">
-            <thead><tr><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left">EQUIPE</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">LIKES (1pt)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMENT. (5pts)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">COMPART. (3pts)</th><th style="padding:8px 12px;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--purple);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center">TOTAL</th></tr></thead>
-            <tbody id="eng-tbody">
-                <tr><td colspan="5" style="text-align:center; color:var(--muted);">Carregando...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 80px;">POS</th>
+                    <th>EQUIPE / SQUAD</th>
+                    <th style="text-align:center;">REDES (LIKE/COMM)</th>
+                    <th style="text-align:center; color:var(--cyan)">MONITOR</th>
+                    <th style="text-align:center; color:var(--yellow)">CLIENTE (X2)</th>
+                    <th style="text-align:center;">TOTAL GERAL</th>
+                </tr>
+            </thead>
+            <tbody id="eng-tbody"></tbody>
+        </table>
+    </div>
+  </div>
+
+  <div id="tab-equipes" style="display:none">
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 80px;"># ID</th>
+                    <th>NOME DO SQUAD</th>
+                    <th style="width: 120px;">MESA</th>
+                    <th>INTEGRANTES DO GRUPO</th>
+                </tr>
+            </thead>
+            <tbody id="teams-tbody"></tbody>
+        </table>
     </div>
   </div>
 
   <div id="tab-mural" style="display:none">
-    <div class="announce-box">
-      <div style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--purple);border:1px solid var(--purple);padding:4px 12px;border-radius:4px;display:inline-block;margin-bottom:14px;">📢 PUBLICAR MENSAGEM DO JOTA</div>
-      <div style="margin-bottom:14px">
-        <label style="display:block;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px">MENSAGEM RÁPIDA PARA O TELÃO</label>
-        <input type="text" id="mural-msg" class="td-input" placeholder="Ex: Acelera galera! Faltam 5 minutos para o final do Sprint! ⏳" />
-      </div>
-      <div style="display:flex;gap:12px; align-items: flex-end;">
-        <div style="flex:1">
-          <label style="display:block;font-family:'Space Mono', monospace;font-size:.6rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px">AUTOR</label>
-          <input type="text" id="mural-author" class="td-input" value="🤖 Jota" />
-        </div>
-        <button class="btn btn-purple" onclick="postMural()" style="padding:11px 24px">🚀 PUBLICAR NO TELÃO E APP</button>
-      </div>
-    </div>
-
-    <div class="mural-feed" id="mural-feed">
-      <div id="mural-loading" style="padding: 14px; color: var(--muted); font-size: 0.8rem;">Carregando histórico...</div>
+    <div class="table-container" style="padding: 30px;">
+        <div style="font-family:'Bebas Neue'; color:var(--cyan); font-size:1.5rem; margin-bottom:20px;">MENSAGEM GLOBAL (BROADCAST)</div>
+        <textarea id="mural-msg" class="textarea-terminal" placeholder="Escreva aqui a mensagem que aparecerá para todas as equipes e no telão principal..."></textarea>
+        <button class="btn btn-purple" onclick="postMural()" style="width:100%; margin-top:20px;">🚀 PUBLICAR NO SISTEMA</button>
     </div>
   </div>
 
@@ -194,218 +158,124 @@
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
-  // 1. ESPERA O MOTOR (APP.JS) LIGAR ANTES DE EXECUTAR
   const checkLoad = setInterval(() => {
-      if (window.AUTH && window.SprintTimer) {
+      if (window.AUTH && window.SprintTimer && window.InovaDB) {
           clearInterval(checkLoad);
-          iniciarPainelADM(); // Só roda quando estiver tudo pronto!
+          iniciarPainelADM();
       }
   }, 100);
 
+  let teams = [];
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
 
   function iniciarPainelADM() {
-      // Verifica segurança
       window.AUTH.require('adm');
-      
-      // Inicia a atualização da tela a cada 1 segundo
-      setInterval(updateMasterDisplay, 1000);
-      updateMasterDisplay();
-      
-      // Carrega as equipes
-      carregarEquipesDoBanco();
-  }
-
-  function updateMasterDisplay() {
-      const rem = window.SprintTimer.getRemaining();
-      const state = window.SprintTimer.getState();
-      const timeEl = document.getElementById('master-time');
-      
-      timeEl.textContent = window.fmtTime(rem);
-      timeEl.className = 'mt-time' + (state.running ? ' running' : '');
-      
-      document.getElementById('master-sprint-label').textContent =
-          `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} · ${state.running ? 'EM ANDAMENTO' : 'PAUSADO'}`;
-      document.getElementById('m-sprint').textContent = state.sprint;
-      
-      for (let i=1;i<=5;i++) {
-          const el = document.getElementById('ss'+i);
-          el.className = 'ss-step';
-          if (i < state.sprint) el.classList.add('done');
-          if (i === state.sprint) el.classList.add('active');
-      }
-
-      const statusEl = document.getElementById('event-status');
-      if (state.running) { statusEl.textContent='EM ANDAMENTO'; statusEl.style.color='#00C851'; statusEl.style.borderColor='#00C851'; }
-      else if (state.sprint > 1) { statusEl.textContent='PAUSADO'; statusEl.style.color='var(--yellow)'; statusEl.style.borderColor='var(--yellow)'; }
-      else { statusEl.textContent='PRÉ-EVENTO'; statusEl.style.color='var(--purple)'; statusEl.style.borderColor='var(--purple)'; }
-  }
-
-  // 2. FUNÇÕES LIGADAS AOS BOTÕES (Precisam do window. na frente agora)
-  window.masterStart = function() {
-      window.SprintTimer.start();
-      document.getElementById('btn-start').disabled = true;
-      document.getElementById('btn-pause').disabled = false;
-      window.toast('Cronômetro rodando! ▶','success');
-  }
-
-  window.masterPause = function() {
-      window.SprintTimer.pause();
-      document.getElementById('btn-start').textContent = '▶ RETOMAR';
-      document.getElementById('btn-start').disabled = false;
-      document.getElementById('btn-pause').disabled = true;
-      window.toast('Timer pausado.','info');
-      updateMasterDisplay();
-  }
-
-  window.masterReset = function() {
-      if (!confirm('Isso vai zerar o relógio deste sprint. Confirma?')) return;
-      window.SprintTimer.reset();
-      document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
-      document.getElementById('btn-start').disabled = false;
-      document.getElementById('btn-pause').disabled = true;
-      updateMasterDisplay();
-  }
-
-  window.masterNextSprint = function() {
-      const state = window.SprintTimer.getState();
-      if (state.sprint >= 5) { window.toast('Já está no Sprint final!','error'); return; }
-      window.SprintTimer.nextSprint();
-      document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
-      document.getElementById('btn-start').disabled = false;
-      document.getElementById('btn-pause').disabled = true;
-      updateMasterDisplay();
-      window.toast(`Avançou para o Sprint ${state.sprint+1}. Relógio carregado e pausado.`,`success`);
-  }
-
-  // Pular Sprints clicando nas caixas
-  for (let i=1;i<=5;i++) {
-      document.getElementById('ss'+i).addEventListener('click', () => {
-          if (!window.SprintTimer) return;
-          window.SprintTimer.setSprint(i);
-          document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
-          document.getElementById('btn-start').disabled = false;
-          document.getElementById('btn-pause').disabled = true;
+      setInterval(() => {
           updateMasterDisplay();
-          window.toast(`Pulou para o Sprint ${i}. Relógio carregado e pausado.`,`info`);
+          updateDashboardKPIs();
+      }, 1000);
+      carregarDados();
+  }
+
+  function carregarDados() {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          teams = data ? Object.keys(data).map(id => ({ id, ...data[id] })) : [];
+          renderTudo();
       });
   }
 
-  // ── PROGRESS BARS ADM ──
-  setInterval(() => {
-      if(!window.SprintTimer) return;
-      const state = window.SprintTimer.getState();
-      const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
-      const container = document.getElementById('progress-bars');
-      
-      container.innerHTML = sprintNames.map((name,i)=>{
-          let pct = 0;
-          if (i+1 < state.sprint) pct = 100;
-          else if (i+1 === state.sprint) {
-              const maxTime = SPRINT_TIMES[i];
-              const rem = window.SprintTimer.getRemaining();
-              pct = Math.max(0, Math.round((1 - rem/maxTime)*100)); 
-          }
-          
-          const color = i+1 < state.sprint ? '#00C851' : i+1===state.sprint ? 'var(--purple)' : 'var(--muted)';
-          return `<div style="display:grid;grid-template-columns:160px 1fr 40px;align-items:center;gap:12px">
-          <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};letter-spacing:1px">SPRINT ${i+1}: ${name.toUpperCase()}</span>
-          <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
-          <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};text-align:right">${pct}%</span>
-          </div>`;
+  function renderTudo() {
+      // 1. RANKING TURBINADO
+      const sorted = [...teams].sort((a,b) => calcularTotal(b) - calcularTotal(a));
+      document.getElementById('eng-tbody').innerHTML = sorted.map((t, i) => {
+          const n = t.notasEquipe || {};
+          const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
+          const cli = (parseFloat(n.nota_cliente)||0) * 2;
+          return `<tr>
+            <td class="rank-pos">${i+1}º</td>
+            <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()}</td>
+            <td style="text-align:center">
+                <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)" title="Likes">
+                <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)" title="Comments" style="border-color:var(--cyan)">
+            </td>
+            <td style="text-align:center; font-family:'Space Mono'; color:var(--cyan)">${mon.toFixed(1)}</td>
+            <td style="text-align:center; font-family:'Space Mono'; color:var(--yellow)">${cli.toFixed(1)}</td>
+            <td style="text-align:center"><span class="total-pts">${calcularTotal(t).toFixed(1)}</span></td>
+          </tr>`;
       }).join('');
-  }, 1500);
 
-  // Tabs
+      // 2. EQUIPES PROFISSIONAL
+      document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => `
+        <tr>
+            <td style="color:var(--muted); font-family:'Space Mono'">${String(i+1).padStart(2,'0')}</td>
+            <td style="font-weight:600; color:#fff">${t.nomeEquipe}</td>
+            <td style="font-family:'Space Mono'; color:var(--purple)">MESA ${t.mesa||'--'}</td>
+            <td style="font-size:0.8rem; color:var(--muted)">${t.membros||'Não informados'}</td>
+        </tr>
+      `).join('');
+
+      // 3. DASHBOARD DOTS
+      document.getElementById('dash-team-status').innerHTML = teams.map(t => `
+        <div style="background:rgba(255,255,255,0.02); padding:15px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
+            <span class="status-dot ${t.renderEnviado ? 'online' : ''}"></span>
+            <span style="font-size:0.8rem; font-weight:600;">${t.nomeEquipe}</span>
+        </div>
+      `).join('');
+  }
+
+  function updateDashboardKPIs() {
+      if(teams.length === 0) return;
+      const totalEng = teams.reduce((acc, t) => acc + (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5, 0);
+      const state = window.SprintTimer.getState();
+      
+      document.getElementById('kpi-teams').textContent = teams.length;
+      document.getElementById('kpi-eng').textContent = totalEng;
+      document.getElementById('kpi-phase').textContent = state.sprint;
+  }
+
+  function updateMasterDisplay() {
+      const state = window.SprintTimer.getState();
+      const rem = window.SprintTimer.getRemaining();
+      document.getElementById('master-time').textContent = window.fmtTime(rem);
+      document.getElementById('master-sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
+  }
+
+  window.updateSocial = (id, field, val) => {
+      const u = {}; u[`equipes/${id}/${field}`] = parseInt(val)||0;
+      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), u);
+  };
+
+  window.masterStart = () => window.SprintTimer.start();
+  window.masterNextSprint = () => window.SprintTimer.nextSprint();
+  window.masterReset = () => confirm('Deseja zerar o cronômetro do sprint atual?') && window.SprintTimer.reset();
+
+  function calcularTotal(t) {
+      const soc = (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5 + (parseInt(t.eng_shares)||0)*3;
+      const n = t.notasEquipe || {};
+      const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
+      const cli = (parseFloat(n.nota_cliente)||0) * 2;
+      return soc + mon + cli;
+  }
+
+  // TABS NAVIGATION
   document.querySelectorAll('.adm-tab').forEach(tab => {
       tab.addEventListener('click', () => {
           document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
           tab.classList.add('active');
-          ['dashboard','equipes','engajamento','mural'].forEach(id => {
-              document.getElementById('tab-'+id).style.display = tab.dataset.tab===id?'':'none';
+          ['dashboard','engajamento','equipes','mural'].forEach(id => {
+              document.getElementById('tab-'+id).style.display = tab.dataset.tab===id?'block':'none';
           });
       });
   });
 
-  // DB Equipes
-  let teams = [];
-  window.updateEquipeDB = function(key, field, value) {
-      if(!window.InovaDB || !window.InovaDB.update) return;
-      const updates = {};
-      updates['equipes/' + key + '/' + field] = value;
-      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-          .then(() => window.toast('Salvo na nuvem!', 'success'))
-          .catch(err => window.toast('Erro ao salvar.', 'error'));
+  window.postMural = () => {
+      const msg = document.getElementById('mural-msg').value;
+      if(!msg) return;
+      window.Mural.pushFirebase(window.Mural.dbRef, { author: '🤖 JOTA', text: msg, time: new Date().toLocaleTimeString().slice(0,5) });
+      document.getElementById('mural-msg').value = '';
+      window.toast('NOTIFICAÇÃO ENVIADA COM SUCESSO!');
   }
-
-  function carregarEquipesDoBanco() {
-      if(!window.InovaDB) { setTimeout(carregarEquipesDoBanco, 500); return; }
-      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
-          const data = snapshot.val();
-          teams = [];
-          if(data) {
-              Object.keys(data).forEach(key => {
-                  teams.push({ id: key, ...data[key] });
-              });
-          }
-          document.getElementById('m-equipes').textContent = teams.length;
-          renderTeams();
-          renderEng();
-      });
-  }
-
-  function renderTeams() {
-      const tbody = document.getElementById('teams-tbody');
-      if(teams.length === 0) return tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma equipe cadastrada.</td></tr>';
-      tbody.innerHTML = teams.map((t,i)=>`<tr>
-          <td style="color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
-          <td style="font-weight:bold; color:var(--text);">${t.nomeEquipe || 'Sem Nome'}</td>
-          <td><input class="td-input" value="${t.membros || ''}" onchange="window.updateEquipeDB('${t.id}', 'membros', this.value)"/></td>
-          <td><input class="td-input" value="${t.mesa || ''}" style="width:60px; text-align:center;" placeholder="01" onchange="window.updateEquipeDB('${t.id}', 'mesa', this.value)"/></td>
-          <td style="color:var(--cyan); font-size: 0.85rem;">${(t.vertente || '').toUpperCase()}</td>
-          <td><select class="td-input" style="width:80px" onchange="window.updateEquipeDB('${t.id}', 'sprintAtual', parseInt(this.value))">
-          ${[1,2,3,4,5].map(n=>`<option ${(t.sprintAtual||1)===n?'selected':''}>${n}</option>`).join('')}
-          </select></td>
-          <td style="text-align:center"><input type="checkbox" style="width:18px; height:18px; accent-color: var(--purple);" ${t.renderEnviado?'checked':''} onchange="window.updateEquipeDB('${t.id}', 'renderEnviado', this.checked)"/></td>
-      </tr>`).join('');
-  }
-
-  function renderEng() {
-      const sorted = [...teams].sort((a,b)=>((b.eng_likes||0)+(b.eng_comments||0)*5+(b.eng_shares||0)*3)-((a.eng_likes||0)+(a.eng_comments||0)*5+(a.eng_shares||0)*3));
-      document.getElementById('eng-tbody').innerHTML = sorted.map((t,i)=>{
-          const total = (t.eng_likes||0) + (t.eng_comments||0)*5 + (t.eng_shares||0)*3;
-          return `<tr>
-          <td style="font-weight:600;color:#fff">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'·'} ${t.nomeEquipe}</td>
-          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_likes||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_likes', parseInt(this.value)||0)"/></td>
-          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_comments||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_comments', parseInt(this.value)||0)"/></td>
-          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_shares||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_shares', parseInt(this.value)||0)"/></td>
-          <td style="text-align:center;font-family:'Bebas Neue', sans-serif;font-size:1.5rem;color:var(--cyan)">${total}</td>
-          </tr>`;
-      }).join('');
-  }
-
-  window.postMural = function() {
-      const msg = document.getElementById('mural-msg').value.trim();
-      const author = document.getElementById('mural-author').value.trim() || '🤖 Jota';
-      if (!msg) { window.toast('Digite uma mensagem!','error'); return; }
-      const now = new Date();
-      const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
-      if (window.Mural && window.Mural.pushFirebase) {
-          window.Mural.pushFirebase(window.Mural.dbRef, { author: author, text: msg, time: time });
-          document.getElementById('mural-msg').value = '';
-          window.toast('Mensagem enviada! 🚀', 'success');
-      }
-  }
-
-  window.renderNovoPost = function(msg) {
-      const feed = document.getElementById('mural-feed');
-      if (document.getElementById('mural-loading')) document.getElementById('mural-loading').remove();
-      const post = document.createElement('div');
-      post.className = 'mural-post';
-      post.innerHTML = `<div class="mp-header"><span class="mp-author">${msg.author.toUpperCase()}</span><span class="mp-time">${msg.time}</span></div><div class="mp-text">${msg.text}</div>`;
-      feed.insertBefore(post, feed.firstChild);
-  };
 </script>
 </body>
 </html>

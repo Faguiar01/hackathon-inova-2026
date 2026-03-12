@@ -14,7 +14,7 @@
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(255,214,0,.2);backdrop-filter:blur(8px)}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:2px;text-shadow:0 0 20px rgba(255,214,0,.3)}
     .tb-role{font-family:'Space Mono', monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(255,214,0,.3);color:var(--yellow); border-radius:4px;}
-    .main{padding:72px 28px 48px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+    .main{padding:85px 28px 48px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
     
     /* LEMBRETES */
     .lembretes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
@@ -34,46 +34,35 @@
     .cl-progress{font-family:'Space Mono', monospace;font-size:.75rem;color:var(--yellow);letter-spacing:1px;flex-shrink:0}
     .cl-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
     .cl-body-inner{padding:0 20px 20px 76px;display:grid;gap:8px}
+    
     .check-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:all .2s;user-select:none; border-radius:4px;}
-    .check-item:hover{border-color:rgba(255,214,0,.3)}
     .check-item.checked{background:rgba(0,200,81,.05);border-color:rgba(0,200,81,.2)}
     .check-box{width:20px;height:20px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.75rem; border-radius:3px;}
     .check-item.checked .check-box{border-color:#00C851;background:rgba(0,200,81,.15);color:#00C851}
-    .check-text{font-size:.9rem;color:var(--muted);transition:color .2s;line-height:1.4}
-    .check-item.checked .check-text{color:#fff}
-    .check-nota{font-family:'Space Mono', monospace;font-size:.6rem;color:var(--yellow);letter-spacing:1px;margin-left:auto;flex-shrink:0}
     
-    /* SOFT SKILLS */
+    /* SOFT SKILLS TABLE */
     .ss-table{background:var(--panel);border:1px solid var(--border);overflow:auto; border-radius:8px;}
     .ss-table table{width:100%;border-collapse:collapse;min-width:700px}
     .ss-table th{padding:12px 16px;font-family:'Space Mono', monospace;font-size:.62rem;color:var(--cyan);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left;background:rgba(0,240,255,.03)}
-    .ss-table td{padding:10px 16px;border-bottom:1px solid rgba(0,240,255,.06);vertical-align:middle}
-    .ss-table tr:last-child td{border-bottom:none}
-    .ss-table tr:hover td{background:rgba(0,240,255,.02)}
-    .score-input{width:56px;padding:6px 8px;text-align:center;background:var(--card);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono', monospace;font-size:.85rem;outline:none;transition:all .2s; border-radius:4px;}
-    .score-input:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.2)}
-    .score-total{font-family:'Bebas Neue', sans-serif;font-size:1.2rem;color:#00C851}
-    .ss-actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .ss-table td{padding:20px 16px;border-bottom:1px solid rgba(0,240,255,.06);vertical-align:middle}
     
+    .score-input{width:65px;padding:10px;text-align:center;background:rgba(0,0,0,0.3);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono', monospace;font-size:1rem;outline:none;border-radius:4px;}
+    .score-input:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,0.2)}
+    .score-total{font-family:'Bebas Neue', sans-serif;font-size:2.2rem;color:#00C851;text-shadow:0 0 10px rgba(0,200,81,0.3)}
+    
+    .td-input{background:rgba(0,0,0,0.2); border:1px solid var(--border); color:#fff; padding:12px; font-family:'Syne', sans-serif; font-size:0.9rem; border-radius:4px; outline:none;}
+    .td-input:focus{border-color:var(--yellow);}
+
     /* MESA SELECT */
     .mesa-selector{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
     .mesa-btn{padding:10px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Bebas Neue', sans-serif;font-size:1.1rem;letter-spacing:1px;cursor:pointer;transition:all .2s; border-radius:4px;}
     .mesa-btn.active{border-color:var(--yellow);color:var(--dark);background:var(--yellow)}
-    .mesa-btn:hover:not(.active){border-color:rgba(255,214,0,.4);color:var(--yellow)}
     
-    /* BUTTONS */
     .btn{padding:10px 20px;font-family:'Bebas Neue', sans-serif;font-size:1rem;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;transition:all .2s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;}
     .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
     .btn-amber{background:var(--yellow);color:var(--dark);}
-    .btn-amber:hover{background:var(--cyan);transform:translateY(-2px);}
 
-    @media(max-width:768px){
-      .lembretes{grid-template-columns:1fr}
-      .topbar{padding:10px 16px}
-      .main{padding:68px 16px 40px}
-      .cl-body-inner{padding:0 16px 16px}
-    }
+    @media(max-width:768px){ .lembretes{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -81,10 +70,16 @@
 <header class="topbar">
   <span class="tb-logo">INOVA+</span>
   <span class="tb-role">📋 MONITOR</span>
-  <div style="display:flex;align-items:center;gap:16px;margin-left:auto">
+  
+  <div style="margin-left:auto; display:flex; align-items:center; gap:20px;">
+    <div style="text-align: right; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 20px;">
+        <span id="nome-avaliador-display" style="display:block; font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--cyan); font-weight:bold;">Avaliador: ---</span>
+        <a href="#" onclick="window.trocarAvaliador()" style="font-size:0.55rem; color:var(--muted); text-decoration:none; text-transform:uppercase; letter-spacing:1px;">(Trocar Monitor)</a>
+    </div>
+
     <div style="text-align: right;">
-      <span style="font-family:'Bebas Neue', sans-serif;font-size:1.6rem;color:var(--cyan); letter-spacing: 2px; line-height: 1; display: block;" id="crono-display">--:--</span>
-      <span style="font-family:'Space Mono', monospace;font-size:.5rem;color:var(--muted); letter-spacing: 1px;" id="sprint-label-monitor">AGUARDANDO...</span>
+      <span style="font-family:'Bebas Neue', sans-serif;font-size:1.6rem;color:var(--yellow); letter-spacing: 2px; line-height: 1; display: block;" id="crono-display">--:--</span>
+      <span style="font-family:'Space Mono', monospace;font-size:.5rem;color:var(--muted); letter-spacing: 1px;" id="sprint-label-monitor">SINCRONIZANDO...</span>
     </div>
     <button class="btn btn-ghost" onclick="window.AUTH.logout()">SAIR</button>
   </div>
@@ -93,14 +88,12 @@
 <main class="main">
 
   <div class="lembretes">
-    <div class="lembrete"><span class="lembrete-icon">🚫</span><p>"Não dê a resposta — faça a pergunta certa que destrava o pensamento."</p></div>
     <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo. Avise a equipe quando faltarem 5 minutos de cada sprint.</p></div>
-    <div class="lembrete"><span class="lembrete-icon">🔍</span><p>Valide toda afirmação com dados reais. Sem fonte = sem avançar de fase.</p></div>
-    <div class="lembrete"><span class="lembrete-icon">✍️</span><p>A nota de Soft Skills é sua responsabilidade. Observe e anote durante os sprints.</p></div>
+    <div class="lembrete"><span class="lembrete-icon">✍️</span><p>Observe a colaboração do grupo. Sua nota deve refletir o processo, não apenas o resultado final.</p></div>
   </div>
 
   <div style="margin-bottom:24px">
-    <div class="tag" style="margin-bottom:12px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">SELECIONE A MESA QUE VOCÊ ESTÁ AVALIANDO</div>
+    <div class="tag" style="margin-bottom:12px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">ESTAÇÃO DE TRABALHO</div>
     <div class="mesa-selector">
       <button class="mesa-btn active" onclick="selectMesa('01',this)">MESA 01</button>
       <button class="mesa-btn" onclick="selectMesa('02',this)">MESA 02</button>
@@ -113,116 +106,51 @@
     </div>
   </div>
 
-  <div style="margin-bottom: 24px; padding: 12px 16px; background: rgba(0, 240, 255, 0.05); border-left: 4px solid var(--cyan); border-radius: 4px;">
-      <h3 style="font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.4rem; letter-spacing: 1px;" id="equipe-nome-display">Equipe: Nenhuma selecionada</h3>
-      <p style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--cyan);" id="equipe-vertente-display">Vertente: --</p>
+  <div style="margin-bottom: 24px; padding: 15px 20px; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-left: 5px solid var(--cyan); border-radius: 4px;">
+      <h3 style="font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.6rem; letter-spacing: 1px; margin:0;" id="equipe-nome-display">Equipe: Selecione uma mesa</h3>
+      <p style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--cyan); margin-top:5px;" id="equipe-vertente-display">Vertente: --</p>
   </div>
 
-  <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">CHECKLIST METODOLÓGICO — <span id="mesa-label">MESA 01</span></div>
+  <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">CHECKLIST DE EVOLUÇÃO — <span id="mesa-label">MESA 01</span></div>
   <div class="sprint-checklists" id="checklists">
-
     <div class="sprint-cl" id="cl1">
       <div class="sprint-cl-header" onclick="toggleCL('cl1')">
         <span class="cl-num">01</span>
-        <div class="cl-title-wrap"><span class="cl-title">Empatia Humana</span><span class="cl-time">15 MINUTOS</span></div>
-        <span class="cl-progress" id="prog1">0/4</span>
+        <div class="cl-title-wrap"><span class="cl-title">Empatia e Identificação</span><span class="cl-time">SPRINT 1</span></div>
+        <span class="cl-progress" id="prog1">0/2</span>
         <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
       </div>
       <div class="cl-body"><div class="cl-body-inner" id="clb1">
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Equipe leu o cenário e identificou o trabalhador e a dor principal</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Pesquisaram 1 dado real com fonte (notícia, estatística, número)</span><span class="check-nota">OBRIGATÓRIO</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Post-it amarelo preenchido com o dado e a fonte no Canvas</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Monitor validou a fonte antes de autorizar avanço para Sprint 2</span><span class="check-nota">VALIDAR</span></div>
+        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Equipe identificou a dor real e trouxe uma fonte/dado estatístico.</span></div>
+        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Preencheram o Quadrante 1 do Canvas.</span></div>
       </div></div>
     </div>
-
-    <div class="sprint-cl" id="cl2">
-      <div class="sprint-cl-header" onclick="toggleCL('cl2')">
-        <span class="cl-num" style="border-color:var(--cyan);color:var(--cyan)">02</span>
-        <div class="cl-title-wrap"><span class="cl-title">Co-Piloto IA</span><span class="cl-time">15 MINUTOS</span></div>
-        <span class="cl-progress" id="prog2">0/4</span>
-        <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
-      </div>
-      <div class="cl-body"><div class="cl-body-inner" id="clb2">
-        <div class="check-item" onclick="toggleCheck(this,'cl2')"><div class="check-box"></div><span class="check-text">Equipe está usando ChatGPT ou Gemini ativamente</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl2')"><div class="check-box"></div><span class="check-text">Prompt inclui contexto: ambiente fabril, problema identificado, tipo de solução</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl2')"><div class="check-box"></div><span class="check-text">Escolheram a melhor ideia gerada pela IA (não a primeira sugestão!)</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl2')"><div class="check-box"></div><span class="check-text">Post-it azul com a ideia escolhida anotado no Canvas Quadrante 2</span></div>
-      </div></div>
     </div>
-
-    <div class="sprint-cl" id="cl3">
-      <div class="sprint-cl-header" onclick="toggleCL('cl3')">
-        <span class="cl-num" style="border-color:#00C851;color:#00C851">03</span>
-        <div class="cl-title-wrap"><span class="cl-title">Toque Humano 5.0</span><span class="cl-time">15 MINUTOS</span></div>
-        <span class="cl-progress" id="prog3">0/4</span>
-        <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
-      </div>
-      <div class="cl-body"><div class="cl-body-inner" id="clb3">
-        <div class="check-item" onclick="toggleCheck(this,'cl3')"><div class="check-box"></div><span class="check-text">Questionaram a IA sobre ética, segurança ou ergonomia da solução</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl3')"><div class="check-box"></div><span class="check-text">Verificaram acessibilidade e inclusão (Indústria 5.0 = humana!)</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl3')"><div class="check-box"></div><span class="check-text">Identificaram o impacto ambiental/sustentável da solução</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl3')"><div class="check-box"></div><span class="check-text">Post-it verde com o refinamento humano no Canvas Quadrante 3</span></div>
-      </div></div>
-    </div>
-
-    <div class="sprint-cl" id="cl4">
-      <div class="sprint-cl-header" onclick="toggleCL('cl4')">
-        <span class="cl-num" style="border-color:var(--purple);color:var(--purple)">04</span>
-        <div class="cl-title-wrap"><span class="cl-title">Ponte Digital</span><span class="cl-time">30 MINUTOS</span></div>
-        <span class="cl-progress" id="prog4">0/5</span>
-        <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
-      </div>
-      <div class="cl-body"><div class="cl-body-inner" id="clb4">
-        <div class="check-item" onclick="toggleCheck(this,'cl4')"><div class="check-box"></div><span class="check-text">Desenharam o Blueprint à mão ANTES de abrir o gerador de imagens</span><span class="check-nota">OBRIGATÓRIO</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl4')"><div class="check-box"></div><span class="check-text">Prompt de render inclui: tipo, ambiente, estilo, foco humano</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl4')"><div class="check-box"></div><span class="check-text">Render 3D gerado e aprovado pela equipe</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl4')"><div class="check-box"></div><span class="check-text">Render enviado/salvo para usar na apresentação</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl4')"><div class="check-box"></div><span class="check-text">Canvas Quadrante 4 preenchido com foto do Blueprint + render</span></div>
-      </div></div>
-    </div>
-
-    <div class="sprint-cl" id="cl5">
-      <div class="sprint-cl-header" onclick="toggleCL('cl5')">
-        <span class="cl-num" style="border-color:#ff4444;color:#ff4444">05</span>
-        <div class="cl-title-wrap"><span class="cl-title">Pitch Final</span><span class="cl-time">15 MINUTOS</span></div>
-        <span class="cl-progress" id="prog5">0/3</span>
-        <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
-      </div>
-      <div class="cl-body"><div class="cl-body-inner" id="clb5">
-        <div class="check-item" onclick="toggleCheck(this,'cl5')"><div class="check-box"></div><span class="check-text">Porta-voz definido pela equipe</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl5')"><div class="check-box"></div><span class="check-text">Estrutura do pitch: Problema → Solução → Impacto → Render (2 min)</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl5')"><div class="check-box"></div><span class="check-text">Render 3D disponível para mostrar aos jurados durante o pitch</span><span class="check-nota">OBRIGATÓRIO</span></div>
-      </div></div>
-    </div>
-
-  </div>
 
   <div style="margin-top:40px">
-    <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">AVALIAÇÃO DE SOFT SKILLS (SALVAMENTO AUTOMÁTICO NA NUVEM)</div>
-    <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px">Notas de 0 a 10 por critério. Ao digitar, os dados vão direto para o Painel ADM.</p>
+    <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">AVALIAÇÃO TÉCNICA DO SQUAD (NOTAS 0-10)</div>
 
     <div class="ss-table">
       <table>
         <thead>
           <tr>
-            <th>INTEGRANTE DA EQUIPE</th>
-            <th>LIDERANÇA</th>
-            <th>COMUNICAÇÃO</th>
-            <th>PROATIVIDADE</th>
-            <th>PENS. CRÍTICO</th>
-            <th style="text-align: center;">TOTAL</th>
-            <th>OBSERVAÇÃO RÁPIDA</th>
+            <th style="width: 30%;">CRITÉRIO DE AVALIAÇÃO</th>
+            <th style="text-align: center;">C1: EMPATIA</th>
+            <th style="text-align: center;">C2: USO DE IA</th>
+            <th style="text-align: center;">C3: HUMANIZAÇÃO</th>
+            <th style="text-align: center;">C4: PITCH</th>
+            <th style="text-align: center;">TOTAL SQUAD</th>
           </tr>
         </thead>
         <tbody id="ss-tbody">
-          <tr><td colspan="7" style="text-align:center; color:var(--muted); padding:20px;">Carregando dados da nuvem...</td></tr>
-        </tbody>
+          </tbody>
       </table>
     </div>
 
-    <div class="ss-actions">
-      <button class="btn btn-amber" onclick="window.toast('As notas já estão salvas no banco de dados da coordenação!', 'success')">✅ NOTAS SALVAS AUTOMATICAMENTE</button>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-amber" style="width:100%; pointer-events:none; opacity:0.9;">
+            ✅ AS NOTAS SÃO SALVAS AUTOMATICAMENTE NA NUVEM
+        </button>
     </div>
   </div>
 
@@ -230,6 +158,7 @@
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
+  // 1. SEMÁFORO DE CARREGAMENTO
   const checkLoad = setInterval(() => {
       if (window.AUTH && window.SprintTimer && window.InovaDB) {
           clearInterval(checkLoad);
@@ -244,6 +173,15 @@
   function iniciarMonitor() {
       window.AUTH.require('monitor');
 
+      // Opção C: Identificação do Monitor
+      let avaliador = sessionStorage.getItem('inova_nome_monitor');
+      if (!avaliador) {
+          solicitarNomeAvaliador();
+      } else {
+          document.getElementById('nome-avaliador-display').textContent = "Avaliador: " + avaliador;
+      }
+
+      // Sincronização do Cronômetro
       setInterval(() => {
         const rem = window.SprintTimer.getRemaining();
         const state = window.SprintTimer.getState();
@@ -252,6 +190,24 @@
       }, 1000);
 
       carregarEquipesMonitor();
+  }
+
+  // GESTÃO DE NOMES (Turnos)
+  function solicitarNomeAvaliador() {
+      const nome = prompt("BEM-VINDO! Por favor, digite seu nome (Monitor/Avaliador):");
+      if (nome && nome.trim().length > 2) {
+          sessionStorage.setItem('inova_nome_monitor', nome.trim());
+          document.getElementById('nome-avaliador-display').textContent = "Avaliador: " + nome.trim();
+          window.toast("Identificado como: " + nome, "success");
+      } else {
+          alert("A identificação é obrigatória para registrar notas.");
+          solicitarNomeAvaliador();
+      }
+  }
+
+  window.trocarAvaliador = function() {
+      sessionStorage.removeItem('inova_nome_monitor');
+      solicitarNomeAvaliador();
   }
 
   function carregarEquipesMonitor() {
@@ -274,7 +230,6 @@
     let teamId = null;
     let teamData = null;
     
-    // Busca a equipe pela mesa
     for (const key in dbEquipes) {
       if (dbEquipes[key].mesa == currentMesa) {
          teamId = key;
@@ -288,30 +243,29 @@
     if (!teamData) {
       document.getElementById('equipe-nome-display').textContent = "MESA VAZIA";
       document.getElementById('equipe-vertente-display').textContent = "Sem equipe vinculada.";
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px;">Nenhuma equipe na Mesa ${currentMesa}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:var(--muted);">Nenhuma equipe na Mesa ${currentMesa}</td></tr>`;
       return;
     }
     
     document.getElementById('equipe-nome-display').textContent = `SQUAD: ${teamData.nomeEquipe.toUpperCase()}`;
     document.getElementById('equipe-vertente-display').textContent = `Vertente: ${teamData.vertente || '---'}`;
 
-    // Puxa as notas da equipe (se não existirem, cria objeto vazio)
     const n = teamData.notasEquipe || {};
     const total = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
     
     tbody.innerHTML = `
       <tr>
-        <td style="font-weight: bold; color: var(--purple); font-size: 1.1rem;">AVALIAÇÃO DA EQUIPE</td>
-        <td><input type="number" class="score-input" placeholder="0" value="${n.c1||''}" onchange="window.saveScore('c1', this.value)"/></td>
-        <td><input type="number" class="score-input" placeholder="0" value="${n.c2||''}" onchange="window.saveScore('c2', this.value)"/></td>
-        <td><input type="number" class="score-input" placeholder="0" value="${n.c3||''}" onchange="window.saveScore('c3', this.value)"/></td>
-        <td><input type="number" class="score-input" placeholder="0" value="${n.c4||''}" onchange="window.saveScore('c4', this.value)"/></td>
-        <td style="text-align: center;"><span class="score-total" style="font-size: 1.8rem;">${total > 0 ? total.toFixed(1) : '--'}</span></td>
+        <td style="font-weight: bold; color: var(--purple); font-size: 1.1rem;">AVALIAÇÃO DO GRUPO</td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c1||''}" onchange="window.saveScore('c1', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c2||''}" onchange="window.saveScore('c2', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c3||''}" onchange="window.saveScore('c3', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c4||''}" onchange="window.saveScore('c4', this.value)"/></td>
+        <td style="text-align: center;"><span class="score-total">${total > 0 ? total.toFixed(1) : '--'}</span></td>
       </tr>
       <tr>
-        <td colspan="6" style="padding-top: 20px;">
-          <label style="font-family:'Space Mono', monospace; font-size: 0.7rem; color: var(--cyan);">OBSERVAÇÕES DO MONITOR:</label>
-          <textarea class="td-input" style="width:100%; margin-top:10px; height: 80px;" onchange="window.saveScore('obs', this.value)">${n.obs||''}</textarea>
+        <td colspan="6" style="padding-top: 15px; border:none;">
+          <label style="font-family:'Space Mono', monospace; font-size: 0.65rem; color: var(--cyan); display:block; margin-bottom:8px;">PARECER TÉCNICO / OBSERVAÇÕES:</label>
+          <textarea class="td-input" style="width:100%; height: 70px;" placeholder="Ex: Grupo muito engajado no uso de IAs generativas..." onchange="window.saveScore('obs', this.value)">${n.obs||''}</textarea>
         </td>
       </tr>
     `;
@@ -319,13 +273,38 @@
 
   window.saveScore = function(field, val) {
     if(!currentTeamId) return;
+    const avaliadorAtual = sessionStorage.getItem('inova_nome_monitor') || "Não identificado";
+    
     const updates = {};
     updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
+    updates[`equipes/${currentTeamId}/notasEquipe/ultimo_avaliador`] = avaliadorAtual;
+    updates[`equipes/${currentTeamId}/notasEquipe/data_hora`] = new Date().toLocaleString();
+
     window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-      .then(() => window.toast("Nota atualizada!", "success"));
+      .then(() => window.toast("Nota salva!", "success"));
   }
 
-  // Mantive suas funções de UI de checklist abaixo...
-  window.toggleCL = function(id) { /* ... código original ... */ }
-  window.toggleCheck = function(el, clId) { /* ... código original ... */ }
+  // UI - CHECKLISTS
+  window.toggleCL = function(id) {
+    const item = document.getElementById(id);
+    const body = item.querySelector('.cl-body');
+    const isOpen = body.style.maxHeight;
+    document.querySelectorAll('.cl-body').forEach(b => b.style.maxHeight = null);
+    if (!isOpen) body.style.maxHeight = body.scrollHeight + 30 + 'px';
+  }
+  
+  window.toggleCheck = function(el, clId) {
+    el.classList.toggle('checked');
+    el.querySelector('.check-box').textContent = el.classList.contains('checked') ? '✓' : '';
+    window.updateProgress(clId);
+  }
+
+  window.updateProgress = function(clId) {
+    const num = clId.replace('cl','');
+    const items = document.querySelectorAll(`#clb${num} .check-item`);
+    const checked = document.querySelectorAll(`#clb${num} .check-item.checked`).length;
+    document.getElementById('prog'+num).textContent = `${checked}/${items.length}`;
+  }
 </script>
+</body>
+</html>

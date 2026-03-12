@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avaliação Especialista | Inova+ 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/base.css"/>
+  <style>
+    body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; padding: 20px; padding-bottom: 140px; }
+    
+    .header-especialista { text-align: center; margin-bottom: 30px; border-bottom: 1px solid var(--purple); padding-bottom: 15px; }
+    
+    /* CENTRALIZA E LIMITA O TAMANHO PARA NÃO ESTICAR DEMAIS */
+    .container-grid {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .teams-grid { 
+        display: grid; 
+        grid-template-columns: repeat(5, 1fr); /* 5 Colunas fixas */
+        gap: 15px; 
+    }
+    
+    .team-card { 
+        background: var(--panel); 
+        border: 1px solid var(--border); 
+        padding: 15px; 
+        border-radius: 12px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* A MÁGICA: Mantém o formato mais próximo de um quadrado/bloco alto */
+        aspect-ratio: 1 / 1.1; 
+        text-align: center;
+        transition: 0.3s;
+    }
+    .team-card:hover { border-color: var(--purple); background: rgba(213,0,249,0.02); }
+    
+    .team-card p { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--cyan); margin: 0; }
+    .team-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #fff; margin: 8px 0; letter-spacing: 1px; line-height: 1.1; }
+    
+    .note-input { 
+        width: 100%; height: 60px; font-size: 2.2rem; text-align: center; 
+        background: #000; border: 2px solid #333; color: var(--purple); 
+        font-family: 'Bebas Neue'; border-radius: 8px; outline: none; 
+    }
+    .note-input:focus { border-color: var(--purple); box-shadow: 0 0 15px rgba(213,0,249,0.3); }
+
+    /* RODAPÉ DE ENVIO */
+    .footer-actions {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: rgba(7, 9, 15, 0.98);
+        padding: 25px;
+        border-top: 1px solid var(--purple);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    .btn-finalizar {
+        background: var(--purple); color: #fff; border: none; padding: 18px 60px;
+        font-family: 'Bebas Neue'; font-size: 1.6rem; letter-spacing: 2px;
+        cursor: pointer; border-radius: 8px; box-shadow: 0 0 30px rgba(213, 0, 249, 0.4);
+        transition: 0.3s;
+    }
+    .btn-finalizar:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+    /* RESPONSIVIDADE (Ajusta as colunas conforme a tela diminui) */
+    @media(max-width: 900px) { .teams-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media(max-width: 600px) { .teams-grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+<div class="header-especialista">
+  <div style="font-family:'Space Mono'; font-size:0.5rem; color:var(--purple); letter-spacing:2px; margin-bottom:5px;">PAINEL DE AVALIAÇÃO DE MERCADO</div>
+  <h1 style="font-family:'Bebas Neue'; font-size:2.2rem; color:#fff; margin:0;">CONVIDADO ESPECIAL</h1>
+  <p id="client-name-display" style="color:var(--muted); font-size:0.75rem; margin-top:5px;"></p>
+</div>
+
+<div class="container-grid">
+    <div class="teams-grid" id="teams-grid">
+      </div>
+</div>
+
+<div class="footer-actions">
+    <button class="btn-finalizar" id="btn-submit-all" onclick="window.confirmarEnvioGeral()">
+        🚀 FINALIZAR E ENVIAR NOTAS
+    </button>
+</div>
+
+<script type="module" src="../assets/js/app.js"></script>
+<script>
+  let teams = [];
+  
+  window.onload = () => {
+      let nome = sessionStorage.getItem('nomeConvidado');
+      if (!nome) {
+          nome = prompt("BEM-VINDO! Por favor, identifique-se (Nome e Cargo):");
+          if (!nome) { location.reload(); }
+          sessionStorage.setItem('nomeConvidado', nome.trim());
+      }
+      document.getElementById('client-name-display').textContent = "AVALIADOR: " + sessionStorage.getItem('nomeConvidado').toUpperCase();
+      
+      const checkDB = setInterval(() => {
+          if (window.InovaDB) { clearInterval(checkDB); carregarDados(); }
+      }, 500);
+  };
+
+  function carregarDados() {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          teams = data ? Object.keys(data).map(id => ({ id, ...data[id] })) : [];
+          teams.sort((a,b) => (parseInt(a.mesa)||0) - (parseInt(b.mesa)||0));
+          render();
+      });
+  }
+
+  function render() {
+      const grid = document.getElementById('teams-grid');
+      grid.innerHTML = teams.map(t => {
+          const notaSalva = (t.notasEquipe && t.notasEquipe.nota_cliente) || "";
+          return `
+          <div class="team-card">
+              <div style="margin-bottom:10px;">
+                  <p>MESA ${t.mesa || '--'}</p>
+                  <h3>${t.nomeEquipe}</h3>
+              </div>
+              <div class="input-box">
+                  <span style="font-family:'Space Mono'; font-size:0.5rem; color:var(--muted); display:block; margin-bottom:5px;">NOTA (0-10)</span>
+                  <input type="number" id="input-${t.id}" class="note-input" placeholder="-" min="0" max="10" step="0.5" value="${notaSalva}">
+              </div>
+          </div>
+      `}).join('');
+  }
+
+  window.confirmarEnvioGeral = async function() {
+      let notasParaEnviar = [];
+      teams.forEach(t => {
+          const val = document.getElementById(`input-${t.id}`).value;
+          if (val !== "") notasParaEnviar.push({ id: t.id, nota: parseFloat(val), nome: t.nomeEquipe });
+      });
+
+      if (notasParaEnviar.length === 0) return window.toast("Preencha as notas primeiro!", "error");
+
+      if (confirm(`Deseja oficializar as notas de ${notasParaEnviar.length} equipes agora?`)) {
+          enviarTudo(notasParaEnviar);
+      }
+  };
+
+  async function enviarTudo(lista) {
+      const btn = document.getElementById('btn-submit-all');
+      btn.disabled = true;
+      btn.textContent = "PROCESSANDO...";
+      try {
+          const updates = {};
+          const avaliador = sessionStorage.getItem('nomeConvidado');
+          lista.forEach(item => {
+              updates[`equipes/${item.id}/notasEquipe/nota_cliente`] = item.nota;
+              updates[`equipes/${item.id}/notasEquipe/avaliador_cliente`] = avaliador;
+          });
+          await window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates);
+          window.toast("Notas enviadas com sucesso!", "success");
+          btn.textContent = "✅ ENVIADO";
+      } catch (e) {
+          window.toast("Erro ao enviar.", "error");
+          btn.disabled = false;
+      }
+  }
+</script>
+</body>
+</html>
