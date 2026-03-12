@@ -170,96 +170,97 @@
     </div>
   </footer>
 
-  <script src="../assets/js/app.js"></script>
-  <script>
-    const sprintNames = ['Empatia Humana', 'Co-Piloto IA', 'Toque Humano 5.0', 'Ponte Digital', 'Pitch Final'];
+  <script type="module" src="../assets/js/app.js"></script>
+<script>
+  const sprintNames = ['Empatia Humana', 'Co-Piloto IA', 'Toque Humano 5.0', 'Ponte Digital', 'Pitch Final'];
+  
+  // Relógio do Sistema (Hora atual)
+  setInterval(() => {
+      const now = new Date();
+      document.getElementById('clock-live').textContent = 
+          String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  }, 1000);
+
+  // Semáforo do Cronômetro Mestre
+  setInterval(() => {
+    if (!window.SprintTimer) return; // Aguarda silenciosamente o app.js carregar
     
-    setInterval(() => {
-        const now = new Date();
-        document.getElementById('clock-live').textContent = 
-            String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    }, 1000);
-
-    setInterval(() => {
-      if (!window.SprintTimer) return;
-      const state = window.SprintTimer.getState();
-      const rem = window.SprintTimer.getRemaining();
-      const timerEl = document.getElementById('telao-timer');
-      const progressEl = document.getElementById('telao-progress');
-      
-      timerEl.textContent = window.fmtTime(rem);
-      
-      if (state.running) {
-          document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
-      } else {
-          if (state.sprint > 1) {
-              document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} (PAUSADO) //`;
-          } else {
-              document.getElementById('telao-sprint-name').textContent = `// PREPARAÇÃO //`;
-          }
-      }
-
-      if (!state.running) {
-          timerEl.className = 't-timer paused';
-      } else if (rem <= 300 && rem > 0) { 
-          timerEl.className = 't-timer danger';
-      } else {
-          timerEl.className = 't-timer';
-      }
-
-      const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
-      const sprintMaxTime = SPRINT_TIMES[state.sprint - 1]; 
-      
-      let pct = (rem / sprintMaxTime) * 100;
-      if (pct > 100) pct = 100;
-      if (pct < 0) pct = 0;
-      progressEl.style.width = pct + '%';
-      
-      if (rem <= 300 && rem > 0) {
-          progressEl.style.background = '#ff4444';
-          progressEl.style.boxShadow = '0 0 20px #ff4444';
-      } else {
-          progressEl.style.background = 'var(--cyan)';
-          progressEl.style.boxShadow = '0 0 20px var(--cyan)';
-      }
-
-    }, 500);
-
-    // Variável para ignorar o "despejo" do histórico do Firebase ao abrir a página
-    let isTelaoReady = false;
-    setTimeout(() => { isTelaoReady = true; }, 2000); 
-
-    // Função que recebe a mensagem do app.js
-    window.renderNovoPost = function(msg) {
-        const ticker = document.getElementById('telao-ticker');
-        
-        // Sempre atualiza o rodapé
-        ticker.innerHTML = `<span style="color:var(--yellow)">[${msg.time}] ${msg.author.toUpperCase()}:</span> ${msg.text}`;
-
-        // Se não for o histórico antigo, exibe o Alerta Gigante!
-        if (isTelaoReady) {
-            document.body.style.boxShadow = "inset 0 0 150px var(--purple)";
-            setTimeout(() => { document.body.style.boxShadow = "none"; }, 1000);
-            
-            const popup = document.getElementById('telao-popup');
-            document.getElementById('popup-author').textContent = msg.author.toUpperCase();
-            document.getElementById('popup-text').textContent = msg.text;
-            
-            // Aparece
-            popup.style.display = 'flex';
-            setTimeout(() => { 
-                popup.style.opacity = '1'; 
-                popup.style.transform = 'scale(1)'; 
-            }, 50);
-            
-            // Esconde automaticamente após 10 segundos
-            setTimeout(() => {
-                popup.style.opacity = '0';
-                popup.style.transform = 'scale(0.8)';
-                setTimeout(() => { popup.style.display = 'none'; }, 400);
-            }, 10000);
+    const state = window.SprintTimer.getState();
+    const rem = window.SprintTimer.getRemaining();
+    const timerEl = document.getElementById('telao-timer');
+    const progressEl = document.getElementById('telao-progress');
+    
+    timerEl.textContent = window.fmtTime(rem);
+    
+    if (state.running) {
+        document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
+    } else {
+        if (state.sprint > 1) {
+            document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} (PAUSADO) //`;
+        } else {
+            document.getElementById('telao-sprint-name').textContent = `// PREPARAÇÃO //`;
         }
-    };
-  </script>
+    }
+
+    if (!state.running) {
+        timerEl.className = 't-timer paused';
+    } else if (rem <= 300 && rem > 0) { 
+        timerEl.className = 't-timer danger';
+    } else {
+        timerEl.className = 't-timer';
+    }
+
+    const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
+    const sprintMaxTime = SPRINT_TIMES[state.sprint - 1]; 
+    
+    let pct = (rem / sprintMaxTime) * 100;
+    if (pct > 100) pct = 100;
+    if (pct < 0) pct = 0;
+    progressEl.style.width = pct + '%';
+    
+    if (rem <= 300 && rem > 0) {
+        progressEl.style.background = '#ff4444';
+        progressEl.style.boxShadow = '0 0 20px #ff4444';
+    } else {
+        progressEl.style.background = 'var(--cyan)';
+        progressEl.style.boxShadow = '0 0 20px var(--cyan)';
+    }
+
+  }, 500);
+
+  // Sistema de Alertas do Jota
+  let isTelaoReady = false;
+  setTimeout(() => { isTelaoReady = true; }, 2000); 
+
+  window.renderNovoPost = function(msg) {
+      const ticker = document.getElementById('telao-ticker');
+      
+      // Sempre atualiza o rodapé
+      ticker.innerHTML = `<span style="color:var(--yellow)">[${msg.time}] ${msg.author.toUpperCase()}:</span> ${msg.text}`;
+
+      // Exibe o Alerta Gigante!
+      if (isTelaoReady) {
+          document.body.style.boxShadow = "inset 0 0 150px var(--purple)";
+          setTimeout(() => { document.body.style.boxShadow = "none"; }, 1000);
+          
+          const popup = document.getElementById('telao-popup');
+          document.getElementById('popup-author').textContent = msg.author.toUpperCase();
+          document.getElementById('popup-text').textContent = msg.text;
+          
+          popup.style.display = 'flex';
+          setTimeout(() => { 
+              popup.style.opacity = '1'; 
+              popup.style.transform = 'scale(1)'; 
+          }, 50);
+          
+          // Esconde automaticamente após 10 segundos
+          setTimeout(() => {
+              popup.style.opacity = '0';
+              popup.style.transform = 'scale(0.8)';
+              setTimeout(() => { popup.style.display = 'none'; }, 400);
+          }, 10000);
+      }
+  };
+</script>
 </body>
 </html>

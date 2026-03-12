@@ -467,9 +467,9 @@
         </div>
     </main>
 
-    <script src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
     <script>
-      // Lógica de manipulação de Accordions e Sidebar da sua página
+      // Lógica de manipulação de Accordions e Sidebar
       function toggleSidebar() {
           const sidebar = document.getElementById('sidebar');
           const overlay = document.getElementById('sidebarOverlay');
@@ -523,19 +523,23 @@
           secs: document.getElementById('cd-s')
       };
       
-      if (els.days && els.hours && els.mins && els.secs && window.startCountdown) {
-          window.startCountdown(dataEvento, els, () => {
-              document.querySelector('.sidebar-countdown').innerHTML = 
-                '<div style="font-family:\'Bebas Neue\', sans-serif; font-size:1.5rem; color:var(--cyan); text-align:center; padding:10px; letter-spacing:2px;">O EVENTO COMEÇOU! 🚀</div>';
-          });
-      }
+      // Usa um setInterval local para aguardar o app.js carregar o startCountdown
+      const waitCountdown = setInterval(() => {
+          if (window.startCountdown) {
+              clearInterval(waitCountdown);
+              window.startCountdown(dataEvento, els, () => {
+                  document.querySelector('.sidebar-countdown').innerHTML = 
+                    '<div style="font-family:\'Bebas Neue\', sans-serif; font-size:1.5rem; color:var(--cyan); text-align:center; padding:10px; letter-spacing:2px;">O EVENTO COMEÇOU! 🚀</div>';
+              });
+          }
+      }, 500);
 
       // Submissão do Formulário para o Firebase
       document.getElementById('formIns').addEventListener('submit', async function(e) {
           e.preventDefault();
           
           if(!window.InovaDB) {
-             alert("Aguardando conexão com o servidor. Tente novamente em 2 segundos.");
+             alert("Aguardando conexão com o banco de dados. Tente novamente em 2 segundos.");
              return;
           }
 
@@ -569,7 +573,6 @@
             document.getElementById('formIns').style.display = 'none';
             document.getElementById('formSuccess').classList.add('show');
             
-            // Faz a tela rolar para mostrar a mensagem de sucesso
             document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
             
           } catch (error) {

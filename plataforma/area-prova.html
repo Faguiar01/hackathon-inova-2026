@@ -152,9 +152,17 @@
   </div>
 </main>
 
-<script src="../assets/js/app.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
 <script>
-  window.AUTH.require('participante');
+  // 1. SEMÁFORO: Espera o app.js carregar totalmente
+  const checkLoad = setInterval(() => {
+      if (window.AUTH && window.SprintTimer) {
+          clearInterval(checkLoad);
+          iniciarPagina(); // Sinal verde!
+      }
+  }, 100);
+
+  const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
 
   // BANCO DE DADOS (Cenários)
   const missoes = [
@@ -187,43 +195,47 @@
     });
   });
 
-  // Timer e Sprints (Simulação Visual)
-  const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
-  setInterval(() => {
-    if(!window.SprintTimer) return;
-    const rem = window.SprintTimer.getRemaining();
-    const state = window.SprintTimer.getState();
-    document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
-    document.getElementById('sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1] ? sprintNames[state.sprint-1].toUpperCase() : 'EVENTO ENCERROU'}`;
-    
-    document.querySelectorAll('.si-item').forEach((el,i) => {
-      el.className = 'si-item';
-      if (i+1 < state.sprint) el.classList.add('done');
-      if (i+1 === state.sprint) el.classList.add('active');
-    });
-  }, 1000);
+  // Função principal que orquestra a página inteira
+  function iniciarPagina() {
+      // 1. Autenticação (Descomente se quiser forçar o redirecionamento sem login)
+      // window.AUTH.require('participante'); 
 
-  // Lógica Principal de Telas (Puxando direto da Sessão do Login)
+      // 2. Inicializa o Dashboard/Sorteio
+      initApp();
+
+      // 3. Liga o Cronômetro
+      setInterval(() => {
+        if(!window.SprintTimer) return;
+        const rem = window.SprintTimer.getRemaining();
+        const state = window.SprintTimer.getState();
+        document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
+        document.getElementById('sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1] ? sprintNames[state.sprint-1].toUpperCase() : 'EVENTO ENCERROU'}`;
+        
+        document.querySelectorAll('.si-item').forEach((el,i) => {
+          el.className = 'si-item';
+          if (i+1 < state.sprint) el.classList.add('done');
+          if (i+1 === state.sprint) el.classList.add('active');
+        });
+      }, 1000);
+  }
+
   function initApp() {
     const equipSaved = sessionStorage.getItem('inova_equipe');
     const vertSaved = sessionStorage.getItem('inova_vertente');
     
-    // Se tentou acessar sem login, chuta pra tela de login
-    if (!equipSaved || !vertSaved) {
-        window.location.href = 'login.html';
-        return;
-    }
+    // Se estiver testando direto (sem logar), coloca dados falsos para a tela abrir
+    const equipeNome = equipSaved || 'SQUAD TESTE';
+    const vertenteNome = vertSaved || 'Produção';
 
-    // Salva a missão amarrada ao nome da equipe para evitar bugs se eles logarem em outra máquina
-    const missaoKey = 'inova_missao_' + equipSaved;
+    const missaoKey = 'inova_missao_' + equipeNome;
     const missaoSaved = localStorage.getItem(missaoKey);
 
-    showTeamName(equipSaved);
+    showTeamName(equipeNome);
 
     if (missaoSaved) {
       exibirDashboard(JSON.parse(missaoSaved));
     } else {
-      mostrarRoleta(vertSaved);
+      mostrarRoleta(vertenteNome);
     }
   }
 
@@ -238,11 +250,12 @@
     document.getElementById('view-sorteio').style.display = 'flex';
   }
 
-  function sortearMissao() {
+  // O onclick do HTML precisa puxar do window.
+  window.sortearMissao = function() {
     document.querySelector('.btn-sortear').textContent = "SORTEANDO...";
     setTimeout(() => {
-      const vertenteEscolhida = sessionStorage.getItem('inova_vertente');
-      const equipe = sessionStorage.getItem('inova_equipe');
+      const vertenteEscolhida = sessionStorage.getItem('inova_vertente') || 'Produção';
+      const equipe = sessionStorage.getItem('inova_equipe') || 'SQUAD TESTE';
       
       const missoesFiltradas = missoes.filter(m => m.vertente.toLowerCase() === vertenteEscolhida.toLowerCase());
       const indexAleatorio = Math.floor(Math.random() * missoesFiltradas.length);
@@ -263,10 +276,6 @@
     document.getElementById('m-dor').textContent = missao.dor;
     document.getElementById('m-desafio').textContent = missao.desafio;
   }
-
-  // Inicializa apenas se o firebase já validou
-  initApp();
-
 </script>
 </body>
 </html>

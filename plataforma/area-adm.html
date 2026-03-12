@@ -192,123 +192,139 @@
 
 </main>
 
-<script src="../assets/js/app.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
 <script>
-  window.AUTH.require('adm');
+  // 1. ESPERA O MOTOR (APP.JS) LIGAR ANTES DE EXECUTAR
+  const checkLoad = setInterval(() => {
+      if (window.AUTH && window.SprintTimer) {
+          clearInterval(checkLoad);
+          iniciarPainelADM(); // Só roda quando estiver tudo pronto!
+      }
+  }, 100);
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
-  let timerInterval;
+
+  function iniciarPainelADM() {
+      // Verifica segurança
+      window.AUTH.require('adm');
+      
+      // Inicia a atualização da tela a cada 1 segundo
+      setInterval(updateMasterDisplay, 1000);
+      updateMasterDisplay();
+      
+      // Carrega as equipes
+      carregarEquipesDoBanco();
+  }
 
   function updateMasterDisplay() {
-    const rem = window.SprintTimer.getRemaining();
-    const state = window.SprintTimer.getState();
-    const timeEl = document.getElementById('master-time');
-    timeEl.textContent = window.fmtTime(rem);
-    timeEl.className = 'mt-time' + (state.running ? ' running' : '');
-    document.getElementById('master-sprint-label').textContent =
-      `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} · ${state.running ? 'EM ANDAMENTO' : 'PAUSADO'}`;
-    document.getElementById('m-sprint').textContent = state.sprint;
-    
-    for (let i=1;i<=5;i++) {
-      const el = document.getElementById('ss'+i);
-      el.className = 'ss-step';
-      if (i < state.sprint) el.classList.add('done');
-      if (i === state.sprint) el.classList.add('active');
-    }
+      const rem = window.SprintTimer.getRemaining();
+      const state = window.SprintTimer.getState();
+      const timeEl = document.getElementById('master-time');
+      
+      timeEl.textContent = window.fmtTime(rem);
+      timeEl.className = 'mt-time' + (state.running ? ' running' : '');
+      
+      document.getElementById('master-sprint-label').textContent =
+          `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} · ${state.running ? 'EM ANDAMENTO' : 'PAUSADO'}`;
+      document.getElementById('m-sprint').textContent = state.sprint;
+      
+      for (let i=1;i<=5;i++) {
+          const el = document.getElementById('ss'+i);
+          el.className = 'ss-step';
+          if (i < state.sprint) el.classList.add('done');
+          if (i === state.sprint) el.classList.add('active');
+      }
 
-    const statusEl = document.getElementById('event-status');
-    if (state.running) { statusEl.textContent='EM ANDAMENTO'; statusEl.style.color='#00C851'; statusEl.style.borderColor='#00C851'; }
-    else if (state.sprint > 1) { statusEl.textContent='PAUSADO'; statusEl.style.color='var(--yellow)'; statusEl.style.borderColor='var(--yellow)'; }
-    else { statusEl.textContent='PRÉ-EVENTO'; statusEl.style.color='var(--purple)'; statusEl.style.borderColor='var(--purple)'; }
+      const statusEl = document.getElementById('event-status');
+      if (state.running) { statusEl.textContent='EM ANDAMENTO'; statusEl.style.color='#00C851'; statusEl.style.borderColor='#00C851'; }
+      else if (state.sprint > 1) { statusEl.textContent='PAUSADO'; statusEl.style.color='var(--yellow)'; statusEl.style.borderColor='var(--yellow)'; }
+      else { statusEl.textContent='PRÉ-EVENTO'; statusEl.style.color='var(--purple)'; statusEl.style.borderColor='var(--purple)'; }
   }
 
-  function masterStart() {
-    window.SprintTimer.start();
-    document.getElementById('btn-start').disabled = true;
-    document.getElementById('btn-pause').disabled = false;
-    window.toast('Cronômetro rodando! ▶','success');
-    if (!timerInterval) timerInterval = setInterval(updateMasterDisplay, 500);
+  // 2. FUNÇÕES LIGADAS AOS BOTÕES (Precisam do window. na frente agora)
+  window.masterStart = function() {
+      window.SprintTimer.start();
+      document.getElementById('btn-start').disabled = true;
+      document.getElementById('btn-pause').disabled = false;
+      window.toast('Cronômetro rodando! ▶','success');
   }
 
-  function masterPause() {
-    window.SprintTimer.pause();
-    document.getElementById('btn-start').textContent = '▶ RETOMAR';
-    document.getElementById('btn-start').disabled = false;
-    document.getElementById('btn-pause').disabled = true;
-    window.toast('Timer pausado.','info');
-    updateMasterDisplay();
+  window.masterPause = function() {
+      window.SprintTimer.pause();
+      document.getElementById('btn-start').textContent = '▶ RETOMAR';
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-pause').disabled = true;
+      window.toast('Timer pausado.','info');
+      updateMasterDisplay();
   }
 
-  function masterReset() {
-    if (!confirm('Isso vai zerar o relógio deste sprint. Confirma?')) return;
-    window.SprintTimer.reset();
-    clearInterval(timerInterval); timerInterval = null;
-    document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
-    document.getElementById('btn-start').disabled = false;
-    document.getElementById('btn-pause').disabled = true;
-    updateMasterDisplay();
-  }
-
-  function masterNextSprint() {
-    const state = window.SprintTimer.getState();
-    if (state.sprint >= 5) { window.toast('Já está no Sprint final!','error'); return; }
-    window.SprintTimer.nextSprint();
-    clearInterval(timerInterval); timerInterval = null; 
-    document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
-    document.getElementById('btn-start').disabled = false;
-    document.getElementById('btn-pause').disabled = true;
-    updateMasterDisplay();
-    window.toast(`Avançou para o Sprint ${state.sprint+1}. Relógio carregado e pausado.`,`success`);
-  }
-
-  for (let i=1;i<=5;i++) {
-    document.getElementById('ss'+i).addEventListener('click',()=>{
-      window.SprintTimer.setSprint(i);
-      clearInterval(timerInterval); timerInterval = null;
+  window.masterReset = function() {
+      if (!confirm('Isso vai zerar o relógio deste sprint. Confirma?')) return;
+      window.SprintTimer.reset();
       document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
       document.getElementById('btn-start').disabled = false;
       document.getElementById('btn-pause').disabled = true;
       updateMasterDisplay();
-      window.toast(`Pulou para o Sprint ${i}. Relógio carregado e pausado.`,`info`);
-    });
   }
 
-  setInterval(updateMasterDisplay, 1000);
+  window.masterNextSprint = function() {
+      const state = window.SprintTimer.getState();
+      if (state.sprint >= 5) { window.toast('Já está no Sprint final!','error'); return; }
+      window.SprintTimer.nextSprint();
+      document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-pause').disabled = true;
+      updateMasterDisplay();
+      window.toast(`Avançou para o Sprint ${state.sprint+1}. Relógio carregado e pausado.`,`success`);
+  }
+
+  // Pular Sprints clicando nas caixas
+  for (let i=1;i<=5;i++) {
+      document.getElementById('ss'+i).addEventListener('click', () => {
+          if (!window.SprintTimer) return;
+          window.SprintTimer.setSprint(i);
+          document.getElementById('btn-start').textContent = '▶ INICIAR TIMER';
+          document.getElementById('btn-start').disabled = false;
+          document.getElementById('btn-pause').disabled = true;
+          updateMasterDisplay();
+          window.toast(`Pulou para o Sprint ${i}. Relógio carregado e pausado.`,`info`);
+      });
+  }
 
   // ── PROGRESS BARS ADM ──
-  function renderProgressBars() {
-    const state = window.SprintTimer.getState();
-    const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
-    const container = document.getElementById('progress-bars');
-    
-    container.innerHTML = sprintNames.map((name,i)=>{
-      let pct = 0;
-      if (i+1 < state.sprint) pct = 100;
-      else if (i+1 === state.sprint) {
-          const maxTime = SPRINT_TIMES[i];
-          const rem = window.SprintTimer.getRemaining();
-          pct = Math.max(5, Math.round((1 - rem/maxTime)*100)); 
-      }
+  setInterval(() => {
+      if(!window.SprintTimer) return;
+      const state = window.SprintTimer.getState();
+      const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
+      const container = document.getElementById('progress-bars');
       
-      const color = i+1 < state.sprint ? '#00C851' : i+1===state.sprint ? 'var(--purple)' : 'var(--muted)';
-      return `<div style="display:grid;grid-template-columns:160px 1fr 40px;align-items:center;gap:12px">
-        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};letter-spacing:1px">SPRINT ${i+1}: ${name.toUpperCase()}</span>
-        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
-        <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};text-align:right">${pct}%</span>
-      </div>`;
-    }).join('');
-  }
-  setInterval(renderProgressBars, 1500);
+      container.innerHTML = sprintNames.map((name,i)=>{
+          let pct = 0;
+          if (i+1 < state.sprint) pct = 100;
+          else if (i+1 === state.sprint) {
+              const maxTime = SPRINT_TIMES[i];
+              const rem = window.SprintTimer.getRemaining();
+              pct = Math.max(0, Math.round((1 - rem/maxTime)*100)); 
+          }
+          
+          const color = i+1 < state.sprint ? '#00C851' : i+1===state.sprint ? 'var(--purple)' : 'var(--muted)';
+          return `<div style="display:grid;grid-template-columns:160px 1fr 40px;align-items:center;gap:12px">
+          <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};letter-spacing:1px">SPRINT ${i+1}: ${name.toUpperCase()}</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
+          <span style="font-family:'Space Mono', monospace;font-size:.65rem;color:${color};text-align:right">${pct}%</span>
+          </div>`;
+      }).join('');
+  }, 1500);
 
   // Tabs
   document.querySelectorAll('.adm-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      ['dashboard','equipes','engajamento','mural'].forEach(id => {
-        document.getElementById('tab-'+id).style.display = tab.dataset.tab===id?'':'none';
+      tab.addEventListener('click', () => {
+          document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
+          tab.classList.add('active');
+          ['dashboard','equipes','engajamento','mural'].forEach(id => {
+              document.getElementById('tab-'+id).style.display = tab.dataset.tab===id?'':'none';
+          });
       });
-    });
   });
 
   // DB Equipes
@@ -323,76 +339,72 @@
   }
 
   function carregarEquipesDoBanco() {
-    if(!window.InovaDB) { setTimeout(carregarEquipesDoBanco, 500); return; }
-    import("https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js").then(({ onValue, update }) => {
-        window.InovaDB.update = update;
-        onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
-           const data = snapshot.val();
-           teams = [];
-           if(data) {
-               Object.keys(data).forEach(key => {
-                   teams.push({ id: key, ...data[key] });
-               });
-           }
-           document.getElementById('m-equipes').textContent = teams.length;
-           renderTeams();
-           renderEng();
-        });
-    });
+      if(!window.InovaDB) { setTimeout(carregarEquipesDoBanco, 500); return; }
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          teams = [];
+          if(data) {
+              Object.keys(data).forEach(key => {
+                  teams.push({ id: key, ...data[key] });
+              });
+          }
+          document.getElementById('m-equipes').textContent = teams.length;
+          renderTeams();
+          renderEng();
+      });
   }
 
   function renderTeams() {
-    const tbody = document.getElementById('teams-tbody');
-    if(teams.length === 0) return tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma equipe cadastrada.</td></tr>';
-    tbody.innerHTML = teams.map((t,i)=>`<tr>
-      <td style="color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
-      <td style="font-weight:bold; color:var(--text);">${t.nomeEquipe || 'Sem Nome'}</td>
-      <td><input class="td-input" value="${t.membros || ''}" onchange="updateEquipeDB('${t.id}', 'membros', this.value)"/></td>
-      <td><input class="td-input" value="${t.mesa || ''}" style="width:60px; text-align:center;" placeholder="01" onchange="updateEquipeDB('${t.id}', 'mesa', this.value)"/></td>
-      <td style="color:var(--cyan); font-size: 0.85rem;">${(t.vertente || '').toUpperCase()}</td>
-      <td><select class="td-input" style="width:80px" onchange="updateEquipeDB('${t.id}', 'sprintAtual', parseInt(this.value))">
-        ${[1,2,3,4,5].map(n=>`<option ${(t.sprintAtual||1)===n?'selected':''}>${n}</option>`).join('')}
-      </select></td>
-      <td style="text-align:center"><input type="checkbox" style="width:18px; height:18px; accent-color: var(--purple);" ${t.renderEnviado?'checked':''} onchange="updateEquipeDB('${t.id}', 'renderEnviado', this.checked)"/></td>
-    </tr>`).join('');
+      const tbody = document.getElementById('teams-tbody');
+      if(teams.length === 0) return tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma equipe cadastrada.</td></tr>';
+      tbody.innerHTML = teams.map((t,i)=>`<tr>
+          <td style="color:var(--muted)">${String(i+1).padStart(2,'0')}</td>
+          <td style="font-weight:bold; color:var(--text);">${t.nomeEquipe || 'Sem Nome'}</td>
+          <td><input class="td-input" value="${t.membros || ''}" onchange="window.updateEquipeDB('${t.id}', 'membros', this.value)"/></td>
+          <td><input class="td-input" value="${t.mesa || ''}" style="width:60px; text-align:center;" placeholder="01" onchange="window.updateEquipeDB('${t.id}', 'mesa', this.value)"/></td>
+          <td style="color:var(--cyan); font-size: 0.85rem;">${(t.vertente || '').toUpperCase()}</td>
+          <td><select class="td-input" style="width:80px" onchange="window.updateEquipeDB('${t.id}', 'sprintAtual', parseInt(this.value))">
+          ${[1,2,3,4,5].map(n=>`<option ${(t.sprintAtual||1)===n?'selected':''}>${n}</option>`).join('')}
+          </select></td>
+          <td style="text-align:center"><input type="checkbox" style="width:18px; height:18px; accent-color: var(--purple);" ${t.renderEnviado?'checked':''} onchange="window.updateEquipeDB('${t.id}', 'renderEnviado', this.checked)"/></td>
+      </tr>`).join('');
   }
 
   function renderEng() {
-    const sorted = [...teams].sort((a,b)=>((b.eng_likes||0)+(b.eng_comments||0)*5+(b.eng_shares||0)*3)-((a.eng_likes||0)+(a.eng_comments||0)*5+(a.eng_shares||0)*3));
-    document.getElementById('eng-tbody').innerHTML = sorted.map((t,i)=>{
-      const total = (t.eng_likes||0) + (t.eng_comments||0)*5 + (t.eng_shares||0)*3;
-      return `<tr>
-        <td style="font-weight:600;color:#fff">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'·'} ${t.nomeEquipe}</td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_likes||0}" onchange="updateEquipeDB('${t.id}', 'eng_likes', parseInt(this.value)||0)"/></td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_comments||0}" onchange="updateEquipeDB('${t.id}', 'eng_comments', parseInt(this.value)||0)"/></td>
-        <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_shares||0}" onchange="updateEquipeDB('${t.id}', 'eng_shares', parseInt(this.value)||0)"/></td>
-        <td style="text-align:center;font-family:'Bebas Neue', sans-serif;font-size:1.5rem;color:var(--cyan)">${total}</td>
-      </tr>`;
-    }).join('');
+      const sorted = [...teams].sort((a,b)=>((b.eng_likes||0)+(b.eng_comments||0)*5+(b.eng_shares||0)*3)-((a.eng_likes||0)+(a.eng_comments||0)*5+(a.eng_shares||0)*3));
+      document.getElementById('eng-tbody').innerHTML = sorted.map((t,i)=>{
+          const total = (t.eng_likes||0) + (t.eng_comments||0)*5 + (t.eng_shares||0)*3;
+          return `<tr>
+          <td style="font-weight:600;color:#fff">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'·'} ${t.nomeEquipe}</td>
+          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_likes||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_likes', parseInt(this.value)||0)"/></td>
+          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_comments||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_comments', parseInt(this.value)||0)"/></td>
+          <td style="text-align:center"><input type="number" class="score-input" value="${t.eng_shares||0}" onchange="window.updateEquipeDB('${t.id}', 'eng_shares', parseInt(this.value)||0)"/></td>
+          <td style="text-align:center;font-family:'Bebas Neue', sans-serif;font-size:1.5rem;color:var(--cyan)">${total}</td>
+          </tr>`;
+      }).join('');
   }
-  carregarEquipesDoBanco();
 
   window.postMural = function() {
-    const msg = document.getElementById('mural-msg').value.trim();
-    const author = document.getElementById('mural-author').value.trim() || '🤖 Jota';
-    if (!msg) { window.toast('Digite uma mensagem!','error'); return; }
-    const now = new Date();
-    const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      const msg = document.getElementById('mural-msg').value.trim();
+      const author = document.getElementById('mural-author').value.trim() || '🤖 Jota';
+      if (!msg) { window.toast('Digite uma mensagem!','error'); return; }
+      const now = new Date();
+      const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-    if (window.Mural && window.Mural.pushFirebase) {
-      window.Mural.pushFirebase(window.Mural.dbRef, { author: author, text: msg, time: time });
-      document.getElementById('mural-msg').value = '';
-      window.toast('Mensagem enviada! 🚀', 'success');
-    }
+      if (window.Mural && window.Mural.pushFirebase) {
+          window.Mural.pushFirebase(window.Mural.dbRef, { author: author, text: msg, time: time });
+          document.getElementById('mural-msg').value = '';
+          window.toast('Mensagem enviada! 🚀', 'success');
+      }
   }
 
   window.renderNovoPost = function(msg) {
-    const feed = document.getElementById('mural-feed');
-    if (document.getElementById('mural-loading')) document.getElementById('mural-loading').remove();
-    const post = document.createElement('div');
-    post.className = 'mural-post';
-    post.innerHTML = `<div class="mp-header"><span class="mp-author">${msg.author.toUpperCase()}</span><span class="mp-time">${msg.time}</span></div><div class="mp-text">${msg.text}</div>`;
-    feed.insertBefore(post, feed.firstChild);
+      const feed = document.getElementById('mural-feed');
+      if (document.getElementById('mural-loading')) document.getElementById('mural-loading').remove();
+      const post = document.createElement('div');
+      post.className = 'mural-post';
+      post.innerHTML = `<div class="mp-header"><span class="mp-author">${msg.author.toUpperCase()}</span><span class="mp-time">${msg.time}</span></div><div class="mp-text">${msg.text}</div>`;
+      feed.insertBefore(post, feed.firstChild);
   };
 </script>
 </body>
