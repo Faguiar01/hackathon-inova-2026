@@ -9,64 +9,48 @@
   <style>
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; }
     
-    /* TOPBAR & NAVIGATION */
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(213,0,249,.2);backdrop-filter:blur(8px)}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--purple);letter-spacing:2px;text-shadow:0 0 20px rgba(213,0,249,.3)}
     .tb-role{font-family:'Space Mono', monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(213,0,249,.3);color:var(--purple); border-radius:4px;}
     
     .main{padding:100px 28px 48px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
     
-    /* TIMER CARD */
+    /* TIMER */
     .master-timer-card{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:32px;margin-bottom:35px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center; border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
     .mt-display{text-align:center}
     .mt-time{font-family:'Bebas Neue', sans-serif;font-size:5rem;color:var(--purple);text-shadow:0 0 30px rgba(213,0,249,.4);letter-spacing:8px; line-height:1;}
     .mt-sprint{font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--muted); margin-top:15px; letter-spacing:2px;}
 
-    /* TABS NAV */
+    /* NAV TABS */
     .adm-tabs{display:flex;gap:30px;margin-bottom:30px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom:5px;}
     .adm-tab{padding:10px 5px; background:transparent; border:none; color:var(--muted); font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:1px; cursor:pointer; transition:0.3s; position:relative;}
     .adm-tab.active { color: var(--purple); }
     .adm-tab.active::after { content:''; position:absolute; bottom:-7px; left:0; width:100%; height:3px; background:var(--purple); box-shadow: 0 0 15px var(--purple); }
 
-    /* DASHBOARD KPIS */
+    /* KPIS & TABLES */
     .dash-grid-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
     .kpi-card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 12px; border-left: 4px solid var(--purple); }
     .kpi-val { font-family: 'Bebas Neue'; font-size: 3rem; color: #fff; line-height: 1; margin-bottom: 5px; display:block; }
     .kpi-lbl { font-family: 'Space Mono'; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* PROFESSIONAL TABLES */
-    .table-container { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .table-container { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 30px;}
     table { width: 100%; border-collapse: collapse; text-align: left; }
     th { padding: 18px 20px; background: rgba(255,255,255,0.02); font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
     td { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(213,0,249,0.02); }
-
-    /* MODERN INPUTS */
-    .adm-score-input { 
-      width: 60px; background: rgba(0,0,0,0.4); border: 1px solid #333; 
-      color: #fff; text-align: center; padding: 10px; border-radius: 6px; 
-      font-family: 'Space Mono', monospace; font-size: 0.9rem; transition: 0.3s;
-    }
-    .adm-score-input:focus { border-color: var(--purple); box-shadow: 0 0 10px rgba(213,0,249,0.2); outline: none; }
-
-    .textarea-terminal {
-      width: 100%; height: 180px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-      color: var(--cyan); font-family: 'Space Mono', monospace; padding: 20px; border-radius: 8px;
-      font-size: 1rem; line-height: 1.6; outline: none; transition: 0.3s;
-    }
-    .textarea-terminal:focus { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0,240,255,0.1); }
-
-    /* STATUS COMPONENTS */
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; margin-right: 8px; }
-    .status-dot.online { background: #00C851; box-shadow: 0 0 10px #00C851; }
-    .rank-pos { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--muted); width: 40px; }
-    .total-pts { font-family: 'Bebas Neue'; font-size: 2rem; color: #fff; text-shadow: 0 0 10px var(--purple); }
+    
+    /* INPUTS */
+    .adm-score-input { width: 60px; background: rgba(0,0,0,0.4); border: 1px solid #333; color: #fff; text-align: center; padding: 10px; border-radius: 6px; font-family: 'Space Mono'; outline: none; }
+    .adm-score-input:focus { border-color: var(--purple); }
+    
+    .textarea-terminal { width: 100%; height: 180px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: var(--cyan); font-family: 'Space Mono'; padding: 20px; border-radius: 8px; outline: none; }
 
     .btn { padding: 14px 24px; font-family: 'Bebas Neue'; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 1.1rem; letter-spacing: 1px; }
     .btn-green { background: #00C851; color: #000; }
-    .btn-purple { background: var(--purple); color: #fff; box-shadow: 0 0 20px rgba(213,0,249,0.2); }
+    .btn-purple { background: var(--purple); color: #fff; }
     .btn-danger { background: #ff4444; color: #fff; font-size: 0.8rem; padding: 8px 15px; }
+
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); display: inline-block; margin-right: 8px; }
+    .status-dot.active { background: #00C851; box-shadow: 0 0 10px #00C851; }
   </style>
 </head>
 <body>
@@ -74,7 +58,7 @@
 <header class="topbar">
   <span class="tb-logo">INOVA+ 2026</span>
   <span class="tb-role">COORDENAÇÃO MESTRE</span>
-  <button onclick="window.AUTH.logout()" style="margin-left:auto; background:none; border:1px solid #333; color:var(--muted); padding:6px 18px; border-radius:4px; font-size:0.7rem; cursor:pointer;">LOGOUT</button>
+  <button onclick="window.AUTH.logout()" style="margin-left:auto; background:none; border:1px solid #333; color:var(--muted); padding:6px 18px; border-radius:4px; font-size:0.7rem; cursor:pointer;">SAIR</button>
 </header>
 
 <main class="main">
@@ -82,7 +66,7 @@
   <div class="master-timer-card">
     <div class="mt-display">
       <span class="mt-time" id="master-time">--:--</span>
-      <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO COMANDO //</div>
+      <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO START //</div>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px;">
       <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR TIMER</button>
@@ -98,27 +82,26 @@
     <button class="adm-tab" data-tab="mural">📢 MURAL JOTA</button>
   </nav>
 
-  <div id="tab-dashboard">
+  <div id="tab-dashboard" class="tab-content">
     <div class="dash-grid-top">
         <div class="kpi-card"><span class="kpi-lbl">Equipes</span><span class="kpi-val" id="kpi-teams">0</span></div>
         <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
-        <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Fase Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">--</span></div>
+        <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Sprint Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">1</span></div>
         <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
     </div>
     <div class="table-container" style="padding: 20px;">
-        <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px; letter-spacing:1px;">MONITORAMENTO DE SQUAD (ATIVIDADE)</div>
-        <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;">
-            </div>
+        <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px;">ENTREGAS DE RENDER (CHECK)</div>
+        <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
     </div>
   </div>
 
-  <div id="tab-engajamento" style="display:none">
+  <div id="tab-engajamento" class="tab-content" style="display:none">
     <div class="table-container">
         <table>
             <thead>
                 <tr>
                     <th style="width: 80px;">POS</th>
-                    <th>EQUIPE / SQUAD</th>
+                    <th>EQUIPE</th>
                     <th style="text-align:center;">REDES (LIKE/COMM)</th>
                     <th style="text-align:center; color:var(--cyan)">MONITOR</th>
                     <th style="text-align:center; color:var(--yellow)">CLIENTE (X2)</th>
@@ -130,26 +113,20 @@
     </div>
   </div>
 
-  <div id="tab-equipes" style="display:none">
+  <div id="tab-equipes" class="tab-content" style="display:none">
     <div class="table-container">
         <table>
             <thead>
-                <tr>
-                    <th style="width: 80px;"># ID</th>
-                    <th>NOME DO SQUAD</th>
-                    <th style="width: 120px;">MESA</th>
-                    <th>INTEGRANTES DO GRUPO</th>
-                </tr>
+                <tr><th># ID</th><th>NOME DO SQUAD</th><th>MESA</th><th>INTEGRANTES</th></tr>
             </thead>
             <tbody id="teams-tbody"></tbody>
         </table>
     </div>
   </div>
 
-  <div id="tab-mural" style="display:none">
+  <div id="tab-mural" class="tab-content" style="display:none">
     <div class="table-container" style="padding: 30px;">
-        <div style="font-family:'Bebas Neue'; color:var(--cyan); font-size:1.5rem; margin-bottom:20px;">MENSAGEM GLOBAL (BROADCAST)</div>
-        <textarea id="mural-msg" class="textarea-terminal" placeholder="Escreva aqui a mensagem que aparecerá para todas as equipes e no telão principal..."></textarea>
+        <textarea id="mural-msg" class="textarea-terminal" placeholder="Mensagem para o telão..."></textarea>
         <button class="btn btn-purple" onclick="postMural()" style="width:100%; margin-top:20px;">🚀 PUBLICAR NO SISTEMA</button>
     </div>
   </div>
@@ -186,39 +163,35 @@
   }
 
   function renderTudo() {
-      // 1. RANKING TURBINADO
       const sorted = [...teams].sort((a,b) => calcularTotal(b) - calcularTotal(a));
+      
+      // Render Ranking
       document.getElementById('eng-tbody').innerHTML = sorted.map((t, i) => {
           const n = t.notasEquipe || {};
           const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
           const cli = (parseFloat(n.nota_cliente)||0) * 2;
           return `<tr>
-            <td class="rank-pos">${i+1}º</td>
+            <td style="font-family:'Bebas Neue'; font-size:1.5rem; color:var(--muted)">${i+1}º</td>
             <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()}</td>
             <td style="text-align:center">
-                <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)" title="Likes">
-                <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)" title="Comments" style="border-color:var(--cyan)">
+                <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)">
+                <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)">
             </td>
-            <td style="text-align:center; font-family:'Space Mono'; color:var(--cyan)">${mon.toFixed(1)}</td>
-            <td style="text-align:center; font-family:'Space Mono'; color:var(--yellow)">${cli.toFixed(1)}</td>
-            <td style="text-align:center"><span class="total-pts">${calcularTotal(t).toFixed(1)}</span></td>
+            <td style="text-align:center; color:var(--cyan)">${mon.toFixed(1)}</td>
+            <td style="text-align:center; color:var(--yellow)">${cli.toFixed(1)}</td>
+            <td style="text-align:center; font-family:'Bebas Neue'; font-size:1.8rem;">${calcularTotal(t).toFixed(1)}</td>
           </tr>`;
       }).join('');
 
-      // 2. EQUIPES PROFISSIONAL
+      // Render Equipes
       document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => `
-        <tr>
-            <td style="color:var(--muted); font-family:'Space Mono'">${String(i+1).padStart(2,'0')}</td>
-            <td style="font-weight:600; color:#fff">${t.nomeEquipe}</td>
-            <td style="font-family:'Space Mono'; color:var(--purple)">MESA ${t.mesa||'--'}</td>
-            <td style="font-size:0.8rem; color:var(--muted)">${t.membros||'Não informados'}</td>
-        </tr>
+        <tr><td>${i+1}</td><td style="font-weight:bold">${t.nomeEquipe}</td><td>MESA ${t.mesa||'--'}</td><td>${t.membros||'--'}</td></tr>
       `).join('');
 
-      // 3. DASHBOARD DOTS
+      // Render Dots Dashboard
       document.getElementById('dash-team-status').innerHTML = teams.map(t => `
-        <div style="background:rgba(255,255,255,0.02); padding:15px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
-            <span class="status-dot ${t.renderEnviado ? 'online' : ''}"></span>
+        <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
+            <span class="status-dot ${t.renderEnviado ? 'active' : ''}"></span>
             <span style="font-size:0.8rem; font-weight:600;">${t.nomeEquipe}</span>
         </div>
       `).join('');
@@ -227,17 +200,14 @@
   function updateDashboardKPIs() {
       if(teams.length === 0) return;
       const totalEng = teams.reduce((acc, t) => acc + (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5, 0);
-      const state = window.SprintTimer.getState();
-      
       document.getElementById('kpi-teams').textContent = teams.length;
       document.getElementById('kpi-eng').textContent = totalEng;
-      document.getElementById('kpi-phase').textContent = state.sprint;
+      document.getElementById('kpi-phase').textContent = window.SprintTimer.getState().sprint;
   }
 
   function updateMasterDisplay() {
       const state = window.SprintTimer.getState();
-      const rem = window.SprintTimer.getRemaining();
-      document.getElementById('master-time').textContent = window.fmtTime(rem);
+      document.getElementById('master-time').textContent = window.fmtTime(window.SprintTimer.getRemaining());
       document.getElementById('master-sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
   }
 
@@ -245,10 +215,6 @@
       const u = {}; u[`equipes/${id}/${field}`] = parseInt(val)||0;
       window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), u);
   };
-
-  window.masterStart = () => window.SprintTimer.start();
-  window.masterNextSprint = () => window.SprintTimer.nextSprint();
-  window.masterReset = () => confirm('Deseja zerar o cronômetro do sprint atual?') && window.SprintTimer.reset();
 
   function calcularTotal(t) {
       const soc = (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5 + (parseInt(t.eng_shares)||0)*3;
@@ -258,23 +224,28 @@
       return soc + mon + cli;
   }
 
-  // TABS NAVIGATION
+  // NAVEGAÇÃO ENTRE ABAS (FIXED)
   document.querySelectorAll('.adm-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-          document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
+          document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
-          ['dashboard','engajamento','equipes','mural'].forEach(id => {
-              document.getElementById('tab-'+id).style.display = tab.dataset.tab===id?'block':'none';
+          const target = tab.dataset.tab;
+          document.querySelectorAll('.tab-content').forEach(content => {
+              content.style.display = content.id === 'tab-' + target ? 'block' : 'none';
           });
       });
   });
+
+  window.masterStart = () => window.SprintTimer.start();
+  window.masterNextSprint = () => window.SprintTimer.nextSprint();
+  window.masterReset = () => confirm('Zerar cronômetro?') && window.SprintTimer.reset();
 
   window.postMural = () => {
       const msg = document.getElementById('mural-msg').value;
       if(!msg) return;
       window.Mural.pushFirebase(window.Mural.dbRef, { author: '🤖 JOTA', text: msg, time: new Date().toLocaleTimeString().slice(0,5) });
       document.getElementById('mural-msg').value = '';
-      window.toast('NOTIFICAÇÃO ENVIADA COM SUCESSO!');
+      window.toast('NOTIFICAÇÃO ENVIADA!');
   }
 </script>
 </body>
