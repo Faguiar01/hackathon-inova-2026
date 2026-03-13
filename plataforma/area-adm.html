@@ -15,19 +15,16 @@
     
     .main{padding:100px 28px 48px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
     
-    /* TIMER */
     .master-timer-card{background:var(--panel);border:1px solid rgba(213,0,249,.3);padding:32px;margin-bottom:35px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center; border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
     .mt-display{text-align:center}
     .mt-time{font-family:'Bebas Neue', sans-serif;font-size:5rem;color:var(--purple);text-shadow:0 0 30px rgba(213,0,249,.4);letter-spacing:8px; line-height:1;}
     .mt-sprint{font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--muted); margin-top:15px; letter-spacing:2px;}
 
-    /* NAV TABS */
     .adm-tabs{display:flex;gap:30px;margin-bottom:30px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom:5px;}
     .adm-tab{padding:10px 5px; background:transparent; border:none; color:var(--muted); font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:1px; cursor:pointer; transition:0.3s; position:relative;}
     .adm-tab.active { color: var(--purple); }
     .adm-tab.active::after { content:''; position:absolute; bottom:-7px; left:0; width:100%; height:3px; background:var(--purple); box-shadow: 0 0 15px var(--purple); }
 
-    /* KPIS & TABLES */
     .dash-grid-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
     .kpi-card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 12px; border-left: 4px solid var(--purple); }
     .kpi-val { font-family: 'Bebas Neue'; font-size: 3rem; color: #fff; line-height: 1; margin-bottom: 5px; display:block; }
@@ -38,7 +35,6 @@
     th { padding: 18px 20px; background: rgba(255,255,255,0.02); font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
     td { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; vertical-align: middle; }
     
-    /* INPUTS */
     .adm-score-input { width: 60px; background: rgba(0,0,0,0.4); border: 1px solid #333; color: #fff; text-align: center; padding: 10px; border-radius: 6px; font-family: 'Space Mono'; outline: none; }
     .adm-score-input:focus { border-color: var(--purple); }
     
@@ -68,13 +64,25 @@
       <span class="mt-time" id="master-time">--:--</span>
       <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO START //</div>
     </div>
+    
     <div style="display:flex; flex-direction:column; gap:12px;">
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
         <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
-        <button class="btn" style="background:#ffbb33; color:#000;" onclick="masterPause()">⏸ PAUSAR</button>
+        <button class="btn" style="background:#ffbb33; color:#000; border:none; font-family:'Bebas Neue'; font-size:1.1rem; border-radius:6px; cursor:pointer;" onclick="masterPause()">⏸ PAUSAR</button>
       </div>
-      <button class="btn btn-purple" onclick="masterNextSprint()">⏭ PRÓXIMO SPRINT</button>
-      <button class="btn btn-danger" onclick="masterReset()">↺ RESET</button>
+      
+      <div style="display:flex; gap:8px;">
+        <select id="select-sprint-jump" onchange="pularParaSprint(this.value)" style="flex:1; background:var(--purple); border:1px solid #d500f9; color:#fff; padding:12px; border-radius:6px; font-family:'Bebas Neue'; font-size:1.2rem; letter-spacing:1px; outline:none; cursor:pointer; text-align:center;">
+          <option value="" disabled selected>⚡ PULAR PARA OUTRA FASE...</option>
+          <option value="1">Ir para SPRINT 1: Empatia</option>
+          <option value="2">Ir para SPRINT 2: Co-Piloto IA</option>
+          <option value="3">Ir para SPRINT 3: Toque Humano</option>
+          <option value="4">Ir para SPRINT 4: Ponte Digital</option>
+          <option value="5">Ir para SPRINT 5: Pitch Final</option>
+        </select>
+      </div>
+
+      <button class="btn btn-danger" onclick="masterReset()">↺ ZERAR TEMPO DA FASE ATUAL</button>
     </div>
   </div>
 
@@ -87,50 +95,50 @@
 
   <div id="tab-dashboard" class="tab-content">
     <div class="dash-grid-top">
-        <div class="kpi-card"><span class="kpi-lbl">Equipes</span><span class="kpi-val" id="kpi-teams">0</span></div>
-        <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
-        <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Sprint Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">1</span></div>
-        <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
+      <div class="kpi-card"><span class="kpi-lbl">Equipes</span><span class="kpi-val" id="kpi-teams">0</span></div>
+      <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
+      <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Sprint Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">1</span></div>
+      <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
     </div>
     <div class="table-container" style="padding: 20px;">
-        <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px;">ENTREGAS DE RENDER (CHECK)</div>
-        <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
+      <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px;">ENTREGAS DE RENDER (CHECK)</div>
+      <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
     </div>
   </div>
 
   <div id="tab-engajamento" class="tab-content" style="display:none">
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 80px;">POS</th>
-                    <th>EQUIPE</th>
-                    <th style="text-align:center;">REDES (LIKE/COMM)</th>
-                    <th style="text-align:center; color:var(--cyan)">MONITOR</th>
-                    <th style="text-align:center; color:var(--yellow)">CLIENTE (X2)</th>
-                    <th style="text-align:center;">TOTAL GERAL</th>
-                </tr>
-            </thead>
-            <tbody id="eng-tbody"></tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 80px;">POS</th>
+            <th>EQUIPE</th>
+            <th style="text-align:center;">REDES (LIKE/COMM)</th>
+            <th style="text-align:center; color:var(--cyan)">MONITOR</th>
+            <th style="text-align:center; color:var(--yellow)">CLIENTE (X2)</th>
+            <th style="text-align:center;">TOTAL GERAL</th>
+          </tr>
+        </thead>
+        <tbody id="eng-tbody"></tbody>
+      </table>
     </div>
   </div>
 
   <div id="tab-equipes" class="tab-content" style="display:none">
     <div class="table-container">
-        <table>
-            <thead>
-                <tr><th># ID</th><th>NOME DO SQUAD</th><th>MESA</th><th>INTEGRANTES</th></tr>
-            </thead>
-            <tbody id="teams-tbody"></tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th># ID</th><th>NOME DO SQUAD</th><th>MESA</th><th>INTEGRANTES</th></tr>
+        </thead>
+        <tbody id="teams-tbody"></tbody>
+      </table>
     </div>
   </div>
 
   <div id="tab-mural" class="tab-content" style="display:none">
     <div class="table-container" style="padding: 30px;">
-        <textarea id="mural-msg" class="textarea-terminal" placeholder="Mensagem para o telão..."></textarea>
-        <button class="btn btn-purple" onclick="postMural()" style="width:100%; margin-top:20px;">🚀 PUBLICAR NO SISTEMA</button>
+      <textarea id="mural-msg" class="textarea-terminal" placeholder="Mensagem para o telão..."></textarea>
+      <button class="btn btn-purple" onclick="postMural()" style="width:100%; margin-top:20px;">🚀 PUBLICAR NO SISTEMA</button>
     </div>
   </div>
 
@@ -167,8 +175,7 @@
 
   function renderTudo() {
       const sorted = [...teams].sort((a,b) => calcularTotal(b) - calcularTotal(a));
-      
-      // Render Ranking
+
       document.getElementById('eng-tbody').innerHTML = sorted.map((t, i) => {
           const n = t.notasEquipe || {};
           const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
@@ -186,12 +193,10 @@
           </tr>`;
       }).join('');
 
-      // Render Equipes
       document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => `
         <tr><td>${i+1}</td><td style="font-weight:bold">${t.nomeEquipe}</td><td>MESA ${t.mesa||'--'}</td><td>${t.membros||'--'}</td></tr>
       `).join('');
 
-      // Render Dots Dashboard
       document.getElementById('dash-team-status').innerHTML = teams.map(t => `
         <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
             <span class="status-dot ${t.renderEnviado ? 'active' : ''}"></span>
@@ -209,9 +214,15 @@
   }
 
   function updateMasterDisplay() {
+      if (!window.SprintTimer || !window.SprintTimer.getState) return;
       const state = window.SprintTimer.getState();
+      const nomeDaFase = sprintNames[state.sprint-1] ? sprintNames[state.sprint-1].toUpperCase() : '';
       document.getElementById('master-time').textContent = window.fmtTime(window.SprintTimer.getRemaining());
-      document.getElementById('master-sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
+      if (state.running) {
+          document.getElementById('master-sprint-label').textContent = `// SPRINT ${state.sprint} — ${nomeDaFase} //`;
+      } else {
+          document.getElementById('master-sprint-label').textContent = `// SPRINT ${state.sprint} — ${nomeDaFase} (PAUSADO) //`;
+      }
   }
 
   window.updateSocial = (id, field, val) => {
@@ -227,7 +238,6 @@
       return soc + mon + cli;
   }
 
-  // NAVEGAÇÃO ENTRE ABAS (FIXED)
   document.querySelectorAll('.adm-tab').forEach(tab => {
       tab.addEventListener('click', () => {
           document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
@@ -240,9 +250,37 @@
   });
 
   window.masterStart = () => window.SprintTimer.start();
-  window.masterPause = () => window.SprintTimer.pause(); // <-- NOVA LINHA ADICIONADA
-  window.masterNextSprint = () => window.SprintTimer.nextSprint();
-  window.masterReset = () => confirm('Zerar cronômetro?') && window.SprintTimer.reset();
+  window.masterPause = () => window.SprintTimer.pause();
+  window.masterReset = () => confirm('Zerar cronômetro desta fase?') && window.SprintTimer.reset();
+
+ // 🚀 MUDANÇA DE FASE USANDO A FUNÇÃO NATIVA DO APP.JS
+  window.pularParaSprint = (val) => {
+      const selectEl = document.getElementById('select-sprint-jump');
+      if (!val) return;
+
+      const novoSprint = parseInt(val);
+      if (confirm(`ATENÇÃO COORDENAÇÃO: Mudar o evento inteiro para o SPRINT ${novoSprint}?`)) {
+          
+          // 1. Chama a função oficial e segura que já existe no seu app.js
+          if (window.SprintTimer && typeof window.SprintTimer.setSprint === 'function') {
+              window.SprintTimer.setSprint(novoSprint);
+              window.toast(`Mudando para Sprint ${novoSprint}...`, 'success');
+              
+              // 2. Truque Visual: Atualiza a tela na hora para não confundir o operador 
+              // enquanto o Firebase faz a sincronização pelo app.js
+              const nome = sprintNames[novoSprint-1].toUpperCase();
+              document.getElementById('master-sprint-label').textContent = `// SPRINT ${novoSprint} — ${nome} (SINCRONIZANDO...) //`;
+              
+              const kpiPhase = document.getElementById('kpi-phase');
+              if (kpiPhase) kpiPhase.textContent = novoSprint;
+              
+          } else {
+              alert("Erro: Função setSprint não encontrada no sistema.");
+          }
+      }
+      
+      selectEl.value = ""; // Reseta o menu de volta para o texto "⚡ PULAR PARA OUTRA FASE..."
+  };
 
   window.postMural = () => {
       const msg = document.getElementById('mural-msg').value;
@@ -250,7 +288,7 @@
       window.Mural.pushFirebase(window.Mural.dbRef, { author: '🤖 JOTA', text: msg, time: new Date().toLocaleTimeString().slice(0,5) });
       document.getElementById('mural-msg').value = '';
       window.toast('NOTIFICAÇÃO ENVIADA!');
-  }
+  };
 </script>
 </body>
 </html>

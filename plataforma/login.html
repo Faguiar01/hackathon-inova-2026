@@ -7,33 +7,36 @@
   <link rel="stylesheet" href="../assets/css/base.css"/>
   <style>
     body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-    .login-wrap{width:100%;max-width:440px;position:relative;z-index:2}
+    .login-wrap{width:100%;max-width:500px;position:relative;z-index:2}
     .login-header{text-align:center;margin-bottom:36px}
     .login-logo{font-family:'Bebas Neue', sans-serif;font-size:1.8rem;font-weight:900;color:var(--cyan);letter-spacing:4px;text-shadow:0 0 10px rgba(0,240,255,0.4);display:block;margin-bottom:6px}
-    .login-sub{font-family:'Space Mono', monospace;font-size:.62rem;color:var(--text);letter-spacing:3px}
+    .login-sub{font-family:'Space Mono', monospace;font-size:.62rem;color:#fff;letter-spacing:3px}
     .login-box{background:rgba(8,12,18,.95);border:1px solid var(--border);padding:36px;border-radius:8px;}
-    .role-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
-    .role-btn{padding:14px 8px;background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s; border-radius:4px;}
-    .role-btn .r-icon{font-size:1.4rem}
-    .role-btn .r-label{font-family:'Bebas Neue', sans-serif;font-size:.8rem;letter-spacing:1px;color:var(--text);transition:color .2s}
+    .role-selector{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+    .role-btn{padding:14px 4px;background:transparent;border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s; border-radius:4px;}
+    .role-btn .r-icon{font-size:1.3rem}
+    .role-btn .r-label{font-family:'Bebas Neue', sans-serif;font-size:.75rem;letter-spacing:1px;color:#fff;transition:color .2s}
     .role-btn.active[data-role=participante]{border-color:var(--cyan);background:rgba(0,229,255,.08)}
     .role-btn.active[data-role=participante] .r-label{color:var(--cyan)}
-    .role-btn.active[data-role=monitor]{border-color:var(--yellow);background:rgba(255,214,0,.08)}
-    .role-btn.active[data-role=monitor] .r-label{color:var(--yellow)}
+    .role-btn.active[data-role=monitor]{border-color:#00C851;background:rgba(0,200,81,.08)}
+    .role-btn.active[data-role=monitor] .r-label{color:#00C851}
+    .role-btn.active[data-role=cliente]{border-color:var(--yellow);background:rgba(255,214,0,.08)}
+    .role-btn.active[data-role=cliente] .r-label{color:var(--yellow)}
     .role-btn.active[data-role=adm]{border-color:var(--purple);background:rgba(213,0,249,.08)}
     .role-btn.active[data-role=adm] .r-label{color:var(--purple)}
     .role-btn:hover{border-color:rgba(0,229,255,.3)}
     .login-form{display:grid;gap:16px}
-    .field label { display:block; font-family:'Space Mono', monospace; font-size:.6rem; color:var(--cyan); margin-bottom:6px; letter-spacing:1px; }
-    .field input { width:100%; padding:12px; background:rgba(255,255,255,.04); border:1px solid rgba(0,240,255,.2); color:var(--text); font-family:'Syne', sans-serif; font-size:.9rem; border-radius:4px; transition:.2s; }
+    .field label { display:block; font-family:'Space Mono', monospace; font-size:.6rem; color:#fff; margin-bottom:6px; letter-spacing:1px; }
+    .field input { width:100%; padding:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2); color:#fff; font-family:'Syne', sans-serif; font-size:.9rem; border-radius:4px; transition:.2s; }
+    .field input::placeholder { color:rgba(255,255,255,.45); }
     .field input:focus { outline:none; border-color:var(--yellow); }
     .login-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
-    .login-divider span{font-family:'Space Mono', monospace;font-size:.58rem;color:var(--text);letter-spacing:2px;white-space:nowrap}
-    .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-    .back-link{display:block;text-align:center;margin-top:20px;font-family:'Space Mono', monospace;font-size:.65rem;color:var(--text);text-decoration:none;letter-spacing:1px;transition:color .2s}
+    .login-divider span{font-family:'Space Mono', monospace;font-size:.58rem;color:#fff;letter-spacing:2px;white-space:nowrap}
+    .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.2)}
+    .back-link{display:block;text-align:center;margin-top:20px;font-family:'Space Mono', monospace;font-size:.65rem;color:#aaa;text-decoration:none;letter-spacing:1px;transition:color .2s}
     .back-link:hover{color:var(--cyan)}
     .btn-login {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; padding:15px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s; width:100%; margin-top:4px;}
-    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-login:disabled { opacity: 0.4; cursor: not-allowed; }
     .error-msg{background:rgba(255,23,68,.08);border:1px solid #ff4444;padding:10px 14px;font-family:'Space Mono', monospace;font-size:.7rem;color:#ff4444;letter-spacing:1px;display:none; border-radius:4px;}
     .error-msg.show{display:block}
   </style>
@@ -50,11 +53,15 @@
     <div class="role-selector">
       <button class="role-btn" data-role="participante">
         <span class="r-icon">🎯</span>
-        <span class="r-label">PARTICIPANTE</span>
+        <span class="r-label">ALUNO</span>
       </button>
       <button class="role-btn" data-role="monitor">
         <span class="r-icon">📋</span>
         <span class="r-label">MONITOR</span>
+      </button>
+      <button class="role-btn" data-role="cliente">
+        <span class="r-icon">🤝</span>
+        <span class="r-label">JURADO</span>
       </button>
       <button class="role-btn" data-role="adm">
         <span class="r-icon">🖥️</span>
@@ -105,10 +112,9 @@
     const btn = document.querySelector(`.role-btn[data-role="${role}"]`);
     if (btn) btn.classList.add('active');
     
-    const labels = { participante: 'PARTICIPANTE', monitor: 'MONITOR', adm: 'COORDENAÇÃO ADM' };
-    document.getElementById('role-display').value = labels[role] || role;
+    const labels = { participante: 'PARTICIPANTE (SQUAD)', monitor: 'AVALIADOR TÉCNICO', cliente: 'JURADO / ESPECIALISTA', adm: 'COORDENAÇÃO ADM' };
+    document.getElementById('role-display').value = labels[role] || role.toUpperCase();
     
-    // Mostra o campo Nome da Equipe apenas se for Participante
     document.getElementById('field-equipe').style.display = (role === 'participante') ? 'block' : 'none';
     
     document.getElementById('login-btn').disabled = false;
@@ -123,13 +129,13 @@
 
   document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!selectedRole) { toast('Selecione seu perfil primeiro!', 'error'); return; }
+    if (!selectedRole) { alert('Selecione seu perfil primeiro!'); return; }
     
     const pw = document.getElementById('password').value;
     const team = document.getElementById('teamName').value;
     
     if (selectedRole === 'participante' && !team) {
-      toast('Digite o nome da equipe!', 'warning');
+      alert('Digite o nome do seu Squad!');
       return;
     }
 
@@ -137,7 +143,6 @@
     btn.textContent = 'VERIFICANDO NO BANCO...'; 
     btn.disabled = true;
 
-    // Aguarda a resposta do Firebase configurada no app.js
     const isLogged = await window.AUTH.login(selectedRole, pw, team);
     
     if (isLogged) {

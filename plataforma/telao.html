@@ -171,6 +171,7 @@
   </footer>
 
   <script type="module" src="../assets/js/app.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
 <script>
   const sprintNames = ['Empatia Humana', 'Co-Piloto IA', 'Toque Humano 5.0', 'Ponte Digital', 'Pitch Final'];
   
@@ -192,24 +193,31 @@
     
     timerEl.textContent = window.fmtTime(rem);
     
+    // Atualiza os Textos de Status
     if (state.running) {
         document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint-1].toUpperCase()} //`;
     } else {
-        if (state.sprint > 1) {
+        if (rem === 0) {
+            document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} ENCERRADO //`;
+        } else if (state.sprint >= 1) {
             document.getElementById('telao-sprint-name').textContent = `// SPRINT ${state.sprint} (PAUSADO) //`;
         } else {
             document.getElementById('telao-sprint-name').textContent = `// PREPARAÇÃO //`;
         }
     }
 
-    if (!state.running) {
-        timerEl.className = 't-timer paused';
+    // LÓGICA DE CORES CORRIGIDA (Prioridade para o Vermelho se o tempo esgotar)
+    if (rem === 0) {
+        timerEl.className = 't-timer danger'; // Continua vermelho e piscando quando zera
+    } else if (!state.running) {
+        timerEl.className = 't-timer paused'; // Fica cinza só se pausar no meio
     } else if (rem <= 300 && rem > 0) { 
-        timerEl.className = 't-timer danger';
+        timerEl.className = 't-timer danger'; // Últimos 5 minutos
     } else {
-        timerEl.className = 't-timer';
+        timerEl.className = 't-timer'; // Azul Ciano normal
     }
 
+    // Lógica da Barra de Progresso
     const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
     const sprintMaxTime = SPRINT_TIMES[state.sprint - 1]; 
     
@@ -218,7 +226,7 @@
     if (pct < 0) pct = 0;
     progressEl.style.width = pct + '%';
     
-    if (rem <= 300 && rem > 0) {
+    if (rem <= 300) { // Agora fica vermelho até e quando for zero
         progressEl.style.background = '#ff4444';
         progressEl.style.boxShadow = '0 0 20px #ff4444';
     } else {
@@ -238,16 +246,19 @@
       // Sempre atualiza o rodapé
       ticker.innerHTML = `<span style="color:var(--yellow)">[${msg.time}] ${msg.author.toUpperCase()}:</span> ${msg.text}`;
 
-      // Exibe o Alerta Gigante!
+      // Exibe o Alerta Gigante
       if (isTelaoReady) {
           document.body.style.boxShadow = "inset 0 0 150px var(--purple)";
           setTimeout(() => { document.body.style.boxShadow = "none"; }, 1000);
           
           const popup = document.getElementById('telao-popup');
-          document.getElementById('popup-author').textContent = msg.author.toUpperCase();
-          document.getElementById('popup-text').textContent = msg.text;
+          document.getElementById('popup-author').textContent = msg.author ? msg.author.toUpperCase() : "JOTA";
+          
+          // Correção: Agora força o texto renderizar corretamente
+          document.getElementById('popup-text').innerHTML = msg.text;
           
           popup.style.display = 'flex';
+          // Pequeno delay para a animação do CSS pegar
           setTimeout(() => { 
               popup.style.opacity = '1'; 
               popup.style.transform = 'scale(1)'; 
@@ -257,7 +268,7 @@
           setTimeout(() => {
               popup.style.opacity = '0';
               popup.style.transform = 'scale(0.8)';
-              setTimeout(() => { popup.style.display = 'none'; }, 400);
+              setTimeout(() => { popup.style.display = 'none'; }, 400); // Aguarda o fade out
           }, 10000);
       }
   };

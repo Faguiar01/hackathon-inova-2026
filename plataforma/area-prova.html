@@ -11,7 +11,6 @@
   <style>
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; }
     
-    /* TOP BAR */
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:10px 24px;background:rgba(7,9,15,.97);border-bottom:1px solid var(--border)}
     .tb-left{display:flex;align-items:center;gap:12px}
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--cyan);letter-spacing:2px}
@@ -27,18 +26,15 @@
     
     .main{padding:80px 24px 40px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
     
-    /* CAIXAS DE CONTEÚDO */
     .mission-box{background:var(--panel);border:1px solid var(--border);padding:32px;margin-bottom:24px;position:relative;overflow:hidden; border-radius:8px; min-height: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
     .content-box{background:var(--panel);border:1px solid var(--border);padding:32px;border-radius:8px; text-align: left;}
     
-    /* BOTÕES */
     .btn-action {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.5rem; padding:12px 32px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s;}
     .btn-action:hover {background:#fff; transform:scale(1.02);}
     .btn-sortear{background:var(--yellow); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.8rem; padding:16px 40px; border:none; border-radius:8px; cursor:pointer; letter-spacing:2px; box-shadow: 0 0 20px rgba(255,214,0,0.4); transition:all 0.2s; animation: pulse-btn 2s infinite;}
     .btn-sortear:hover{transform:scale(1.05); background:#fff;}
     @keyframes pulse-btn { 0%, 100% { box-shadow: 0 0 20px rgba(255,214,0,0.4); } 50% { box-shadow: 0 0 40px rgba(255,214,0,0.8); } }
 
-    /* SPRINT INDICATOR */
     .sprint-indicator{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
     .si-item{flex:1;min-width:100px;padding:10px 16px;border:1px solid var(--border);background:var(--panel);text-align:center;transition:all .3s;cursor:default; border-radius:4px;}
     .si-item.active{border-color:var(--cyan);background:rgba(0,240,255,.08)}
@@ -50,12 +46,10 @@
     .si-name{font-family:'Syne', sans-serif;font-size:.78rem;color:var(--muted);display:block}
     .si-item.active .si-name{color:#fff}
 
-    /* ABAS (TABS) */
     .page-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
     .page-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
     .page-tab:hover,.page-tab.active{background:rgba(0,240,255,.1);border-color:var(--cyan);color:var(--cyan)}
 
-    /* ESTILO DA MISSÃO */
     .mission-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;}
     .mission-title{font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:1px; line-height: 1.1; margin-top: 8px;}
     .boss-card{background:rgba(255,214,0,.05); border-left:4px solid var(--yellow); padding:16px; border-radius:4px; margin-bottom: 20px;}
@@ -102,6 +96,7 @@
       <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
       <button class="page-tab" data-tab="regras">📖 Regras de Ouro</button>
       <button class="page-tab" data-tab="links">🔗 Central IA</button>
+      <button class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">🚀 Entrega Final</button>
     </div>
 
     <div class="content-box" id="tab-cenario">
@@ -149,22 +144,31 @@
       </div>
     </div>
 
+    <div id="tab-entrega" style="display:none; margin-top: 20px;">
+      <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
+        <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
+        <p style="color:var(--text); margin-bottom:20px; line-height: 1.5;">O Sprint 4 exige a entrega do seu protótipo digital. Cole abaixo o link da imagem gerada pela IA (pode ser link do DALL-E, Midjourney, ou um link aberto do Google Drive).</p>
+        
+        <input type="url" id="link-render" placeholder="Cole a URL do projeto aqui..." style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box;">
+        
+        <button id="btn-enviar-render" class="btn-action" style="background:#00C851; color:#000; width:100%;" onclick="enviarRender()">ENVIAR PARA A BANCADA DOS JURADOS</button>
+      </div>
+    </div>
+
   </div>
 </main>
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
-  // 1. SEMÁFORO: Espera o app.js carregar totalmente
   const checkLoad = setInterval(() => {
-      if (window.AUTH && window.SprintTimer) {
+      if (window.AUTH && window.SprintTimer && window.InovaDB) {
           clearInterval(checkLoad);
-          iniciarPagina(); // Sinal verde!
+          iniciarPagina();
       }
   }, 100);
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
 
-  // BANCO DE DADOS (Cenários)
   const missoes = [
     { vertente: "Produção", titulo: "A Linha de Montagem Infinita", dor: "Um operador monta 1.200 componentes por turno. O movimento repetitivo causa dores nos pulsos e a monotonia gera falhas.", desafio: "Como redesenhar a rotina de montagem para adaptar ao ritmo humano, eliminando lesões?" },
     { vertente: "Produção", titulo: "O Calor da Fundição", dor: "Operadores sofrem com desidratação e tonturas próximos a fornos de alta temperatura.", desafio: "Como garantir a supervisão do metal sem expor o operador ao calor extremo?" },
@@ -183,27 +187,21 @@
     { vertente: "Administrativo", titulo: "O Silo de Informação", dor: "Operários de fábrica não recebem campanhas de segurança feitas apenas por e-mail corporativo.", desafio: "Como fazer a comunicação interna alcançar a todos sem depender de telas?" }
   ];
 
-  // Lógica de Abas
+  // ✅ LÓGICA DE ABAS CORRIGIDA — inclui 'entrega' e sem if redundante
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      ['cenario','regras','links'].forEach(id => {
-        document.getElementById('tab-'+id).style.display = tab.dataset.tab === id ? 'block' : 'none';
-        if(id === 'links' && tab.dataset.tab === 'links') document.getElementById('tab-links').style.display = 'block';
+      ['cenario', 'regras', 'links', 'entrega'].forEach(id => {
+        document.getElementById('tab-' + id).style.display = tab.dataset.tab === id ? 'block' : 'none';
       });
     });
   });
 
-  // Função principal que orquestra a página inteira
   function iniciarPagina() {
-      // 1. Autenticação (Descomente se quiser forçar o redirecionamento sem login)
-      // window.AUTH.require('participante'); 
-
-      // 2. Inicializa o Dashboard/Sorteio
+      // window.AUTH.require('participante');
       initApp();
 
-      // 3. Liga o Cronômetro
       setInterval(() => {
         if(!window.SprintTimer) return;
         const rem = window.SprintTimer.getRemaining();
@@ -223,7 +221,6 @@
     const equipSaved = sessionStorage.getItem('inova_equipe');
     const vertSaved = sessionStorage.getItem('inova_vertente');
     
-    // Se estiver testando direto (sem logar), coloca dados falsos para a tela abrir
     const equipeNome = equipSaved || 'SQUAD TESTE';
     const vertenteNome = vertSaved || 'Produção';
 
@@ -250,7 +247,6 @@
     document.getElementById('view-sorteio').style.display = 'flex';
   }
 
-  // O onclick do HTML precisa puxar do window.
   window.sortearMissao = function() {
     document.querySelector('.btn-sortear').textContent = "SORTEANDO...";
     setTimeout(() => {
@@ -265,7 +261,7 @@
       exibirDashboard(missaoSorteada);
       window.toast("Missão revelada! Que os Sprints comecem.", "success");
     }, 1500);
-  }
+  };
 
   function exibirDashboard(missao) {
     document.getElementById('view-sorteio').style.display = 'none';
@@ -276,6 +272,71 @@
     document.getElementById('m-dor').textContent = missao.dor;
     document.getElementById('m-desafio').textContent = missao.desafio;
   }
+
+  // ✅ FUNÇÃO DE ENVIO DO RENDER — ADICIONADA
+  window.enviarRender = function() {
+      const link = document.getElementById('link-render').value.trim();
+      if (!link) {
+          alert("Por favor, cole o link do seu render antes de enviar!");
+          return;
+      }
+      
+      const equipeNome = sessionStorage.getItem('inova_equipe');
+      if (!equipeNome) {
+          alert("Erro: Equipe não identificada no sistema.");
+          return;
+      }
+      
+      const btn = document.getElementById('btn-enviar-render');
+      btn.textContent = "ENVIANDO...";
+      btn.disabled = true;
+
+      // Busca a equipe pelo nome no Firebase para pegar a key correta
+      window.InovaDB.onValue(
+          window.InovaDB.ref(window.InovaDB.db, 'equipes'),
+          (snapshot) => {
+              const data = snapshot.val();
+              if (!data) {
+                  alert("Erro: Nenhuma equipe encontrada no banco.");
+                  btn.disabled = false;
+                  btn.textContent = "TENTAR NOVAMENTE";
+                  return;
+              }
+
+              // Encontra o ID real da equipe pelo nome
+              const equipeId = Object.keys(data).find(
+                  key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
+              );
+
+              if (!equipeId) {
+                  alert("Erro: Equipe não encontrada no banco. Chame um monitor.");
+                  btn.disabled = false;
+                  btn.textContent = "TENTAR NOVAMENTE";
+                  return;
+              }
+
+              const updates = {};
+              updates[`equipes/${equipeId}/renderEnviado`] = true;
+              updates[`equipes/${equipeId}/renderLink`] = link;
+
+              window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+                  .then(() => {
+                      window.toast("Projeto enviado! A coordenação já recebeu.", "success");
+                      btn.textContent = "✅ PROJETO ENTREGUE";
+                      btn.style.background = "transparent";
+                      btn.style.color = "#00C851";
+                      btn.style.border = "1px solid #00C851";
+                  })
+                  .catch(err => {
+                      console.error(err);
+                      alert("Erro de conexão. Chame um monitor.");
+                      btn.textContent = "TENTAR NOVAMENTE";
+                      btn.disabled = false;
+                  });
+          },
+          { onlyOnce: true } // Lê uma vez só, não fica ouvindo
+      );
+  };
 </script>
 </body>
 </html>

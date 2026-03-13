@@ -13,9 +13,18 @@
         display: flex; flex-direction: column;
     }
 
-    .header-final { text-align: center; margin-bottom: 50px; }
+    .header-final { text-align: center; margin-bottom: 50px; position:relative;}
     .header-final h1 { font-family: 'Bebas Neue'; font-size: 5rem; color: var(--purple); letter-spacing: 5px; margin: 0; text-shadow: 0 0 30px rgba(213,0,249,0.5); }
     .header-final p { font-family: 'Space Mono'; color: var(--cyan); letter-spacing: 3px; font-size: 1.2rem; }
+
+    /* BOTÃO SECRETO DO APRESENTADOR */
+    .btn-revelar {
+        position: absolute; right: 20px; top: 10px;
+        background: transparent; border: 1px solid rgba(213,0,249,0.3);
+        color: rgba(255,255,255,0.2); font-family: 'Space Mono'; font-size: 0.7rem;
+        padding: 5px 15px; cursor: pointer; border-radius: 4px; transition: 0.3s;
+    }
+    .btn-revelar:hover { color: var(--purple); border-color: var(--purple); }
 
     .ranking-container {
         flex: 1; display: flex; flex-direction: column; gap: 20px;
@@ -28,7 +37,12 @@
         gap: 20px; background: rgba(255,255,255,0.02);
         padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
         transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0.3; /* Inicia escondido */
+        filter: blur(5px);
     }
+    
+    /* Quando o botão revelar for clicado, essa classe é ativada */
+    .rank-row.revelado { opacity: 1; filter: blur(0); }
 
     .pos { font-family: 'Bebas Neue'; font-size: 2.5rem; color: var(--muted); text-align: center; }
     
@@ -37,25 +51,26 @@
         height: 100%; width: 0%; /* Anima via JS */
         background: linear-gradient(90deg, var(--purple), #d500f9);
         box-shadow: 0 0 20px rgba(213,0,249,0.3);
-        transition: width 2s ease-out;
+        transition: width 2s cubic-bezier(0.2, 0.8, 0.2, 1);
         display: flex; align-items: center; padding-left: 20px;
     }
     .team-name { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; letter-spacing: 1px; white-space: nowrap; }
     
-    .total-pts { font-family: 'Space Mono'; font-size: 2rem; font-weight: bold; color: #fff; text-align: right; }
+    .total-pts { font-family: 'Space Mono'; font-size: 2rem; font-weight: bold; color: #fff; text-align: right; opacity: 0; transition: opacity 1s; }
+    .rank-row.revelado .total-pts { opacity: 1; } /* Mostra o número só depois de revelar */
 
-    /* CORES DOS VENCEDORES */
-    .rank-row.gold { border-color: #ffd700; background: rgba(255, 215, 0, 0.05); transform: scale(1.05); }
-    .rank-row.gold .pos { color: #ffd700; font-size: 3.5rem; }
-    .rank-row.gold .bar { background: linear-gradient(90deg, #ffd700, #ffae00); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+    /* CORES DOS VENCEDORES (Só ativam quando revelado) */
+    .rank-row.revelado.gold { border-color: #ffd700; background: rgba(255, 215, 0, 0.05); transform: scale(1.05); z-index: 10;}
+    .rank-row.revelado.gold .pos { color: #ffd700; font-size: 3.5rem; }
+    .rank-row.revelado.gold .bar { background: linear-gradient(90deg, #ffd700, #ffae00); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
 
-    .rank-row.silver { border-color: #c0c0c0; background: rgba(192, 192, 192, 0.05); }
-    .rank-row.silver .pos { color: #c0c0c0; }
-    .rank-row.silver .bar { background: linear-gradient(90deg, #c0c0c0, #8e8e8e); }
+    .rank-row.revelado.silver { border-color: #c0c0c0; background: rgba(192, 192, 192, 0.05); z-index: 9;}
+    .rank-row.revelado.silver .pos { color: #c0c0c0; }
+    .rank-row.revelado.silver .bar { background: linear-gradient(90deg, #c0c0c0, #8e8e8e); }
 
-    .rank-row.bronze { border-color: #cd7f32; background: rgba(205, 127, 50, 0.05); }
-    .rank-row.bronze .pos { color: #cd7f32; }
-    .rank-row.bronze .bar { background: linear-gradient(90deg, #cd7f32, #8b4513); }
+    .rank-row.revelado.bronze { border-color: #cd7f32; background: rgba(205, 127, 50, 0.05); z-index: 8;}
+    .rank-row.revelado.bronze .pos { color: #cd7f32; }
+    .rank-row.revelado.bronze .bar { background: linear-gradient(90deg, #cd7f32, #8b4513); }
 
     /* EFEITO DE PARTICULAS NO FUNDO */
     #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
@@ -68,6 +83,7 @@
 <header class="header-final">
     <h1>CLASSIFICAÇÃO FINAL</h1>
     <p>// HACKATHON INOVA+ 2026 // SENAI JOINVILLE</p>
+    <button class="btn-revelar" onclick="revelarRanking()">[ ESPAÇO ] REVELAR</button>
 </header>
 
 <div class="ranking-container" id="ranking-list">
@@ -75,6 +91,10 @@
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
+  let equipesProcessadas = [];
+  let isRevelado = false;
+  let dadosCarregados = false; // Trava de segurança para ler o banco só 1 vez
+
   const checkDB = setInterval(() => {
       if (window.InovaDB) {
           clearInterval(checkDB);
@@ -83,50 +103,17 @@
   }, 500);
 
   function carregarRankingFinal() {
+      // Usando o onValue com a trava 'dadosCarregados' para evitar bugs de exportação do app.js
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          if (dadosCarregados) return; // Se já montou as barras, ignora qualquer mudança nova pra não estragar a animação
+          dadosCarregados = true;
+
           const data = snapshot.val();
           const teams = data ? Object.keys(data).map(id => ({ id, ...data[id] })) : [];
-          renderizarRanking(teams);
+          
+          equipesProcessadas = teams.sort((a, b) => calcularTotal(b) - calcularTotal(a));
+          prepararTela(equipesProcessadas);
       });
-  }
-
-  function renderizarRanking(teams) {
-      // Ordena pelo total
-      const sorted = teams.sort((a, b) => calcularTotal(b) - calcularTotal(a));
-      
-      const container = document.getElementById('ranking-list');
-      const maxPts = calcularTotal(sorted[0]) || 1; // Para escala das barras
-
-      container.innerHTML = sorted.map((t, i) => {
-          const total = calcularTotal(t);
-          const pct = (total / maxPts) * 100;
-          let rankClass = "";
-          if(i === 0) rankClass = "gold";
-          else if(i === 1) rankClass = "silver";
-          else if(i === 2) rankClass = "bronze";
-
-          return `
-            <div class="rank-row ${rankClass}">
-                <div class="pos">${i + 1}º</div>
-                <div class="track">
-                    <div class="bar" style="width: 0%" id="bar-${t.id}">
-                        <span class="team-name">${t.nomeEquipe.toUpperCase()}</span>
-                    </div>
-                </div>
-                <div class="total-pts">${total.toFixed(1)}</div>
-            </div>
-          `;
-      }).join('');
-
-      // Pequeno delay para a animação das barras começar
-      setTimeout(() => {
-          sorted.forEach(t => {
-              const total = calcularTotal(t);
-              const pct = (total / maxPts) * 100;
-              const bar = document.getElementById(`bar-${t.id}`);
-              if(bar) bar.style.width = (pct < 10 ? 10 : pct) + "%";
-          });
-      }, 500);
   }
 
   function calcularTotal(t) {
@@ -136,6 +123,76 @@
       const cli = (parseFloat(n.nota_cliente)||0) * 2;
       return soc + mon + cli;
   }
+
+  function prepararTela(sorted) {
+      const container = document.getElementById('ranking-list');
+
+      if(sorted.length === 0) {
+          container.innerHTML = `<div style="text-align:center; color:var(--muted); font-family:'Space Mono'; margin-top:50px;">Nenhuma equipe registrada no banco de dados.</div>`;
+          return;
+      }
+
+      container.innerHTML = sorted.map((t, i) => {
+          const total = calcularTotal(t);
+          let rankClass = "";
+          if(i === 0) rankClass = "gold";
+          else if(i === 1) rankClass = "silver";
+          else if(i === 2) rankClass = "bronze";
+
+          return `
+            <div class="rank-row ${rankClass}" id="row-${t.id}">
+                <div class="pos">?</div>
+                <div class="track">
+                    <div class="bar" style="width: 0%" id="bar-${t.id}">
+                        <span class="team-name">${t.nomeEquipe.toUpperCase()}</span>
+                    </div>
+                </div>
+                <div class="total-pts">${total.toFixed(1)} PTS</div>
+            </div>
+          `;
+      }).join('');
+  }
+
+  // A MÁGICA: Revela de baixo para cima!
+  window.revelarRanking = function() {
+      if(isRevelado || equipesProcessadas.length === 0) return;
+      isRevelado = true;
+      document.querySelector('.btn-revelar').style.display = 'none';
+
+      const maxPts = calcularTotal(equipesProcessadas[0]) || 1; 
+      
+      // Inverte a array para revelar do último colocado até o primeiro
+      const revelacao = [...equipesProcessadas].reverse();
+      
+      revelacao.forEach((t, indexInvertido) => {
+          // Calcula a posição real
+          const posReal = equipesProcessadas.length - indexInvertido;
+          
+          // Delay aumenta conforme vai chegando perto do primeiro colocado
+          setTimeout(() => {
+              const row = document.getElementById(`row-${t.id}`);
+              const bar = document.getElementById(`bar-${t.id}`);
+              const total = calcularTotal(t);
+              const pct = (total / maxPts) * 100;
+              
+              if(row) {
+                  row.classList.add('revelado');
+                  row.querySelector('.pos').textContent = posReal + 'º';
+              }
+              if(bar) {
+                  bar.style.width = (pct < 5 ? 5 : pct) + "%";
+              }
+              
+          }, indexInvertido * 1500); // 1.5 segundos de suspense entre cada equipe revelada
+      });
+  }
+
+  // Atalho no teclado: Apertar espaço dispara a revelação
+  document.addEventListener('keydown', function(event) {
+      if (event.code === 'Space') {
+          window.revelarRanking();
+      }
+  });
 </script>
 </body>
 </html>

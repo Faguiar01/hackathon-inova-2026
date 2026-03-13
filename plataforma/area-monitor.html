@@ -93,25 +93,18 @@
   </div>
 
   <div style="margin-bottom:24px">
-    <div class="tag" style="margin-bottom:12px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">ESTAÇÃO DE TRABALHO</div>
-    <div class="mesa-selector">
-      <button class="mesa-btn active" onclick="selectMesa('01',this)">MESA 01</button>
-      <button class="mesa-btn" onclick="selectMesa('02',this)">MESA 02</button>
-      <button class="mesa-btn" onclick="selectMesa('03',this)">MESA 03</button>
-      <button class="mesa-btn" onclick="selectMesa('04',this)">MESA 04</button>
-      <button class="mesa-btn" onclick="selectMesa('05',this)">MESA 05</button>
-      <button class="mesa-btn" onclick="selectMesa('06',this)">MESA 06</button>
-      <button class="mesa-btn" onclick="selectMesa('07',this)">MESA 07</button>
-      <button class="mesa-btn" onclick="selectMesa('08',this)">MESA 08</button>
+    <div class="tag" style="margin-bottom:12px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">SQUADS ATIVOS NO HACKATHON</div>
+    <div class="mesa-selector" id="lista-equipes-monitor">
+      <div style="color:var(--muted); font-family:'Space Mono';">Carregando equipes...</div>
     </div>
   </div>
 
   <div style="margin-bottom: 24px; padding: 15px 20px; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-left: 5px solid var(--cyan); border-radius: 4px;">
-      <h3 style="font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.6rem; letter-spacing: 1px; margin:0;" id="equipe-nome-display">Equipe: Selecione uma mesa</h3>
+      <h3 style="font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.6rem; letter-spacing: 1px; margin:0;" id="equipe-nome-display">Equipe: Selecione um Squad</h3>
       <p style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--cyan); margin-top:5px;" id="equipe-vertente-display">Vertente: --</p>
   </div>
 
-  <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">CHECKLIST DE EVOLUÇÃO — <span id="mesa-label">MESA 01</span></div>
+  <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">CHECKLIST DE EVOLUÇÃO — <span id="mesa-label">MESA</span></div>
   <div class="sprint-checklists" id="checklists">
     <div class="sprint-cl" id="cl1">
       <div class="sprint-cl-header" onclick="toggleCL('cl1')">
@@ -213,53 +206,74 @@
   function carregarEquipesMonitor() {
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
          dbEquipes = snapshot.val() || {};
-         window.renderAvaliacaoGrupo(); 
+         renderBotoesEquipes(); // Constroi os botões dinamicamente
       });
+  } // <--- CHAVE FECHANDO A FUNÇÃO CORRETAMENTE
+
+  // NOVA FUNÇÃO: Cria um botão para cada equipe do banco
+  function renderBotoesEquipes() {
+      const container = document.getElementById('lista-equipes-monitor');
+      const chaves = Object.keys(dbEquipes);
+      
+      if (chaves.length === 0) {
+          container.innerHTML = `<div style="color:#ff4444; font-family:'Space Mono';">Nenhuma equipe cadastrada no evento ainda.</div>`;
+          return;
+      }
+
+      container.innerHTML = chaves.map(key => {
+          const nomeEq = dbEquipes[key].nomeEquipe.toUpperCase();
+          const isActive = key === currentTeamId ? 'active' : '';
+          return `<button class="mesa-btn ${isActive}" onclick="selectEquipe('${key}', this)">${nomeEq}</button>`;
+      }).join('');
+
+      // Se não tiver ninguém selecionado e já tiver equipes, clica na primeira
+      if (!currentTeamId && chaves.length > 0) {
+          selectEquipe(chaves[0], container.firstChild);
+      } else if (currentTeamId) {
+          // Garante que as notas da equipe atualizada sejam mostradas
+          window.renderAvaliacaoGrupo(); 
+      }
   }
 
-  window.selectMesa = function(n, btn) {
-    currentMesa = n;
+  // ATUALIZADA: Seleciona pelo ID da equipe (e não mais pela mesa)
+  window.selectEquipe = function(teamKey, btn) {
+    currentTeamId = teamKey;
     document.querySelectorAll('.mesa-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('mesa-label').textContent = 'MESA ' + n;
+    if(btn) btn.classList.add('active');
+    document.getElementById('mesa-label').textContent = 'SQUAD: ' + dbEquipes[teamKey].nomeEquipe.toUpperCase();
     window.renderAvaliacaoGrupo();
   }
 
+  // ATUALIZADA: Mostra as notas da equipe selecionada
   window.renderAvaliacaoGrupo = function() {
     const tbody = document.getElementById('ss-tbody');
-    let teamId = null;
-    let teamData = null;
     
-    for (const key in dbEquipes) {
-      if (dbEquipes[key].mesa == currentMesa) {
-         teamId = key;
-         teamData = dbEquipes[key];
-         break;
-      }
-    }
-    
-    currentTeamId = teamId;
-    
-    if (!teamData) {
-      document.getElementById('equipe-nome-display').textContent = "MESA VAZIA";
-      document.getElementById('equipe-vertente-display').textContent = "Sem equipe vinculada.";
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:var(--muted);">Nenhuma equipe na Mesa ${currentMesa}</td></tr>`;
+    if (!currentTeamId || !dbEquipes[currentTeamId]) {
+      document.getElementById('equipe-nome-display').textContent = "SELECIONE UM SQUAD";
+      document.getElementById('equipe-vertente-display').textContent = "---";
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:var(--muted);">Selecione uma equipe acima para avaliar</td></tr>`;
       return;
     }
     
+    const teamData = dbEquipes[currentTeamId];
     document.getElementById('equipe-nome-display').textContent = `SQUAD: ${teamData.nomeEquipe.toUpperCase()}`;
-    document.getElementById('equipe-vertente-display').textContent = `Vertente: ${teamData.vertente || '---'}`;
+    document.getElementById('equipe-vertente-display').textContent = `Vertente: ${teamData.vertente || 'Não informada'}`;
 
     const n = teamData.notasEquipe || {};
-    const total = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
+    // Garantindo que a soma ocorra mesmo se o valor for vazio ou zero
+    const c1 = parseFloat(n.c1) || 0;
+    const c2 = parseFloat(n.c2) || 0;
+    const c3 = parseFloat(n.c3) || 0;
+    const c4 = parseFloat(n.c4) || 0;
+    const total = c1 + c2 + c3 + c4;
     
     tbody.innerHTML = `
       <tr>
         <td style="font-weight: bold; color: var(--purple); font-size: 1.1rem;">AVALIAÇÃO DO GRUPO</td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c1||''}" onchange="window.saveScore('c1', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c2||''}" onchange="window.saveScore('c2', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c3||''}" onchange="window.saveScore('c3', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c4||''}" onchange="window.saveScore('c4', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c1 !== undefined ? n.c1 : ''}" onchange="window.saveScore('c1', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c2 !== undefined ? n.c2 : ''}" onchange="window.saveScore('c2', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c3 !== undefined ? n.c3 : ''}" onchange="window.saveScore('c3', this.value)"/></td>
+        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c4 !== undefined ? n.c4 : ''}" onchange="window.saveScore('c4', this.value)"/></td>
         <td style="text-align: center;"><span class="score-total">${total > 0 ? total.toFixed(1) : '--'}</span></td>
       </tr>
       <tr>
@@ -271,12 +285,13 @@
     `;
   }
 
+  // ATUALIZADA: Salva a nota no firebase com segurança
   window.saveScore = function(field, val) {
     if(!currentTeamId) return;
-    const avaliadorAtual = sessionStorage.getItem('inova_nome_monitor') || "Não identificado";
+    const avaliadorAtual = sessionStorage.getItem('inova_nome_monitor') || "Avaliador Oculto";
     
     const updates = {};
-    updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
+    updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val; // Mantém a string ou salva vazio para o Firebase aceitar
     updates[`equipes/${currentTeamId}/notasEquipe/ultimo_avaliador`] = avaliadorAtual;
     updates[`equipes/${currentTeamId}/notasEquipe/data_hora`] = new Date().toLocaleString();
 

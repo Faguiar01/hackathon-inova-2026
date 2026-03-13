@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getDatabase, ref, set, onValue, update, push, get, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-// 1. CHAVES DO FIREBASE (⚠️ COLOQUE AS SUAS AQUI ANTES DE TESTAR)
+// 1. CHAVES DO FIREBASE
 const firebaseConfig = {
     apiKey: "AIzaSyDiTfSu2cv1l90ULrVbn71lFnBlGJXHMas",
     authDomain: "hackathon-inova-2026.firebaseapp.com",
@@ -19,7 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Exportando banco para o index.html (Cadastro) e área do Monitor
 window.InovaDB = { db, ref, set, update, onValue };
 
 // =======================================================================
@@ -29,14 +28,14 @@ window.AUTH = {
     redirects: {
         'participante': 'area-prova.html',
         'monitor': 'area-monitor.html',
-        'adm': 'area-adm.html'
+        'adm': 'area-adm.html',
+        'cliente': 'area-cliente.html'
     },
     
-    // Função acionada pelo botão de Login
     login: async (role, pw, team) => {
         try {
             if (role === 'adm') {
-                if (pw === 'adm123') { // Senha fixa do ADM
+                if (pw === 'adm123') {
                     sessionStorage.setItem('inova_user', JSON.stringify({ role: 'adm' }));
                     return true;
                 }
@@ -44,8 +43,16 @@ window.AUTH = {
             }
             
             if (role === 'monitor') {
-                if (pw === 'mon123') { // Senha fixa do Monitor
+                if (pw === 'mon123') {
                     sessionStorage.setItem('inova_user', JSON.stringify({ role: 'monitor' }));
+                    return true;
+                }
+                return false;
+            }
+
+            if (role === 'cliente') {
+                if (pw === 'cliente123') {
+                    sessionStorage.setItem('inova_user', JSON.stringify({ role: 'cliente' }));
                     return true;
                 }
                 return false;
@@ -59,7 +66,6 @@ window.AUTH = {
                     const equipes = snapshot.val();
                     for (let key in equipes) {
                         const eq = equipes[key];
-                        // Ignora maiúsculas/minúsculas no nome da equipe para facilitar o login
                         if (eq.nomeEquipe.toLowerCase() === team.toLowerCase() && eq.senha === pw) {
                             sessionStorage.setItem('inova_user', JSON.stringify({ role: 'participante' }));
                             sessionStorage.setItem('inova_equipe', eq.nomeEquipe);
@@ -68,7 +74,7 @@ window.AUTH = {
                         }
                     }
                 }
-                return false; // Equipe não encontrada ou senha errada
+                return false;
             }
         } catch (error) {
             console.error("Erro no login:", error);
@@ -76,7 +82,6 @@ window.AUTH = {
         }
     },
 
-    // Trava de Segurança nas páginas da Plataforma
     require: (role) => {
         const userData = sessionStorage.getItem('inova_user');
         if (!userData) {
@@ -102,7 +107,6 @@ const SPRINT_TIMES = [900, 900, 900, 1800, 900]; // 15m, 15m, 15m, 30m, 15m
 let timerState = { sprint: 1, timeLeft: 900, running: false, lastUpdate: Date.now() };
 const timerRef = ref(db, 'cronometro_mestre');
 
-// Ouve o Firebase e atualiza o estado localmente
 onValue(timerRef, (snapshot) => {
     const data = snapshot.val();
     if (data) timerState = data;
@@ -113,10 +117,9 @@ window.SprintTimer = {
     start: () => {
         timerState.running = true;
         timerState.lastUpdate = Date.now();
-        set(timerRef, timerState); // Usamos 'set' para forçar a criação no banco
+        set(timerRef, timerState);
     },
     pause: () => {
-        // Agora ele salva EXATAMENTE o tempo que sobrou
         timerState.timeLeft = window.SprintTimer.getRemaining();
         timerState.running = false;
         set(timerRef, timerState);
@@ -150,7 +153,6 @@ window.SprintTimer = {
     }
 };
 
-// Verificador de Fim de Sprint independente
 setInterval(() => {
     if (timerState.running) {
         if (window.SprintTimer.getRemaining() <= 0) {
@@ -170,12 +172,12 @@ window.Mural = {
     pushFirebase: (reference, data) => push(reference, data)
 };
 
-// Se a página atual possuir a função "renderNovoPost" (ex: Telão ou ADM), ela ouve o Firebase
-onValue(ref(db, 'mural'), (snapshot) => {
+// ✅ CORRIGIDO: agora lê de 'mural_jota' (igual ao caminho onde salva)
+onValue(ref(db, 'mural_jota'), (snapshot) => {
     const data = snapshot.val();
     if (data && typeof window.renderNovoPost === 'function') {
         const keys = Object.keys(data);
-        const lastKey = keys[keys.length - 1]; // Pega a última mensagem enviada
+        const lastKey = keys[keys.length - 1];
         window.renderNovoPost(data[lastKey]);
     }
 });
@@ -186,7 +188,6 @@ window.fmtTime = (s) => {
     return `${String(m).padStart(2, '0')}:${String(rs).padStart(2, '0')}`;
 };
 
-// Notificações flutuantes elegantes
 window.toast = (msg, type = 'info') => {
     let container = document.getElementById('toast-container');
     if (!container) {
@@ -206,7 +207,6 @@ window.toast = (msg, type = 'info') => {
     }, 4000);
 };
 
-// Relógio Regressivo da Landing Page
 window.startCountdown = (targetDateStr, els, onEnd) => {
     const target = new Date(targetDateStr).getTime();
     const interval = setInterval(() => {
