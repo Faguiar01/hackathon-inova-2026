@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PREMIAÇÃO | Inova+ 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/base.css"/>
+  <style>
+    body { 
+        background: #04060a; color: #fff; font-family: 'Syne', sans-serif; 
+        overflow: hidden; height: 100vh; margin: 0; padding: 40px;
+        display: flex; flex-direction: column;
+    }
+
+    .header-final { text-align: center; margin-bottom: 50px; }
+    .header-final h1 { font-family: 'Bebas Neue'; font-size: 5rem; color: var(--purple); letter-spacing: 5px; margin: 0; text-shadow: 0 0 30px rgba(213,0,249,0.5); }
+    .header-final p { font-family: 'Space Mono'; color: var(--cyan); letter-spacing: 3px; font-size: 1.2rem; }
+
+    .ranking-container {
+        flex: 1; display: flex; flex-direction: column; gap: 20px;
+        max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+
+    /* BARRA DE RANKING */
+    .rank-row {
+        display: grid; grid-template-columns: 80px 1fr 150px; align-items: center;
+        gap: 20px; background: rgba(255,255,255,0.02);
+        padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pos { font-family: 'Bebas Neue'; font-size: 2.5rem; color: var(--muted); text-align: center; }
+    
+    .track { background: rgba(0,0,0,0.3); height: 50px; border-radius: 8px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+    .bar { 
+        height: 100%; width: 0%; /* Anima via JS */
+        background: linear-gradient(90deg, var(--purple), #d500f9);
+        box-shadow: 0 0 20px rgba(213,0,249,0.3);
+        transition: width 2s ease-out;
+        display: flex; align-items: center; padding-left: 20px;
+    }
+    .team-name { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; letter-spacing: 1px; white-space: nowrap; }
+    
+    .total-pts { font-family: 'Space Mono'; font-size: 2rem; font-weight: bold; color: #fff; text-align: right; }
+
+    /* CORES DOS VENCEDORES */
+    .rank-row.gold { border-color: #ffd700; background: rgba(255, 215, 0, 0.05); transform: scale(1.05); }
+    .rank-row.gold .pos { color: #ffd700; font-size: 3.5rem; }
+    .rank-row.gold .bar { background: linear-gradient(90deg, #ffd700, #ffae00); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+
+    .rank-row.silver { border-color: #c0c0c0; background: rgba(192, 192, 192, 0.05); }
+    .rank-row.silver .pos { color: #c0c0c0; }
+    .rank-row.silver .bar { background: linear-gradient(90deg, #c0c0c0, #8e8e8e); }
+
+    .rank-row.bronze { border-color: #cd7f32; background: rgba(205, 127, 50, 0.05); }
+    .rank-row.bronze .pos { color: #cd7f32; }
+    .rank-row.bronze .bar { background: linear-gradient(90deg, #cd7f32, #8b4513); }
+
+    /* EFEITO DE PARTICULAS NO FUNDO */
+    #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+  </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<header class="header-final">
+    <h1>CLASSIFICAÇÃO FINAL</h1>
+    <p>// HACKATHON INOVA+ 2026 // SENAI JOINVILLE</p>
+</header>
+
+<div class="ranking-container" id="ranking-list">
+    </div>
+
+<script type="module" src="../assets/js/app.js"></script>
+<script>
+  const checkDB = setInterval(() => {
+      if (window.InovaDB) {
+          clearInterval(checkDB);
+          carregarRankingFinal();
+      }
+  }, 500);
+
+  function carregarRankingFinal() {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          const teams = data ? Object.keys(data).map(id => ({ id, ...data[id] })) : [];
+          renderizarRanking(teams);
+      });
+  }
+
+  function renderizarRanking(teams) {
+      // Ordena pelo total
+      const sorted = teams.sort((a, b) => calcularTotal(b) - calcularTotal(a));
+      
+      const container = document.getElementById('ranking-list');
+      const maxPts = calcularTotal(sorted[0]) || 1; // Para escala das barras
+
+      container.innerHTML = sorted.map((t, i) => {
+          const total = calcularTotal(t);
+          const pct = (total / maxPts) * 100;
+          let rankClass = "";
+          if(i === 0) rankClass = "gold";
+          else if(i === 1) rankClass = "silver";
+          else if(i === 2) rankClass = "bronze";
+
+          return `
+            <div class="rank-row ${rankClass}">
+                <div class="pos">${i + 1}º</div>
+                <div class="track">
+                    <div class="bar" style="width: 0%" id="bar-${t.id}">
+                        <span class="team-name">${t.nomeEquipe.toUpperCase()}</span>
+                    </div>
+                </div>
+                <div class="total-pts">${total.toFixed(1)}</div>
+            </div>
+          `;
+      }).join('');
+
+      // Pequeno delay para a animação das barras começar
+      setTimeout(() => {
+          sorted.forEach(t => {
+              const total = calcularTotal(t);
+              const pct = (total / maxPts) * 100;
+              const bar = document.getElementById(`bar-${t.id}`);
+              if(bar) bar.style.width = (pct < 10 ? 10 : pct) + "%";
+          });
+      }, 500);
+  }
+
+  function calcularTotal(t) {
+      const soc = (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5 + (parseInt(t.eng_shares)||0)*3;
+      const n = t.notasEquipe || {};
+      const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
+      const cli = (parseFloat(n.nota_cliente)||0) * 2;
+      return soc + mon + cli;
+  }
+</script>
+</body>
+</html>

@@ -69,7 +69,10 @@
       <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO START //</div>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px;">
-      <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR TIMER</button>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
+        <button class="btn" style="background:#ffbb33; color:#000;" onclick="masterPause()">⏸ PAUSAR</button>
+      </div>
       <button class="btn btn-purple" onclick="masterNextSprint()">⏭ PRÓXIMO SPRINT</button>
       <button class="btn btn-danger" onclick="masterReset()">↺ RESET</button>
     </div>
@@ -237,6 +240,7 @@
   });
 
   window.masterStart = () => window.SprintTimer.start();
+  window.masterPause = () => window.SprintTimer.pause(); // <-- NOVA LINHA ADICIONADA
   window.masterNextSprint = () => window.SprintTimer.nextSprint();
   window.masterReset = () => confirm('Zerar cronômetro?') && window.SprintTimer.reset();
 

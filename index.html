@@ -6,6 +6,27 @@
     <title>Hackathon Inova+ 2026 | SENAI Joinville</title>
     <link rel="stylesheet" href="assets/css/base.css" />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Estilos para o Menu Fantasma de Staff na Sidebar */
+        .nav-label.staff-label {
+            color: var(--yellow);
+            border-top: 1px solid rgba(255, 214, 0, 0.1);
+            margin-top: 20px;
+            padding-top: 15px;
+            font-size: 0.6rem;
+        }
+        .nav-item.staff-item {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            border-left: 2px solid transparent;
+        }
+        .nav-item.staff-item:hover {
+            opacity: 1;
+            color: var(--yellow);
+            border-left-color: var(--yellow);
+            background: rgba(255, 214, 0, 0.05);
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -17,7 +38,7 @@
                 <img id="brandLogo" src="assets/images/logo.png" alt="Hackathon Inova+ SENAI" />
             </div>
             <div>
-                <div class="brand-name">INOVA<span>+</span></div>
+                <div class="brand-name" ondblclick="destravarMenuFantasma()" style="cursor: pointer;" title="Área Restrita">INOVA<span>+</span></div>
                 <div class="brand-sub">SENAI JOINVILLE &middot; 2026</div>
             </div>
         </div>
@@ -51,8 +72,17 @@
             <a class="nav-item" href="#" onclick="openSection('faq',this)"><span class="nav-icon">&#10067;</span> FAQ</a>
             <a class="nav-item" href="#" onclick="openSection('inscricao',this)"><span class="nav-icon">&#9997;&#65039;</span> Inscrição</a>
             
-            <div class="nav-label">// Acesso</div>
+            <div class="nav-label">// Acesso Aluno</div>
             <a class="nav-item" href="plataforma/login.html" style="color: var(--cyan); border-left-color: var(--cyan);"><span class="nav-icon">🔑</span> Login na Plataforma</a>
+
+            <div id="ghost-menu" style="display: none;">
+                <div class="nav-label staff-label">// Operação secreta</div>
+                <a class="nav-item staff-item" href="plataforma/area-adm.html" target="_blank"><span class="nav-icon">🖥️</span> Painel ADM</a>
+                <a class="nav-item staff-item" href="plataforma/area-monitor.html" target="_blank"><span class="nav-icon">📋</span> Monitoria</a>
+                <a class="nav-item staff-item" href="plataforma/area-cliente.html" target="_blank"><span class="nav-icon">🤝</span> Especialista</a>
+                <a class="nav-item staff-item" href="plataforma/telao.html" target="_blank"><span class="nav-icon">📺</span> Telão Tempo</a>
+                <a class="nav-item staff-item" href="plataforma/ranking-final.html" target="_blank" style="color:var(--yellow); font-weight:bold;"><span class="nav-icon">🏆</span> RANKING FINAL</a>
+            </div>
         </nav>
 
         <div class="sidebar-cta">
@@ -450,7 +480,7 @@
                               <div class="form-row" style="margin-bottom:0;"><label>INTEGRANTES (Nome dos outros membros)</label><input type="text" id="f-membros" placeholder="Ex: Ana, Bruno e Carlos" /></div>
                             </div>
 
-                            <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (02/04)</option><option value="online">🌐 ONLINE (09/04)</option></select></div>
+                            <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (09/04)</option><option value="online">🌐 ONLINE (09/04)</option></select></div>
                             <div class="form-row"><label>VERTENTE DO DESAFIO *</label><select id="f-vert" required><option value="">ESCOLHA UMA ÁREA...</option><option value="Logística">📦 Logística</option><option value="Manutenção">🔧 Manutenção</option><option value="Produção">⚙️ Produção</option><option value="Administrativo">🗂️ Administrativo</option><option value="Sustentabilidade">♻️ Sustentabilidade</option></select></div>
                             <div class="form-row"><label>TELEFONE (WhatsApp) *</label><input type="text" id="f-tel" required placeholder="(47) 99999-9999" /></div>
                             
@@ -567,7 +597,22 @@
               modalidade: modalidade,
               vertente: vertente,
               telefone: telefone,
-              dataCadastro: new Date().toISOString()
+              dataCadastro: new Date().toISOString(),
+              
+              // INICIALIZANDO OS PONTOS ZERADOS PARA O RANKING NÃO QUEBRAR
+              eng_likes: 0,
+              eng_comments: 0,
+              eng_shares: 0,
+              sprintAtual: 1,
+              renderEnviado: false,
+              notasEquipe: {
+                  c1: 0,
+                  c2: 0,
+                  c3: 0,
+                  c4: 0,
+                  nota_cliente: 0,
+                  obs: ""
+              }
             });
 
             document.getElementById('formIns').style.display = 'none';
@@ -582,6 +627,18 @@
             btn.disabled = false;
           }
       });
+
+      // 👻 LÓGICA DO MENU FANTASMA (ACESSO STAFF)
+      window.destravarMenuFantasma = function() {
+          const senha = prompt("Acesso Restrito da Coordenação. Digite o código de liberação:");
+          if (senha === "adm123") {
+              document.getElementById('ghost-menu').style.display = 'block';
+              alert("Acesso Concedido, Professor! Menu de operação liberado na barra lateral.");
+              document.getElementById('sidebar').classList.add('open');
+          } else if (senha !== null) {
+              alert("Código incorreto. Acesso negado.");
+          }
+      }
     </script>
 </body>
 </html>
