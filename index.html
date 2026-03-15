@@ -93,7 +93,7 @@
     <main id="main">
         <div class="page-hero">
             <div class="hero-left">
-                <div class="hero-tag"><span class="live-dot"></span> SENAI JOINVILLE &middot; 02 E 09 ABRIL 2026</div>
+                <div class="hero-tag"><span class="live-dot"></span> SENAI JOINVILLE &middot; 09 E 16 ABRIL 2026</div>
                 <h1 class="hero-title">A MENTE <span class="hy">HUMANA</span><br>NO COMANDO <span class="hc">DA IA.</span></h1>
                 <p class="hero-desc">O maior evento de Indústria 5.0 de Santa Catarina. 90 minutos para transformar desafios industriais reais em soluções de alto impacto — sem sucata física, 100% cognitivo e digital.</p>
                 <div class="hero-pills">
@@ -482,8 +482,7 @@
 
                             <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (09/04)</option><option value="online">🌐 ONLINE (09/04)</option></select></div>
                             <div class="form-row"><label>VERTENTE DO DESAFIO *</label><select id="f-vert" required><option value="">ESCOLHA UMA ÁREA...</option><option value="Logística">📦 Logística</option><option value="Manutenção">🔧 Manutenção</option><option value="Produção">⚙️ Produção</option><option value="Administrativo">🗂️ Administrativo</option><option value="Sustentabilidade">♻️ Sustentabilidade</option></select></div>
-                            <div class="form-row"><label>TELEFONE (WhatsApp) *</label><input type="text" id="f-tel" required placeholder="(47) 99999-9999" /></div>
-                            
+                                                     
                             <button type="submit" class="form-submit" id="btn-submit-cad">⚡ CADASTRAR SQUAD</button>
                             <div class="form-note">Ao se inscrever, você concorda com o regulamento do Hackathon Inova+ 2026. Lembre-se do Nome da Equipe e Senha, eles serão necessários para login no evento.</div>
                         </form>
@@ -545,7 +544,7 @@
       }
 
       // Configuração da Data do Evento
-      const dataEvento = '2026-04-02T13:30:00';
+      const dataEvento = '2026-04-09T13:30:00';
       const els = {
           days: document.getElementById('cd-d'),
           hours: document.getElementById('cd-h'),
@@ -583,7 +582,7 @@
           const membros = document.getElementById('f-membros').value;
           const modalidade = document.getElementById('f-mod').value;
           const vertente = document.getElementById('f-vert').value;
-          const telefone = document.getElementById('f-tel').value;
+          
 
           const teamKey = equipeNome.trim().toLowerCase().replace(/\s+/g, '_');
 
@@ -596,7 +595,7 @@
               membros: membros,
               modalidade: modalidade,
               vertente: vertente,
-              telefone: telefone,
+              // APAGAMOS A LINHA DO TELEFONE QUE ESTAVA AQUI!
               dataCadastro: new Date().toISOString(),
               
               // INICIALIZANDO OS PONTOS ZERADOS PARA O RANKING NÃO QUEBRAR

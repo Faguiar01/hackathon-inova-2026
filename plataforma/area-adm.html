@@ -65,11 +65,12 @@
       <div id="master-sprint-label" class="mt-sprint">// AGUARDANDO START //</div>
     </div>
     
-    <div style="display:flex; flex-direction:column; gap:12px;">
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
-        <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
-        <button class="btn" style="background:#ffbb33; color:#000; border:none; font-family:'Bebas Neue'; font-size:1.1rem; border-radius:6px; cursor:pointer;" onclick="masterPause()">⏸ PAUSAR</button>
-      </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:12px;">
+  <button class="btn btn-purple" onclick="liberarEquipes()">🚪 LIBERAR EQUIPES</button>
+  <button class="btn" style="background:#555; color:#fff;" onclick="fecharLobby()">🔒 FECHAR LOBBY</button>
+  <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
+  <button class="btn" style="background:#ffbb33; color:#000; border:none; font-family:'Bebas Neue'; font-size:1.1rem; border-radius:6px; cursor:pointer;" onclick="masterPause()">⏸ PAUSAR</button>
+</div>
       
       <div style="display:flex; gap:8px;">
         <select id="select-sprint-jump" onchange="pularParaSprint(this.value)" style="flex:1; background:var(--purple); border:1px solid #d500f9; color:#fff; padding:12px; border-radius:6px; font-family:'Bebas Neue'; font-size:1.2rem; letter-spacing:1px; outline:none; cursor:pointer; text-align:center;">
@@ -250,8 +251,57 @@
   });
 
   window.masterStart = () => window.SprintTimer.start();
-  window.masterPause = () => window.SprintTimer.pause();
-  window.masterReset = () => confirm('Zerar cronômetro desta fase?') && window.SprintTimer.reset();
+window.masterPause = () => window.SprintTimer.pause();
+window.masterReset = () => confirm('Zerar cronômetro desta fase?') && window.SprintTimer.reset();
+
+window.liberarEquipes = () => {
+  if (confirm('Liberar todas as equipes do lobby para a roleta?')) {
+    const updates = {};
+    updates['controle/liberarEquipes'] = true;
+
+    const btn = document.querySelector('button[onclick="liberarEquipes()"]');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '✅ EQUIPES LIBERADAS';
+      btn.style.opacity = '0.8';
+    }
+
+    window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+      .then(() => {
+        window.toast('Equipes liberadas com sucesso!', 'success');
+      })
+      .catch((err) => {
+        console.error(err);
+        window.toast('Erro ao liberar equipes.', 'error');
+
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '🚪 LIBERAR EQUIPES';
+          btn.style.opacity = '1';
+        }
+      });
+  }
+};
+window.fecharLobby = () => {
+  const updates = {};
+  updates['controle/liberarEquipes'] = false;
+
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+    .then(() => {
+      window.toast('Lobby fechado com sucesso!', 'success');
+
+      const btn = document.querySelector('button[onclick="liberarEquipes()"]');
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = '🚪 LIBERAR EQUIPES';
+        btn.style.opacity = '1';
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      window.toast('Erro ao fechar lobby.', 'error');
+    });
+};
 
  // 🚀 MUDANÇA DE FASE USANDO A FUNÇÃO NATIVA DO APP.JS
   window.pularParaSprint = (val) => {
