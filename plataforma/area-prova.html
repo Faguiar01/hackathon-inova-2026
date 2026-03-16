@@ -198,6 +198,35 @@
       </div>
     </div>
 
+    <div id="ai-mentor-box" style="
+display:none;
+margin-top:20px;
+padding:24px;
+border:1px solid rgba(0,229,255,0.4);
+background:rgba(0,229,255,0.05);
+border-radius:10px;
+">
+
+<h2 style="
+font-family:'Bebas Neue';
+color:#00e5ff;
+font-size:2rem;
+letter-spacing:1px;
+margin-bottom:16px;
+">
+🤖 CO-PILOTO IA
+</h2>
+
+<div id="ai-mentor-content" style="
+font-family:'Syne';
+line-height:1.6;
+font-size:1rem;
+color:#fff;
+">
+</div>
+
+</div>
+
     <div id="tab-entrega" style="display:none; margin-top: 20px;">
       <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
         <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
@@ -238,7 +267,7 @@
 { 
   vertente: "Produção",
   titulo: "A Linha de Montagem Infinita",
-  imagem: "/assets/img/desafios/producao-linha-montagem.jpg",
+  imagem: "/assets/img/desafios/producao-linha-montagem.png",
   dor: "Cena: Uma linha de montagem de compressores na zona industrial. A meta é alta: 1.200 peças montadas por turno.\nDor: O operador realiza mais de 4.800 movimentos repetitivos por dia. Atualmente, 30% das licenças médicas do setor são por LER/DORT (Lesões por Esforço Repetitivo), e a fadiga nas últimas 2 horas de turno aumenta a taxa de defeitos em 15%.",
   desafio: "Missão: Como criar uma solução física inteligente — vestível, acoplada ao posto ou integrada à ferramenta — que reduza o esforço repetitivo e proteja o corpo do operador?"
 },
@@ -257,49 +286,94 @@
   desafio: "Missão: Como criar uma estação física de inspeção visual inteligente — usando visores, luzes adaptativas ou sensores — que destaque os defeitos automaticamente sem forçar o olho humano?"
 },    
     // MANUTENÇÃO
-    { vertente: "Manutenção", titulo: "O Painel das Sombras", 
-      dor: "Cena: Manutenção noturna emergencial em uma subestação de energia de uma fábrica têxtil.\nDor: O técnico tem 40 minutos para voltar a energia (cada hora parada custa R$ 50 mil). A NR-10 exige mãos livres, mas a iluminação do local falhou. Segurar a lanterna improvisadamente aumenta em 40% o risco de choque elétrico fatal.", 
-      desafio: "Missão: Como inventar um Equipamento de Proteção Individual (EPI) ou ferramenta vestível inteligente que ilumine a área de trabalho mantendo as mãos 100% livres e seguras?" },
-    { vertente: "Manutenção", titulo: "A Máquina Barulhenta", 
-      dor: "Cena: Um pavilhão de usinagem pesada com dezenas de tornos CNC operando a mais de 85 decibéis.\nDor: Para ouvir se um rolamento interno está quebrando, o técnico precisa aproximar a cabeça a menos de 30cm de eixos rodando a 3.000 RPM, criando um risco inaceitável de acidentes graves por esmagamento.", 
-      desafio: "Missão: Como criar uma ferramenta física inteligente que detecte vibração, ruído ou falha mecânica à distância, sem expor o técnico às partes móveis?" },
-    { vertente: "Manutenção", titulo: "O Manual Perdido", 
-      dor: "Cena: Uma máquina robótica alemã recém-comprada para a produção principal apresenta o Erro E-404.\nDor: O manual técnico tem 800 páginas e fica na sala do supervisor. A pressão do tempo parado bloqueia a mente do técnico, que perde 30 minutos preciosos apenas procurando a página correta enquanto a fábrica inteira espera.", 
-      desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha, reduzindo o estresse mental?" },
-    
+{
+  vertente: "Manutenção",
+  titulo: "O Painel das Sombras",
+  imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
+  dor: "Cena: Manutenção noturna emergencial em uma subestação de energia de uma fábrica têxtil.\nDor: O técnico tem 40 minutos para voltar a energia (cada hora parada custa R$ 50 mil). A NR-10 exige mãos livres, mas a iluminação do local falhou. Segurar a lanterna improvisadamente aumenta em 40% o risco de choque elétrico fatal.",
+  desafio: "Missão: Como inventar um Equipamento de Proteção Individual (EPI) ou ferramenta vestível inteligente que ilumine a área de trabalho mantendo as mãos 100% livres e seguras?"
+},
+{
+  vertente: "Manutenção",
+  titulo: "A Máquina Barulhenta",
+  imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
+  dor: "Cena: Um pavilhão de usinagem pesada com dezenas de tornos CNC operando a mais de 85 decibéis.\nDor: Para ouvir se um rolamento interno está quebrando, o técnico precisa aproximar a cabeça a menos de 30cm de eixos rodando a 3.000 RPM, criando um risco inaceitável de acidentes graves por esmagamento.",
+  desafio: "Missão: Como criar uma ferramenta física inteligente que detecte vibração, ruído ou falha mecânica à distância, sem expor o técnico às partes móveis?"
+},
+{
+  vertente: "Manutenção",
+  titulo: "O Manual Perdido",
+  imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
+  dor: "Cena: Uma máquina robótica alemã recém-comprada para a produção principal apresenta o Erro E-404.\nDor: O manual técnico tem 800 páginas e fica na sala do supervisor. A pressão do tempo parado bloqueia a mente do técnico, que perde 30 minutos preciosos apenas procurando a página correta enquanto a fábrica inteira espera.",
+  desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha, reduzindo o estresse mental?"
+},    
     // LOGÍSTICA
-    { vertente: "Logística", titulo: "A Caça ao Tesouro", 
-      dor: "Cena: O Centro de Distribuição (CD) de uma empresa de logística automotiva com mais de 10.000 SKUs (tipos de peças).\nDor: O separador caminha cerca de 12 km por turno empurrando carrinhos. O cansaço físico nas horas finais sobe a taxa de envio de peças erradas para 4%, gerando reclamações de clientes e fretes duplos de devolução.", 
-      desafio: "Missão: Como criar uma solução física inteligente — como um carrinho, pulseira ou equipamento de prateleira — que guie visualmente ou fisicamente o operador até o item certo?" },
-    { vertente: "Logística", titulo: "O Gargalo da Doca", 
-      dor: "Cena: Pátio de recebimento sob forte chuva tropical (clássica de Joinville). 15 carretas chegam na janela das 08h.\nDor: O conferente se molha tentando ler notas fiscais borradas para ver quem tem prioridade. Caminhões esperam mais de 3 horas, gerando multas de estadia diárias e risco de atraso na linha de produção.", 
-      desafio: "Missão: Como redesenhar o pátio com soluções físicas inteligentes — painéis, semáforos ou estruturas visuais — que tornem a prioridade de descarga instantaneamente clara?" },
-    { vertente: "Logística", titulo: "A Corrida Contra o Estoque", 
-      dor: "Cena: Uma linha de montagem com 20 estações de trabalho diferentes operando simultaneamente.\nDor: O piloto da empilhadeira não tem visão de raio-x para ver as caixinhas acabando. Quando um único parafuso zera, a linha para, deixando 40 funcionários ociosos por 15 minutos até a reposição chegar.", 
-      desafio: "Missão: Como transformar caixas, prateleiras ou carrinhos de abastecimento em elementos visuais inteligentes que avisem fisicamente quando o material está acabando?" },
-    
+{
+  vertente: "Logística",
+  titulo: "A Caça ao Tesouro",
+  imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
+  dor: "Cena: O Centro de Distribuição (CD) de uma empresa de logística automotiva com mais de 10.000 SKUs (tipos de peças).\nDor: O separador caminha cerca de 12 km por turno empurrando carrinhos. O cansaço físico nas horas finais sobe a taxa de envio de peças erradas para 4%, gerando reclamações de clientes e fretes duplos de devolução.",
+  desafio: "Missão: Como criar uma solução física inteligente — como um carrinho, pulseira ou equipamento de prateleira — que guie visualmente ou fisicamente o operador até o item certo?"
+},
+{
+  vertente: "Logística",
+  titulo: "O Gargalo da Doca",
+  imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
+  dor: "Cena: Pátio de recebimento sob forte chuva tropical (clássica de Joinville). 15 carretas chegam na janela das 08h.\nDor: O conferente se molha tentando ler notas fiscais borradas para ver quem tem prioridade. Caminhões esperam mais de 3 horas, gerando multas de estadia diárias e risco de atraso na linha de produção.",
+  desafio: "Missão: Como redesenhar o pátio com soluções físicas inteligentes — painéis, semáforos ou estruturas visuais — que tornem a prioridade de descarga instantaneamente clara?"
+},
+{
+  vertente: "Logística",
+  titulo: "A Corrida Contra o Estoque",
+  imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
+  dor: "Cena: Uma linha de montagem com 20 estações de trabalho diferentes operando simultaneamente.\nDor: O piloto da empilhadeira não tem visão de raio-x para ver as caixinhas acabando. Quando um único parafuso zera, a linha para, deixando 40 funcionários ociosos por 15 minutos até a reposição chegar.",
+  desafio: "Missão: Como transformar caixas, prateleiras ou carrinhos de abastecimento em elementos visuais inteligentes que avisem fisicamente quando o material está acabando?"
+},    
     // SUSTENTABILIDADE
-    { vertente: "Sustentabilidade", titulo: "O Mistério do Descarte", 
-      dor: "Cena: Área de usinagem com caçambas lado a lado para cavaco metálico, óleo solúvel e lixo comum.\nDor: Nos 5 minutos finais do turno, a pressa faz com que 20% do lixo comum seja contaminado por óleo. Isso força a empresa a pagar até 5x mais caro para incinerar tudo como 'resíduo perigoso' (Classe 1).", 
-      desafio: "Missão: Como projetar uma estação de descarte ou lixeira industrial inteligente que oriente e force fisicamente o funcionário a separar os resíduos corretamente?" },
-    { vertente: "Sustentabilidade", titulo: "O Vazamento Invisível", 
-      dor: "Cena: 2 quilômetros de tubulação de ar comprimido suspensos pelo teto dos galpões.\nDor: O ar comprimido é a energia mais cara da fábrica. Micro-furos na tubulação assobiam, mas o barulho é abafado pelas máquinas. Cerca de 25% da conta de energia elétrica vai para o ralo mensalmente sem ninguém perceber onde está o furo.", 
-      desafio: "Missão: Como criar um revestimento, sensor físico acoplado ou material inteligente para os tubos que sinalize de forma visual e imediata onde está o desperdício?" },
-    { vertente: "Sustentabilidade", titulo: "Fábrica para Todos", 
-      dor: "Cena: Uma pessoa cadeirante e uma pessoa com nanismo passam no processo seletivo brilhantemente para operar máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna, usando apenas 'gambiarras' com estrados de madeira.", 
-      desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo a qualquer deficiência?" },
-    
+{
+  vertente: "Sustentabilidade",
+  titulo: "O Mistério do Descarte",
+  imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
+  dor: "Cena: Área de usinagem com caçambas lado a lado para cavaco metálico, óleo solúvel e lixo comum.\nDor: Nos 5 minutos finais do turno, a pressa faz com que 20% do lixo comum seja contaminado por óleo. Isso força a empresa a pagar até 5x mais caro para incinerar tudo como 'resíduo perigoso' (Classe 1).",
+  desafio: "Missão: Como projetar uma estação de descarte ou lixeira industrial inteligente que oriente e force fisicamente o funcionário a separar os resíduos corretamente?"
+},
+{
+  vertente: "Sustentabilidade",
+  titulo: "O Vazamento Invisível",
+  imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
+  dor: "Cena: 2 quilômetros de tubulação de ar comprimido suspensos pelo teto dos galpões.\nDor: O ar comprimido é a energia mais cara da fábrica. Micro-furos na tubulação assobiam, mas o barulho é abafado pelas máquinas. Cerca de 25% da conta de energia elétrica vai para o ralo mensalmente sem ninguém perceber onde está o vazamento.",
+  desafio: "Missão: Como criar um revestimento, sensor físico acoplado ou material inteligente para os tubos que sinalize de forma visual e imediata onde está o desperdício?"
+},
+{
+  vertente: "Sustentabilidade",
+  titulo: "Fábrica para Todos",
+  imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
+  dor: "Cena: Uma pessoa cadeirante e uma pessoa com nanismo passam no processo seletivo brilhantemente para operar máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
+  desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo?"
+},    
     // ADMINISTRATIVO
-    { vertente: "Administrativo", titulo: "A Integração Fria", 
-      dor: "Cena: Sala de RH recebendo 40 novos jovens aprendizes. O tédio já toma conta nos primeiros 15 minutos.\nDor: Eles são forçados a ler apostilas e ouvir 4 horas de NRs (Normas Regulamentadoras). A retenção da memória é quase nula. No primeiro mês, a estatística não perdoa: 60% dos quase-acidentes envolvem funcionários recém-contratados por não lembrarem das regras.", 
-      desafio: "Missão: Como criar um kit físico, totem interativo ou espaço inteligente de boas-vindas que transforme o aprendizado de regras em uma experiência acolhedora e tátil?" },
-    { vertente: "Administrativo", titulo: "O Labirinto das Notas", 
-      dor: "Cena: Backoffice de uma grande transportadora da região. Fim de mês e fechamento de balanço.\nDor: O assistente precisa conferir manualmente 300 Conhecimentos de Transporte (CT-es) em telas cinzas. O cansaço mental gera uma taxa de 5% de erros de digitação, resultando em multas pesadas com a Receita Federal e muito estresse.", 
-      desafio: "Missão: Como criar uma estação física inteligente de triagem de documentos que organize, leia e sinalize automaticamente os papéis corretos e os suspeitos?" },
-    { vertente: "Administrativo", titulo: "O Silo de Informação", 
-      dor: "Cena: A diretoria de segurança industrial elabora um novo protocolo de uso de luvas de corte.\nDor: O aviso é disparado por e-mail, mas 80% do chão de fábrica (soldadores, torneiros, montadores) não usam computador no turno. Murais de papel no corredor do refeitório viram paisagem e são ignorados por quem tem apenas 40 minutos para almoçar.", 
-      desafio: "Missão: Como criar painéis, espelhos ou totens interativos no chão de fábrica que entreguem a informação crítica fisicamente para quem não usa telas no dia a dia?" }
-  ];
+{
+  vertente: "Administrativo",
+  titulo: "A Integração Fria",
+  imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
+  dor: "Cena: Sala de RH recebendo 40 novos jovens aprendizes em treinamento inicial.\nDor: Eles são obrigados a ler apostilas e ouvir longas explicações sobre normas de segurança. O ambiente é monótono e pouco interativo. A retenção de conhecimento é baixa e muitos novos funcionários esquecem as regras nas primeiras semanas.",
+  desafio: "Missão: Como criar um kit físico, totem interativo ou espaço inteligente de boas-vindas que transforme o aprendizado das regras em uma experiência envolvente e memorável?"
+},
+{
+  vertente: "Administrativo",
+  titulo: "O Labirinto das Notas",
+  imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
+  dor: "Cena: Escritório administrativo de uma transportadora durante o fechamento do mês.\nDor: O assistente precisa conferir manualmente centenas de documentos fiscais e notas de transporte em telas e papéis. O cansaço mental gera erros de digitação e inconsistências que podem gerar multas e retrabalho.",
+  desafio: "Missão: Como criar uma estação física inteligente de triagem de documentos que ajude o operador a identificar rapidamente erros ou inconsistências?"
+},
+{
+  vertente: "Administrativo",
+  titulo: "O Silo de Informação",
+  imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
+  dor: "Cena: Fábrica em operação enquanto um aviso importante de segurança é divulgado apenas por e-mail.\nDor: A maioria dos trabalhadores do chão de fábrica não usa computador durante o turno. Murais impressos passam despercebidos e a informação crítica não chega a quem realmente precisa.",
+  desafio: "Missão: Como criar painéis, totens ou elementos físicos no ambiente de trabalho que comuniquem informações críticas de forma clara para quem não utiliza computadores?"
+}
+];
 
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -669,53 +743,41 @@
     ideias = [
       "Exoesqueleto leve para reduzir esforço repetitivo dos braços.",
       "Ferramenta inteligente com apoio ergonômico e sensor de fadiga.",
-      "Bancada ajustável que acompanha altura e postura do operador.",
-      "Luva biomecânica com amortecimento de impacto repetitivo.",
-      "Braço auxiliar acoplado ao posto para absorver parte do movimento."
+      "Bancada ajustável que acompanha altura e postura do operador."
     ];
   } 
   else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
     ideias = [
       "Cabine térmica com visor seguro para monitoramento remoto.",
       "Traje refrigerado com circulação interna de ar.",
-      "Escudo inteligente móvel entre operador e forno.",
-      "Posto remoto com câmeras térmicas e controle à distância.",
-      "Capacete com sensor de calor e alerta de exaustão térmica."
+      "Escudo inteligente móvel entre operador e forno."
     ];
   } 
-  else if (titulo.includes('inspecao de plasticos e vidros') || titulo.includes('inspecao')) {
+  else if (titulo.includes('inspecao')) {
     ideias = [
       "Mesa de inspeção com luz adaptativa automática.",
       "Visor com marcação digital de microdefeitos.",
-      "Câmera industrial destacando falhas em tempo real.",
-      "Lente de contraste inteligente para reduzir esforço visual.",
       "Sistema de iluminação polarizada para destacar imperfeições."
     ];
   } 
   else {
     ideias = [
       "Criar uma solução física inteligente centrada no trabalhador.",
-      "Combinar ergonomia com sensores visuais ou sonoros.",
       "Usar automação para reduzir dor, risco e esforço humano.",
-      "Transformar o posto de trabalho em algo adaptável ao usuário.",
       "Projetar um equipamento simples, visual e fácil de entender."
     ];
   }
 
-  const sorteadas = [...ideias].sort(() => Math.random() - 0.5).slice(0, 3);
-
-  alert(
-`🤖 CO-PILOTO IA
+  alert(`🤖 CO-PILOTO IA
 
 IDEIA 1
-${sorteadas[0]}
+${ideias[0]}
 
 IDEIA 2
-${sorteadas[1]}
+${ideias[1]}
 
 IDEIA 3
-${sorteadas[2]}`
-  );
+${ideias[2]}`);
 };
 </script>
 </body>
