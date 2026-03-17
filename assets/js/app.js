@@ -35,7 +35,7 @@ window.AUTH = {
     login: async (role, pw, team) => {
         try {
             if (role === 'adm') {
-                if (pw === 'adm123') {
+                if (pw === 'Senac@12681JW') {
                     sessionStorage.setItem('inova_user', JSON.stringify({ role: 'adm' }));
                     return true;
                 }
@@ -43,7 +43,7 @@ window.AUTH = {
             }
             
             if (role === 'monitor') {
-                if (pw === 'mon123') {
+                if (pw === 'hacka2026a') {
                     sessionStorage.setItem('inova_user', JSON.stringify({ role: 'monitor' }));
                     return true;
                 }
@@ -51,7 +51,7 @@ window.AUTH = {
             }
 
             if (role === 'cliente') {
-                if (pw === 'cliente123') {
+                if (pw === 'hacka2026a') {
                     sessionStorage.setItem('inova_user', JSON.stringify({ role: 'cliente' }));
                     return true;
                 }
