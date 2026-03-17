@@ -69,6 +69,28 @@
     
     /* ALERTA DO JOTA */
     @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
+  /* =========================================
+       AJUSTES DE RESPONSIVIDADE (MOBILE) - ALUNO
+       ========================================= */
+    @media (max-width: 768px) {
+        .topbar { grid-template-columns: 1fr; text-align: center; gap: 8px; padding: 10px; }
+        .tb-left { justify-content: center; flex-direction: column; gap: 4px; }
+        .tb-right { justify-content: center; margin-top: 5px; }
+        .tb-timer { font-size: 2rem; }
+        
+        .lobby-logo { font-size: 3.5rem; }
+        .lobby-timer { font-size: 3.5rem; margin: 15px 0; }
+        
+        .mission-box { padding: 20px; min-height: auto; }
+        .mission-title { font-size: 1.8rem; }
+        .btn-sortear { font-size: 1.3rem; padding: 12px 20px; width: 100%; }
+        #roleta-display { font-size: 2rem !important; }
+        
+        .main { padding: 130px 15px 30px; } /* Dá mais espaço pro cabeçalho que ficou maior */
+        .content-box { padding: 20px; }
+        .page-tabs { justify-content: center; }
+        .page-tab { flex: 1; text-align: center; min-width: 45%; }
+    }
   </style>
 </head>
 <body>
