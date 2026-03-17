@@ -141,7 +141,7 @@
 
   <div id="telao-popup">
       <div class="popup-label">// MENSAGEM DA COORDENAÇÃO //</div>
-      <h2 id="popup-author">JOTA</h2>
+      <h2 id="popup-author">🤖 JOTA</h2>
       <p id="popup-text">Atenção equipes!</p>
   </div>
 
@@ -170,7 +170,6 @@
     </div>
   </footer>
 
-  <script type="module" src="../assets/js/app.js"></script>
 <script type="module" src="../assets/js/app.js"></script>
 <script>
   const sprintNames = ['Empatia Humana', 'Co-Piloto IA', 'Toque Humano 5.0', 'Ponte Digital', 'Pitch Final'];
@@ -184,7 +183,7 @@
 
   // Semáforo do Cronômetro Mestre
   setInterval(() => {
-    if (!window.SprintTimer) return; // Aguarda silenciosamente o app.js carregar
+    if (!window.SprintTimer) return; 
     
     const state = window.SprintTimer.getState();
     const rem = window.SprintTimer.getRemaining();
@@ -206,27 +205,26 @@
         }
     }
 
-    // LÓGICA DE CORES CORRIGIDA (Prioridade para o Vermelho se o tempo esgotar)
     if (rem === 0) {
-        timerEl.className = 't-timer danger'; // Continua vermelho e piscando quando zera
+        timerEl.className = 't-timer danger';
     } else if (!state.running) {
-        timerEl.className = 't-timer paused'; // Fica cinza só se pausar no meio
+        timerEl.className = 't-timer paused';
     } else if (rem <= 300 && rem > 0) { 
-        timerEl.className = 't-timer danger'; // Últimos 5 minutos
+        timerEl.className = 't-timer danger';
     } else {
-        timerEl.className = 't-timer'; // Azul Ciano normal
+        timerEl.className = 't-timer';
     }
 
     // Lógica da Barra de Progresso
     const SPRINT_TIMES = window.SprintTimer.sprintTimes || [900, 900, 900, 1800, 900];
-    const sprintMaxTime = SPRINT_TIMES[state.sprint - 1]; 
+    const sprintMaxTime = SPRINT_TIMES[state.sprint - 1] || 900; 
     
     let pct = (rem / sprintMaxTime) * 100;
     if (pct > 100) pct = 100;
     if (pct < 0) pct = 0;
     progressEl.style.width = pct + '%';
     
-    if (rem <= 300) { // Agora fica vermelho até e quando for zero
+    if (rem <= 300) { 
         progressEl.style.background = '#ff4444';
         progressEl.style.boxShadow = '0 0 20px #ff4444';
     } else {
@@ -236,42 +234,65 @@
 
   }, 500);
 
-  // Sistema de Alertas do Jota
+  // 📢 OUVINTE DO MURAL DO JOTA PARA O TELÃO (USANDO O POPUP GIGANTE E O TICKER)
   let isTelaoReady = false;
-  setTimeout(() => { isTelaoReady = true; }, 2000); 
+  setTimeout(() => { isTelaoReady = true; }, 2000); // Evita popup fantasma ao carregar a página
 
-  window.renderNovoPost = function(msg) {
-      const ticker = document.getElementById('telao-ticker');
-      
-      // Sempre atualiza o rodapé
-      ticker.innerHTML = `<span style="color:var(--yellow)">[${msg.time}] ${msg.author.toUpperCase()}:</span> ${msg.text}`;
+  const checkLoadFirebase = setInterval(() => {
+      if (window.InovaDB && window.InovaDB.db) {
+          clearInterval(checkLoadFirebase);
+          
+          window.InovaDB.onValue(
+            window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
+            (snapshot) => {
+              const msgData = snapshot.val();
+              
+              if (msgData && msgData.texto && msgData.timestamp) {
+                  // Puxa a última mensagem lida da memória
+                  const msgLida = sessionStorage.getItem('jota_msg_telao_lida');
+                  
+                  // Se for uma mensagem nova
+                  if (msgData.timestamp.toString() !== msgLida) {
+                      
+                      // 1. Grava como lida
+                      sessionStorage.setItem('jota_msg_telao_lida', msgData.timestamp.toString());
+                      
+                      // 2. Atualiza o Ticker (Rodapé Deslizante)
+                      const ticker = document.getElementById('telao-ticker');
+                      if (ticker) {
+                          const horaFormatada = new Date(msgData.timestamp).toLocaleTimeString('pt-BR').slice(0,5);
+                          ticker.innerHTML = `<span style="color:var(--yellow)">[${horaFormatada}] JOTA:</span> ${msgData.texto}`;
+                      }
 
-      // Exibe o Alerta Gigante
-      if (isTelaoReady) {
-          document.body.style.boxShadow = "inset 0 0 150px var(--purple)";
-          setTimeout(() => { document.body.style.boxShadow = "none"; }, 1000);
-          
-          const popup = document.getElementById('telao-popup');
-          document.getElementById('popup-author').textContent = msg.author ? msg.author.toUpperCase() : "JOTA";
-          
-          // Correção: Agora força o texto renderizar corretamente
-          document.getElementById('popup-text').innerHTML = msg.text;
-          
-          popup.style.display = 'flex';
-          // Pequeno delay para a animação do CSS pegar
-          setTimeout(() => { 
-              popup.style.opacity = '1'; 
-              popup.style.transform = 'scale(1)'; 
-          }, 50);
-          
-          // Esconde automaticamente após 10 segundos
-          setTimeout(() => {
-              popup.style.opacity = '0';
-              popup.style.transform = 'scale(0.8)';
-              setTimeout(() => { popup.style.display = 'none'; }, 400); // Aguarda o fade out
-          }, 10000);
+                      // 3. Exibe o Alerta Gigante no Centro da Tela
+                      if (isTelaoReady) {
+                          // Efeito de piscar a tela inteira em roxo
+                          document.body.style.boxShadow = "inset 0 0 150px var(--purple)";
+                          setTimeout(() => { document.body.style.boxShadow = "none"; }, 1000);
+                          
+                          const popup = document.getElementById('telao-popup');
+                          document.getElementById('popup-text').innerHTML = msgData.texto;
+                          
+                          popup.style.display = 'flex';
+                          // Pequeno delay para a animação do CSS pegar
+                          setTimeout(() => { 
+                              popup.style.opacity = '1'; 
+                              popup.style.transform = 'scale(1)'; 
+                          }, 50);
+                          
+                          // Esconde o popup gigante automaticamente após 15 segundos
+                          setTimeout(() => {
+                              popup.style.opacity = '0';
+                              popup.style.transform = 'scale(0.8)';
+                              setTimeout(() => { popup.style.display = 'none'; }, 400); // Aguarda o fade out
+                          }, 15000);
+                      }
+                  }
+              }
+            }
+          );
       }
-  };
+  }, 100);
 </script>
 </body>
 </html>

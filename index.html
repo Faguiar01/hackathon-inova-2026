@@ -26,6 +26,44 @@
             border-left-color: var(--yellow);
             background: rgba(255, 214, 0, 0.05);
         }
+        
+        /* Ajuste do Vídeo Responsivo (Corrigido para não ficar gigante) */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 280px; /* Largura mais controlada */
+            aspect-ratio: 9 / 16; /* Usa o aspect-ratio moderno ao invés do padding-bottom */
+            margin: 0 auto;
+            border: 3px solid var(--cyan);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* Desktop: Tira as abas das vertentes do modo pointer-events-none se estava ativado antes */
+        .vert-tabs {
+            pointer-events: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .rank-primary {
+                transform: none !important;
+                order: -1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -159,35 +197,14 @@
             <div class="acc-body open" id="body-sobre">
                 <div class="acc-inner">
                     <div class="sobre-grid">
-                        <div class="sobre-visual">
-                            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="30" y="80" width="100" height="55" rx="8" stroke="rgba(255,214,0,0.3)" stroke-width="1.5" fill="rgba(255,214,0,0.04)"/>
-                                <rect x="38" y="58" width="14" height="26" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
-                                <rect x="56" y="50" width="14" height="34" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
-                                <rect x="74" y="48" width="14" height="36" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
-                                <rect x="92" y="52" width="14" height="32" rx="7" stroke="#FFD600" stroke-width="1.5" fill="rgba(255,214,0,0.08)"/>
-                                <rect x="50" y="90" width="60" height="36" rx="4" stroke="#00F0FF" stroke-width="1.5" fill="rgba(0,240,255,0.06)"/>
-                                <rect x="58" y="98" width="44" height="20" rx="2" stroke="rgba(0,240,255,0.5)" stroke-width="1" fill="none"/>
-                                <line x1="58" y1="96" x2="58" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="66" y1="96" x2="66" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="74" y1="96" x2="74" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="82" y1="96" x2="82" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="90" y1="96" x2="90" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="98" y1="96" x2="98" y2="89" stroke="#00F0FF" stroke-width="1.2" opacity="0.7"/>
-                                <line x1="68" y1="100" x2="68" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
-                                <line x1="78" y1="100" x2="78" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
-                                <line x1="88" y1="100" x2="88" y2="116" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
-                                <line x1="60" y1="108" x2="100" y2="108" stroke="rgba(0,240,255,0.3)" stroke-width="0.8"/>
-                                <circle cx="80" cy="108" r="5" fill="rgba(0,240,255,0.3)">
-                                    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                                <path d="M130 30 L132 38 L140 40 L132 42 L130 50 L128 42 L120 40 L128 38 Z" fill="#FFD600" opacity="0.8">
-                                    <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
-                                </path>
-                                <path d="M25 25 L26.5 30 L32 31.5 L26.5 33 L25 38 L23.5 33 L18 31.5 L23.5 30 Z" fill="#FF1F8E" opacity="0.6">
-                                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
-                                </path>
-                            </svg>
+                        <div class="sobre-visual video-wrapper">
+                            <iframe 
+                                src="https://www.youtube.com/embed/gCJbdAoz9fA" 
+                                title="Jota - Inova+ 2026" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
                         </div>
 
                         <div class="sobre-text">
@@ -271,51 +288,206 @@
                 <div class="acc-inner">
                     <p style="color:var(--muted);font-size:.84rem;margin-bottom:24px;">Escolha sua vertente. O cenário específico (A, B ou C) é sorteado ao escanear o QR Code no dia do evento.</p>
 
-                    <div class="vert-tabs">
-                        <div class="vert-tab active" onclick="switchVert(this,'logistica')">&#128230; Logística</div>
-                        <div class="vert-tab" onclick="switchVert(this,'manutencao')">&#128295; Manutenção</div>
-                        <div class="vert-tab" onclick="switchVert(this,'producao')">&#9881;&#65039; Produção</div>
-                        <div class="vert-tab" onclick="switchVert(this,'adm')">&#128421;&#65039; Administrativo</div>
-                        <div class="vert-tab" onclick="switchVert(this,'sust')">&#9851;&#65039; Sustentabilidade</div>
+                    <p style="text-align: center; max-width: 800px; margin: 20px auto; font-size: 1.2rem; line-height: 1.6; color: var(--text);">
+                        Nesta edição, focamos na convergência entre tecnologia e humanidade. As vertentes exploram a <strong>Indústria 5.0</strong>, desafiando os squads a criar soluções que equilibrem automação avançada com sustentabilidade e o bem-estar do trabalhador no centro da inovação.
+                    </p>
+
+                    <div class="vert-tabs" style="justify-content: center; margin-top: 30px; display: flex; flex-wrap: wrap; gap: 15px;">
+                        <div class="vert-tab active" onclick="switchVert(this,'logistica')" style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan);">📦 Logística</div>
+                        <div class="vert-tab" onclick="switchVert(this,'manutencao')" style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan);">🔧 Manutenção</div>
+                        <div class="vert-tab" onclick="switchVert(this,'producao')" style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan);">⚙️ Produção</div>
+                        <div class="vert-tab" onclick="switchVert(this,'adm')" style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan);">🗂️ Administrativo</div>
+                        <div class="vert-tab" onclick="switchVert(this,'sust')" style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan);">♻️ Sustentabilidade</div>
                     </div>
 
                     <div class="vert-panel active" id="vp-logistica">
                         <div class="sc-grid">
-                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; LOGÍSTICA</div><div class="sc-card-title">A Caça ao Tesouro</div><div class="sc-card-body">No almoxarifado de uma fabricante de fixadores (ex: Ciser), o separador caminha quilômetros por dia buscando itens minúsculos em prateleiras gigantes. O erro de um código significa parar uma linha inteira.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir que o separador encontre o item exato sem esforço físico exaustivo e sem erro de código?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; LOGÍSTICA</div><div class="sc-card-title">O Gargalo da Doca</div><div class="sc-card-body">Caminhões chegam simultaneamente para descarregar matérias-primas. O conferente valida notas, confere etiquetas e decide o destino de cada palete sob sol ou chuva, em meio ao barulho de empilhadeiras.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como organizar a entrada de materiais para que o conferente saiba o que é prioridade no segundo em que o caminhão encosta?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; LOGÍSTICA</div><div class="sc-card-title">O Milk Run Estressante</div><div class="sc-card-body">O operador de transporte interno abastece as linhas antes que as peças acabem. Sinais sonoros por toda a fábrica geram sobrecarga mental.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como transformar o fluxo de abastecimento em algo previsível e silencioso, eliminando a ansiedade do operador?</div></div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// LOGÍSTICA &middot; 01</div>
+                                <div class="sc-card-title">A Espinha Dorsal</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> A logística garante que os recursos certos estejam no lugar certo. Sem ela, a produção global entra em colapso.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> A transição de cadeias reativas para redes preditivas, usando dados para antecipar demandas globais.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Big Data, Rastreabilidade Blockchain, IA Preditiva.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// LOGÍSTICA &middot; 02</div>
+                                <div class="sc-card-title">Intralogística 5.0</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O movimento dentro da própria fábrica define a velocidade e o custo final do produto manufaturado.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Sincronizar o fluxo de materiais com a velocidade de produção em tempo real, sem estoques ociosos.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Gêmeos Digitais de Fluxo, Automação Flexível.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// LOGÍSTICA &middot; 03</div>
+                                <div class="sc-card-title">O Fator Humano</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> Operações logísticas tradicionais exigem alto esforço cognitivo e físico dos operadores e conferentes.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Desenhar processos onde a tecnologia assume a carga pesada, deixando a gestão e a estratégia para o ser humano.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Interfaces Hápticas, Wearables Industriais.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="vert-panel" id="vp-manutencao">
                         <div class="sc-grid">
-                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; MANUTENÇÃO</div><div class="sc-card-title">O Painel das Sombras</div><div class="sc-card-body">Um técnico conserta um painel elétrico complexo durante o turno da noite. Ele segura uma lanterna com a boca enquanto tenta ler diagramas minúsculos e manipular fios de alta tensão.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como permitir que o técnico realize o conserto com as mãos livres e total clareza visual?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; MANUTENÇÃO</div><div class="sc-card-title">A Máquina Barulhenta</div><div class="sc-card-body">Um mecânico precisa identificar um ruído estranho em um motor gigante (ex: Tupy). O barulho da fábrica impede que ele ouça de onde vem a falha, obrigando-o a chegar perigosamente perto de partes móveis.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como identificar a origem do problema mecânico sem expor o técnico ao ruído excessivo ou a áreas de risco?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; MANUTENÇÃO</div><div class="sc-card-title">O Manual Perdido</div><div class="sc-card-body">Uma máquina CNC para por falha rara. O técnico não conhece o erro e o manual de 800 páginas está em outro prédio. A pressão da gerência gera bloqueio mental no profissional.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como entregar o conhecimento técnico exato para o mecânico no local da falha?</div></div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// MANUTENÇÃO &middot; 01</div>
+                                <div class="sc-card-title">Garantia de Continuidade</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> A manutenção protege o ativo mais valioso de uma indústria: a sua capacidade ininterrupta de produzir.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Evoluir da "cultura do conserto" para a "cultura da confiabilidade total", baseada em análise contínua de dados.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Sensores IoT, Edge Computing.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// MANUTENÇÃO &middot; 02</div>
+                                <div class="sc-card-title">Gestão do Conhecimento</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O *know-how* técnico é um recurso escasso. Quando um técnico sênior se aposenta, a fábrica perde valor.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Digitalizar e democratizar o conhecimento mecânico e elétrico, tornando-o acessível a qualquer operador de campo.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Realidade Mista, Bancos de Dados Cognitivos.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// MANUTENÇÃO &middot; 03</div>
+                                <div class="sc-card-title">Segurança Operacional</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> Intervenções em máquinas pesadas são historicamente as atividades de maior risco na indústria.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Eliminar a exposição humana a riscos elétricos ou mecânicos através de diagnósticos imersivos e remotos.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Telemetria Avançada, Visão Computacional.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="vert-panel" id="vp-producao">
                         <div class="sc-grid">
-                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; PRODUÇÃO</div><div class="sc-card-title">A Linha de Montagem Infinita</div><div class="sc-card-body">Um operador monta 1.200 componentes pequenos por turno (ex: Nidec). O movimento repetitivo causa dores nos pulsos e a monotonia faz com que ele perca concentração, gerando falhas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como redesenhar a rotina de montagem para eliminar lesões por esforço repetitivo e a fadiga mental?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; PRODUÇÃO</div><div class="sc-card-title">O Calor da Fundição</div><div class="sc-card-body">Operadores trabalham próximos a fornos de alta temperatura (ex: Schulz). O calor radiante causa desidratação rápida e tonturas, afetando segurança e julgamento do trabalhador.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir que o operador realize suas tarefas sem ser afetado pelo calor extremo?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; PRODUÇÃO</div><div class="sc-card-title">A Inspeção Visual de Vidro</div><div class="sc-card-body">Em uma linha de embalagens, o inspetor olha garrafas em alta velocidade contra luz de fundo para achar trincas. Isso causa dor de cabeça intensa e "visão turva" após duas horas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como garantir qualidade total das peças sem exigir que o olho humano realize um esforço visual impossível e doloroso?</div></div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// PRODUÇÃO &middot; 01</div>
+                                <div class="sc-card-title">Manufatura Ágil</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O mercado atual exige personalização rápida. Linhas de produção rígidas e inflexíveis perdem competitividade.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Células de manufatura que se reconfiguram sozinhas para produzir itens diferentes no mesmo turno.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Robótica Flexível, Sistemas Ciber-Físicos.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// PRODUÇÃO &middot; 02</div>
+                                <div class="sc-card-title">Qualidade Absoluta</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O custo da não-qualidade (retrabalho, devoluções) é um dos maiores ralos financeiros da indústria global.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Inspecionar 100% da produção com precisão submilimétrica, sem depender de amostragem estatística humana.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> IA Generativa de Imagem, Machine Vision.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// PRODUÇÃO &middot; 03</div>
+                                <div class="sc-card-title">Sinergia Homem-Máquina</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O chão de fábrica tradicional não foi desenhado pensando na ergonomia cognitiva ou no conforto a longo prazo.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Desenhar interfaces onde a inteligência da máquina amplifica a capacidade humana, em vez de substituí-la.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Cobots (Robôs Colaborativos), Design Centrado no Humano.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="vert-panel" id="vp-adm">
                         <div class="sc-grid">
-                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; ADMINISTRATIVO</div><div class="sc-card-title">A Integração Fria</div><div class="sc-card-body">O RH contrata 50 pessoas de uma vez (ex: Tigre). O assistente repete as mesmas regras de segurança 50 vezes, sentindo que seu trabalho é robótico.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como automatizar a parte burocrática para que o assistente de RH foque em acolher humanamente cada novo colaborador?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; ADMINISTRATIVO</div><div class="sc-card-title">O Labirinto das Notas Fiscais</div><div class="sc-card-body">O setor financeiro recebe centenas de notas por dia com formatos diferentes. O assistente passa o dia digitando números com medo constante de errar um dígito.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como transformar o processamento de documentos em algo visual e intuitivo, eliminando a digitação repetitiva?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; ADMINISTRATIVO</div><div class="sc-card-title">O Silo de Informação</div><div class="sc-card-body">O Marketing cria campanhas de segurança, mas a informação não chega ao funcionário que não usa e-mail. O assistente se sente frustrado porque suas mensagens são ignoradas.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como fazer a comunicação interna ser sentida e compreendida por todos?</div></div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// ADMINISTRATIVO &middot; 01</div>
+                                <div class="sc-card-title">Cultura Organizacional</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> Inovação industrial exige inovação cultural. Ambientes hierárquicos e burocráticos sufocam a criatividade.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Transformar a gestão de pessoas através de liderança ágil e ambientes que promovem segurança psicológica.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> People Analytics, Plataformas Colaborativas.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// ADMINISTRATIVO &middot; 02</div>
+                                <div class="sc-card-title">Eficiência de Processos</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> Departamentos de apoio (Compras, Financeiro) frequentemente lutam contra gargalos operacionais e silos de dados.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Automatizar tarefas rotineiras de backoffice para que as equipes foquem em análises estratégicas de alto valor.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Automação Robótica de Processos (RPA), ERPs Inteligentes.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// ADMINISTRATIVO &middot; 03</div>
+                                <div class="sc-card-title">Fluidez da Informação</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> A desconexão entre o escritório corporativo e o chão de fábrica gera desalinhamento e perda de propósito.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Criar canais de comunicação bidirecionais e hiper-personalizados para todos os níveis da empresa.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Redes Sociais Corporativas, Dashboards de Gestão à Vista.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="vert-panel" id="vp-sust">
                         <div class="sc-grid">
-                            <div class="sc-card"><div class="sc-card-letter">A</div><div class="sc-card-tag">// CENÁRIO A &middot; SUSTENTABILIDADE</div><div class="sc-card-title">O Mistério do Descarte</div><div class="sc-card-body">A fábrica gera 20 tipos de resíduos. Na pressa do turno, os funcionários descartam tudo no mesmo cesto por não saberem o correto, gerando impacto ambiental grave.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como tornar o descarte correto algo instintivo e impossível de errar, mesmo para quem está com pressa?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">B</div><div class="sc-card-tag">// CENÁRIO B &middot; SUSTENTABILIDADE</div><div class="sc-card-title">O Vazamento Invisível</div><div class="sc-card-body">Milhares de litros de água ou ar comprimido são desperdiçados em vazamentos invisíveis. O gestor ambiental só percebe quando a conta chega altíssima no fim do mês.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como dar "voz" aos recursos naturais da fábrica para que qualquer desperdício seja identificado no momento em que começa?</div></div>
-                            <div class="sc-card"><div class="sc-card-letter">C</div><div class="sc-card-tag">// CENÁRIO C &middot; SUSTENTABILIDADE</div><div class="sc-card-title">Fábrica para Todos</div><div class="sc-card-body">Uma empresa quer contratar mais pessoas com deficiência física ou neurodiversas, mas máquinas e escritórios foram projetados para um padrão único, excluindo esses talentos.</div><div class="sc-card-desafio"><strong>&#127919; DESAFIO</strong>Como adaptar o ambiente de trabalho industrial para ser 100% inclusivo e adaptável a qualquer limitação física ou cognitiva?</div></div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 01</div>
+                                <div class="sc-card-title">Economia Circular</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O modelo linear "extrair, produzir, descartar" é insustentável a longo prazo para o planeta e para os negócios.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Repensar o ciclo de vida dos produtos, onde o resíduo de uma etapa se torna matéria-prima de outra.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Design Regenerativo, Análise de Ciclo de Vida (LCA).</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 02</div>
+                                <div class="sc-card-title">Descarbonização</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> A indústria é uma das maiores consumidoras de energia global. A eficiência não é mais opção, é regra de sobrevivência.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Tornar a infraestrutura capaz de gerenciar ativamente seu próprio consumo e buscar fontes renováveis automaticamente.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Smart Grids (Redes Inteligentes), IoT Ambiental.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 03</div>
+                                <div class="sc-card-title">Indústria Inclusiva</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> A verdadeira sustentabilidade (ESG) engloba o social, garantindo acesso equitativo ao trabalho industrial.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Ambientes de trabalho que se adaptam fisicamente e cognitivamente às necessidades de uma força de trabalho diversa.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Ergonomia Adaptativa, IA para Acessibilidade.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vert-panel" id="vp-sust">
+                        <div class="sc-grid">
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 01</div>
+                                <div class="sc-card-title">Gestão de Resíduos</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O descarte incorreto na pressa do turno contamina lotes inteiros de recicláveis, gerando multas.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Tornar a separação instintiva e automatizada, reduzindo a carga cognitiva do operador.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Lixeiras Inteligentes, Visão Computacional.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 02</div>
+                                <div class="sc-card-title">Eficiência Energética</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> Vazamentos de ar comprimido e água são invisíveis, mas custam fortunas e secam recursos naturais.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Dar "voz" às máquinas para que qualquer desperdício seja alertado no momento em que começa.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Sensores Ultrassônicos, Dashboards em Tempo Real.</p>
+                                </div>
+                            </div>
+                            <div class="sc-card">
+                                <div class="sc-card-tag">// SUSTENTABILIDADE &middot; 03</div>
+                                <div class="sc-card-title">Fábrica Inclusiva</div>
+                                <div class="sc-card-body" style="font-size: 0.95rem; line-height: 1.5;">
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--yellow);">Importância:</strong> O padrão único de máquinas exclui pessoas neurodiversas ou com deficiência física do mercado.</p>
+                                    <p style="margin-bottom: 10px;"><strong style="color:var(--cyan);">Inovação:</strong> Adaptar as interfaces (luzes, sons, telas) automaticamente à necessidade de quem está operando.</p>
+                                    <p><strong style="color:#fff;">Tecnologias:</strong> Interfaces Adaptáveis, Design Universal.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -387,25 +559,31 @@
         <div class="accordion" id="acc-premiacao">
             <div class="acc-header" onclick="toggleAcc('premiacao')">
                 <div class="acc-icon">&#129351;</div>
-                <div class="acc-meta"><div class="acc-title">Premiação</div><div class="acc-sub">// TOP 4 &middot; MODALIDADE HÍBRIDA</div></div>
+                <div class="acc-meta"><div class="acc-title">Premiação</div><div class="acc-sub">// TOP 3</div></div>
                 <div class="acc-arrow">&#9660;</div>
             </div>
             <div class="acc-body" id="body-premiacao">
                 <div class="acc-inner">
-                    <div class="prem-wrap">
-                        <div class="prem-card pres">
-                            <div class="prem-head">
-                                <svg viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 15 L2 15 L2 12 L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M24 15 L26 15 L26 12 L24 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 10 L9 7 C9 5.3 10.3 4 12 4 L16 4 C17.7 4 19 5.3 19 7 L19 10" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="17" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
-                                PRESENCIAL
-                            </div>
-                            <div class="podio"><div class="podio-row"><div class="podio-num">1</div><div class="podio-label">&#129351; Campeão do Auditório</div></div><div class="podio-row"><div class="podio-num">2</div><div class="podio-label">&#129352; Vice-Campeão</div></div><div class="podio-row"><div class="podio-num">3</div><div class="podio-label">&#129353; Terceiro Lugar</div></div><div class="podio-row"><div class="podio-num">4</div><div class="podio-label">&#127885; Quarto Lugar</div></div></div>
+                    <div class="awards-grid" style="display: flex; justify-content: center; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                        <div class="award-card rank-secondary" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; text-align: center; width: 280px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🥈</div>
+                            <h3 style="margin-bottom: 15px; color: #fff;">2º LUGAR</h3>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace;">Troféu Inova+</p>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace;">Certificado de Destaque</p>
                         </div>
-                        <div class="prem-card onl">
-                            <div class="prem-head">
-                                <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.5"/><path d="M14 3 C10 3 7 8 7 14 C7 20 10 25 14 25" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><path d="M14 3 C18 3 21 8 21 14 C21 20 18 25 14 25" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><line x1="3" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="1.2" opacity="0.5"/><line x1="5" y1="9" x2="23" y2="9" stroke="currentColor" stroke-width="0.8" opacity="0.3"/><line x1="5" y1="19" x2="23" y2="19" stroke="currentColor" stroke-width="0.8" opacity="0.3"/></svg>
-                                ONLINE
-                            </div>
-                            <div class="podio"><div class="podio-row"><div class="podio-num">1</div><div class="podio-label">&#129351; Campeão Digital</div></div><div class="podio-row"><div class="podio-num">2</div><div class="podio-label">&#129352; Vice-Campeão Digital</div></div><div class="podio-row"><div class="podio-num">3</div><div class="podio-label">&#129353; Terceiro Digital</div></div><div class="podio-row"><div class="podio-num">4</div><div class="podio-label">&#127885; Quarto Digital</div></div></div>
+
+                        <div class="award-card rank-primary" style="background: rgba(255, 255, 255, 0.05); border: 1px solid #ffd700; padding: 30px; border-radius: 15px; text-align: center; width: 280px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); transform: translateY(-20px);">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🥇</div>
+                            <h3 style="margin-bottom: 15px; color: #ffd700;">1º LUGAR</h3>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace; font-weight: bold; color: #ffd700;">Troféu Inova+</p>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace; font-weight: bold; color: #ffd700;">Certificado de Destaque</p>
+                        </div>
+
+                        <div class="award-card rank-secondary" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; text-align: center; width: 280px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🥉</div>
+                            <h3 style="margin-bottom: 15px; color: #fff;">3º LUGAR</h3>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace;">Troféu Inova+</p>
+                            <p style="margin: 10px 0; font-family: 'Space Mono', monospace;">Certificado de Destaque</p>
                         </div>
                     </div>
                 </div>
@@ -482,7 +660,7 @@
 
                             <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (09/04)</option><option value="online">🌐 ONLINE (09/04)</option></select></div>
                             <div class="form-row"><label>VERTENTE DO DESAFIO *</label><select id="f-vert" required><option value="">ESCOLHA UMA ÁREA...</option><option value="Logística">📦 Logística</option><option value="Manutenção">🔧 Manutenção</option><option value="Produção">⚙️ Produção</option><option value="Administrativo">🗂️ Administrativo</option><option value="Sustentabilidade">♻️ Sustentabilidade</option></select></div>
-                                                     
+                                                                             
                             <button type="submit" class="form-submit" id="btn-submit-cad">⚡ CADASTRAR SQUAD</button>
                             <div class="form-note">Ao se inscrever, você concorda com o regulamento do Hackathon Inova+ 2026. Lembre-se do Nome da Equipe e Senha, eles serão necessários para login no evento.</div>
                         </form>
@@ -510,21 +688,44 @@
           document.getElementById('sidebarOverlay').classList.remove('show');
       }
       function openSection(id, btn=null) {
+          // Bloqueia a "subidinha" do href="#"
+          if (window.event) {
+              window.event.preventDefault();
+          }
+
           if(btn) {
               document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
               btn.classList.add('active');
           }
+          
           if(window.innerWidth <= 960) closeSidebar();
+          
           const accHeader = document.querySelector(`#acc-${id} .acc-header`);
+          let isOpeningNow = false;
+
+          // Verifica se o accordion está fechado e precisa ser aberto
           if(accHeader && !accHeader.classList.contains('open')) {
               toggleAcc(id);
+              isOpeningNow = true;
           }
+          
           const element = document.getElementById(`acc-${id}`);
           if(element) {
-              window.scrollTo({
-                  top: element.offsetTop - 20,
-                  behavior: 'smooth'
-              });
+              // Se o accordion acabou de ser aberto, damos um pequeno atraso
+              if (isOpeningNow) {
+                  setTimeout(() => {
+                      window.scrollTo({
+                          top: element.offsetTop - 20,
+                          behavior: 'smooth'
+                      });
+                  }, 300);
+              } else {
+                  // Se já estava aberto, rola direto
+                  window.scrollTo({
+                      top: element.offsetTop - 20,
+                      behavior: 'smooth'
+                  });
+              }
           }
       }
       function toggleAcc(id) {
@@ -595,7 +796,6 @@
               membros: membros,
               modalidade: modalidade,
               vertente: vertente,
-              // APAGAMOS A LINHA DO TELEFONE QUE ESTAVA AQUI!
               dataCadastro: new Date().toISOString(),
               
               // INICIALIZANDO OS PONTOS ZERADOS PARA O RANKING NÃO QUEBRAR
@@ -615,9 +815,25 @@
             });
 
             document.getElementById('formIns').style.display = 'none';
-            document.getElementById('formSuccess').classList.add('show');
-            
-            document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+document.getElementById('formSuccess').classList.add('show');
+
+const successBox = document.getElementById('formSuccess');
+successBox.innerHTML = `
+  <h4>✅ SQUAD CADASTRADO COM SUCESSO!</h4>
+  <p>Redirecionando para a <strong>Plataforma de Login</strong>...</p>
+  <p style="margin-top:8px; color:var(--muted); font-size:.9rem;">
+    Caso não redirecione automaticamente, 
+    <a href="plataforma/login.html" style="color:var(--cyan); text-decoration:none; font-weight:bold;">
+      clique aqui
+    </a>.
+  </p>
+`;
+
+successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+sessionStorage.setItem('equipe_pre_cadastro', equipeNome.trim());
+setTimeout(() => {
+  window.location.href = 'plataforma/login.html';
+}, 2500);
             
           } catch (error) {
             console.error(error);

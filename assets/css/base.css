@@ -213,14 +213,26 @@ nav::-webkit-scrollbar-thumb { background:rgba(255,214,0,.2); border-radius:2px;
 .acc-inner { padding:36px 52px 44px; }
 
 /* SOBRE */
-.sobre-grid { display:grid; grid-template-columns:1fr 1.6fr; gap:36px; align-items:start; }
+/* SOBRE */
+.sobre-grid { display:grid; grid-template-columns:1.2fr 1.6fr; gap:40px; align-items:center; }
 .sobre-visual {
-    display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(circle at center,rgba(26,47,255,.18),rgba(0,240,255,.08),transparent);
-    border:1px solid var(--border); aspect-ratio:1; max-width:260px;
-    position:relative; overflow:hidden;
+    width: 100%;
+    max-width: 360px; /* Aumentamos bem o tamanho para o desktop */
+    aspect-ratio: 9 / 16; /* Força o formato exato vertical do YouTube Shorts */
+    border: 2px solid var(--cyan, #00F0FF); /* Borda Cyberpunk */
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto; /* Garante que fique centralizado no celular/tablet */
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.15); /* Efeito de brilho */
 }
-.sobre-visual svg { width:72%; height:72%; }
+.sobre-visual iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .sobre-text p { color:var(--muted); line-height:1.8; font-size:.9rem; margin-bottom:14px; }
 .pillar-row { display:flex; flex-direction:column; gap:9px; margin-top:18px; }
 .pillar-chip { display:flex; align-items:center; gap:12px; padding:11px 15px; background:rgba(255,255,255,.03); border:1px solid var(--border); transition:.2s; }

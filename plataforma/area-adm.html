@@ -194,9 +194,29 @@
           </tr>`;
       }).join('');
 
-      document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => `
-        <tr><td>${i+1}</td><td style="font-weight:bold">${t.nomeEquipe}</td><td>MESA ${t.mesa||'--'}</td><td>${t.membros||'--'}</td></tr>
-      `).join('');
+      // GERAÇÃO DA TABELA DE GERENCIAMENTO DE EQUIPES (COM SELEÇÃO DE MESA)
+      document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => {
+          // Cria as opções de MESA de 01 a 20
+          let optionsMesa = '<option value="">SEM MESA</option>';
+          for(let m = 1; m <= 20; m++) {
+              const numMesa = m.toString().padStart(2, '0');
+              const selected = (t.mesa === numMesa) ? 'selected' : '';
+              optionsMesa += `<option value="${numMesa}" ${selected}>MESA ${numMesa}</option>`;
+          }
+
+          return `
+          <tr>
+            <td style="font-family:'Space Mono'; color:var(--muted);">${i+1}</td>
+            <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()}</td>
+            <td>
+                <select class="adm-score-input" style="width: 120px; cursor: pointer; text-align: left; padding-left: 15px;" onchange="atribuirMesa('${t.id}', this.value)">
+                    ${optionsMesa}
+                </select>
+            </td>
+            <td style="font-size: 0.85rem; color: var(--muted);">${t.membros||'--'}</td>
+          </tr>
+          `;
+      }).join('');
 
       document.getElementById('dash-team-status').innerHTML = teams.map(t => `
         <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
@@ -332,12 +352,49 @@ window.fecharLobby = () => {
       selectEl.value = ""; // Reseta o menu de volta para o texto "⚡ PULAR PARA OUTRA FASE..."
   };
 
+  // ENVIO DE MENSAGEM GLOBAL (JOTA)
   window.postMural = () => {
       const msg = document.getElementById('mural-msg').value;
       if(!msg) return;
-      window.Mural.pushFirebase(window.Mural.dbRef, { author: '🤖 JOTA', text: msg, time: new Date().toLocaleTimeString().slice(0,5) });
-      document.getElementById('mural-msg').value = '';
-      window.toast('NOTIFICAÇÃO ENVIADA!');
+      
+      const btn = document.querySelector('button[onclick="postMural()"]');
+      btn.textContent = "ENVIANDO...";
+      btn.disabled = true;
+
+      const updates = {};
+      // Atualiza um nó único no Firebase que todos os alunos vão "ouvir"
+      updates['controle/mensagemJota'] = {
+          texto: msg,
+          timestamp: Date.now() // Usamos o tempo exato para o sistema do aluno saber que é uma mensagem nova
+      };
+
+      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+          .then(() => {
+              document.getElementById('mural-msg').value = '';
+              window.toast('NOTIFICAÇÃO ENVIADA PARA TODAS AS EQUIPES!', 'success');
+              btn.textContent = "🚀 PUBLICAR NO SISTEMA";
+              btn.disabled = false;
+          })
+          .catch((err) => {
+              console.error(err);
+              window.toast('Erro ao enviar mensagem.', 'error');
+              btn.textContent = "🚀 PUBLICAR NO SISTEMA";
+              btn.disabled = false;
+          });
+  };
+  // NOVA FUNÇÃO: Atribuir Mesa à Equipe
+  window.atribuirMesa = (equipeId, numeroMesa) => {
+      const updates = {};
+      updates[`equipes/${equipeId}/mesa`] = numeroMesa;
+      
+      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+          .then(() => {
+              window.toast(`Mesa ${numeroMesa} atribuída com sucesso!`, 'success');
+          })
+          .catch((err) => {
+              console.error(err);
+              window.toast('Erro ao salvar a mesa. Verifique a conexão.', 'error');
+          });
   };
 </script>
 </body>

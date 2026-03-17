@@ -112,24 +112,42 @@
     const btn = document.querySelector(`.role-btn[data-role="${role}"]`);
     if (btn) btn.classList.add('active');
     
-    const labels = { participante: 'PARTICIPANTE (SQUAD)', monitor: 'AVALIADOR TÉCNICO', cliente: 'JURADO / ESPECIALISTA', adm: 'COORDENAÇÃO ADM' };
+    const labels = {
+      participante: 'PARTICIPANTE (SQUAD)',
+      monitor: 'AVALIADOR TÉCNICO',
+      cliente: 'JURADO / ESPECIALISTA',
+      adm: 'COORDENAÇÃO ADM'
+    };
+
     document.getElementById('role-display').value = labels[role] || role.toUpperCase();
-    
     document.getElementById('field-equipe').style.display = (role === 'participante') ? 'block' : 'none';
-    
     document.getElementById('login-btn').disabled = false;
     document.getElementById('error-msg').classList.remove('show');
     
-    if(role === 'participante') {
-        document.getElementById('teamName').focus();
+    if (role === 'participante') {
+      document.getElementById('teamName').focus();
     } else {
-        document.getElementById('password').focus();
+      document.getElementById('password').focus();
     }
   }
 
+  window.addEventListener('DOMContentLoaded', () => {
+    const equipeSalva = sessionStorage.getItem('equipe_pre_cadastro');
+
+    if (equipeSalva) {
+      selectRole('participante');
+      document.getElementById('teamName').value = equipeSalva;
+      document.getElementById('password').focus();
+    }
+  });
+
   document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!selectedRole) { alert('Selecione seu perfil primeiro!'); return; }
+
+    if (!selectedRole) {
+      alert('Selecione seu perfil primeiro!');
+      return;
+    }
     
     const pw = document.getElementById('password').value;
     const team = document.getElementById('teamName').value;
@@ -140,12 +158,13 @@
     }
 
     const btn = document.getElementById('login-btn');
-    btn.textContent = 'VERIFICANDO NO BANCO...'; 
+    btn.textContent = 'VERIFICANDO NO BANCO...';
     btn.disabled = true;
 
     const isLogged = await window.AUTH.login(selectedRole, pw, team);
     
     if (isLogged) {
+      sessionStorage.removeItem('equipe_pre_cadastro');
       btn.textContent = '✓ ACESSO CONCEDIDO';
       setTimeout(() => {
         window.location.href = window.AUTH.redirects[selectedRole];
@@ -155,8 +174,12 @@
       btn.textContent = 'ENTRAR NA PLATAFORMA →';
       btn.disabled = false;
       document.getElementById('password').value = '';
-      if(selectedRole === 'participante') document.getElementById('teamName').focus();
-      else document.getElementById('password').focus();
+      
+      if (selectedRole === 'participante') {
+        document.getElementById('teamName').focus();
+      } else {
+        document.getElementById('password').focus();
+      }
     }
   });
 </script>

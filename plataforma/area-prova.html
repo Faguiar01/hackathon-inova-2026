@@ -69,6 +69,20 @@
   </style>
 </head>
 <body>
+<div id="jota-alert" style="display:none; position:fixed; top:85px; left:50%; transform:translateX(-50%); z-index:9000; background:rgba(0,10,20,0.95); border:2px solid var(--cyan); padding:24px; border-radius:12px; box-shadow:0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.2); width:90%; max-width:500px; backdrop-filter:blur(10px); animation:slideDownJota 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+    <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
+        <div style="font-size:3rem; line-height:1;">🤖</div>
+        <div>
+            <strong style="font-family:'Bebas Neue'; font-size:1.8rem; color:var(--cyan); letter-spacing:1px; display:block; line-height: 1;">MENSAGEM DO JOTA</strong>
+            <span style="font-family:'Space Mono'; font-size:0.7rem; color:var(--yellow); letter-spacing: 2px;">COORDENAÇÃO GERAL INOVA+</span>
+        </div>
+    </div>
+    <p id="jota-msg-text" style="font-family: 'Syne'; font-size:1.1rem; color:#fff; line-height:1.6; margin-bottom:24px;"></p>
+    <button onclick="document.getElementById('jota-alert').style.display='none'" style="width:100%; padding:12px; background:var(--cyan); color:#000; font-family:'Bebas Neue'; font-size:1.3rem; border:none; border-radius:6px; cursor:pointer; letter-spacing:2px; transition: 0.2s;">ENTENDIDO</button>
+</div>
+<style>
+    @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
+</style>
 
 <header class="topbar">
   <div class="tb-left">
@@ -126,7 +140,6 @@
   <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
   <button class="page-tab" data-tab="links">🔗 Central IA</button>
 
-  <!-- BOTÃO IA MENTOR -->
   <button id="btn-ai-mentor" class="page-tab" style="display:none; color:#00e5ff;">
     🤖 Pedir Ajuda da IA
   </button>
@@ -348,7 +361,7 @@ color:#fff;
   vertente: "Sustentabilidade",
   titulo: "Fábrica para Todos",
   imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
-  dor: "Cena: Uma pessoa cadeirante e uma pessoa com nanismo passam no processo seletivo brilhantemente para operar máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
+  dor: "Cena: Uma empresa quer contratar pessoas cadeirantes ou com nanismo para operar as máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
   desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo?"
 },    
     // ADMINISTRATIVO
@@ -391,23 +404,62 @@ color:#fff;
   // 🔒 BARREIRA DE SEGURANÇA
   window.AUTH.require('participante');
 
-  // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES
+  // 📢 OUVINTE DO MURAL DO JOTA (CORRIGIDO)
+  window.InovaDB.onValue(
+    window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
+    (snapshot) => {
+      const msgData = snapshot.val();
+      
+      if (msgData && msgData.texto && msgData.timestamp) {
+          // Verifica na memória do navegador se o aluno já leu esta mensagem exata
+          const msgLida = sessionStorage.getItem('jota_msg_lida');
+          
+          if (msgData.timestamp.toString() !== msgLida) {
+              // É uma mensagem nova! Mostra o pop-up
+              const alertBox = document.getElementById('jota-alert');
+              const textBox = document.getElementById('jota-msg-text');
+              
+              if (alertBox && textBox) {
+                  textBox.textContent = msgData.texto;
+                  alertBox.style.display = 'block';
+                  
+                  // Grava na memória que já leu, para não aparecer de novo se der F5
+                  sessionStorage.setItem('jota_msg_lida', msgData.timestamp.toString());
+              }
+          }
+      }
+    }
+  );
+
+  // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES (CORRIGIDO)
   window.InovaDB.onValue(
     window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
     (snapshot) => {
       const liberado = snapshot.val() === true;
-
-      console.log('LIBERAR EQUIPES =', snapshot.val());
+      console.log('STATUS LIBERAÇÃO:', liberado);
 
       if (liberado) {
-        console.log('SAINDO DO LOBBY...');
+        // Se a tela atual NÃO for ativo, tira do lobby e inicia o App
         if (telaAtual !== 'ativo') {
+          console.log('Iniciando o App...');
           document.getElementById('view-lobby').style.display = 'none';
-          initApp();
+          
+          // Verifica a sessão diretamente sem chamar Toast
+          const equipSaved = sessionStorage.getItem('inova_equipe');
+          const vertSaved = sessionStorage.getItem('inova_vertente');
+          
+          if (!equipSaved || !vertSaved) {
+              console.error("Sessão Perdida. Retornando ao Login.");
+              window.AUTH.logout();
+              return;
+          }
+          
           telaAtual = 'ativo';
+          initAppRestaurado(equipSaved, vertSaved); // Chamamos a função restaurada
         }
       } else {
-        console.log('FICANDO NO LOBBY...');
+        // Se o ADM fechou o evento (Liberado = False), tranca todo mundo no lobby
+        console.log('Trancando no Lobby...');
         document.getElementById('view-lobby').style.display = 'flex';
         document.getElementById('view-sorteio').style.display = 'none';
         document.getElementById('view-dashboard').style.display = 'none';
@@ -457,6 +509,22 @@ color:#fff;
   }, 1000);
 }
 
+  // FUNÇÃO INIT APP RESTAURADA E BLINDADA
+  function initAppRestaurado(equipeNome, vertenteNome) {
+    const missaoKey = 'inova_missao_' + equipeNome;
+    const missaoSaved = localStorage.getItem(missaoKey);
+
+    showTeamName(equipeNome);
+
+    if (missaoSaved && missaoSaved.includes("Cena:")) {
+      exibirDashboard(JSON.parse(missaoSaved));
+    } else {
+      mostrarRoleta(vertenteNome);
+    }
+
+    verificarEntrega(equipeNome);
+  }
+
   function atualizarCronometroLobby() {
       const agora = new Date();
       // Define a data do evento: Ano 2026, Mês 3 (Abril no JS), Dia 9
@@ -480,35 +548,6 @@ color:#fff;
       }
   }
 
-  function initApp() {
-    const equipSaved = sessionStorage.getItem('inova_equipe');
-    const vertSaved = sessionStorage.getItem('inova_vertente');
-    
-    // 🛡️ TRAVA 1: Sessão inválida (Evita quebrar se o aluno der F5 e o cache sumir)
-    if (!equipSaved || !vertSaved) {
-        window.toast("Sessão inválida. Faça login novamente.", "error");
-        setTimeout(() => window.AUTH.logout(), 1500);
-        return;
-    }
-
-    const equipeNome = equipSaved;
-    const vertenteNome = vertSaved;
-
-    const missaoKey = 'inova_missao_' + equipeNome;
-    const missaoSaved = localStorage.getItem(missaoKey);
-
-    showTeamName(equipeNome);
-
-    if (missaoSaved && missaoSaved.includes("Cena:")) {
-      exibirDashboard(JSON.parse(missaoSaved));
-    } else {
-      mostrarRoleta(vertenteNome);
-    }
-
-    // 🛡️ TRAVA 2: Restaura a tela caso o projeto já tenha sido entregue
-    verificarEntrega(equipeNome);
-  }
-
   function verificarEntrega(equipeNome) {
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
@@ -518,11 +557,12 @@ color:#fff;
               key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
           );
 
-          if (equipeId && data[equipeId].renderEnviado) {
+          // Ajuste: Verifica a entrega dentro de notasEquipe para espelhar a correção
+          if (equipeId && data[equipeId].notasEquipe && data[equipeId].notasEquipe.renderEnviado) {
               const linkInput = document.getElementById('link-render');
               const btn = document.getElementById('btn-enviar-render');
               
-              linkInput.value = data[equipeId].renderLink || "Projeto já enviado.";
+              linkInput.value = data[equipeId].notasEquipe.renderLink || "Projeto já enviado.";
               linkInput.disabled = true;
               linkInput.style.opacity = "0.6";
               
@@ -685,6 +725,7 @@ color:#fff;
       btn.textContent = "PROCESSANDO...";
       btn.disabled = true;
 
+      // Pega os dados do banco para encontrar a ID correta da equipe
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           if (!data) {
@@ -694,6 +735,7 @@ color:#fff;
               return;
           }
 
+          // Encontra a chave (ID) da equipe no banco baseada no nome da sessão
           const equipeId = Object.keys(data).find(
               key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
           );
@@ -705,15 +747,18 @@ color:#fff;
               return;
           }
 
+          // Monta o objeto de atualização focado na árvore correta (notasEquipe)
           const updates = {};
-          updates[`equipes/${equipeId}/renderEnviado`] = true;
-          updates[`equipes/${equipeId}/renderLink`] = link;
-          updates[`equipes/${equipeId}/renderEnviadoEm`] = new Date().toISOString(); // Padrão de Arquitetura!
+          updates[`equipes/${equipeId}/notasEquipe/renderEnviado`] = true;
+          updates[`equipes/${equipeId}/notasEquipe/renderLink`] = link;
+          // Reseta a aprovação caso a equipe esteja reenviando após uma rejeição do monitor
+          updates[`equipes/${equipeId}/notasEquipe/renderAprovado`] = null; 
+          updates[`equipes/${equipeId}/notasEquipe/dataEnvio`] = new Date().toLocaleString();
 
           window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
               .then(() => {
                   window.toast("Projeto enviado aos jurados com sucesso!", "success");
-                  btn.textContent = "✅ PROJETO ENTREGUE";
+                  btn.innerHTML = "✅ PROJETO ENTREGUE PARA AVALIAÇÃO";
                   btn.style.background = "transparent";
                   btn.style.color = "#00C851";
                   btn.style.border = "1px solid #00C851";
@@ -729,6 +774,7 @@ color:#fff;
               });
       }, { onlyOnce: true });
   };
+  
   document.getElementById('btn-ai-mentor').onclick = () => {
   const tituloMissao = document.getElementById('m-titulo').textContent.trim();
 

@@ -9,77 +9,233 @@
   <link rel="stylesheet" href="../assets/css/base.css"/>
   
   <style>
-    body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; }
-    
+    body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; padding-bottom: 60px; }
+
+    /* ── TOPBAR ── */
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(255,214,0,.2);backdrop-filter:blur(8px)}
-    .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:2px;text-shadow:0 0 20px rgba(255,214,0,.3)}
-    .tb-role{font-family:'Space Mono', monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(255,214,0,.3);color:var(--yellow); border-radius:4px;}
-    .main{padding:85px 28px 48px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
-    
-    /* LEMBRETES */
-    .lembretes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
-    .lembrete{padding:14px 18px;background:rgba(255,214,0,.04);border:1px solid rgba(255,214,0,.2);display:flex;align-items:start;gap:12px; border-radius:6px;}
-    .lembrete-icon{font-size:1.2rem;flex-shrink:0}
-    .lembrete p{font-family:'Space Mono', monospace;font-size:.72rem;color:var(--yellow);letter-spacing:.5px;line-height:1.5}
-    
-    /* CHECKLISTS */
-    .sprint-checklists{display:grid;gap:0}
-    .sprint-cl{background:var(--panel);border:1px solid var(--border);margin-bottom:10px;overflow:hidden; border-radius:6px;}
-    .sprint-cl-header{display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer;transition:background .2s;user-select:none}
-    .sprint-cl-header:hover{background:rgba(255,214,0,.04)}
-    .cl-num{width:40px;height:40px;border:2px solid var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue', sans-serif;font-size:1.2rem;color:var(--yellow);flex-shrink:0}
+    .tb-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:2px;text-shadow:0 0 20px rgba(255,214,0,.3)}
+    .tb-role{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(255,214,0,.3);color:var(--yellow);border-radius:4px}
+    .main{padding:100px 28px 48px;max-width:1300px;margin:0 auto;position:relative;z-index:1}
+
+    /* ── ALERTA DE SPRINT (P5) ── */
+    .sprint-alert{display:none;position:fixed;top:65px;left:0;right:0;z-index:300;padding:12px 28px;background:rgba(255,60,60,.15);border-bottom:2px solid rgba(255,60,60,.6);font-family:'Space Mono',monospace;font-size:.8rem;font-weight:bold;color:#ff6b6b;letter-spacing:2px;text-align:center;animation:pulse-alert 1s ease-in-out infinite; text-shadow: 0 0 10px rgba(255,60,60,0.5);}
+    @keyframes pulse-alert{0%,100%{opacity:1}50%{opacity:.6}}
+    .sprint-alert.show{display:block}
+
+    /* ── LEMBRETES ── */
+    .lembretes{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:30px}
+    .lembrete{padding:16px 20px;background:rgba(255,214,0,.03);border:1px solid rgba(255,214,0,.2);display:flex;align-items:start;gap:15px;border-radius:8px}
+    .lembrete-icon{font-size:1.5rem;flex-shrink:0}
+    .lembrete p{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--yellow);letter-spacing:.5px;line-height:1.6}
+
+    /* ── SECTION LABEL ── */
+    .sec-label{font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:2px;margin-bottom:12px;text-transform:uppercase}
+    .sec-label.cyan{color:var(--cyan)}
+    .sec-label.yellow{color:var(--yellow)}
+
+    /* ══════════════════════════════
+       P1 — PAINEL GERAL DOS SQUADS
+    ══════════════════════════════ */
+    .painel-geral{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;margin-bottom:40px}
+
+    .squad-card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:16px 20px;
+      cursor:pointer;
+      transition:all .3s;
+      position:relative;
+      overflow:hidden;
+    }
+    .squad-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--border);transition:.3s}
+    .squad-card:hover{border-color:rgba(255,255,255,.3);transform:translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
+    .squad-card.active{border-color:var(--cyan);box-shadow:0 0 25px rgba(0,240,255,.2); background:rgba(0,240,255,0.03);}
+    .squad-card.active::before{background:var(--cyan)}
+
+    .squad-card-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff;letter-spacing:1px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .squad-card-vertente{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:1px;margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; text-transform: uppercase;}
+
+    .squad-card-status{display:flex;gap:8px;flex-wrap:wrap}
+    .status-pill{font-family:'Space Mono',monospace;font-size:.6rem;padding:4px 8px;border-radius:20px;letter-spacing:.5px;border:1px solid transparent;white-space:nowrap; font-weight: bold;}
+    .pill-ok   {background:rgba(0,200,81,.1); border-color:rgba(0,200,81,.4); color:#00ff99}
+    .pill-pend {background:rgba(255,214,0,.1);border-color:rgba(255,214,0,.4);color:var(--yellow)}
+    .pill-none {background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:var(--muted)}
+
+    /* ── SQUAD DETAIL HEADER ── */
+    .squad-detail-header{
+      margin-bottom:30px;
+      padding:25px 30px;
+      background:rgba(0,240,255,.03);
+      border:1px solid rgba(0,240,255,.3);
+      border-left:6px solid var(--cyan);
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+    .squad-detail-header h3{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:2.5rem;letter-spacing:2px;margin:0; line-height: 1;}
+    .squad-detail-header p{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--cyan);margin-top:8px;text-transform:uppercase; letter-spacing: 1px;}
+
+    /* ── LAYOUT 2 COLUNAS ── */
+    .two-col{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;margin-bottom:40px}
+    @media(max-width:960px){.two-col{grid-template-columns:1fr}}
+
+    /* ── CHECKLISTS ── */
+    .sprint-checklists{display:grid;gap:12px}
+    .sprint-cl{background:var(--panel);border:1px solid var(--border);overflow:hidden;border-radius:10px}
+    .sprint-cl-header{display:flex;align-items:center;gap:16px;padding:18px 24px;cursor:pointer;transition:background .2s;user-select:none}
+    .sprint-cl-header:hover{background:rgba(255,214,0,.05)}
+    .cl-num{width:46px;height:46px;border:2px solid var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--cyan);flex-shrink:0}
     .cl-title-wrap{flex:1}
-    .cl-title{font-family:'Bebas Neue', sans-serif;font-size:1.2rem;color:#fff;letter-spacing:1px;display:block}
-    .cl-time{font-family:'Space Mono', monospace;font-size:.65rem;color:var(--muted);letter-spacing:1px}
-    .cl-progress{font-family:'Space Mono', monospace;font-size:.75rem;color:var(--yellow);letter-spacing:1px;flex-shrink:0}
+    .cl-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff;letter-spacing:1px;display:block}
+    .cl-time{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:1px}
+    .cl-progress{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--cyan);letter-spacing:1px;flex-shrink:0;width:45px;text-align:right}
     .cl-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
-    .cl-body-inner{padding:0 20px 20px 76px;display:grid;gap:8px}
-    
-    .check-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:all .2s;user-select:none; border-radius:4px;}
-    .check-item.checked{background:rgba(0,200,81,.05);border-color:rgba(0,200,81,.2)}
-    .check-box{width:20px;height:20px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.75rem; border-radius:3px;}
-    .check-item.checked .check-box{border-color:#00C851;background:rgba(0,200,81,.15);color:#00C851}
-    
-    /* SOFT SKILLS TABLE */
-    .ss-table{background:var(--panel);border:1px solid var(--border);overflow:auto; border-radius:8px;}
-    .ss-table table{width:100%;border-collapse:collapse;min-width:700px}
-    .ss-table th{padding:12px 16px;font-family:'Space Mono', monospace;font-size:.62rem;color:var(--cyan);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:left;background:rgba(0,240,255,.03)}
-    .ss-table td{padding:20px 16px;border-bottom:1px solid rgba(0,240,255,.06);vertical-align:middle}
-    
-    .score-input{width:65px;padding:10px;text-align:center;background:rgba(0,0,0,0.3);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono', monospace;font-size:1rem;outline:none;border-radius:4px;}
-    .score-input:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,0.2)}
-    .score-total{font-family:'Bebas Neue', sans-serif;font-size:2.2rem;color:#00C851;text-shadow:0 0 10px rgba(0,200,81,0.3)}
-    
-    .td-input{background:rgba(0,0,0,0.2); border:1px solid var(--border); color:#fff; padding:12px; font-family:'Syne', sans-serif; font-size:0.9rem; border-radius:4px; outline:none;}
-    .td-input:focus{border-color:var(--yellow);}
+    .cl-body-inner{padding:0 24px 24px 86px;display:grid;gap:10px}
 
-    /* MESA SELECT */
-    .mesa-selector{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-    .mesa-btn{padding:10px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Bebas Neue', sans-serif;font-size:1.1rem;letter-spacing:1px;cursor:pointer;transition:all .2s; border-radius:4px;}
-    .mesa-btn.active{border-color:var(--yellow);color:var(--dark);background:var(--yellow)}
-    
-    .btn{padding:10px 20px;font-family:'Bebas Neue', sans-serif;font-size:1rem;letter-spacing:1px;border:none;cursor:pointer;border-radius:4px;transition:all .2s; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;}
-    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-amber{background:var(--yellow);color:var(--dark);}
+    .check-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--card);border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;user-select:none;border-radius:8px}
+    .check-item.checked{background:rgba(0,200,81,.05);border-color:rgba(0,200,81,.4)}
+    .check-box{width:24px;height:24px;min-width:24px;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.9rem;border-radius:6px;font-weight:bold;margin-top:2px}
+    .check-item.checked .check-box{border-color:#00ff99;background:#00C851;color:#fff}
+    .check-text{font-size:.85rem;color:var(--muted);transition:.2s;line-height:1.5}
+    .check-item.checked .check-text{color:#fff}
 
-    @media(max-width:768px){ .lembretes{grid-template-columns:1fr} }
+    /* ── NOTA RÁPIDA POR SPRINT (P6) ── */
+    .nota-sprint{margin-top:12px;padding:0 24px 20px 86px}
+    .nota-sprint textarea{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;padding:12px 16px;font-family:'Syne',sans-serif;font-size:.85rem;border-radius:8px;outline:none;resize:vertical;min-height:70px;transition:.2s}
+    .nota-sprint textarea:focus{border-color:var(--yellow);box-shadow: 0 0 10px rgba(255,214,0,0.2);}
+    .nota-sprint textarea::placeholder{color: rgba(255,255,255,0.3);}
+    .nota-sprint label{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--yellow);letter-spacing:2px;display:block;margin-bottom:8px}
+
+    /* ══════════════════════════
+       P3 — APROVAÇÃO DO RENDER
+    ══════════════════════════ */
+    .render-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:25px;height:100%;display:flex;flex-direction:column;gap:20px}
+    .render-box-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:1.5px}
+
+    .render-preview{
+      flex:1;
+      min-height:250px;
+      background:rgba(0,0,0,.6);
+      border:2px dashed rgba(255,255,255,.15);
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .render-preview img{width:100%;height:100%;object-fit:contain;border-radius:8px;display:none} /* object-fit: contain para não cortar a imagem do aluno */
+    .render-preview img.loaded{display:block}
+    .render-placeholder{text-align:center;padding:20px}
+    .render-placeholder p{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:1px;margin-top:12px}
+
+    .render-link-input{width:100%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:var(--cyan);padding:14px 16px;font-family:'Space Mono',monospace;font-size:.8rem;border-radius:8px;outline:none;transition:.2s}
+    .render-link-input:focus{border-color:var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.2);}
+
+    .render-actions{display:flex;gap:15px}
+    .btn-render-ok{flex:1;padding:16px;background:rgba(0,200,81,.1);border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s}
+    .btn-render-ok:hover{background:rgba(0,200,81,.2); transform: translateY(-2px);}
+    .btn-render-ok.approved{background:#00C851;border-color:#00C851;color:#fff;box-shadow:0 0 20px rgba(0,200,81,.4)}
+    
+    .btn-render-rej{flex:1;padding:16px;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.5);color:#ff6b6b;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s}
+    .btn-render-rej:hover{background:rgba(255,60,60,.2); transform: translateY(-2px);}
+    .btn-render-rej.rejected{background:#ff4444;border-color:#ff4444;color:#fff; box-shadow:0 0 20px rgba(255,68,68,.4)}
+
+    .render-status-tag{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:1px;padding:8px 12px;border-radius:6px;text-align:center; font-weight: bold;}
+    .render-status-tag.approved{background:rgba(0,200,81,.15);border:1px solid rgba(0,200,81,.4);color:#00ff99}
+    .render-status-tag.rejected{background:rgba(255,60,60,.15);border:1px solid rgba(255,60,60,.4);color:#ff6b6b}
+    .render-status-tag.pending{background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.3);color:var(--yellow)}
+
+    /* ══════════════════════════════════
+       P2 — TABELA DE NOTAS COM CRITÉRIOS
+    ══════════════════════════════════ */
+    .ss-table{background:var(--panel);border:1px solid var(--border);overflow-x:auto;border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+    .ss-table table{width:100%;border-collapse:collapse;min-width:850px}
+    .ss-table th{padding:18px 20px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center;background:rgba(0,240,255,.03)}
+    .ss-table th:first-child{text-align:left}
+    .ss-table td{padding:22px 20px;border-bottom:1px solid rgba(0,240,255,.05);vertical-align:top;text-align:center}
+    .ss-table td:first-child{text-align:left}
+
+    /* Critério com tooltip */
+    .criterio-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:6px}
+    .criterio-label{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:1px}
+    .criterio-btn{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--yellow);cursor:pointer;letter-spacing:1px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);padding:4px 10px;border-radius:12px; transition: 0.2s;}
+    .criterio-btn:hover{background:rgba(255,214,0,.2); color:#fff;}
+
+    .criterio-tooltip{
+      display:none;
+      position:absolute;
+      bottom:calc(100% + 10px);
+      left:50%;
+      transform:translateX(-50%);
+      background:#0d1117;
+      border:1px solid var(--cyan);
+      border-radius:10px;
+      padding:16px;
+      width:250px;
+      z-index:200;
+      box-shadow:0 10px 40px rgba(0,0,0,.8);
+      text-align: left;
+    }
+    .criterio-tooltip.show{display:block; animation: fadeInTooltip 0.2s ease;}
+    @keyframes fadeInTooltip { from{opacity:0; transform:translate(-50%, 10px);} to{opacity:1; transform:translate(-50%, 0);} }
+    
+    .criterio-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--cyan)}
+    .criterio-tooltip h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--yellow);letter-spacing:1px;margin-bottom:12px; border-bottom: 1px dashed rgba(255,214,0,0.3); padding-bottom: 5px;}
+    .criterio-tooltip ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .criterio-tooltip li{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text);line-height:1.5;padding-left:14px;position:relative}
+    .criterio-tooltip li::before{content:'›';position:absolute;left:0;color:var(--cyan); font-weight: bold;}
+
+    .score-input{width:80px;padding:12px;text-align:center;background:rgba(0,0,0,.6);border:1px solid rgba(255,214,0,.4);color:var(--yellow);font-family:'Bebas Neue',sans-serif;font-size:1.8rem;outline:none;border-radius:8px;transition:.2s}
+    .score-input:focus{border-color:var(--cyan);background:rgba(0,240,255,.05);box-shadow:0 0 20px rgba(0,240,255,.2); color: var(--cyan);}
+    .score-input::placeholder{color:rgba(255,214,0,.2)}
+
+    .score-total-box{background:rgba(0,200,81,.1);border:1px solid rgba(0,200,81,.4);padding:10px 15px;border-radius:8px;display:inline-block;min-width:80px; box-shadow: 0 0 15px rgba(0,200,81,0.2);}
+    .score-total{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#00ff99}
+
+    .td-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);color:#fff;padding:16px;font-family:'Syne',sans-serif;font-size:.95rem;border-radius:8px;outline:none;transition:.2s;resize:vertical;min-height:90px;width:100%}
+    .td-input:focus{border-color:var(--cyan);background:rgba(0,240,255,.03); box-shadow: 0 0 15px rgba(0,240,255,0.1);}
+
+    /* ── BOTÕES ── */
+    .btn{padding:12px 24px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1.5px;border:none;cursor:pointer;border-radius:6px;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+    .btn-ghost:hover{color:#fff;border-color:#fff; background: rgba(255,255,255,0.05);}
+    .btn-amber{background:var(--yellow);color:var(--dark);font-size:1.3rem}
+
+    /* ── TOAST ── */
+    .toast-custom{position:fixed;bottom:30px;right:30px;background:#0d1117;border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Space Mono',monospace;font-size:.8rem;padding:16px 24px;border-radius:8px;z-index:9999;opacity:0;transform:translateY(15px);transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none;letter-spacing:1px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);}
+    .toast-custom.show{opacity:1;transform:translateY(0)}
+    .toast-custom.error{border-color:rgba(255,60,60,.5);color:#ff6b6b}
+
+    @media(max-width:768px){
+      .lembretes{grid-template-columns:1fr}
+      .cl-body-inner,.nota-sprint{padding-left:20px}
+      .painel-geral{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+    }
   </style>
 </head>
 <body>
 
+<div class="sprint-alert" id="sprint-alert">
+  ⚠️ ATENÇÃO: FALTAM 3 MINUTOS PARA O FIM DO SPRINT ATUAL — AVISE A EQUIPE!
+</div>
+
 <header class="topbar">
   <span class="tb-logo">INOVA+</span>
-  <span class="tb-role">📋 MONITOR</span>
-  
-  <div style="margin-left:auto; display:flex; align-items:center; gap:20px;">
-    <div style="text-align: right; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 20px;">
-        <span id="nome-avaliador-display" style="display:block; font-family:'Space Mono', monospace; font-size:0.75rem; color:var(--cyan); font-weight:bold;">Avaliador: ---</span>
-        <a href="#" onclick="window.trocarAvaliador()" style="font-size:0.55rem; color:var(--muted); text-decoration:none; text-transform:uppercase; letter-spacing:1px;">(Trocar Monitor)</a>
-    </div>
+  <span class="tb-role">📋 AVALIADOR TÉCNICO</span>
 
-    <div style="text-align: right;">
-      <span style="font-family:'Bebas Neue', sans-serif;font-size:1.6rem;color:var(--yellow); letter-spacing: 2px; line-height: 1; display: block;" id="crono-display">--:--</span>
-      <span style="font-family:'Space Mono', monospace;font-size:.5rem;color:var(--muted); letter-spacing: 1px;" id="sprint-label-monitor">SINCRONIZANDO...</span>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:25px">
+    <div style="text-align:right;border-right:1px solid rgba(255,255,255,.1);padding-right:25px;display:none" id="user-info-box">
+      <span id="nome-avaliador-display" style="display:block;font-family:'Space Mono',monospace;font-size:.75rem;color:var(--cyan);font-weight:bold; letter-spacing: 1px;">Avaliador: ---</span>
+      <a href="#" onclick="window.trocarAvaliador()" style="font-size:.6rem;color:var(--yellow);text-decoration:none;text-transform:uppercase;letter-spacing:1px; margin-top: 4px; display: inline-block;">(Trocar)</a>
+    </div>
+    <div style="text-align:right">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);letter-spacing:2px;line-height:1;display:block" id="crono-display">--:--</span>
+      <span style="font-family:'Space Mono',monospace;font-size:.55rem;color:var(--muted);letter-spacing:1.5px" id="sprint-label-monitor">AGUARDANDO COORDENAÇÃO</span>
     </div>
     <button class="btn btn-ghost" onclick="window.AUTH.logout()">SAIR</button>
   </div>
@@ -88,238 +244,571 @@
 <main class="main">
 
   <div class="lembretes">
-    <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo. Avise a equipe quando faltarem 5 minutos de cada sprint.</p></div>
-    <div class="lembrete"><span class="lembrete-icon">✍️</span><p>Observe a colaboração do grupo. Sua nota deve refletir o processo, não apenas o resultado final.</p></div>
+    <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo. Quando faltarem 3 minutos para acabar o sprint, a barra vermelha piscará no topo.</p></div>
+    <div class="lembrete"><span class="lembrete-icon">🧠</span><p>Avalie o processo investigativo, não o resultado final. Observe colaboração, uso crítico de IA e validação de dores.</p></div>
   </div>
 
-  <div style="margin-bottom:24px">
-    <div class="tag" style="margin-bottom:12px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">SQUADS ATIVOS NO HACKATHON</div>
-    <div class="mesa-selector" id="lista-equipes-monitor">
-      <div style="color:var(--muted); font-family:'Space Mono';">Carregando equipes...</div>
+  <div class="sec-label cyan">VISÃO GERAL — TODOS OS SQUADS</div>
+  <div class="painel-geral" id="painel-geral">
+    <div style="color:var(--cyan);font-family:'Space Mono';border:1px dashed var(--cyan);padding:20px;border-radius:8px;font-size:.8rem; text-align: center;">Sincronizando Banco de Dados...</div>
+  </div>
+
+  <div class="squad-detail-header" id="squad-detail-header">
+    <div>
+      <h3 id="equipe-nome-display">SELECIONE UM SQUAD ACIMA</h3>
+      <p id="equipe-vertente-display">VERTENTE: —</p>
     </div>
+    <div id="squad-render-badge"></div>
   </div>
 
-  <div style="margin-bottom: 24px; padding: 15px 20px; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-left: 5px solid var(--cyan); border-radius: 4px;">
-      <h3 style="font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.6rem; letter-spacing: 1px; margin:0;" id="equipe-nome-display">Equipe: Selecione um Squad</h3>
-      <p style="font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--cyan); margin-top:5px;" id="equipe-vertente-display">Vertente: --</p>
-  </div>
+  <div class="two-col">
 
-  <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">CHECKLIST DE EVOLUÇÃO — <span id="mesa-label">MESA</span></div>
-  <div class="sprint-checklists" id="checklists">
-    <div class="sprint-cl" id="cl1">
-      <div class="sprint-cl-header" onclick="toggleCL('cl1')">
-        <span class="cl-num">01</span>
-        <div class="cl-title-wrap"><span class="cl-title">Empatia e Identificação</span><span class="cl-time">SPRINT 1</span></div>
-        <span class="cl-progress" id="prog1">0/2</span>
-        <span style="color:var(--yellow);margin-left:12px;font-size:.85rem">▼</span>
+    <div>
+      <div class="sec-label yellow" style="margin-bottom:15px">CHECKLIST DE JORNADA DO SQUAD</div>
+      <div class="sprint-checklists" id="checklists">
+
+        <div class="sprint-cl" id="cl1">
+          <div class="sprint-cl-header" onclick="toggleCL('cl1')">
+            <span class="cl-num">01</span>
+            <div class="cl-title-wrap"><span class="cl-title">Empatia Humana</span><span class="cl-time">SPRINT 1 · 15 MIN</span></div>
+            <span class="cl-progress" id="prog1">0/2</span>
+          </div>
+          <div class="cl-body"><div class="cl-body-inner" id="clb1">
+            <div class="check-item" onclick="toggleCheck(this,'cl1',0)"><div class="check-box"></div><span class="check-text">Identificaram a dor real do trabalhador com base no cenário sorteado.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl1',1)"><div class="check-box"></div><span class="check-text">Validaram o problema com dado estatístico ou notícia de fonte externa.</span></div>
+          </div>
+          <div class="nota-sprint">
+            <label>// ANOTAÇÃO RÁPIDA — SPRINT 1</label>
+            <textarea placeholder="Ex: O grupo teve dificuldade em focar em apenas um problema no início..." oninput="saveNotaSprint('ns1', this.value)" id="ns1-input"></textarea>
+          </div></div>
+        </div>
+
+        <div class="sprint-cl" id="cl2">
+          <div class="sprint-cl-header" onclick="toggleCL('cl2')">
+            <span class="cl-num">02</span>
+            <div class="cl-title-wrap"><span class="cl-title">Co-Piloto IA</span><span class="cl-time">SPRINT 2 · 15 MIN</span></div>
+            <span class="cl-progress" id="prog2">0/2</span>
+          </div>
+          <div class="cl-body"><div class="cl-body-inner" id="clb2">
+            <div class="check-item" onclick="toggleCheck(this,'cl2',0)"><div class="check-box"></div><span class="check-text">Criaram prompts estruturados e interrogaram as IAs sobre soluções.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl2',1)"><div class="check-box"></div><span class="check-text">Não aceitaram a primeira resposta (fizeram refinamento ou reprompting).</span></div>
+          </div>
+          <div class="nota-sprint">
+            <label>// ANOTAÇÃO RÁPIDA — SPRINT 2</label>
+            <textarea placeholder="Ex: Usaram ChatGPT muito bem, mas não testaram o Gemini para comparar..." oninput="saveNotaSprint('ns2', this.value)" id="ns2-input"></textarea>
+          </div></div>
+        </div>
+
+        <div class="sprint-cl" id="cl3">
+          <div class="sprint-cl-header" onclick="toggleCL('cl3')">
+            <span class="cl-num">03</span>
+            <div class="cl-title-wrap"><span class="cl-title">Toque Humano 5.0</span><span class="cl-time">SPRINT 3 · 15 MIN</span></div>
+            <span class="cl-progress" id="prog3">0/2</span>
+          </div>
+          <div class="cl-body"><div class="cl-body-inner" id="clb3">
+            <div class="check-item" onclick="toggleCheck(this,'cl3',0)"><div class="check-box"></div><span class="check-text">Adaptaram a ideia da IA com foco forte em ergonomia ou sustentabilidade.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl3',1)"><div class="check-box"></div><span class="check-text">Analisaram viabilidade técnica: a solução é segura e aplicável na fábrica?</span></div>
+          </div>
+          <div class="nota-sprint">
+            <label>// ANOTAÇÃO RÁPIDA — SPRINT 3</label>
+            <textarea placeholder="Ex: A solução ficou muito cara e pouco viável na realidade brasileira..." oninput="saveNotaSprint('ns3', this.value)" id="ns3-input"></textarea>
+          </div></div>
+        </div>
+
+        <div class="sprint-cl" id="cl4">
+          <div class="sprint-cl-header" onclick="toggleCL('cl4')">
+            <span class="cl-num">04</span>
+            <div class="cl-title-wrap"><span class="cl-title">Ponte Digital</span><span class="cl-time">SPRINT 4 · 30 MIN</span></div>
+            <span class="cl-progress" id="prog4">0/2</span>
+          </div>
+          <div class="cl-body"><div class="cl-body-inner" id="clb4">
+            <div class="check-item" onclick="toggleCheck(this,'cl4',0)"><div class="check-box"></div><span class="check-text">Finalizaram o Blueprint (desenho no papel) cobrindo todos os detalhes.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl4',1)"><div class="check-box"></div><span class="check-text">Geraram com sucesso a imagem fotorrealista no gerador de IA e enviaram.</span></div>
+          </div>
+          <div class="nota-sprint">
+            <label>// ANOTAÇÃO RÁPIDA — SPRINT 4</label>
+            <textarea placeholder="Ex: Ficaram presos gerando imagens repetidas em vez de focar no pitch..." oninput="saveNotaSprint('ns4', this.value)" id="ns4-input"></textarea>
+          </div></div>
+        </div>
+
       </div>
-      <div class="cl-body"><div class="cl-body-inner" id="clb1">
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Equipe identificou a dor real e trouxe uma fonte/dado estatístico.</span></div>
-        <div class="check-item" onclick="toggleCheck(this,'cl1')"><div class="check-box"></div><span class="check-text">Preencheram o Quadrante 1 do Canvas.</span></div>
-      </div></div>
-    </div>
     </div>
 
-  <div style="margin-top:40px">
-    <div class="tag" style="margin-bottom:16px; color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.7rem;">AVALIAÇÃO TÉCNICA DO SQUAD (NOTAS 0-10)</div>
+    <div>
+      <div class="sec-label yellow" style="margin-bottom:15px">IMAGEM 3D — APROVAÇÃO DE QUALIDADE</div>
+      <div class="render-box">
+        <div class="render-box-title">🖼️ IMAGEM ENVIADA PARA O TELÃO</div>
 
-    <div class="ss-table">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 30%;">CRITÉRIO DE AVALIAÇÃO</th>
-            <th style="text-align: center;">C1: EMPATIA</th>
-            <th style="text-align: center;">C2: USO DE IA</th>
-            <th style="text-align: center;">C3: HUMANIZAÇÃO</th>
-            <th style="text-align: center;">C4: PITCH</th>
-            <th style="text-align: center;">TOTAL SQUAD</th>
-          </tr>
-        </thead>
-        <tbody id="ss-tbody">
-          </tbody>
-      </table>
+        <div class="render-preview" id="render-preview">
+          <img id="render-img" src="" alt="Render do Squad"/>
+          <div class="render-placeholder" id="render-placeholder">
+            <div style="font-size:3rem; margin-bottom: 10px;">🎨</div>
+            <p>NENHUMA IMAGEM SINCRONIZADA<br><br>O SQUAD DEVE ENVIAR O LINK<br>ATRAVÉS DO PAINEL DELES</p>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:1px;display:block;margin-bottom:8px">LINK DA IMAGEM GERADA</label>
+          <input type="text" class="render-link-input" id="render-link-input" placeholder="https://..." oninput="previewRender(this.value)"/>
+        </div>
+
+        <div id="render-status-display"></div>
+
+        <div class="render-actions">
+          <button class="btn-render-ok" id="btn-aprovar" onclick="aprovarRender(true)">✅ APROVAR</button>
+          <button class="btn-render-rej" id="btn-rejeitar" onclick="aprovarRender(false)">↩️ REFAZER</button>
+        </div>
+
+        <div style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);line-height:1.6; text-align: center;">
+          Ao aprovar, a imagem fica liberada para os Jurados Especialistas e Telão Principal da Arena.
+        </div>
+      </div>
     </div>
 
-    <div style="margin-top: 20px;">
-        <button class="btn btn-amber" style="width:100%; pointer-events:none; opacity:0.9;">
-            ✅ AS NOTAS SÃO SALVAS AUTOMATICAMENTE NA NUVEM
-        </button>
-    </div>
+  </div><div class="sec-label yellow" style="margin-bottom:15px; margin-top: 20px;">AVALIAÇÃO DE COMPETÊNCIAS (NOTAS 0.0 A 10.0)</div>
+  <div class="ss-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:25%">MATRIZ DE AVALIAÇÃO</th>
+          <th>
+            <div class="criterio-wrap">
+              <span class="criterio-label">C1</span>
+              <span class="criterio-btn" onclick="toggleTooltip('tt1')">? CRITÉRIO</span>
+              <div class="criterio-tooltip" id="tt1">
+                <h4>C1 · Investigação & Empatia</h4>
+                <ul>
+                  <li>Identificou dor real com dado concreto?</li>
+                  <li>A fonte pesquisada é confiável?</li>
+                  <li>Entendeu o contexto do trabalhador e não apenas da máquina?</li>
+                </ul>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="criterio-wrap">
+              <span class="criterio-label">C2</span>
+              <span class="criterio-btn" onclick="toggleTooltip('tt2')">? CRITÉRIO</span>
+              <div class="criterio-tooltip" id="tt2">
+                <h4>C2 · Colaboração (Soft Skill)</h4>
+                <ul>
+                  <li>Todos os membros participaram ativamente?</li>
+                  <li>Houve escuta ativa e respeito entre o grupo?</li>
+                  <li>A liderança foi distribuída ou centralizada em uma pessoa?</li>
+                </ul>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="criterio-wrap">
+              <span class="criterio-label">C3</span>
+              <span class="criterio-btn" onclick="toggleTooltip('tt3')">? CRITÉRIO</span>
+              <div class="criterio-tooltip" id="tt3">
+                <h4>C3 · Uso Crítico de IA</h4>
+                <ul>
+                  <li>Questionaram a IA em vez de apenas copiar e colar?</li>
+                  <li>Refinaram os prompts para buscar respostas profundas?</li>
+                  <li>Aplicaram pensamento crítico à resposta gerada?</li>
+                </ul>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="criterio-wrap">
+              <span class="criterio-label">C4</span>
+              <span class="criterio-btn" onclick="toggleTooltip('tt4')">? CRITÉRIO</span>
+              <div class="criterio-tooltip" id="tt4">
+                <h4>C4 · Qualidade do Pitch Prévio</h4>
+                <ul>
+                  <li>Comunicaram o problema e a solução com clareza nos ensaios?</li>
+                  <li>A ideia central faz sentido e agrega valor?</li>
+                  <li>Demonstraram segurança para apresentar aos jurados?</li>
+                </ul>
+              </div>
+            </div>
+          </th>
+          <th>NOTA FINAL (MÉDIA)</th>
+        </tr>
+      </thead>
+      <tbody id="ss-tbody">
+        <tr>
+          <td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:.8rem;padding:30px">Selecione um squad acima para avaliar</td>
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px">
+    <button class="btn btn-amber" style="width:100%;padding:20px;border-radius:10px;opacity:.9;pointer-events:none; font-size: 1.3rem; letter-spacing: 2px;">
+      ✅ TODAS AS SUAS MARCAÇÕES, NOTAS E APROVAÇÕES SÃO SALVAS AUTOMATICAMENTE
+    </button>
   </div>
 
 </main>
 
+<div class="toast-custom" id="toast-custom"></div>
+
 <script type="module" src="../assets/js/app.js"></script>
 <script>
-  // 1. SEMÁFORO DE CARREGAMENTO
-  const checkLoad = setInterval(() => {
-      if (window.AUTH && window.SprintTimer && window.InovaDB) {
-          clearInterval(checkLoad);
-          iniciarMonitor();
-      }
-  }, 100);
+// ── ESTADO LOCAL ──
+let dbEquipes   = {};
+let currentTeamId = null;
 
-  let dbEquipes = {};
-  let currentMesa = "01";
-  let currentTeamId = null;
+// ─────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────
+const checkLoad = setInterval(() => {
+  if (window.AUTH && window.SprintTimer && window.InovaDB) {
+    clearInterval(checkLoad);
+    iniciarMonitor();
+  }
+}, 100);
 
-  function iniciarMonitor() {
-      window.AUTH.require('monitor');
+function iniciarMonitor() {
+  window.AUTH.require('monitor');
 
-      // Opção C: Identificação do Monitor
-      let avaliador = sessionStorage.getItem('inova_nome_monitor');
-      if (!avaliador) {
-          solicitarNomeAvaliador();
-      } else {
-          document.getElementById('nome-avaliador-display').textContent = "Avaliador: " + avaliador;
-      }
-
-      // Sincronização do Cronômetro
-      setInterval(() => {
-        const rem = window.SprintTimer.getRemaining();
-        const state = window.SprintTimer.getState();
-        document.getElementById('crono-display').textContent = window.fmtTime(rem);
-        document.getElementById('sprint-label-monitor').textContent = state.running ? `SPRINT ${state.sprint} EM ANDAMENTO` : `SPRINT ${state.sprint} PAUSADO`;
-      }, 1000);
-
-      carregarEquipesMonitor();
+  let avaliador = sessionStorage.getItem('inova_nome_monitor');
+  if (!avaliador) {
+    solicitarNomeAvaliador();
+  } else {
+    document.getElementById('user-info-box').style.display = 'block';
+    document.getElementById('nome-avaliador-display').textContent = 'Avaliador: ' + avaliador;
   }
 
-  // GESTÃO DE NOMES (Turnos)
-  function solicitarNomeAvaliador() {
-      const nome = prompt("BEM-VINDO! Por favor, digite seu nome (Monitor/Avaliador):");
-      if (nome && nome.trim().length > 2) {
-          sessionStorage.setItem('inova_nome_monitor', nome.trim());
-          document.getElementById('nome-avaliador-display').textContent = "Avaliador: " + nome.trim();
-          window.toast("Identificado como: " + nome, "success");
-      } else {
-          alert("A identificação é obrigatória para registrar notas.");
-          solicitarNomeAvaliador();
-      }
-  }
+  // Cronômetro
+  setInterval(() => {
+    const rem   = window.SprintTimer.getRemaining();
+    const state = window.SprintTimer.getState();
+    document.getElementById('crono-display').textContent = window.fmtTime(rem);
+    const lbl = document.getElementById('sprint-label-monitor');
+    const alerta = document.getElementById('sprint-alert');
 
-  window.trocarAvaliador = function() {
-      sessionStorage.removeItem('inova_nome_monitor');
-      solicitarNomeAvaliador();
-  }
-
-  function carregarEquipesMonitor() {
-      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
-         dbEquipes = snapshot.val() || {};
-         renderBotoesEquipes(); // Constroi os botões dinamicamente
-      });
-  } // <--- CHAVE FECHANDO A FUNÇÃO CORRETAMENTE
-
-  // NOVA FUNÇÃO: Cria um botão para cada equipe do banco
-  function renderBotoesEquipes() {
-      const container = document.getElementById('lista-equipes-monitor');
-      const chaves = Object.keys(dbEquipes);
-      
-      if (chaves.length === 0) {
-          container.innerHTML = `<div style="color:#ff4444; font-family:'Space Mono';">Nenhuma equipe cadastrada no evento ainda.</div>`;
-          return;
-      }
-
-      container.innerHTML = chaves.map(key => {
-          const nomeEq = dbEquipes[key].nomeEquipe.toUpperCase();
-          const isActive = key === currentTeamId ? 'active' : '';
-          return `<button class="mesa-btn ${isActive}" onclick="selectEquipe('${key}', this)">${nomeEq}</button>`;
-      }).join('');
-
-      // Se não tiver ninguém selecionado e já tiver equipes, clica na primeira
-      if (!currentTeamId && chaves.length > 0) {
-          selectEquipe(chaves[0], container.firstChild);
-      } else if (currentTeamId) {
-          // Garante que as notas da equipe atualizada sejam mostradas
-          window.renderAvaliacaoGrupo(); 
-      }
-  }
-
-  // ATUALIZADA: Seleciona pelo ID da equipe (e não mais pela mesa)
-  window.selectEquipe = function(teamKey, btn) {
-    currentTeamId = teamKey;
-    document.querySelectorAll('.mesa-btn').forEach(b => b.classList.remove('active'));
-    if(btn) btn.classList.add('active');
-    document.getElementById('mesa-label').textContent = 'SQUAD: ' + dbEquipes[teamKey].nomeEquipe.toUpperCase();
-    window.renderAvaliacaoGrupo();
-  }
-
-  // ATUALIZADA: Mostra as notas da equipe selecionada
-  window.renderAvaliacaoGrupo = function() {
-    const tbody = document.getElementById('ss-tbody');
-    
-    if (!currentTeamId || !dbEquipes[currentTeamId]) {
-      document.getElementById('equipe-nome-display').textContent = "SELECIONE UM SQUAD";
-      document.getElementById('equipe-vertente-display').textContent = "---";
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:var(--muted);">Selecione uma equipe acima para avaliar</td></tr>`;
-      return;
+    if (state.running) {
+      lbl.textContent = `SPRINT ${state.sprint} (EM ANDAMENTO)`;
+      lbl.style.color = 'var(--cyan)';
+      // P5 — alerta 3 min
+      alerta.classList.toggle('show', rem <= 180 && rem > 0);
+    } else {
+      lbl.textContent = `SPRINT ${state.sprint} (PAUSADO)`;
+      lbl.style.color = 'var(--muted)';
+      alerta.classList.remove('show');
     }
-    
-    const teamData = dbEquipes[currentTeamId];
-    document.getElementById('equipe-nome-display').textContent = `SQUAD: ${teamData.nomeEquipe.toUpperCase()}`;
-    document.getElementById('equipe-vertente-display').textContent = `Vertente: ${teamData.vertente || 'Não informada'}`;
+  }, 1000);
 
-    const n = teamData.notasEquipe || {};
-    // Garantindo que a soma ocorra mesmo se o valor for vazio ou zero
-    const c1 = parseFloat(n.c1) || 0;
-    const c2 = parseFloat(n.c2) || 0;
-    const c3 = parseFloat(n.c3) || 0;
-    const c4 = parseFloat(n.c4) || 0;
-    const total = c1 + c2 + c3 + c4;
-    
-    tbody.innerHTML = `
-      <tr>
-        <td style="font-weight: bold; color: var(--purple); font-size: 1.1rem;">AVALIAÇÃO DO GRUPO</td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c1 !== undefined ? n.c1 : ''}" onchange="window.saveScore('c1', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c2 !== undefined ? n.c2 : ''}" onchange="window.saveScore('c2', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c3 !== undefined ? n.c3 : ''}" onchange="window.saveScore('c3', this.value)"/></td>
-        <td style="text-align:center"><input type="number" step="0.5" class="score-input" placeholder="0" value="${n.c4 !== undefined ? n.c4 : ''}" onchange="window.saveScore('c4', this.value)"/></td>
-        <td style="text-align: center;"><span class="score-total">${total > 0 ? total.toFixed(1) : '--'}</span></td>
-      </tr>
-      <tr>
-        <td colspan="6" style="padding-top: 15px; border:none;">
-          <label style="font-family:'Space Mono', monospace; font-size: 0.65rem; color: var(--cyan); display:block; margin-bottom:8px;">PARECER TÉCNICO / OBSERVAÇÕES:</label>
-          <textarea class="td-input" style="width:100%; height: 70px;" placeholder="Ex: Grupo muito engajado no uso de IAs generativas..." onchange="window.saveScore('obs', this.value)">${n.obs||''}</textarea>
-        </td>
-      </tr>
-    `;
+  carregarEquipes();
+}
+
+function solicitarNomeAvaliador() {
+  const nome = prompt('ACESSO LIBERADO! Por favor, identifique-se (Seu Nome):');
+  if (nome && nome.trim().length > 2) {
+    sessionStorage.setItem('inova_nome_monitor', nome.trim());
+    document.getElementById('user-info-box').style.display = 'block';
+    document.getElementById('nome-avaliador-display').textContent = 'Avaliador: ' + nome.trim();
+    toastMsg('Identificado como: ' + nome.trim(), 'success');
+  } else {
+    alert('A identificação é obrigatória para o registro das notas no sistema.');
+    solicitarNomeAvaliador();
+  }
+}
+window.trocarAvaliador = () => { sessionStorage.removeItem('inova_nome_monitor'); solicitarNomeAvaliador(); };
+
+// ─────────────────────────────────────
+// CARREGAR EQUIPES (FIREBASE)
+// ─────────────────────────────────────
+function carregarEquipes() {
+  window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
+    dbEquipes = snap.val() || {};
+    renderPainelGeral();
+    if (currentTeamId && dbEquipes[currentTeamId]) renderDetalhes();
+  });
+}
+
+// ─────────────────────────────────────
+// P1 — PAINEL GERAL
+// ─────────────────────────────────────
+function renderPainelGeral() {
+  const container = document.getElementById('painel-geral');
+  const chaves    = Object.keys(dbEquipes);
+
+  if (!chaves.length) {
+    container.innerHTML = `<div style="color:#ff4444;font-family:'Space Mono';border:1px dashed #ff4444;padding:20px;border-radius:8px;font-size:.8rem; text-align: center;">Nenhuma equipe ingressou no Hackathon ainda.</div>`;
+    return;
   }
 
-  // ATUALIZADA: Salva a nota no firebase com segurança
-  window.saveScore = function(field, val) {
-    if(!currentTeamId) return;
-    const avaliadorAtual = sessionStorage.getItem('inova_nome_monitor') || "Avaliador Oculto";
-    
-    const updates = {};
-    updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val; // Mantém a string ou salva vazio para o Firebase aceitar
-    updates[`equipes/${currentTeamId}/notasEquipe/ultimo_avaliador`] = avaliadorAtual;
-    updates[`equipes/${currentTeamId}/notasEquipe/data_hora`] = new Date().toLocaleString();
+  container.innerHTML = chaves.map(key => {
+    const eq  = dbEquipes[key];
+    const n   = eq.notasEquipe || {};
+    const temNota   = n.c1 !== undefined || n.c2 !== undefined || n.c3 !== undefined || n.c4 !== undefined;
+    const renderOk  = n.renderAprovado === true;
+    const renderRej = n.renderAprovado === false && n.renderEnviado;
+    const isActive  = key === currentTeamId ? 'active' : '';
 
-    window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-      .then(() => window.toast("Nota salva!", "success"));
+    const pillNota   = temNota
+      ? `<span class="status-pill pill-ok">NOTA ✓</span>`
+      : `<span class="status-pill pill-none">SEM NOTA</span>`;
+
+    const pillRender = renderOk
+      ? `<span class="status-pill pill-ok">IMG ✓</span>`
+      : renderRej
+        ? `<span class="status-pill pill-pend">IMG ↩</span>`
+        : `<span class="status-pill pill-none">IMG —</span>`;
+
+    const checkTotal = ['cl1','cl2','cl3','cl4'].reduce((acc, clId) => {
+      const checks = (eq[`checklist_${clId}`] || []).filter(Boolean).length;
+      return acc + checks;
+    }, 0);
+    const pillCheck = checkTotal >= 8
+      ? `<span class="status-pill pill-ok">CHK ✓</span>`
+      : checkTotal > 0
+        ? `<span class="status-pill pill-pend">CHK ${checkTotal}/8</span>`
+        : `<span class="status-pill pill-none">CHK —</span>`;
+
+    return `
+      <div class="squad-card ${isActive}" onclick="selectEquipe('${key}', this)">
+        <div class="squad-card-name">${(eq.nomeEquipe||'???').toUpperCase()}</div>
+        <div class="squad-card-vertente">${eq.vertente || '—'}</div>
+        <div class="squad-card-status">${pillNota}${pillRender}${pillCheck}</div>
+      </div>`;
+  }).join('');
+
+  if (!currentTeamId && chaves.length) selectEquipe(chaves[0], container.firstElementChild);
+}
+
+// ─────────────────────────────────────
+// SELECIONAR SQUAD E RENDERIZAR NOTAS
+// ─────────────────────────────────────
+window.selectEquipe = function(teamKey, btn) {
+  currentTeamId = teamKey;
+  document.querySelectorAll('.squad-card').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderDetalhes();
+};
+
+function renderDetalhes() {
+  if (!currentTeamId || !dbEquipes[currentTeamId]) return;
+  const td = dbEquipes[currentTeamId];
+  const n  = td.notasEquipe || {};
+
+  // Header
+  document.getElementById('equipe-nome-display').textContent      = `SQUAD: ${(td.nomeEquipe||'').toUpperCase()}`;
+  document.getElementById('equipe-vertente-display').textContent   = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
+
+  // Badge render no header
+  const badge = document.getElementById('squad-render-badge');
+  if (n.renderAprovado === true) {
+    badge.innerHTML = `<span class="render-status-tag approved">✅ IMAGEM 3D APROVADA</span>`;
+  } else if (n.renderAprovado === false) {
+    badge.innerHTML = `<span class="render-status-tag rejected">↩️ SQUAD PRECISA REFAZER IMAGEM</span>`;
+  } else if (n.renderEnviado) {
+    badge.innerHTML = `<span class="render-status-tag pending">⏳ IMAGEM ENVIADA. VERIFIQUE ABAIXO.</span>`;
+  } else {
+    badge.innerHTML = `<span class="render-status-tag pending">⏳ AGUARDANDO SQUAD ENVIAR PROJETO</span>`;
   }
 
-  // UI - CHECKLISTS
-  window.toggleCL = function(id) {
-    const item = document.getElementById(id);
-    const body = item.querySelector('.cl-body');
-    const isOpen = body.style.maxHeight;
-    document.querySelectorAll('.cl-body').forEach(b => b.style.maxHeight = null);
-    if (!isOpen) body.style.maxHeight = body.scrollHeight + 30 + 'px';
-  }
+  // Checklists (restaura estado salvo)
+  ['cl1','cl2','cl3','cl4'].forEach((clId, ci) => {
+    const saved = td[`checklist_${clId}`] || [];
+    const items = document.querySelectorAll(`#clb${ci+1} .check-item`);
+    items.forEach((el, idx) => {
+      const checked = saved[idx] === true;
+      el.classList.toggle('checked', checked);
+      el.querySelector('.check-box').textContent = checked ? '✓' : '';
+    });
+    updateProgress(clId);
+  });
+
+  // Notas rápidas de sprint
+  ['ns1','ns2','ns3','ns4'].forEach(ns => {
+    const el = document.getElementById(ns + '-input');
+    if (el) el.value = n[ns] || '';
+  });
+
+  // Render preview
+  const link = n.renderLink || '';
+  document.getElementById('render-link-input').value = link;
+  previewRender(link);
+  renderStatusDisplay(n.renderAprovado, n.renderEnviado);
+
+  // Notas (com o cálculo corrigido)
+  renderTabelaNotas(n);
+}
+
+// ─────────────────────────────────────
+// P3 — RENDER / IMAGEM 3D
+// ─────────────────────────────────────
+window.previewRender = function(url) {
+  const img   = document.getElementById('render-img');
+  const ph    = document.getElementById('render-placeholder');
   
-  window.toggleCheck = function(el, clId) {
-    el.classList.toggle('checked');
-    el.querySelector('.check-box').textContent = el.classList.contains('checked') ? '✓' : '';
-    window.updateProgress(clId);
+  if (url && url.startsWith('http')) {
+    img.src = url;
+    img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
+    img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
+  } else {
+    img.classList.remove('loaded');
+    ph.style.display = 'block';
+  }
+};
+
+window.aprovarRender = function(aprovar) {
+  if (!currentTeamId) return;
+  const link     = document.getElementById('render-link-input').value.trim();
+  const avaliador = sessionStorage.getItem('inova_nome_monitor') || 'Monitor Oculto';
+  
+  const updates  = {};
+  updates[`equipes/${currentTeamId}/notasEquipe/renderAprovado`]  = aprovar;
+  updates[`equipes/${currentTeamId}/notasEquipe/renderEnviado`]   = true;
+  if (link) updates[`equipes/${currentTeamId}/notasEquipe/renderLink`] = link;
+  updates[`equipes/${currentTeamId}/notasEquipe/renderAvaliador`] = avaliador;
+
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+    .then(() => {
+      toastMsg(aprovar ? 'Imagem 3D aprovada e enviada para o Telão!' : 'Aviso enviado! O Squad deve gerar nova imagem.', aprovar ? 'success' : 'error');
+      renderStatusDisplay(aprovar, true);
+    })
+    .catch(() => toastMsg('Erro ao salvar aprovação. Verifique a internet.', 'error'));
+};
+
+function renderStatusDisplay(aprovado, enviado) {
+  const el = document.getElementById('render-status-display');
+  if (aprovado === true)        el.innerHTML = `<div class="render-status-tag approved">✅ IMAGEM APROVADA COM SUCESSO</div>`;
+  else if (aprovado === false)  el.innerHTML = `<div class="render-status-tag rejected">↩️ IMAGEM DEVOLVIDA PARA A EQUIPE</div>`;
+  else if (enviado)             el.innerHTML = `<div class="render-status-tag pending">⏳ IMAGEM AGUARDANDO SUA AVALIAÇÃO NESTE PAINEL</div>`;
+  else                          el.innerHTML = `<div class="render-status-tag pending">⏳ SQUAD AINDA NÃO ENVIOU NENHUM LINK</div>`;
+}
+
+// ─────────────────────────────────────
+// P2 — TABELA DE NOTAS COM CÁLCULO SEGURO
+// ─────────────────────────────────────
+function renderTabelaNotas(n) {
+  // Parsing seguro, igual fizemos antes
+  const c1 = n.c1 !== undefined && n.c1 !== "" ? parseFloat(n.c1) : undefined;
+  const c2 = n.c2 !== undefined && n.c2 !== "" ? parseFloat(n.c2) : undefined;
+  const c3 = n.c3 !== undefined && n.c3 !== "" ? parseFloat(n.c3) : undefined;
+  const c4 = n.c4 !== undefined && n.c4 !== "" ? parseFloat(n.c4) : undefined;
+  
+  let preenchidas = [c1, c2, c3, c4].filter(v => v !== undefined).length;
+  let soma = [c1, c2, c3, c4].filter(v => v !== undefined).reduce((a, b) => a + b, 0);
+  const media = preenchidas > 0 ? (soma / preenchidas).toFixed(1) : '-';
+
+  document.getElementById('ss-tbody').innerHTML = `
+    <tr>
+      <td style="font-weight:bold;color:var(--text);font-size:.9rem;padding-left:20px; text-transform: uppercase;">Soft Skills & Metodologia</td>
+      <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c1 !== undefined ? c1 : ''}" onchange="saveScore('c1', this.value)"/></td>
+      <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c2 !== undefined ? c2 : ''}" onchange="saveScore('c2', this.value)"/></td>
+      <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c3 !== undefined ? c3 : ''}" onchange="saveScore('c3', this.value)"/></td>
+      <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c4 !== undefined ? c4 : ''}" onchange="saveScore('c4', this.value)"/></td>
+      <td><div class="score-total-box"><span class="score-total">${media}</span></div></td>
+    </tr>
+    <tr>
+      <td colspan="6" style="padding:25px 20px;border:none;text-align:left">
+        <label style="font-family:'Space Mono',monospace;font-size:.75rem;color:var(--cyan);display:block;margin-bottom:10px;letter-spacing:1px">PARECER GERAL DE ENCERRAMENTO DO MONITOR (OPCIONAL):</label>
+        <textarea class="td-input" placeholder="Ex: O grupo se dividiu bem as tarefas, a solução aborda ergonomia, porém faltou aprofundar na pesquisa financeira..." onchange="saveScore('obs', this.value)">${n.obs||''}</textarea>
+      </td>
+    </tr>`;
+}
+
+window.saveScore = function(field, valStr) {
+  if (!currentTeamId) return;
+  const avaliador = sessionStorage.getItem('inova_nome_monitor') || 'Monitor';
+  
+  // Converte para Float se não for o campo de texto
+  let val = valStr;
+  if (field !== 'obs') {
+      val = valStr === '' ? '' : Math.min(10, Math.max(0, parseFloat(valStr)));
   }
 
-  window.updateProgress = function(clId) {
-    const num = clId.replace('cl','');
-    const items = document.querySelectorAll(`#clb${num} .check-item`);
-    const checked = document.querySelectorAll(`#clb${num} .check-item.checked`).length;
-    document.getElementById('prog'+num).textContent = `${checked}/${items.length}`;
+  const updates = {};
+  updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
+  updates[`equipes/${currentTeamId}/notasEquipe/ultimo_avaliador_monitor`] = avaliador;
+  
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+    .then(() => toastMsg(`Nota Salva (${field.toUpperCase()})`, 'success'))
+    .catch(() => toastMsg('Erro ao salvar no banco!', 'error'));
+};
+
+// ─────────────────────────────────────
+// CHECKLISTS (P4 — persiste no Firebase)
+// ─────────────────────────────────────
+window.toggleCL = function(id) {
+  const item = document.getElementById(id);
+  const body = item.querySelector('.cl-body');
+  const isOpen = body.style.maxHeight;
+  
+  document.querySelectorAll('.cl-body').forEach(b => { 
+      b.style.maxHeight = null; 
+      b.parentElement.querySelector('.sprint-cl-header').style.background = 'transparent';
+  });
+  
+  if (!isOpen) {
+      body.style.maxHeight = (body.scrollHeight + 40) + 'px';
+      item.querySelector('.sprint-cl-header').style.background = 'rgba(0,240,255,0.03)';
   }
+};
+
+window.toggleCheck = function(el, clId, idx) {
+  el.classList.toggle('checked');
+  el.querySelector('.check-box').textContent = el.classList.contains('checked') ? '✓' : '';
+  updateProgress(clId);
+  saveChecklist(clId);
+};
+
+function updateProgress(clId) {
+  const num     = clId.replace('cl', '');
+  const items   = document.querySelectorAll(`#clb${num} .check-item`);
+  const checked = document.querySelectorAll(`#clb${num} .check-item.checked`).length;
+  document.getElementById('prog' + num).textContent = `${checked}/${items.length}`;
+}
+
+function saveChecklist(clId) {
+  if (!currentTeamId) return;
+  const num   = clId.replace('cl', '');
+  const items = document.querySelectorAll(`#clb${num} .check-item`);
+  const state = Array.from(items).map(el => el.classList.contains('checked'));
+  
+  const updates = {};
+  updates[`equipes/${currentTeamId}/${`checklist_${clId}`}`] = state;
+  
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+    .catch(() => toastMsg('Erro de sincronização do checklist', 'error'));
+}
+
+// ─────────────────────────────────────
+// NOTA RÁPIDA POR SPRINT (P6)
+// ─────────────────────────────────────
+window.saveNotaSprint = function(field, val) {
+  if (!currentTeamId) return;
+  const updates = {};
+  updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates);
+};
+
+// ─────────────────────────────────────
+// P2 — TOOLTIPS DE CRITÉRIO
+// ─────────────────────────────────────
+window.toggleTooltip = function(id) {
+  document.querySelectorAll('.criterio-tooltip').forEach(t => {
+    if (t.id !== id) t.classList.remove('show');
+  });
+  document.getElementById(id).classList.toggle('show');
+};
+document.addEventListener('click', e => {
+  if (!e.target.closest('.criterio-wrap')) {
+    document.querySelectorAll('.criterio-tooltip').forEach(t => t.classList.remove('show'));
+  }
+});
+
+// ─────────────────────────────────────
+// TOAST INTERNO
+// ─────────────────────────────────────
+function toastMsg(msg, type='success') {
+  const el = document.getElementById('toast-custom');
+  el.textContent = msg;
+  el.className   = `toast-custom ${type} show`;
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => el.classList.remove('show'), 2800);
+}
 </script>
 </body>
 </html>
