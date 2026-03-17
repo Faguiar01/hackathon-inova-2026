@@ -66,9 +66,13 @@
     .lobby-timer { font-family:'Bebas Neue', sans-serif; font-size:6rem; color:#fff; letter-spacing:4px; margin: 30px 0; line-height: 1; }
     .pulse-text { color:var(--yellow); font-family:'Space Mono', monospace; font-size:1.1rem; letter-spacing:1px; animation: pulse-opacity 1.5s infinite; padding: 10px 20px; border: 1px solid rgba(255,214,0,0.3); border-radius: 4px; background: rgba(255,214,0,0.05); }
     @keyframes pulse-opacity { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    
+    /* ALERTA DO JOTA */
+    @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
   </style>
 </head>
 <body>
+
 <div id="jota-alert" style="display:none; position:fixed; top:85px; left:50%; transform:translateX(-50%); z-index:9000; background:rgba(0,10,20,0.95); border:2px solid var(--cyan); padding:24px; border-radius:12px; box-shadow:0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(0,240,255,0.2); width:90%; max-width:500px; backdrop-filter:blur(10px); animation:slideDownJota 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
     <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
         <div style="font-size:3rem; line-height:1;">🤖</div>
@@ -80,9 +84,6 @@
     <p id="jota-msg-text" style="font-family: 'Syne'; font-size:1.1rem; color:#fff; line-height:1.6; margin-bottom:24px;"></p>
     <button onclick="document.getElementById('jota-alert').style.display='none'" style="width:100%; padding:12px; background:var(--cyan); color:#000; font-family:'Bebas Neue'; font-size:1.3rem; border:none; border-radius:6px; cursor:pointer; letter-spacing:2px; transition: 0.2s;">ENTENDIDO</button>
 </div>
-<style>
-    @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
-</style>
 
 <header class="topbar">
   <div class="tb-left">
@@ -100,28 +101,20 @@
 
 <main class="main">
   
-<div class="lobby-box" id="view-lobby">
+  <div class="lobby-box" id="view-lobby">
     <h1 class="lobby-logo">INOVA+ 2026</h1>
     <p class="lobby-sub">// HACKATHON SENAI JOINVILLE //</p>
-    
     <div class="lobby-timer" id="timer-lobby">00:00:00</div>
-    
-    <div class="pulse-text">
-      🚨 EQUIPE CONECTADA. Aguardando a Coordenação iniciar o evento...
-    </div>
-
+    <div class="pulse-text">🚨 EQUIPE CONECTADA. Aguardando a Coordenação iniciar o evento...</div>
     <div style="margin-top: 40px; font-family: 'Space Mono'; color: var(--cyan); font-size: 1.2rem; border-top: 1px dashed rgba(0,240,255,0.3); padding-top: 20px;">
       SQUADS REGISTRADOS NA ARENA: <span id="contador-squads" style="color: #fff; font-weight: bold; font-size: 1.8rem;">0</span>
     </div>
   </div>
 
- <div class="mission-box" id="view-sorteio" style="display:none;">
+  <div class="mission-box" id="view-sorteio" style="display:none;">
     <h2 id="titulo-sorteio" style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px; transition:0.3s;">SUA JORNADA COMEÇA AQUI</h2>
-    
     <p id="texto-sorteio" style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Como equipe de <strong id="lbl-vertente-escolhida" style="color:var(--cyan);"></strong>, o destino escolherá um problema real da indústria de Joinville para vocês resolverem.</p>
-    
     <div id="roleta-display" style="font-family:'Bebas Neue'; font-size:3rem; color:var(--yellow); margin: 20px 0; display:none; text-shadow: 0 0 20px rgba(255,214,0,0.5);"></div>
-
     <button class="btn-sortear" onclick="sortearMissao()" id="btn-iniciar-sorteio">🎲 SORTEAR DESAFIO</button>
   </div>
 
@@ -136,18 +129,12 @@
     </div>
 
     <div class="page-tabs">
-  <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
-  <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
-  <button class="page-tab" data-tab="links">🔗 Central IA</button>
-
-  <button id="btn-ai-mentor" class="page-tab" style="display:none; color:#00e5ff;">
-    🤖 Pedir Ajuda da IA
-  </button>
-
-  <button class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">
-    🚀 Entrega Final
-  </button>
-</div>
+      <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
+      <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
+      <button class="page-tab" data-tab="links">🔗 Central IA</button>
+      <button id="btn-ai-mentor" class="page-tab" style="display:none; color:#00e5ff;">🤖 Pedir Ajuda da IA</button>
+      <button class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">🚀 Entrega Final</button>
+    </div>
 
     <div class="content-box" id="tab-cenario">
       <div class="mission-header">
@@ -158,26 +145,10 @@
         <span class="badge badge-amber" style="font-size: 0.7rem;">CENÁRIO OFICIAL INOVA+</span>
       </div>
       <div class="boss-card">
-  <span class="boss-title">👤 O PROBLEMA (A DOR HUMANA)</span>
-
-  <img
-    id="m-imagem"
-    src=""
-    alt="Cenário visual do desafio"
-    style="
-      width:100%;
-      max-height:320px;
-      object-fit:cover;
-      border-radius:10px;
-      border:1px solid rgba(255,214,0,.18);
-      display:none;
-      margin:12px 0 18px 0;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
-    "
-  />
-
-  <p style="font-size:1rem; color:var(--text); line-height:1.6;" id="m-dor"></p>
-</div>
+        <span class="boss-title">👤 O PROBLEMA (A DOR HUMANA)</span>
+        <img id="m-imagem" src="" alt="Cenário visual do desafio" style="width:100%; max-height:320px; object-fit:cover; border-radius:10px; border:1px solid rgba(255,214,0,.18); display:none; margin:12px 0 18px 0; box-shadow:0 10px 30px rgba(0,0,0,.25);"/>
+        <p style="font-size:1rem; color:var(--text); line-height:1.6;" id="m-dor"></p>
+      </div>
       <div class="challenge-card">
         <span class="challenge-title">🎯 O SEU DESAFIO</span>
         <p style="font-size:1.1rem; color:#fff; line-height:1.6; font-weight: 600;" id="m-desafio"></p>
@@ -211,35 +182,6 @@
       </div>
     </div>
 
-    <div id="ai-mentor-box" style="
-display:none;
-margin-top:20px;
-padding:24px;
-border:1px solid rgba(0,229,255,0.4);
-background:rgba(0,229,255,0.05);
-border-radius:10px;
-">
-
-<h2 style="
-font-family:'Bebas Neue';
-color:#00e5ff;
-font-size:2rem;
-letter-spacing:1px;
-margin-bottom:16px;
-">
-🤖 CO-PILOTO IA
-</h2>
-
-<div id="ai-mentor-content" style="
-font-family:'Syne';
-line-height:1.6;
-font-size:1rem;
-color:#fff;
-">
-</div>
-
-</div>
-
     <div id="tab-entrega" style="display:none; margin-top: 20px;">
       <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
         <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
@@ -264,129 +206,158 @@ color:#fff;
   }, 100);
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
+  
+  // 🔒 CONTROLE INTELIGENTE DAS ABAS (BLOQUEIOS POR SPRINT)
   function controlarBotaoIA() {
-  if (!window.SprintTimer) return;
+      if (!window.SprintTimer) return;
 
-  const state = window.SprintTimer.getState();
-  const btn = document.getElementById('btn-ai-mentor');
-  if (!btn) return;
+      const state = window.SprintTimer.getState();
+      const btnMentor = document.getElementById('btn-ai-mentor');
+      const btnLinks = document.querySelector('.page-tab[data-tab="links"]'); // Aba Central IA
+      const btnEntrega = document.querySelector('.page-tab[data-tab="entrega"]'); // Aba Entrega Final
 
-  // Mostra só no Sprint 2
-  btn.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
-}
+      // 1. Controle do Botão "Pedir Ajuda da IA" (Apenas no Sprint 2)
+      if (btnMentor) {
+          btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
+      }
+
+      // 2. Controle da Aba "Central IA" (Liberada do Sprint 2 em diante)
+      if (btnLinks) {
+          if (state.sprint >= 2) {
+              btnLinks.style.display = 'inline-block';
+          } else {
+              btnLinks.style.display = 'none'; // Esconde no Sprint 1
+              if (btnLinks.classList.contains('active')) {
+                  document.querySelector('.page-tab[data-tab="cenario"]').click();
+              }
+          }
+      }
+
+      // 3. Controle da Aba "Entrega Final" (Liberada do Sprint 4 em diante)
+      if (btnEntrega) {
+          if (state.sprint >= 4) {
+              btnEntrega.style.display = 'inline-block';
+          } else {
+              btnEntrega.style.display = 'none'; // Esconde nos Sprints 1, 2 e 3
+              if (btnEntrega.classList.contains('active')) {
+                  document.querySelector('.page-tab[data-tab="cenario"]').click();
+              }
+          }
+      }
+  }
 
   const missoes = [
     // PRODUÇÃO
-{ 
-  vertente: "Produção",
-  titulo: "A Linha de Montagem Infinita",
-  imagem: "/assets/img/desafios/producao-linha-montagem.png",
-  dor: "Cena: Uma linha de montagem de compressores na zona industrial. A meta é alta: 1.200 peças montadas por turno.\nDor: O operador realiza mais de 4.800 movimentos repetitivos por dia. Atualmente, 30% das licenças médicas do setor são por LER/DORT (Lesões por Esforço Repetitivo), e a fadiga nas últimas 2 horas de turno aumenta a taxa de defeitos em 15%.",
-  desafio: "Missão: Como criar uma solução física inteligente — vestível, acoplada ao posto ou integrada à ferramenta — que reduza o esforço repetitivo e proteja o corpo do operador?"
-},
-{
-  vertente: "Produção",
-  titulo: "O Calor da Fundição",
-  imagem: "/assets/img/desafios/producao-fundicao.png",
-  dor: "Cena: O setor de vazamento de uma grande fundição metalúrgica local, com fornos a 1.200°C.\nDor: A sensação térmica chega a 50°C. O operador perde até 2 litros de água em suor por turno. O risco de exaustão térmica é alto, forçando a empresa a fazer rodízios a cada 45 minutos, o que encarece a operação e desgasta o time humano.",
-  desafio: "Missão: Como projetar uma solução física de proteção térmica — como cabine, traje, escudo ou estação remota — para que o operador trabalhe com conforto e segurança contínua?"
-},
-{
-  vertente: "Produção",
-  titulo: "A Inspeção de Plásticos e Vidros",
-  imagem: "/assets/img/desafios/producao-inspecao-visual.png",
-  dor: "Cena: Fim da esteira de uma injetora de peças plásticas translúcidas. Passam 60 peças por minuto.\nDor: O inspetor humano precisa focar o olho continuamente sob luz forte. Após 2 horas, a fadiga visual aguda causa 12% de 'falsos positivos' (peças boas descartadas no lixo), gerando um prejuízo invisível de milhares de reais ao mês.",
-  desafio: "Missão: Como criar uma estação física de inspeção visual inteligente — usando visores, luzes adaptativas ou sensores — que destaque os defeitos automaticamente sem forçar o olho humano?"
-},    
+    { 
+      vertente: "Produção",
+      titulo: "A Linha de Montagem Infinita",
+      imagem: "/assets/img/desafios/producao-linha-montagem.png",
+      dor: "Cena: Uma linha de montagem de compressores na zona industrial. A meta é alta: 1.200 peças montadas por turno.\nDor: O operador realiza mais de 4.800 movimentos repetitivos por dia. Atualmente, 30% das licenças médicas do setor são por LER/DORT (Lesões por Esforço Repetitivo), e a fadiga nas últimas 2 horas de turno aumenta a taxa de defeitos em 15%.",
+      desafio: "Missão: Como criar uma solução física inteligente — vestível, acoplada ao posto ou integrada à ferramenta — que reduza o esforço repetitivo e proteja o corpo do operador?"
+    },
+    {
+      vertente: "Produção",
+      titulo: "O Calor da Fundição",
+      imagem: "/assets/img/desafios/producao-fundicao.png",
+      dor: "Cena: O setor de vazamento de uma grande fundição metalúrgica local, com fornos a 1.200°C.\nDor: A sensação térmica chega a 50°C. O operador perde até 2 litros de água em suor por turno. O risco de exaustão térmica é alto, forçando a empresa a fazer rodízios a cada 45 minutos, o que encarece a operação e desgasta o time humano.",
+      desafio: "Missão: Como projetar uma solução física de proteção térmica — como cabine, traje, escudo ou estação remota — para que o operador trabalhe com conforto e segurança contínua?"
+    },
+    {
+      vertente: "Produção",
+      titulo: "A Inspeção de Plásticos e Vidros",
+      imagem: "/assets/img/desafios/producao-inspecao-visual.png",
+      dor: "Cena: Fim da esteira de uma injetora de peças plásticas translúcidas. Passam 60 peças por minuto.\nDor: O inspetor humano precisa focar o olho continuamente sob luz forte. Após 2 horas, a fadiga visual aguda causa 12% de 'falsos positivos' (peças boas descartadas no lixo), gerando um prejuízo invisível de milhares de reais ao mês.",
+      desafio: "Missão: Como criar uma estação física de inspeção visual inteligente — usando visores, luzes adaptativas ou sensores — que destaque os defeitos automaticamente sem forçar o olho humano?"
+    },    
     // MANUTENÇÃO
-{
-  vertente: "Manutenção",
-  titulo: "O Painel das Sombras",
-  imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
-  dor: "Cena: Manutenção noturna emergencial em uma subestação de energia de uma fábrica têxtil.\nDor: O técnico tem 40 minutos para voltar a energia (cada hora parada custa R$ 50 mil). A NR-10 exige mãos livres, mas a iluminação do local falhou. Segurar a lanterna improvisadamente aumenta em 40% o risco de choque elétrico fatal.",
-  desafio: "Missão: Como inventar um Equipamento de Proteção Individual (EPI) ou ferramenta vestível inteligente que ilumine a área de trabalho mantendo as mãos 100% livres e seguras?"
-},
-{
-  vertente: "Manutenção",
-  titulo: "A Máquina Barulhenta",
-  imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
-  dor: "Cena: Um pavilhão de usinagem pesada com dezenas de tornos CNC operando a mais de 85 decibéis.\nDor: Para ouvir se um rolamento interno está quebrando, o técnico precisa aproximar a cabeça a menos de 30cm de eixos rodando a 3.000 RPM, criando um risco inaceitável de acidentes graves por esmagamento.",
-  desafio: "Missão: Como criar uma ferramenta física inteligente que detecte vibração, ruído ou falha mecânica à distância, sem expor o técnico às partes móveis?"
-},
-{
-  vertente: "Manutenção",
-  titulo: "O Manual Perdido",
-  imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
-  dor: "Cena: Uma máquina robótica alemã recém-comprada para a produção principal apresenta o Erro E-404.\nDor: O manual técnico tem 800 páginas e fica na sala do supervisor. A pressão do tempo parado bloqueia a mente do técnico, que perde 30 minutos preciosos apenas procurando a página correta enquanto a fábrica inteira espera.",
-  desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha, reduzindo o estresse mental?"
-},    
+    {
+      vertente: "Manutenção",
+      titulo: "O Painel das Sombras",
+      imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
+      dor: "Cena: Manutenção noturna emergencial em uma subestação de energia de uma fábrica têxtil.\nDor: O técnico tem 40 minutos para voltar a energia (cada hora parada custa R$ 50 mil). A NR-10 exige mãos livres, mas a iluminação do local falhou. Segurar a lanterna improvisadamente aumenta em 40% o risco de choque elétrico fatal.",
+      desafio: "Missão: Como inventar um Equipamento de Proteção Individual (EPI) ou ferramenta vestível inteligente que ilumine a área de trabalho mantendo as mãos 100% livres e seguras?"
+    },
+    {
+      vertente: "Manutenção",
+      titulo: "A Máquina Barulhenta",
+      imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
+      dor: "Cena: Um pavilhão de usinagem pesada com dezenas de tornos CNC operando a mais de 85 decibéis.\nDor: Para ouvir se um rolamento interno está quebrando, o técnico precisa aproximar a cabeça a menos de 30cm de eixos rodando a 3.000 RPM, criando um risco inaceitável de acidentes graves por esmagamento.",
+      desafio: "Missão: Como criar uma ferramenta física inteligente que detecte vibração, ruído ou falha mecânica à distância, sem expor o técnico às partes móveis?"
+    },
+    {
+      vertente: "Manutenção",
+      titulo: "O Manual Perdido",
+      imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
+      dor: "Cena: Uma máquina robótica alemã recém-comprada para a produção principal apresenta o Erro E-404.\nDor: O manual técnico tem 800 páginas e fica na sala do supervisor. A pressão do tempo parado bloqueia a mente do técnico, que perde 30 minutos preciosos apenas procurando a página correta enquanto a fábrica inteira espera.",
+      desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha, reduzindo o estresse mental?"
+    },    
     // LOGÍSTICA
-{
-  vertente: "Logística",
-  titulo: "A Caça ao Tesouro",
-  imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
-  dor: "Cena: O Centro de Distribuição (CD) de uma empresa de logística automotiva com mais de 10.000 SKUs (tipos de peças).\nDor: O separador caminha cerca de 12 km por turno empurrando carrinhos. O cansaço físico nas horas finais sobe a taxa de envio de peças erradas para 4%, gerando reclamações de clientes e fretes duplos de devolução.",
-  desafio: "Missão: Como criar uma solução física inteligente — como um carrinho, pulseira ou equipamento de prateleira — que guie visualmente ou fisicamente o operador até o item certo?"
-},
-{
-  vertente: "Logística",
-  titulo: "O Gargalo da Doca",
-  imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
-  dor: "Cena: Pátio de recebimento sob forte chuva tropical (clássica de Joinville). 15 carretas chegam na janela das 08h.\nDor: O conferente se molha tentando ler notas fiscais borradas para ver quem tem prioridade. Caminhões esperam mais de 3 horas, gerando multas de estadia diárias e risco de atraso na linha de produção.",
-  desafio: "Missão: Como redesenhar o pátio com soluções físicas inteligentes — painéis, semáforos ou estruturas visuais — que tornem a prioridade de descarga instantaneamente clara?"
-},
-{
-  vertente: "Logística",
-  titulo: "A Corrida Contra o Estoque",
-  imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
-  dor: "Cena: Uma linha de montagem com 20 estações de trabalho diferentes operando simultaneamente.\nDor: O piloto da empilhadeira não tem visão de raio-x para ver as caixinhas acabando. Quando um único parafuso zera, a linha para, deixando 40 funcionários ociosos por 15 minutos até a reposição chegar.",
-  desafio: "Missão: Como transformar caixas, prateleiras ou carrinhos de abastecimento em elementos visuais inteligentes que avisem fisicamente quando o material está acabando?"
-},    
+    {
+      vertente: "Logística",
+      titulo: "A Caça ao Tesouro",
+      imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
+      dor: "Cena: O Centro de Distribuição (CD) de uma empresa de logística automotiva com mais de 10.000 SKUs (tipos de peças).\nDor: O separador caminha cerca de 12 km por turno empurrando carrinhos. O cansaço físico nas horas finais sobe a taxa de envio de peças erradas para 4%, gerando reclamações de clientes e fretes duplos de devolução.",
+      desafio: "Missão: Como criar uma solução física inteligente — como um carrinho, pulseira ou equipamento de prateleira — que guie visualmente ou fisicamente o operador até o item certo?"
+    },
+    {
+      vertente: "Logística",
+      titulo: "O Gargalo da Doca",
+      imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
+      dor: "Cena: Pátio de recebimento sob forte chuva tropical (clássica de Joinville). 15 carretas chegam na janela das 08h.\nDor: O conferente se molha tentando ler notas fiscais borradas para ver quem tem prioridade. Caminhões esperam mais de 3 horas, gerando multas de estadia diárias e risco de atraso na linha de produção.",
+      desafio: "Missão: Como redesenhar o pátio com soluções físicas inteligentes — painéis, semáforos ou estruturas visuais — que tornem a prioridade de descarga instantaneamente clara?"
+    },
+    {
+      vertente: "Logística",
+      titulo: "A Corrida Contra o Estoque",
+      imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
+      dor: "Cena: Uma linha de montagem com 20 estações de trabalho diferentes operando simultaneamente.\nDor: O piloto da empilhadeira não tem visão de raio-x para ver as caixinhas acabando. Quando um único parafuso zera, a linha para, deixando 40 funcionários ociosos por 15 minutos até a reposição chegar.",
+      desafio: "Missão: Como transformar caixas, prateleiras ou carrinhos de abastecimento em elementos visuais inteligentes que avisem fisicamente quando o material está acabando?"
+    },    
     // SUSTENTABILIDADE
-{
-  vertente: "Sustentabilidade",
-  titulo: "O Mistério do Descarte",
-  imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
-  dor: "Cena: Área de usinagem com caçambas lado a lado para cavaco metálico, óleo solúvel e lixo comum.\nDor: Nos 5 minutos finais do turno, a pressa faz com que 20% do lixo comum seja contaminado por óleo. Isso força a empresa a pagar até 5x mais caro para incinerar tudo como 'resíduo perigoso' (Classe 1).",
-  desafio: "Missão: Como projetar uma estação de descarte ou lixeira industrial inteligente que oriente e force fisicamente o funcionário a separar os resíduos corretamente?"
-},
-{
-  vertente: "Sustentabilidade",
-  titulo: "O Vazamento Invisível",
-  imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
-  dor: "Cena: 2 quilômetros de tubulação de ar comprimido suspensos pelo teto dos galpões.\nDor: O ar comprimido é a energia mais cara da fábrica. Micro-furos na tubulação assobiam, mas o barulho é abafado pelas máquinas. Cerca de 25% da conta de energia elétrica vai para o ralo mensalmente sem ninguém perceber onde está o vazamento.",
-  desafio: "Missão: Como criar um revestimento, sensor físico acoplado ou material inteligente para os tubos que sinalize de forma visual e imediata onde está o desperdício?"
-},
-{
-  vertente: "Sustentabilidade",
-  titulo: "Fábrica para Todos",
-  imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
-  dor: "Cena: Uma empresa quer contratar pessoas cadeirantes ou com nanismo para operar as máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
-  desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo?"
-},    
+    {
+      vertente: "Sustentabilidade",
+      titulo: "O Mistério do Descarte",
+      imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
+      dor: "Cena: Área de usinagem com caçambas lado a lado para cavaco metálico, óleo solúvel e lixo comum.\nDor: Nos 5 minutos finais do turno, a pressa faz com que 20% do lixo comum seja contaminado por óleo. Isso força a empresa a pagar até 5x mais caro para incinerar tudo como 'resíduo perigoso' (Classe 1).",
+      desafio: "Missão: Como projetar uma estação de descarte ou lixeira industrial inteligente que oriente e force fisicamente o funcionário a separar os resíduos corretamente?"
+    },
+    {
+      vertente: "Sustentabilidade",
+      titulo: "O Vazamento Invisível",
+      imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
+      dor: "Cena: 2 quilômetros de tubulação de ar comprimido suspensos pelo teto dos galpões.\nDor: O ar comprimido é a energia mais cara da fábrica. Micro-furos na tubulação assobiam, mas o barulho é abafado pelas máquinas. Cerca de 25% da conta de energia elétrica vai para o ralo mensalmente sem ninguém perceber onde está o vazamento.",
+      desafio: "Missão: Como criar um revestimento, sensor físico acoplado ou material inteligente para os tubos que sinalize de forma visual e imediata onde está o desperdício?"
+    },
+    {
+      vertente: "Sustentabilidade",
+      titulo: "Fábrica para Todos",
+      imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
+      dor: "Cena: Uma empresa quer contratar pessoas cadeirantes ou com nanismo para operar as máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
+      desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo?"
+    },    
     // ADMINISTRATIVO
-{
-  vertente: "Administrativo",
-  titulo: "A Integração Fria",
-  imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
-  dor: "Cena: Sala de RH recebendo 40 novos jovens aprendizes em treinamento inicial.\nDor: Eles são obrigados a ler apostilas e ouvir longas explicações sobre normas de segurança. O ambiente é monótono e pouco interativo. A retenção de conhecimento é baixa e muitos novos funcionários esquecem as regras nas primeiras semanas.",
-  desafio: "Missão: Como criar um kit físico, totem interativo ou espaço inteligente de boas-vindas que transforme o aprendizado das regras em uma experiência envolvente e memorável?"
-},
-{
-  vertente: "Administrativo",
-  titulo: "O Labirinto das Notas",
-  imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
-  dor: "Cena: Escritório administrativo de uma transportadora durante o fechamento do mês.\nDor: O assistente precisa conferir manualmente centenas de documentos fiscais e notas de transporte em telas e papéis. O cansaço mental gera erros de digitação e inconsistências que podem gerar multas e retrabalho.",
-  desafio: "Missão: Como criar uma estação física inteligente de triagem de documentos que ajude o operador a identificar rapidamente erros ou inconsistências?"
-},
-{
-  vertente: "Administrativo",
-  titulo: "O Silo de Informação",
-  imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
-  dor: "Cena: Fábrica em operação enquanto um aviso importante de segurança é divulgado apenas por e-mail.\nDor: A maioria dos trabalhadores do chão de fábrica não usa computador durante o turno. Murais impressos passam despercebidos e a informação crítica não chega a quem realmente precisa.",
-  desafio: "Missão: Como criar painéis, totens ou elementos físicos no ambiente de trabalho que comuniquem informações críticas de forma clara para quem não utiliza computadores?"
-}
-];
+    {
+      vertente: "Administrativo",
+      titulo: "A Integração Fria",
+      imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
+      dor: "Cena: Sala de RH recebendo 40 novos jovens aprendizes em treinamento inicial.\nDor: Eles são obrigados a ler apostilas e ouvir longas explicações sobre normas de segurança. O ambiente é monótono e pouco interativo. A retenção de conhecimento é baixa e muitos novos funcionários esquecem as regras nas primeiras semanas.",
+      desafio: "Missão: Como criar um kit físico, totem interativo ou espaço inteligente de boas-vindas que transforme o aprendizado das regras em uma experiência envolvente e memorável?"
+    },
+    {
+      vertente: "Administrativo",
+      titulo: "O Labirinto das Notas",
+      imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
+      dor: "Cena: Escritório administrativo de uma transportadora durante o fechamento do mês.\nDor: O assistente precisa conferir manualmente centenas de documentos fiscais e notas de transporte em telas e papéis. O cansaço mental gera erros de digitação e inconsistências que podem gerar multas e retrabalho.",
+      desafio: "Missão: Como criar uma estação física inteligente de triagem de documentos que ajude o operador a identificar rapidamente erros ou inconsistências?"
+    },
+    {
+      vertente: "Administrativo",
+      titulo: "O Silo de Informação",
+      imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
+      dor: "Cena: Fábrica em operação enquanto um aviso importante de segurança é divulgado apenas por e-mail.\nDor: A maioria dos trabalhadores do chão de fábrica não usa computador durante o turno. Murais impressos passam despercebidos e a informação crítica não chega a quem realmente precisa.",
+      desafio: "Missão: Como criar painéis, totens ou elementos físicos no ambiente de trabalho que comuniquem informações críticas de forma clara para quem não utiliza computadores?"
+    }
+  ];
 
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -398,140 +369,149 @@ color:#fff;
     });
   });
 
-  let telaAtual = ''; // Controla a transição automática
+  let telaAtual = ''; 
 
-        function iniciarPagina() {
-  // 🔒 BARREIRA DE SEGURANÇA
-  window.AUTH.require('participante');
+  function iniciarPagina() {
+      // 🔒 BARREIRA DE SEGURANÇA
+      window.AUTH.require('participante');
 
-  // 📢 OUVINTE DO MURAL DO JOTA (CORRIGIDO)
-  window.InovaDB.onValue(
-    window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
-    (snapshot) => {
-      const msgData = snapshot.val();
-      
-      if (msgData && msgData.texto && msgData.timestamp) {
-          // Verifica na memória do navegador se o aluno já leu esta mensagem exata
-          const msgLida = sessionStorage.getItem('jota_msg_lida');
-          
-          if (msgData.timestamp.toString() !== msgLida) {
-              // É uma mensagem nova! Mostra o pop-up
-              const alertBox = document.getElementById('jota-alert');
-              const textBox = document.getElementById('jota-msg-text');
-              
-              if (alertBox && textBox) {
-                  textBox.textContent = msgData.texto;
-                  alertBox.style.display = 'block';
-                  
-                  // Grava na memória que já leu, para não aparecer de novo se der F5
-                  sessionStorage.setItem('jota_msg_lida', msgData.timestamp.toString());
+      // 📢 OUVINTE DO MURAL DO JOTA 
+      window.InovaDB.onValue(
+        window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
+        (snapshot) => {
+          const msgData = snapshot.val();
+          if (msgData && msgData.texto && msgData.timestamp) {
+              const msgLida = sessionStorage.getItem('jota_msg_lida');
+              if (msgData.timestamp.toString() !== msgLida) {
+                  const alertBox = document.getElementById('jota-alert');
+                  const textBox = document.getElementById('jota-msg-text');
+                  if (alertBox && textBox) {
+                      textBox.textContent = msgData.texto;
+                      alertBox.style.display = 'block';
+                      sessionStorage.setItem('jota_msg_lida', msgData.timestamp.toString());
+                  }
               }
           }
-      }
-    }
-  );
-
-  // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES (CORRIGIDO)
-  window.InovaDB.onValue(
-    window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
-    (snapshot) => {
-      const liberado = snapshot.val() === true;
-      console.log('STATUS LIBERAÇÃO:', liberado);
-
-      if (liberado) {
-        // Se a tela atual NÃO for ativo, tira do lobby e inicia o App
-        if (telaAtual !== 'ativo') {
-          console.log('Iniciando o App...');
-          document.getElementById('view-lobby').style.display = 'none';
-          
-          // Verifica a sessão diretamente sem chamar Toast
-          const equipSaved = sessionStorage.getItem('inova_equipe');
-          const vertSaved = sessionStorage.getItem('inova_vertente');
-          
-          if (!equipSaved || !vertSaved) {
-              console.error("Sessão Perdida. Retornando ao Login.");
-              window.AUTH.logout();
-              return;
-          }
-          
-          telaAtual = 'ativo';
-          initAppRestaurado(equipSaved, vertSaved); // Chamamos a função restaurada
         }
+      );
+
+      // 🛑 OUVINTE DE ENCERRAMENTO DO HACKATHON (HARD STOP)
+      window.InovaDB.onValue(
+        window.InovaDB.ref(window.InovaDB.db, 'controle/eventoEncerrado'),
+        (snapshot) => {
+          if (snapshot.val() === true) {
+              const btnEntrega = document.getElementById('btn-enviar-render');
+              const inputLink = document.getElementById('link-render');
+              
+              if (btnEntrega && inputLink) {
+                  if (btnEntrega.textContent !== "✅ PROJETO ENTREGUE") {
+                      btnEntrega.disabled = true;
+                      btnEntrega.textContent = "🔒 TEMPO ESGOTADO (ENTREGAS ENCERRADAS)";
+                      btnEntrega.style.background = "#ff4444";
+                      btnEntrega.style.color = "#fff";
+                      btnEntrega.style.border = "1px solid #ff4444";
+                      
+                      inputLink.disabled = true;
+                      inputLink.placeholder = "O tempo para envio acabou.";
+                      inputLink.style.opacity = "0.5";
+                  }
+              }
+          }
+        }
+      );
+
+      // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES
+      window.InovaDB.onValue(
+        window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
+        (snapshot) => {
+          const liberado = snapshot.val() === true;
+          
+          if (liberado) {
+            if (telaAtual !== 'ativo') {
+              document.getElementById('view-lobby').style.display = 'none';
+              
+              const equipSaved = sessionStorage.getItem('inova_equipe');
+              const vertSaved = sessionStorage.getItem('inova_vertente');
+              
+              if (!equipSaved || !vertSaved) {
+                  window.AUTH.logout();
+                  return;
+              }
+              
+              telaAtual = 'ativo';
+              initApp(equipSaved, vertSaved);
+            }
+          } else {
+            document.getElementById('view-lobby').style.display = 'flex';
+            document.getElementById('view-sorteio').style.display = 'none';
+            document.getElementById('view-dashboard').style.display = 'none';
+            telaAtual = 'lobby';
+          }
+        }
+      );
+
+      // 📊 CONTADOR DE SQUADS EM TEMPO REAL
+      window.InovaDB.onValue(
+        window.InovaDB.ref(window.InovaDB.db, 'equipes'),
+        (snapshot) => {
+          const data = snapshot.val();
+          const totalEquipes = data ? Object.keys(data).length : 0;
+          const elContador = document.getElementById('contador-squads');
+          if (elContador) elContador.textContent = totalEquipes;
+        }
+      );
+
+      // ⏱ RELÓGIO DO LOBBY
+      setInterval(atualizarCronometroLobby, 1000);
+      atualizarCronometroLobby();
+
+      // ⏱ BARRA SUPERIOR / SPRINTS
+      setInterval(() => {
+        if (!window.SprintTimer) return;
+
+        const rem = window.SprintTimer.getRemaining();
+        const state = window.SprintTimer.getState();
+
+        document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
+        controlarBotaoIA();
+
+        if (state.sprint >= 1 && state.sprint <= 5) {
+          document.getElementById('sprint-label').textContent =
+            `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
+        } else {
+          document.getElementById('sprint-label').textContent =
+            state.sprint === 0 ? '// AGUARDANDO INÍCIO' : '// EVENTO ENCERRADO';
+        }
+
+        document.querySelectorAll('.si-item').forEach((el, i) => {
+          el.className = 'si-item';
+          if (i + 1 < state.sprint) el.classList.add('done');
+          if (i + 1 === state.sprint) el.classList.add('active');
+        });
+      }, 1000);
+  }
+
+  // FUNÇÃO INIT APP RESTAURADA
+  function initApp(equipeNome, vertenteNome) {
+      const missaoKey = 'inova_missao_' + equipeNome;
+      const missaoSaved = localStorage.getItem(missaoKey);
+
+      showTeamName(equipeNome);
+
+      if (missaoSaved && missaoSaved.includes("Cena:")) {
+        exibirDashboard(JSON.parse(missaoSaved));
       } else {
-        // Se o ADM fechou o evento (Liberado = False), tranca todo mundo no lobby
-        console.log('Trancando no Lobby...');
-        document.getElementById('view-lobby').style.display = 'flex';
-        document.getElementById('view-sorteio').style.display = 'none';
-        document.getElementById('view-dashboard').style.display = 'none';
-        telaAtual = 'lobby';
+        mostrarRoleta(vertenteNome);
       }
-    }
-  );
 
-  // 📊 CONTADOR DE SQUADS EM TEMPO REAL
-  window.InovaDB.onValue(
-    window.InovaDB.ref(window.InovaDB.db, 'equipes'),
-    (snapshot) => {
-      const data = snapshot.val();
-      const totalEquipes = data ? Object.keys(data).length : 0;
-      const elContador = document.getElementById('contador-squads');
-      if (elContador) elContador.textContent = totalEquipes;
-    }
-  );
-
-  // ⏱ RELÓGIO DO LOBBY
-  setInterval(atualizarCronometroLobby, 1000);
-  atualizarCronometroLobby();
-
-  // ⏱ BARRA SUPERIOR / SPRINTS
-  setInterval(() => {
-    if (!window.SprintTimer) return;
-
-    const rem = window.SprintTimer.getRemaining();
-    const state = window.SprintTimer.getState();
-
-    document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
-    controlarBotaoIA();
-
-    if (state.sprint >= 1 && state.sprint <= 5) {
-      document.getElementById('sprint-label').textContent =
-        `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
-    } else {
-      document.getElementById('sprint-label').textContent =
-        state.sprint === 0 ? '// AGUARDANDO INÍCIO' : '// EVENTO ENCERRADO';
-    }
-
-    document.querySelectorAll('.si-item').forEach((el, i) => {
-      el.className = 'si-item';
-      if (i + 1 < state.sprint) el.classList.add('done');
-      if (i + 1 === state.sprint) el.classList.add('active');
-    });
-  }, 1000);
-}
-
-  // FUNÇÃO INIT APP RESTAURADA E BLINDADA
-  function initAppRestaurado(equipeNome, vertenteNome) {
-    const missaoKey = 'inova_missao_' + equipeNome;
-    const missaoSaved = localStorage.getItem(missaoKey);
-
-    showTeamName(equipeNome);
-
-    if (missaoSaved && missaoSaved.includes("Cena:")) {
-      exibirDashboard(JSON.parse(missaoSaved));
-    } else {
-      mostrarRoleta(vertenteNome);
-    }
-
-    verificarEntrega(equipeNome);
+      verificarEntrega(equipeNome);
   }
 
   function atualizarCronometroLobby() {
       const agora = new Date();
-      // Define a data do evento: Ano 2026, Mês 3 (Abril no JS), Dia 9
       let alvo1 = new Date(2026, 3, 9, 10, 0, 0); 
       let alvo2 = new Date(2026, 3, 9, 15, 0, 0);
 
-      // Descobre qual é o próximo evento
       let alvoAtual = alvo1;
       if (agora > alvo1 && agora < alvo2) alvoAtual = alvo2;
       else if (agora > alvo2) {
@@ -557,7 +537,6 @@ color:#fff;
               key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
           );
 
-          // Ajuste: Verifica a entrega dentro de notasEquipe para espelhar a correção
           if (equipeId && data[equipeId].notasEquipe && data[equipeId].notasEquipe.renderEnviado) {
               const linkInput = document.getElementById('link-render');
               const btn = document.getElementById('btn-enviar-render');
@@ -585,12 +564,10 @@ color:#fff;
   function mostrarRoleta(vertente) {
     document.getElementById('lbl-vertente-escolhida').textContent = vertente;
 
-    // Limpa o palco
     document.getElementById('view-lobby').style.display = 'none';
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-sorteio').style.display = 'flex';
 
-    // RESET VISUAL (Evita bugs se o aluno der F5 na tela de sorteio)
     const titulo = document.getElementById('titulo-sorteio');
     const texto = document.getElementById('texto-sorteio');
     const roleta = document.getElementById('roleta-display');
@@ -610,11 +587,9 @@ color:#fff;
   }
 
   window.sortearMissao = function() {
-    // 1. Esconde o botão e o texto descritivo
     document.getElementById('btn-iniciar-sorteio').style.display = "none";
     document.getElementById('texto-sorteio').style.display = "none";
     
-    // 2. Prepara a tela para a Roleta
     const tituloSorteio = document.getElementById('titulo-sorteio');
     const roletaDisplay = document.getElementById('roleta-display');
     
@@ -622,49 +597,39 @@ color:#fff;
     tituloSorteio.style.color = "var(--cyan)";
     roletaDisplay.style.display = "block";
 
-    // 3. Pega a vertente e filtra os desafios
     const vertenteEscolhida = sessionStorage.getItem('inova_vertente');
     const equipe = sessionStorage.getItem('inova_equipe');
-    // Filtro turbinado que ignora letras maiúsculas e acentos (ex: Produção == producao)
     const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     
     let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertenteEscolhida));
-    
-    if (missoesFiltradas.length === 0) missoesFiltradas = missoes; // Proteção extra
+    if (missoesFiltradas.length === 0) missoesFiltradas = missoes; 
 
-    // 4. EFEITO DE ROLETA
     let giros = 0;
-    const maxGiros = 30; // Quantidade de "piscadas"
-    const velocidade = 80; // Milissegundos entre cada piscada
+    const maxGiros = 30; 
+    const velocidade = 80; 
 
     const efeitoRoleta = setInterval(() => {
-        // Mostra um nome aleatório temporário
         const indexTemporario = Math.floor(Math.random() * missoesFiltradas.length);
         roletaDisplay.textContent = missoesFiltradas[indexTemporario].titulo.toUpperCase();
         giros++;
 
-        // 5. Quando atingir o limite, para a roleta e dá a missão real
         if (giros >= maxGiros) {
             clearInterval(efeitoRoleta);
             
-            // O Sorteio Final Oficial
             const indexFinal = Math.floor(Math.random() * missoesFiltradas.length);
             const missaoSorteada = missoesFiltradas[indexFinal];
             
-            // Efeito visual do vencedor
             roletaDisplay.textContent = "⭐ " + missaoSorteada.titulo.toUpperCase() + " ⭐";
-            roletaDisplay.style.color = "#00C851"; // Fica Verde
+            roletaDisplay.style.color = "#00C851"; 
             roletaDisplay.style.transform = "scale(1.1)";
             roletaDisplay.style.transition = "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
             
             tituloSorteio.textContent = "MISSÃO DEFINIDA!";
             tituloSorteio.style.color = "#fff";
             
-            // Salva no sistema
             localStorage.setItem('inova_missao_' + equipe, JSON.stringify(missaoSorteada));
             window.toast("Missão revelada! Que os Sprints comecem.", "success");
 
-            // Aguarda 2 segundos para a equipe ler o nome antes de mudar para o Dashboard
             setTimeout(() => {
                 exibirDashboard(missaoSorteada);
             }, 2000);
@@ -673,36 +638,36 @@ color:#fff;
   };
 
   function exibirDashboard(missao) {
-  document.getElementById('view-sorteio').style.display = 'none';
-  document.getElementById('view-dashboard').style.display = 'block';
+      document.getElementById('view-sorteio').style.display = 'none';
+      document.getElementById('view-dashboard').style.display = 'block';
 
-  document.getElementById('m-vertente').textContent = "📦 " + missao.vertente.toUpperCase();
-  document.getElementById('m-titulo').textContent = missao.titulo;
+      document.getElementById('m-vertente').textContent = "📦 " + missao.vertente.toUpperCase();
+      document.getElementById('m-titulo').textContent = missao.titulo;
 
-  let textoDor = missao.dor
-      .replace(/\n/g, '<br><br>')
-      .replace('Cena:', '<strong style="color:var(--cyan); letter-spacing:1px;">🎬 CENA:</strong>')
-      .replace('Dor:', '<strong style="color:#ff4444; letter-spacing:1px;">⚠️ A DOR:</strong>');
-      
-  let textoDesafio = missao.desafio
-      .replace('Missão:', '<strong style="color:var(--yellow); letter-spacing:1px;">🚀 SUA MISSÃO:</strong>');
+      let textoDor = missao.dor
+          .replace(/\n/g, '<br><br>')
+          .replace('Cena:', '<strong style="color:var(--cyan); letter-spacing:1px;">🎬 CENA:</strong>')
+          .replace('Dor:', '<strong style="color:#ff4444; letter-spacing:1px;">⚠️ A DOR:</strong>');
+          
+      let textoDesafio = missao.desafio
+          .replace('Missão:', '<strong style="color:var(--yellow); letter-spacing:1px;">🚀 SUA MISSÃO:</strong>');
 
-  document.getElementById('m-dor').innerHTML = textoDor;
-  document.getElementById('m-desafio').innerHTML = textoDesafio;
+      document.getElementById('m-dor').innerHTML = textoDor;
+      document.getElementById('m-desafio').innerHTML = textoDesafio;
 
-  // IMAGEM DO CENÁRIO
-  const img = document.getElementById('m-imagem');
-  if (missao.imagem && missao.imagem.trim() !== '') {
-      img.src = missao.imagem;
-      img.alt = `Cenário do desafio ${missao.titulo}`;
-      img.style.display = 'block';
-  } else {
-      img.src = '';
-      img.alt = 'Cenário visual do desafio';
-      img.style.display = 'none';
+      const img = document.getElementById('m-imagem');
+      if (missao.imagem && missao.imagem.trim() !== '') {
+          img.src = missao.imagem;
+          img.alt = `Cenário do desafio ${missao.titulo}`;
+          img.style.display = 'block';
+      } else {
+          img.src = '';
+          img.alt = 'Cenário visual do desafio';
+          img.style.display = 'none';
+      }
   }
-}
 
+  // ENVIO DE PROJETO COM A GRAVAÇÃO CORRETA NA ÁRVORE
   window.enviarRender = function() {
       const linkInput = document.getElementById('link-render');
       const link = linkInput.value.trim();
@@ -725,7 +690,6 @@ color:#fff;
       btn.textContent = "PROCESSANDO...";
       btn.disabled = true;
 
-      // Pega os dados do banco para encontrar a ID correta da equipe
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           if (!data) {
@@ -735,7 +699,6 @@ color:#fff;
               return;
           }
 
-          // Encontra a chave (ID) da equipe no banco baseada no nome da sessão
           const equipeId = Object.keys(data).find(
               key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
           );
@@ -747,11 +710,9 @@ color:#fff;
               return;
           }
 
-          // Monta o objeto de atualização focado na árvore correta (notasEquipe)
           const updates = {};
           updates[`equipes/${equipeId}/notasEquipe/renderEnviado`] = true;
           updates[`equipes/${equipeId}/notasEquipe/renderLink`] = link;
-          // Reseta a aprovação caso a equipe esteja reenviando após uma rejeição do monitor
           updates[`equipes/${equipeId}/notasEquipe/renderAprovado`] = null; 
           updates[`equipes/${equipeId}/notasEquipe/dataEnvio`] = new Date().toLocaleString();
 
@@ -776,55 +737,43 @@ color:#fff;
   };
   
   document.getElementById('btn-ai-mentor').onclick = () => {
-  const tituloMissao = document.getElementById('m-titulo').textContent.trim();
+      const tituloMissao = document.getElementById('m-titulo').textContent.trim();
+      const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const titulo = normalizar(tituloMissao);
 
-  const normalizar = (texto) =>
-    texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      let ideias = [];
 
-  const titulo = normalizar(tituloMissao);
+      if (titulo.includes('linha de montagem')) {
+        ideias = [
+          "Exoesqueleto leve para reduzir esforço repetitivo dos braços.",
+          "Ferramenta inteligente com apoio ergonômico e sensor de fadiga.",
+          "Bancada ajustável que acompanha altura e postura do operador."
+        ];
+      } 
+      else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
+        ideias = [
+          "Cabine térmica com visor seguro para monitoramento remoto.",
+          "Traje refrigerado com circulação interna de ar.",
+          "Escudo inteligente móvel entre operador e forno."
+        ];
+      } 
+      else if (titulo.includes('inspecao')) {
+        ideias = [
+          "Mesa de inspeção com luz adaptativa automática.",
+          "Visor com marcação digital de microdefeitos.",
+          "Sistema de iluminação polarizada para destacar imperfeições."
+        ];
+      } 
+      else {
+        ideias = [
+          "Criar uma solução física inteligente centrada no trabalhador.",
+          "Usar automação para reduzir dor, risco e esforço humano.",
+          "Projetar um equipamento simples, visual e fácil de entender."
+        ];
+      }
 
-  let ideias = [];
-
-  if (titulo.includes('linha de montagem')) {
-    ideias = [
-      "Exoesqueleto leve para reduzir esforço repetitivo dos braços.",
-      "Ferramenta inteligente com apoio ergonômico e sensor de fadiga.",
-      "Bancada ajustável que acompanha altura e postura do operador."
-    ];
-  } 
-  else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
-    ideias = [
-      "Cabine térmica com visor seguro para monitoramento remoto.",
-      "Traje refrigerado com circulação interna de ar.",
-      "Escudo inteligente móvel entre operador e forno."
-    ];
-  } 
-  else if (titulo.includes('inspecao')) {
-    ideias = [
-      "Mesa de inspeção com luz adaptativa automática.",
-      "Visor com marcação digital de microdefeitos.",
-      "Sistema de iluminação polarizada para destacar imperfeições."
-    ];
-  } 
-  else {
-    ideias = [
-      "Criar uma solução física inteligente centrada no trabalhador.",
-      "Usar automação para reduzir dor, risco e esforço humano.",
-      "Projetar um equipamento simples, visual e fácil de entender."
-    ];
-  }
-
-  alert(`🤖 CO-PILOTO IA
-
-IDEIA 1
-${ideias[0]}
-
-IDEIA 2
-${ideias[1]}
-
-IDEIA 3
-${ideias[2]}`);
-};
+      alert(`🤖 CO-PILOTO IA\n\nIDEIA 1\n${ideias[0]}\n\nIDEIA 2\n${ideias[1]}\n\nIDEIA 3\n${ideias[2]}`);
+  };
 </script>
 </body>
 </html>

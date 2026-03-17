@@ -54,7 +54,14 @@
 <header class="topbar">
   <span class="tb-logo">INOVA+ 2026</span>
   <span class="tb-role">COORDENAÇÃO MESTRE</span>
-  <button onclick="window.AUTH.logout()" style="margin-left:auto; background:none; border:1px solid #333; color:var(--muted); padding:6px 18px; border-radius:4px; font-size:0.7rem; cursor:pointer;">SAIR</button>
+  
+  <div style="margin-left:auto; display:flex; gap:15px; align-items:center;">
+    <a href="telao.html" target="_blank" style="background:rgba(0,240,255,0.1); border:1px solid var(--cyan); color:var(--cyan); padding:6px 18px; border-radius:4px; font-size:0.8rem; font-family:'Space Mono'; text-decoration:none; transition:0.2s;">
+      📺 ABRIR TELÃO
+    </a>
+    
+    <button onclick="window.AUTH.logout()" style="background:none; border:1px solid #333; color:var(--muted); padding:6px 18px; border-radius:4px; font-size:0.7rem; cursor:pointer;">SAIR</button>
+  </div>
 </header>
 
 <main class="main">
@@ -196,8 +203,14 @@
 
       // GERAÇÃO DA TABELA DE GERENCIAMENTO DE EQUIPES (COM SELEÇÃO DE MESA)
       document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => {
-          // Cria as opções de MESA de 01 a 20
+          // Cria a opção SEM MESA
           let optionsMesa = '<option value="">SEM MESA</option>';
+          
+          // CRIA A OPÇÃO ONLINE (MESA VIRTUAL)
+          const selectedOnline = (t.mesa === 'ONLINE') ? 'selected' : '';
+          optionsMesa += `<option value="ONLINE" ${selectedOnline}>🌐 SQUAD ONLINE</option>`;
+
+          // Cria as opções de MESA FÍSICA de 01 a 20
           for(let m = 1; m <= 20; m++) {
               const numMesa = m.toString().padStart(2, '0');
               const selected = (t.mesa === numMesa) ? 'selected' : '';
@@ -209,7 +222,7 @@
             <td style="font-family:'Space Mono'; color:var(--muted);">${i+1}</td>
             <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()}</td>
             <td>
-                <select class="adm-score-input" style="width: 120px; cursor: pointer; text-align: left; padding-left: 15px;" onchange="atribuirMesa('${t.id}', this.value)">
+                <select class="adm-score-input" style="width: 150px; cursor: pointer; text-align: left; padding-left: 15px;" onchange="atribuirMesa('${t.id}', this.value)">
                     ${optionsMesa}
                 </select>
             </td>
