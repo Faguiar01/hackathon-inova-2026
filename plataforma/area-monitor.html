@@ -12,7 +12,7 @@
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; padding-bottom: 60px; }
 
     /* ── TOPBAR ── */
-    .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(255,214,0,.2);backdrop-filter:blur(8px)}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,9,15,.97);border-bottom:1px solid rgba(255,214,0,.2);backdrop-filter:blur(8px); transition: all 0.3s;}
     .tb-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:2px;text-shadow:0 0 20px rgba(255,214,0,.3)}
     .tb-role{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:2px;padding:4px 10px;border:1px solid rgba(255,214,0,.3);color:var(--yellow);border-radius:4px}
     .main{padding:100px 28px 48px;max-width:1300px;margin:0 auto;position:relative;z-index:1}
@@ -86,7 +86,7 @@
     /* ── CHECKLISTS ── */
     .sprint-checklists{display:grid;gap:12px}
     .sprint-cl{background:var(--panel);border:1px solid var(--border);overflow:hidden;border-radius:10px}
-    .sprint-cl-header{display:flex;align-items:center;gap:16px;padding:18px 24px;cursor:pointer;transition:background .2s;user-select:none}
+    .sprint-cl-header{display:flex;align-items:center;gap:16px;padding:18px 24px;cursor:pointer;transition:background .2s;user-select:none; min-height: 60px;}
     .sprint-cl-header:hover{background:rgba(255,214,0,.05)}
     .cl-num{width:46px;height:46px;border:2px solid var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--cyan);flex-shrink:0}
     .cl-title-wrap{flex:1}
@@ -96,7 +96,7 @@
     .cl-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
     .cl-body-inner{padding:0 24px 24px 86px;display:grid;gap:10px}
 
-    .check-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--card);border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;user-select:none;border-radius:8px}
+    .check-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--card);border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;user-select:none;border-radius:8px; min-height: 48px;}
     .check-item.checked{background:rgba(0,200,81,.05);border-color:rgba(0,200,81,.4)}
     .check-box{width:24px;height:24px;min-width:24px;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.9rem;border-radius:6px;font-weight:bold;margin-top:2px}
     .check-item.checked .check-box{border-color:#00ff99;background:#00C851;color:#fff}
@@ -128,7 +128,7 @@
       overflow:hidden;
       position:relative;
     }
-    .render-preview img{width:100%;height:100%;object-fit:contain;border-radius:8px;display:none} /* object-fit: contain para não cortar a imagem do aluno */
+    .render-preview img{width:100%;height:100%;object-fit:contain;border-radius:8px;display:none} 
     .render-preview img.loaded{display:block}
     .render-placeholder{text-align:center;padding:20px}
     .render-placeholder p{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:1px;margin-top:12px}
@@ -137,11 +137,11 @@
     .render-link-input:focus{border-color:var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.2);}
 
     .render-actions{display:flex;gap:15px}
-    .btn-render-ok{flex:1;padding:16px;background:rgba(0,200,81,.1);border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s}
+    .btn-render-ok{flex:1;padding:16px;background:rgba(0,200,81,.1);border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s; min-height: 55px;}
     .btn-render-ok:hover{background:rgba(0,200,81,.2); transform: translateY(-2px);}
     .btn-render-ok.approved{background:#00C851;border-color:#00C851;color:#fff;box-shadow:0 0 20px rgba(0,200,81,.4)}
     
-    .btn-render-rej{flex:1;padding:16px;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.5);color:#ff6b6b;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s}
+    .btn-render-rej{flex:1;padding:16px;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.5);color:#ff6b6b;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;border-radius:8px;cursor:pointer;transition:all .3s; min-height: 55px;}
     .btn-render-rej:hover{background:rgba(255,60,60,.2); transform: translateY(-2px);}
     .btn-render-rej.rejected{background:#ff4444;border-color:#ff4444;color:#fff; box-shadow:0 0 20px rgba(255,68,68,.4)}
 
@@ -153,7 +153,13 @@
     /* ══════════════════════════════════
        P2 — TABELA DE NOTAS COM CRITÉRIOS
     ══════════════════════════════════ */
-    .ss-table{background:var(--panel);border:1px solid var(--border);overflow-x:auto;border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+    .mobile-scroll-hint { display: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--yellow); text-align: center; margin-bottom: 12px; padding: 10px; background: rgba(255,214,0,0.05); border: 1px dashed rgba(255,214,0,0.3); border-radius: 6px; animation: pulse-hint 2s infinite; }
+    @keyframes pulse-hint { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    .ss-table{background:var(--panel);border:1px solid var(--border);overflow-x:auto;border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); -webkit-overflow-scrolling: touch;}
+    .ss-table::-webkit-scrollbar { height: 8px; }
+    .ss-table::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+    
     .ss-table table{width:100%;border-collapse:collapse;min-width:850px}
     .ss-table th{padding:18px 20px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);letter-spacing:2px;border-bottom:1px solid var(--border);text-align:center;background:rgba(0,240,255,.03)}
     .ss-table th:first-child{text-align:left}
@@ -201,7 +207,7 @@
     .td-input:focus{border-color:var(--cyan);background:rgba(0,240,255,.03); box-shadow: 0 0 15px rgba(0,240,255,0.1);}
 
     /* ── BOTÕES ── */
-    .btn{padding:12px 24px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1.5px;border:none;cursor:pointer;border-radius:6px;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+    .btn{padding:12px 24px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1.5px;border:none;cursor:pointer;border-radius:6px;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px; min-height: 44px;}
     .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
     .btn-ghost:hover{color:#fff;border-color:#fff; background: rgba(255,255,255,0.05);}
     .btn-amber{background:var(--yellow);color:var(--dark);font-size:1.3rem}
@@ -211,10 +217,38 @@
     .toast-custom.show{opacity:1;transform:translateY(0)}
     .toast-custom.error{border-color:rgba(255,60,60,.5);color:#ff6b6b}
 
+    /* =========================================
+       UX MOBILE-FIRST & AVALIADORES (AJUSTES FINAIS)
+       ========================================= */
     @media(max-width:768px){
+      .topbar { flex-direction: column; padding: 12px; gap: 10px; align-items: stretch; }
+      .topbar > div { width: 100%; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+      #user-info-box { border-right: none; padding-right: 0; text-align: left; }
+      
+      .main { padding-top: 160px; padding-left: 15px; padding-right: 15px; }
+      .sprint-alert { top: 110px; font-size: 0.7rem; padding: 8px; }
+      
       .lembretes{grid-template-columns:1fr}
-      .cl-body-inner,.nota-sprint{padding-left:20px}
-      .painel-geral{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+      .painel-geral{grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap: 10px;}
+      .squad-card { padding: 12px; }
+      .squad-card-name { font-size: 1.2rem; }
+
+      .squad-detail-header { flex-direction: column; align-items: flex-start; padding: 20px; gap: 15px; }
+      .squad-detail-header h3 { font-size: 1.8rem; }
+      #squad-render-badge { width: 100%; }
+      .render-status-tag { display: block; width: 100%; padding: 10px; }
+
+      .cl-body-inner, .nota-sprint { padding-left: 15px; padding-right: 0; }
+      .sprint-cl-header { padding: 12px 15px; }
+      .cl-num { width: 36px; height: 36px; font-size: 1.2rem; }
+      
+      .render-actions { flex-direction: column; }
+      .btn-render-ok, .btn-render-rej { width: 100%; }
+
+      .mobile-scroll-hint { display: block; } /* Mostra dica de scroll apenas no celular */
+      
+      /* Previne o Tooltip de vazar para fora da tela mobile */
+      .criterio-tooltip { left: 50%; transform: translateX(-50%); width: 85vw; max-width: 300px; margin-left: 0; }
     }
   </style>
 </head>
@@ -365,7 +399,12 @@
       </div>
     </div>
 
-  </div><div class="sec-label yellow" style="margin-bottom:15px; margin-top: 20px;">AVALIAÇÃO DE COMPETÊNCIAS (NOTAS 0.0 A 10.0)</div>
+  </div>
+  
+  <div class="sec-label yellow" style="margin-bottom:15px; margin-top: 20px;">AVALIAÇÃO DE COMPETÊNCIAS (NOTAS 0.0 A 10.0)</div>
+  
+  <div class="mobile-scroll-hint">👉 DESLIZE A TABELA LATERALMENTE PARA AVALIAR TODOS OS CRITÉRIOS</div>
+  
   <div class="ss-table">
     <table>
       <thead>
@@ -713,7 +752,6 @@ window.saveScore = function(field, valStr) {
   if (!currentTeamId) return;
   const avaliador = sessionStorage.getItem('inova_nome_monitor') || 'Monitor';
   
-  // Converte para Float se não for o campo de texto
   let val = valStr;
   if (field !== 'obs') {
       val = valStr === '' ? '' : Math.min(10, Math.max(0, parseFloat(valStr)));
@@ -755,7 +793,7 @@ window.toggleCheck = function(el, clId, idx) {
 };
 
 function updateProgress(clId) {
-  const num     = clId.replace('cl', '');
+  const num   = clId.replace('cl', '');
   const items   = document.querySelectorAll(`#clb${num} .check-item`);
   const checked = document.querySelectorAll(`#clb${num} .check-item.checked`).length;
   document.getElementById('prog' + num).textContent = `${checked}/${items.length}`;
