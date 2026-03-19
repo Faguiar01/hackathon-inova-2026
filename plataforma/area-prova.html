@@ -94,7 +94,7 @@
         .btn-sortear { font-size: 1.3rem; padding: 12px 20px; width: 100%; }
         #roleta-display { font-size: 2rem !important; }
         
-        .main { padding: 130px 15px 30px; } /* Dá mais espaço pro cabeçalho que ficou maior */
+        .main { padding: 130px 15px 30px; } 
         .content-box { padding: 20px; }
         .page-tabs { justify-content: center; }
         .page-tab { flex: 1; text-align: center; min-width: 45%; }
@@ -162,8 +162,8 @@
       <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
       <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
       <button class="page-tab" data-tab="links">🔗 Central IA</button>
-      <button id="btn-ai-mentor" class="page-tab" style="display:none; color:#00e5ff;">🤖 Pedir Ajuda da IA</button>
-      <button id="btn-entrega-final" class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">🚀 Entrega Final</button>
+      <button id="btn-ai-mentor" class="action-tab" style="display:none; color:#00e5ff; padding:9px 18px; background:var(--panel); border:1px solid var(--cyan); font-family:'Syne', sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; border-radius:4px; margin-left: 5px;">🤖 Pedir Ajuda da IA</button>
+      <button id="btn-entrega-final" class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851; margin-left: auto;">🚀 Entrega Final</button>
     </div>
 
     <div class="content-box" id="tab-cenario">
@@ -194,6 +194,33 @@
       </div>
     </div>
 
+    <div class="content-box" id="tab-regras" style="display:none;">
+      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:24px;">REGRAS DE OURO - INDÚSTRIA 5.0</h2>
+      <div style="display:grid; gap:16px;">
+        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
+          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">1. HUMAN-CENTRIC</strong>
+          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">A tecnologia existe para servir o trabalhador, não substituí-lo.</p>
+        </div>
+        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
+          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">2. TOQUE HUMANO 5.0</strong>
+          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Não copie a resposta do ChatGPT. A ideia da IA deve ser corrigida pela equipe antes de virar protótipo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-links" style="display:none;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
+        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
+          <span style="font-size:2.5rem;">🤖</span>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Ideação</span></div>
+        </a>
+        <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
+          <span style="font-size:2.5rem;">✨</span>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa</span></div>
+        </a>
+      </div>
+    </div>
+
     <div id="tab-entrega" style="display:none; margin-top: 20px;">
       <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
         <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
@@ -216,6 +243,8 @@
         <button id="btn-enviar-render" class="btn-action" style="background:#00C851; color:#000; width:100%;" onclick="enviarRender()">ENVIAR PARA A BANCADA DOS JURADOS</button>
       </div>
     </div>
+  </div>
+
   <div id="ai-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
       <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:600px; border-radius:8px; overflow:hidden; position:relative;">
           
@@ -224,8 +253,7 @@
               <button onclick="fecharModalIA()" style="background:transparent; border:none; color:var(--muted); font-family:'Space Mono'; font-size:1.2rem; cursor:pointer; transition:0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">[X]</button>
           </div>
           
-          <div style="padding:30px; min-height:250px; font-family:'Space Mono', monospace; font-size:0.95rem; color:#fff; line-height:1.7;" id="ai-modal-content">
-              </div>
+          <div style="padding:30px; min-height:250px; font-family:'Space Mono', monospace; font-size:0.95rem; color:#fff; line-height:1.7;" id="ai-modal-content"></div>
       </div>
   </div>
 
@@ -399,12 +427,19 @@
     }
   ];
 
+  // 🔒 SCRIPT DAS ABAS (BLINDADO)
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
+      if(!tab.dataset.tab) return; // Evita bug se clicar em botões sem data-tab
+      
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
+      
       ['cenario', 'regras', 'links', 'entrega'].forEach(id => {
-        document.getElementById('tab-' + id).style.display = tab.dataset.tab === id ? 'block' : 'none';
+        const divAba = document.getElementById('tab-' + id);
+        if(divAba) {
+            divAba.style.display = tab.dataset.tab === id ? 'block' : 'none';
+        }
       });
     });
   });
@@ -412,10 +447,8 @@
   let telaAtual = ''; 
 
   function iniciarPagina() {
-      // 🔒 BARREIRA DE SEGURANÇA
       window.AUTH.require('participante');
 
-      // 📢 OUVINTE DO MURAL DO JOTA 
       window.InovaDB.onValue(
         window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
         (snapshot) => {
@@ -435,7 +468,6 @@
         }
       );
 
-      // 🛑 OUVINTE DE ENCERRAMENTO DO HACKATHON
       window.InovaDB.onValue(
         window.InovaDB.ref(window.InovaDB.db, 'controle/eventoEncerrado'),
         (snapshot) => {
@@ -460,7 +492,6 @@
         }
       );
 
-      // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES (CORRIGIDO)
       window.InovaDB.onValue(
         window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
         (snapshot) => {
@@ -487,7 +518,6 @@
         }
       );
 
-      // 📊 CONTADOR DE SQUADS EM TEMPO REAL
       window.InovaDB.onValue(
         window.InovaDB.ref(window.InovaDB.db, 'equipes'),
         (snapshot) => {
@@ -498,11 +528,9 @@
         }
       );
 
-      // ⏱ RELÓGIO DO LOBBY
       setInterval(atualizarCronometroLobby, 1000);
       atualizarCronometroLobby();
 
-      // ⏱ BARRA SUPERIOR / SPRINTS
       setInterval(() => {
         if (!window.SprintTimer) return;
 
@@ -511,9 +539,9 @@
 
         document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
         controlarBotaoIA();
-
-        atualizarGuiaSprint(state.sprint);
         
+        atualizarGuiaSprint(state.sprint);
+
         if (state.sprint >= 1 && state.sprint <= 5) {
           document.getElementById('sprint-label').textContent =
             `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
@@ -773,10 +801,6 @@
       }, { onlyOnce: true });
   };
   
-  // ==========================================
-  // LÓGICA DO MODAL CO-PILOTO IA (EFEITO MATRIX)
-  // ==========================================
-  
   window.fecharModalIA = () => {
       document.getElementById('ai-modal').style.display = 'none';
       document.getElementById('ai-modal-content').innerHTML = ''; 
@@ -815,15 +839,12 @@
         ];
       }
 
-      // 1. Abre a interface Hacker
       const modal = document.getElementById('ai-modal');
       const content = document.getElementById('ai-modal-content');
       modal.style.display = 'flex';
       
-      // 2. Tela de carregamento
       content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">Processando dados na base Indústria 5.0... aguarde.</span>';
 
-      // 3. Efeito Data Stream
       setTimeout(() => {
           content.innerHTML = ''; 
           
@@ -846,7 +867,7 @@
 
       }, 2000); 
   };
-// LÓGICA DE SINCRONIZAÇÃO DO CANVAS (PDF)
+
   function atualizarGuiaSprint(sprintAtual) {
       const guideBox = document.getElementById('sprint-guide-box');
       const guideTitle = document.getElementById('guide-title');

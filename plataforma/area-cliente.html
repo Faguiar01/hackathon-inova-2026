@@ -27,17 +27,33 @@
         position: relative; 
     }
     
+    .btn-sair-sessao {
+        position: absolute; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        right: 20px; 
+        background: rgba(255,255,255,0.05); 
+        border: 1px solid rgba(255,255,255,0.2); 
+        color: var(--muted); 
+        padding: 8px 20px; 
+        border-radius: 6px; 
+        font-family: 'Space Mono'; 
+        font-size: 0.8rem; 
+        cursor: pointer; 
+        transition: 0.2s;
+    }
+    .btn-sair-sessao:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    
     .container-grid { 
         max-width: 1400px; 
-        width: 100%; /* Garante que o grid use toda a tela permitida */
+        width: 100%; 
         margin: 0 auto; 
     }
 
     /* NOVO GRID ESTRUTURADO */
     .teams-grid { 
         display: grid; 
-        /* Define 3 colunas em telas grandes, caindo para 2 ou 1 em menores */
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Ajustado para 280px para evitar scroll no mobile */
         gap: 25px; 
     }
     
@@ -49,7 +65,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        text-align: left; /* Alinhamento mais organizado para leitura */
+        text-align: left; 
         transition: transform 0.3s, box-shadow 0.3s;
         position: relative;
         overflow: hidden;
@@ -116,6 +132,31 @@
     }
     .btn-finalizar:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 214, 0, 0.4); background: #fff; }
 
+    /* =========================================
+       AJUSTES MOBILE-FIRST (JURADOS NO CELULAR)
+       ========================================= */
+    @media (max-width: 768px) {
+        .header-especialista {
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+            gap: 15px;
+            border-bottom: none;
+        }
+        .header-especialista h1 { font-size: 2.2rem; line-height: 1; }
+        .btn-sair-sessao {
+            position: relative;
+            top: 0;
+            transform: none;
+            right: 0;
+            width: 100%;
+            padding: 12px;
+        }
+        .teams-grid { grid-template-columns: 1fr; } /* Força 1 coluna no celular */
+        .team-card { padding: 20px; }
+        .btn-finalizar { width: 100%; justify-content: center; font-size: 1.3rem; padding: 15px 20px; }
+        body { padding-bottom: 100px; }
+    }
   </style>
 </head>
 <body>
@@ -125,7 +166,7 @@
   <h1 style="font-family:'Bebas Neue'; font-size:3rem; color:#fff; margin:0; letter-spacing: 2px;">JURADO ESPECIALISTA</h1>
   <p id="client-name-display" style="color:var(--cyan); font-size:1rem; margin-top:10px; font-family: 'Space Mono', monospace;"></p>
   
-  <button onclick="window.AUTH.logout()" style="position:absolute; top:50%; transform:translateY(-50%); right:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:var(--muted); padding:8px 20px; border-radius:6px; font-family:'Space Mono'; font-size:0.8rem; cursor:pointer; transition:0.2s;">SAIR DA SESSÃO</button>
+  <button class="btn-sair-sessao" onclick="window.AUTH.logout()">SAIR DA SESSÃO</button>
 </div>
 
 <div class="container-grid">
@@ -192,12 +233,22 @@
       }
 
       grid.innerHTML = teams.map(t => {
-          const notaSalva = (t.notasEquipe && t.notasEquipe.nota_cliente) !== undefined ? t.notasEquipe.nota_cliente : "";
+          const n = t.notasEquipe || {}; // Busca com segurança
+          const notaSalva = n.nota_cliente !== undefined ? n.nota_cliente : "";
           
-          // LÓGICA DO BOTÃO DE RENDER 3D
+          // LÓGICA DO BOTÃO DE RENDER 3D CORRIGIDA
           let btnRender = '';
-          if (t.renderEnviado && t.renderLink) {
-              btnRender = `<a href="${t.renderLink}" target="_blank" class="btn-render ready">👁️ ABRIR PROJETO 3D</a>`;
+          let badgeAprovacao = '';
+
+          // Se a equipe enviou o link da imagem e o monitor já aprovou
+          if (n.renderEnviado && n.renderLink) {
+              btnRender = `<a href="${n.renderLink}" target="_blank" class="btn-render ready">👁️ ABRIR PROJETO 3D</a>`;
+              
+              if (n.renderAprovado === true) {
+                  badgeAprovacao = `<div style="font-family:'Space Mono'; font-size: 0.65rem; color: #00C851; text-align: center; margin-top: -10px; margin-bottom: 10px;">✅ APROVADO PELO MONITOR</div>`;
+              } else if (n.renderAprovado === false) {
+                  badgeAprovacao = `<div style="font-family:'Space Mono'; font-size: 0.65rem; color: #ff4444; text-align: center; margin-top: -10px; margin-bottom: 10px;">⚠️ IMAGEM REJEITADA PELO MONITOR</div>`;
+              }
           } else {
               btnRender = `<div class="btn-render waiting">⏳ PROJETO NÃO ENVIADO</div>`;
           }
@@ -211,6 +262,7 @@
               
               <div class="card-body">
                   ${btnRender}
+                  ${badgeAprovacao}
                   
                   <div class="nota-wrapper">
                       <span class="nota-label">NOTA TÉCNICA<br><small style="opacity: 0.5; font-size: 0.7rem;">(Escala de 0 a 10)</small></span>
@@ -226,7 +278,9 @@
       teams.forEach(t => {
           const val = document.getElementById(`input-${t.id}`).value;
           if (val !== "") {
-              notasParaEnviar.push({ id: t.id, nota: parseFloat(val), nome: t.nomeEquipe });
+              // Limita a nota entre 0 e 10
+              let notaFormatada = Math.min(10, Math.max(0, parseFloat(val)));
+              notasParaEnviar.push({ id: t.id, nota: notaFormatada, nome: t.nomeEquipe });
           }
       });
 
