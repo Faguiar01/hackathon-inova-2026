@@ -109,6 +109,9 @@
       </div>
 
       <button class="btn btn-danger" onclick="masterReset()">↺ ZERAR TEMPO DA FASE ATUAL</button>
+    <button class="btn" style="background: #222; color: #555; border: 1px dashed #444; margin-top: 10px; width: 100%; font-size: 0.7rem;" onclick="resetGeralComSenha()">
+    💀 RESET TOTAL DO BANCO (TESTES)
+</button>
     </div>
   </div>
 
@@ -427,6 +430,38 @@ window.fecharLobby = () => {
               window.toast('Erro ao salvar a mesa. Verifique a conexão.', 'error');
           });
   };
+window.resetGeralComSenha = () => {
+    // 1. Barreira de Segurança
+    const senha = prompt("DIGITE A SENHA DE MESTRE PARA APAGAR TUDO:");
+    
+    if (senha === "inova2026") { // Você pode mudar essa senha
+        const confirmacaoFinal = confirm("ÚLTIMO AVISO: Isso vai deletar TODAS as equipes e zerar o evento. Tem certeza absoluta?");
+        
+        if (confirmacaoFinal) {
+            const updates = {};
+            
+            // Definindo o que será resetado
+            updates['equipes'] = null; // Apaga o nó de equipes
+            updates['controle/liberarEquipes'] = false;
+            updates['controle/eventoEncerrado'] = false;
+            updates['controle/mensagemJota'] = { texto: "Sistema Resetado", timestamp: Date.now() };
+            
+            // Executa no Firebase
+            window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+                .then(() => {
+                    window.toast("BANCO DE DADOS LIMPO COM SUCESSO!", "success");
+                    // Opcional: recarregar a página para limpar a tela do ADM
+                    setTimeout(() => location.reload(), 1500);
+                })
+                .catch(err => {
+                    console.error(err);
+                    window.toast("Erro ao resetar banco.", "error");
+                });
+        }
+    } else if (senha !== null) {
+        alert("Senha incorreta! Acesso negado.");
+    }
+};
 </script>
 </body>
 </html>
