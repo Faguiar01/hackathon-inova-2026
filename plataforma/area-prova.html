@@ -230,50 +230,50 @@
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
   
   // 🔒 CONTROLE INTELIGENTE DAS ABAS (BLOQUEIOS POR SPRINT)
-  function controlarBotaoIA() {
-      if (!window.SprintTimer) return;
+function controlarBotaoIA() {
+    if (!window.SprintTimer) return;
 
-      const state = window.SprintTimer.getState();
-      const btnMentor = document.getElementById('btn-ai-mentor');
-      const btnLinks = document.querySelector('.page-tab[data-tab="links"]'); // Aba Central IA
-      const btnEntrega = document.querySelector('.page-tab[data-tab="entrega"]'); // Aba Entrega Final
+    const state = window.SprintTimer.getState();
+    const btnMentor = document.getElementById('btn-ai-mentor');
+    const btnLinks = document.querySelector('.page-tab[data-tab="links"]'); // Aba Central IA
+    
+    // Declaramos btnEntrega UMA ÚNICA VEZ aqui, pegando pelo ID que criamos antes
+    const btnEntrega = document.getElementById('btn-entrega-final'); 
 
-      // 1. Controle do Botão "Pedir Ajuda da IA" (Apenas no Sprint 2)
-      if (btnMentor) {
-          btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
-      }
+    // 1. Controle do Botão "Pedir Ajuda da IA" (Apenas no Sprint 2)
+    if (btnMentor) {
+        btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
+    }
 
-      // 2. Controle da Aba "Central IA" (Liberada do Sprint 2 em diante)
-      if (btnLinks) {
-          if (state.sprint >= 2) {
-              btnLinks.style.display = 'inline-block';
-          } else {
-              btnLinks.style.display = 'none'; // Esconde no Sprint 1
-              if (btnLinks.classList.contains('active')) {
-                  document.querySelector('.page-tab[data-tab="cenario"]').click();
-              }
-          }
-      }
+    // 2. Controle da Aba "Central IA" (Liberada do Sprint 2 em diante)
+    if (btnLinks) {
+        if (state.sprint >= 2) {
+            btnLinks.style.display = 'inline-block';
+        } else {
+            btnLinks.style.display = 'none'; // Esconde no Sprint 1
+            if (btnLinks.classList.contains('active')) {
+                document.querySelector('.page-tab[data-tab="cenario"]').click();
+            }
+        }
+    }
 
-      // 3. Controle da Aba "Entrega Final" (Visual Trancado até Sprint 4)
-const btnEntrega = document.getElementById('btn-entrega-final');
-if (btnEntrega) {
-    if (state.sprint >= 4) {
-        btnEntrega.style.opacity = "1";
-        btnEntrega.style.pointerEvents = "auto";
-        btnEntrega.style.cursor = "pointer";
-        btnEntrega.innerHTML = "🚀 Entrega Final";
-        btnEntrega.style.filter = "none";
-    } else {
-        btnEntrega.style.opacity = "0.5";
-        btnEntrega.style.pointerEvents = "none"; // Impede o clique
-        btnEntrega.style.cursor = "not-allowed";
-        btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
-        btnEntrega.style.filter = "grayscale(1)"; // Deixa cinza
+    // 3. Controle da Aba "Entrega Final" (Visual Trancado até Sprint 4)
+    if (btnEntrega) {
+        if (state.sprint >= 4) {
+            btnEntrega.style.opacity = "1";
+            btnEntrega.style.pointerEvents = "auto";
+            btnEntrega.style.cursor = "pointer";
+            btnEntrega.innerHTML = "🚀 Entrega Final";
+            btnEntrega.style.filter = "none";
+        } else {
+            btnEntrega.style.opacity = "0.5";
+            btnEntrega.style.pointerEvents = "none"; // Impede o clique
+            btnEntrega.style.cursor = "not-allowed";
+            btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
+            btnEntrega.style.filter = "grayscale(1)"; // Deixa cinza
+        }
     }
 }
-      }
-  }
 
   const missoes = [
     // PRODUÇÃO
@@ -450,34 +450,34 @@ if (btnEntrega) {
       );
 
       // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES
-      window.InovaDB.onValue(
-        window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
-        (snapshot) => {
-          const liberado = snapshot.val() === true;
-          
-          if (liberado) {
-            if (telaAtual !== 'ativo') {
-              document.getElementById('view-lobby').style.display = 'none';
-              
-              const equipSaved = sessionStorage.getItem('inova_equipe');
-              const vertSaved = sessionStorage.getItem('inova_vertente');
-              
-              if (!equipSaved || !vertSaved) {
-                  window.AUTH.logout();
-                  return;
-              }
-              
-              telaAtual = 'ativo';
-              initApp(equipSaved, vertSaved);
-            }
-          } else {
-            document.getElementById('view-lobby').style.display = 'flex';
-            document.getElementById('view-sorteio').style.display = 'none';
-            document.getElementById('view-dashboard').style.display = 'none';
-            telaAtual = 'lobby';
-          }
-        }
-      );
+window.InovaDB.onValue(
+  window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
+  (snapshot) => {
+    const liberado = snapshot.val() === true;
+    console.log("Status de liberação no Firebase:", liberado);
+
+    if (liberado) {
+      // Se liberado, escondemos o lobby independente da variável telaAtual
+      document.getElementById('view-lobby').style.display = 'none';
+      
+      const equipSaved = sessionStorage.getItem('inova_equipe');
+      const vertSaved = sessionStorage.getItem('inova_vertente');
+      
+      if (equipSaved && vertSaved) {
+          telaAtual = 'ativo';
+          initApp(equipSaved, vertSaved);
+      } else {
+          console.error("Dados da equipe não encontrados no cache!");
+          // Se não tem dados, ele não pode sair do lobby sozinho
+      }
+    } else {
+      document.getElementById('view-lobby').style.display = 'flex';
+      document.getElementById('view-sorteio').style.display = 'none';
+      document.getElementById('view-dashboard').style.display = 'none';
+      telaAtual = 'lobby';
+    }
+  }
+);
 
       // 📊 CONTADOR DE SQUADS EM TEMPO REAL
       window.InovaDB.onValue(
