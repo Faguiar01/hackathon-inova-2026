@@ -69,7 +69,8 @@
     
     /* ALERTA DO JOTA */
     @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
-  /* =========================================
+
+    /* =========================================
        AJUSTES DE RESPONSIVIDADE (MOBILE) - ALUNO
        ========================================= */
     @media (max-width: 768px) {
@@ -216,6 +217,20 @@
     </div>
 
   </div>
+
+  <div id="ai-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
+      <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:600px; border-radius:8px; overflow:hidden; position:relative;">
+          
+          <div style="background:rgba(0,240,255,0.08); border-bottom:1px solid rgba(0,240,255,0.3); padding:16px 24px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-family:'Bebas Neue'; font-size:1.6rem; color:var(--cyan); letter-spacing:2px;">🤖 TERMINAL CO-PILOTO IA</span>
+              <button onclick="fecharModalIA()" style="background:transparent; border:none; color:var(--muted); font-family:'Space Mono'; font-size:1.2rem; cursor:pointer; transition:0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">[X]</button>
+          </div>
+          
+          <div style="padding:30px; min-height:250px; font-family:'Space Mono', monospace; font-size:0.95rem; color:#fff; line-height:1.7;" id="ai-modal-content">
+              </div>
+      </div>
+  </div>
+
 </main>
 
 <script type="module" src="../assets/js/app.js"></script>
@@ -230,50 +245,48 @@
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
   
   // 🔒 CONTROLE INTELIGENTE DAS ABAS (BLOQUEIOS POR SPRINT)
-function controlarBotaoIA() {
-    if (!window.SprintTimer) return;
+  function controlarBotaoIA() {
+      if (!window.SprintTimer) return;
 
-    const state = window.SprintTimer.getState();
-    const btnMentor = document.getElementById('btn-ai-mentor');
-    const btnLinks = document.querySelector('.page-tab[data-tab="links"]'); // Aba Central IA
-    
-    // Declaramos btnEntrega UMA ÚNICA VEZ aqui, pegando pelo ID que criamos antes
-    const btnEntrega = document.getElementById('btn-entrega-final'); 
+      const state = window.SprintTimer.getState();
+      const btnMentor = document.getElementById('btn-ai-mentor');
+      const btnLinks = document.querySelector('.page-tab[data-tab="links"]');
+      const btnEntrega = document.getElementById('btn-entrega-final'); 
 
-    // 1. Controle do Botão "Pedir Ajuda da IA" (Apenas no Sprint 2)
-    if (btnMentor) {
-        btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
-    }
+      // 1. Controle do Botão "Pedir Ajuda da IA"
+      if (btnMentor) {
+          btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
+      }
 
-    // 2. Controle da Aba "Central IA" (Liberada do Sprint 2 em diante)
-    if (btnLinks) {
-        if (state.sprint >= 2) {
-            btnLinks.style.display = 'inline-block';
-        } else {
-            btnLinks.style.display = 'none'; // Esconde no Sprint 1
-            if (btnLinks.classList.contains('active')) {
-                document.querySelector('.page-tab[data-tab="cenario"]').click();
-            }
-        }
-    }
+      // 2. Controle da Aba "Central IA"
+      if (btnLinks) {
+          if (state.sprint >= 2) {
+              btnLinks.style.display = 'inline-block';
+          } else {
+              btnLinks.style.display = 'none';
+              if (btnLinks.classList.contains('active')) {
+                  document.querySelector('.page-tab[data-tab="cenario"]').click();
+              }
+          }
+      }
 
-    // 3. Controle da Aba "Entrega Final" (Visual Trancado até Sprint 4)
-    if (btnEntrega) {
-        if (state.sprint >= 4) {
-            btnEntrega.style.opacity = "1";
-            btnEntrega.style.pointerEvents = "auto";
-            btnEntrega.style.cursor = "pointer";
-            btnEntrega.innerHTML = "🚀 Entrega Final";
-            btnEntrega.style.filter = "none";
-        } else {
-            btnEntrega.style.opacity = "0.5";
-            btnEntrega.style.pointerEvents = "none"; // Impede o clique
-            btnEntrega.style.cursor = "not-allowed";
-            btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
-            btnEntrega.style.filter = "grayscale(1)"; // Deixa cinza
-        }
-    }
-}
+      // 3. Controle da Aba "Entrega Final"
+      if (btnEntrega) {
+          if (state.sprint >= 4) {
+              btnEntrega.style.opacity = "1";
+              btnEntrega.style.pointerEvents = "auto";
+              btnEntrega.style.cursor = "pointer";
+              btnEntrega.innerHTML = "🚀 Entrega Final";
+              btnEntrega.style.filter = "none";
+          } else {
+              btnEntrega.style.opacity = "0.5";
+              btnEntrega.style.pointerEvents = "none"; 
+              btnEntrega.style.cursor = "not-allowed";
+              btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
+              btnEntrega.style.filter = "grayscale(1)"; 
+          }
+      }
+  }
 
   const missoes = [
     // PRODUÇÃO
@@ -424,7 +437,7 @@ function controlarBotaoIA() {
         }
       );
 
-      // 🛑 OUVINTE DE ENCERRAMENTO DO HACKATHON (HARD STOP)
+      // 🛑 OUVINTE DE ENCERRAMENTO DO HACKATHON
       window.InovaDB.onValue(
         window.InovaDB.ref(window.InovaDB.db, 'controle/eventoEncerrado'),
         (snapshot) => {
@@ -449,35 +462,32 @@ function controlarBotaoIA() {
         }
       );
 
-      // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES
-window.InovaDB.onValue(
-  window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
-  (snapshot) => {
-    const liberado = snapshot.val() === true;
-    console.log("Status de liberação no Firebase:", liberado);
+      // 🚪 OUVINTE DO BOTÃO LIBERAR EQUIPES (CORRIGIDO)
+      window.InovaDB.onValue(
+        window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
+        (snapshot) => {
+          const liberado = snapshot.val() === true;
 
-    if (liberado) {
-      // Se liberado, escondemos o lobby independente da variável telaAtual
-      document.getElementById('view-lobby').style.display = 'none';
-      
-      const equipSaved = sessionStorage.getItem('inova_equipe');
-      const vertSaved = sessionStorage.getItem('inova_vertente');
-      
-      if (equipSaved && vertSaved) {
-          telaAtual = 'ativo';
-          initApp(equipSaved, vertSaved);
-      } else {
-          console.error("Dados da equipe não encontrados no cache!");
-          // Se não tem dados, ele não pode sair do lobby sozinho
-      }
-    } else {
-      document.getElementById('view-lobby').style.display = 'flex';
-      document.getElementById('view-sorteio').style.display = 'none';
-      document.getElementById('view-dashboard').style.display = 'none';
-      telaAtual = 'lobby';
-    }
-  }
-);
+          if (liberado) {
+            document.getElementById('view-lobby').style.display = 'none';
+            
+            const equipSaved = sessionStorage.getItem('inova_equipe');
+            const vertSaved = sessionStorage.getItem('inova_vertente');
+            
+            if (equipSaved && vertSaved) {
+                telaAtual = 'ativo';
+                initApp(equipSaved, vertSaved);
+            } else {
+                console.error("Dados da equipe não encontrados no cache!");
+            }
+          } else {
+            document.getElementById('view-lobby').style.display = 'flex';
+            document.getElementById('view-sorteio').style.display = 'none';
+            document.getElementById('view-dashboard').style.display = 'none';
+            telaAtual = 'lobby';
+          }
+        }
+      );
 
       // 📊 CONTADOR DE SQUADS EM TEMPO REAL
       window.InovaDB.onValue(
@@ -520,7 +530,6 @@ window.InovaDB.onValue(
       }, 1000);
   }
 
-  // FUNÇÃO INIT APP RESTAURADA
   function initApp(equipeNome, vertenteNome) {
       const missaoKey = 'inova_missao_' + equipeNome;
       const missaoSaved = localStorage.getItem(missaoKey);
@@ -696,7 +705,6 @@ window.InovaDB.onValue(
       }
   }
 
-  // ENVIO DE PROJETO COM A GRAVAÇÃO CORRETA NA ÁRVORE
   window.enviarRender = function() {
       const linkInput = document.getElementById('link-render');
       const link = linkInput.value.trim();
@@ -765,6 +773,15 @@ window.InovaDB.onValue(
       }, { onlyOnce: true });
   };
   
+  // ==========================================
+  // LÓGICA DO MODAL CO-PILOTO IA (EFEITO MATRIX)
+  // ==========================================
+  
+  window.fecharModalIA = () => {
+      document.getElementById('ai-modal').style.display = 'none';
+      document.getElementById('ai-modal-content').innerHTML = ''; 
+  };
+
   document.getElementById('btn-ai-mentor').onclick = () => {
       const tituloMissao = document.getElementById('m-titulo').textContent.trim();
       const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -778,22 +795,19 @@ window.InovaDB.onValue(
           "Ferramenta inteligente com apoio ergonômico e sensor de fadiga.",
           "Bancada ajustável que acompanha altura e postura do operador."
         ];
-      } 
-      else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
+      } else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
         ideias = [
           "Cabine térmica com visor seguro para monitoramento remoto.",
           "Traje refrigerado com circulação interna de ar.",
           "Escudo inteligente móvel entre operador e forno."
         ];
-      } 
-      else if (titulo.includes('inspecao')) {
+      } else if (titulo.includes('inspecao')) {
         ideias = [
           "Mesa de inspeção com luz adaptativa automática.",
           "Visor com marcação digital de microdefeitos.",
           "Sistema de iluminação polarizada para destacar imperfeições."
         ];
-      } 
-      else {
+      } else {
         ideias = [
           "Criar uma solução física inteligente centrada no trabalhador.",
           "Usar automação para reduzir dor, risco e esforço humano.",
@@ -801,7 +815,36 @@ window.InovaDB.onValue(
         ];
       }
 
-      alert(`🤖 CO-PILOTO IA\n\nIDEIA 1\n${ideias[0]}\n\nIDEIA 2\n${ideias[1]}\n\nIDEIA 3\n${ideias[2]}`);
+      // 1. Abre a interface Hacker
+      const modal = document.getElementById('ai-modal');
+      const content = document.getElementById('ai-modal-content');
+      modal.style.display = 'flex';
+      
+      // 2. Tela de carregamento
+      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">Processando dados na base Indústria 5.0... aguarde.</span>';
+
+      // 3. Efeito Data Stream
+      setTimeout(() => {
+          content.innerHTML = ''; 
+          
+          const linhas = [
+              `<span style="color:var(--muted)">// ANÁLISE CONCLUÍDA. DIRETRIZES GERADAS:</span><br><br>`,
+              `<strong style="color:var(--cyan); font-size:1.1rem;">[1]</strong> ${ideias[0]}<br><br>`,
+              `<strong style="color:var(--cyan); font-size:1.1rem;">[2]</strong> ${ideias[1]}<br><br>`,
+              `<strong style="color:var(--cyan); font-size:1.1rem;">[3]</strong> ${ideias[2]}`
+          ];
+          
+          let l = 0;
+          const dataStream = setInterval(() => {
+              if(l < linhas.length) {
+                  content.innerHTML += linhas[l];
+                  l++;
+              } else {
+                  clearInterval(dataStream);
+              }
+          }, 800); 
+
+      }, 2000); 
   };
 </script>
 </body>
