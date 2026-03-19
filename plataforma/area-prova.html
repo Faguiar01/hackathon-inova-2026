@@ -59,7 +59,7 @@
     .challenge-card{background:rgba(0,240,255,.05); border:1px solid rgba(0,240,255,.3); padding:20px; border-radius:8px;}
     .challenge-title{font-family:'Bebas Neue', sans-serif; font-size:1.5rem; color:var(--cyan); letter-spacing:1px; margin-bottom:10px;}
   
-    /* ESTILOS DO LOBBY VIP (PASSO 1) */
+    /* ESTILOS DO LOBBY VIP */
     .lobby-box { background:var(--panel); border:1px solid var(--border); padding:60px 20px; text-align:center; border-radius:8px; min-height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .lobby-logo { font-family:'Bebas Neue', sans-serif; font-size:5rem; color:var(--cyan); letter-spacing:5px; margin:0; text-shadow:0 0 30px rgba(0,240,255,0.4); line-height: 1; }
     .lobby-sub { font-family:'Space Mono', monospace; color:var(--muted); font-size:1rem; letter-spacing:2px; margin-top:10px; }
@@ -69,6 +69,13 @@
     
     /* ALERTA DO JOTA */
     @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
+
+    /* ── GUIA DO SPRINT (DINÂMICO) ── */
+    .guide-box { background: rgba(0, 240, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 8px; margin-top: 25px; overflow: hidden; }
+    .guide-header { background: rgba(0, 240, 255, 0.1); padding: 12px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.2); }
+    .guide-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--cyan); margin: 0; letter-spacing: 1px; }
+    .guide-content { padding: 20px; }
+    .guide-alert { background: rgba(255, 214, 0, 0.1); color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.75rem; text-align: center; padding: 10px; letter-spacing: 1px; border-top: 1px dashed rgba(255, 214, 0, 0.3); }
 
     /* =========================================
        AJUSTES DE RESPONSIVIDADE (MOBILE) - ALUNO
@@ -176,48 +183,39 @@
         <span class="challenge-title">🎯 O SEU DESAFIO</span>
         <p style="font-size:1.1rem; color:#fff; line-height:1.6; font-weight: 600;" id="m-desafio"></p>
       </div>
-    </div>
-
-    <div class="content-box" id="tab-regras" style="display:none;">
-      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:24px;">REGRAS DE OURO - INDÚSTRIA 5.0</h2>
-      <div style="display:grid; gap:16px;">
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">1. HUMAN-CENTRIC</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">A tecnologia existe para servir o trabalhador, não substituí-lo.</p>
-        </div>
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">2. TOQUE HUMANO 5.0</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Não copie a resposta do ChatGPT. A ideia da IA deve ser corrigida pela equipe antes de virar protótipo.</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-links" style="display:none;">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
-        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
-          <span style="font-size:2.5rem;">🤖</span>
-          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Ideação</span></div>
-        </a>
-        <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
-          <span style="font-size:2.5rem;">✨</span>
-          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa</span></div>
-        </a>
+      
+      <div class="guide-box" id="sprint-guide-box" style="display:none;">
+          <div class="guide-header">
+              <span style="font-size: 1.5rem;">📝</span>
+              <h3 class="guide-title" id="guide-title">GUIA DO SPRINT</h3>
+          </div>
+          <div class="guide-content" id="guide-content"></div>
+          <div class="guide-alert">⚠️ LEMBRETE: ANOTEM ESSAS DEFINIÇÕES NO PAINEL FÍSICO DO SQUAD!</div>
       </div>
     </div>
 
     <div id="tab-entrega" style="display:none; margin-top: 20px;">
       <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
         <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
-        <p style="color:var(--text); margin-bottom:20px; line-height: 1.5;">O Sprint 4 exige a entrega do seu protótipo digital. Cole abaixo o link da imagem gerada pela IA (DALL-E, Midjourney ou Google Drive público).</p>
         
-        <input type="url" id="link-render" placeholder="https://..." style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
+        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
+            <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
+            <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
+                <li>Gere a imagem no seu Co-piloto de IA.</li>
+                <li>Renomeie o arquivo baixado para o <strong style="color:#fff;">NOME DO SEU SQUAD</strong>.</li>
+                <li>Faça o upload do arquivo na pasta do seu turno:
+                    <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
+                    <br>🌙 <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Tarde ↗</a>
+                </li>
+                <li>Gere o link de compartilhamento do seu arquivo, cole abaixo e envie!</li>
+            </ol>
+        </div>
+        
+        <input type="url" id="link-render" placeholder="Cole o link do seu Render aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
         
         <button id="btn-enviar-render" class="btn-action" style="background:#00C851; color:#000; width:100%;" onclick="enviarRender()">ENVIAR PARA A BANCADA DOS JURADOS</button>
       </div>
     </div>
-
-  </div>
-
   <div id="ai-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
       <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:600px; border-radius:8px; overflow:hidden; position:relative;">
           
@@ -514,6 +512,8 @@
         document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
         controlarBotaoIA();
 
+        atualizarGuiaSprint(state.sprint);
+        
         if (state.sprint >= 1 && state.sprint <= 5) {
           document.getElementById('sprint-label').textContent =
             `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
@@ -846,6 +846,79 @@
 
       }, 2000); 
   };
+// LÓGICA DE SINCRONIZAÇÃO DO CANVAS (PDF)
+  function atualizarGuiaSprint(sprintAtual) {
+      const guideBox = document.getElementById('sprint-guide-box');
+      const guideTitle = document.getElementById('guide-title');
+      const guideContent = document.getElementById('guide-content');
+
+      if (!guideBox) return;
+      if (sprintAtual < 1 || sprintAtual > 5) {
+          guideBox.style.display = 'none';
+          return;
+      }
+
+      guideBox.style.display = 'block';
+
+      const guias = {
+          1: {
+              titulo: "SPRINT 1: EMPATIA HUMANA",
+              dicas: [
+                  "Definam a <strong>Persona do Trabalhador</strong> e a dor principal identificada.",
+                  "Identifiquem a <strong>Causa Raiz</strong> do problema (Por quê?).",
+                  "Busquem Dados e Estatísticas reais (com fonte) para validar a dor.",
+                  "Respondam: Quem mais é afetado além do operador?"
+              ]
+          },
+          2: {
+              titulo: "SPRINT 2: CO-PILOTO IA",
+              dicas: [
+                  "Acessem a aba 'Central IA' e comecem a testar as soluções.",
+                  "Anotem no painel o <strong>Prompt Principal</strong> utilizado.",
+                  "Debatam em grupo: O que a IA acertou? O que ela errou?",
+                  "Selecionem e registrem as <strong>TOP 3 Ideias</strong> geradas."
+              ]
+          },
+          3: {
+              titulo: "SPRINT 3: TOQUE HUMANO 5.0",
+              dicas: [
+                  "Definam a <strong>Solução Escolhida</strong> (O refinamento feito por vocês).",
+                  "Resumam o Problema e a Solução em 1 frase cada.",
+                  "Avaliagem a Ética, Segurança e os <strong>Riscos</strong> da solução.",
+                  "Estudem a Viabilidade Real (Custo/Prazo) e respondam: Quem essa solução exclui?"
+              ]
+          },
+          4: {
+              titulo: "SPRINT 4: PONTE DIGITAL",
+              dicas: [
+                  "Façam o <strong>Rascunho/Esboço</strong> da solução à mão no espaço do painel.",
+                  "Anotem o Prompt que vão usar para pedir o Gerador de Imagem 3D.",
+                  "Acessem a aba 'Entrega Final' para ler as regras de envio da imagem.",
+                  "Não esqueçam de anotar o Link/ID do render no painel físico."
+              ]
+          },
+          5: {
+              titulo: "SPRINT 5: IMPACTO & PITCH",
+              dicas: [
+                  "Escrevam o <strong>Roteiro do Pitch</strong> (apresentação máxima de 2 minutos).",
+                  "Definam quem será o Porta-Voz da equipe.",
+                  "Revisem a Fonte e Evidência principal do projeto.",
+                  "Usem este tempo para ensaiar a fala antes de ir para a Arena!"
+              ]
+          }
+      };
+
+      const info = guias[sprintAtual];
+      guideTitle.textContent = info.titulo;
+      
+      let htmlList = `<ul style="color: var(--text); font-size: 0.95rem; line-height: 1.6; padding-left: 20px; font-family: 'Syne'; margin: 0;">`;
+      info.dicas.forEach(dica => {
+          htmlList += `<li style="margin-bottom: 12px;">${dica}</li>`;
+      });
+      htmlList += `</ul>`;
+      
+      guideContent.innerHTML = htmlList;
+  }
 </script>
 </body>
 </html>
