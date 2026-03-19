@@ -155,7 +155,7 @@
       <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
       <button class="page-tab" data-tab="links">🔗 Central IA</button>
       <button id="btn-ai-mentor" class="page-tab" style="display:none; color:#00e5ff;">🤖 Pedir Ajuda da IA</button>
-      <button class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">🚀 Entrega Final</button>
+      <button id="btn-entrega-final" class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851;">🚀 Entrega Final</button>
     </div>
 
     <div class="content-box" id="tab-cenario">
@@ -255,16 +255,23 @@
           }
       }
 
-      // 3. Controle da Aba "Entrega Final" (Liberada do Sprint 4 em diante)
-      if (btnEntrega) {
-          if (state.sprint >= 4) {
-              btnEntrega.style.display = 'inline-block';
-          } else {
-              btnEntrega.style.display = 'none'; // Esconde nos Sprints 1, 2 e 3
-              if (btnEntrega.classList.contains('active')) {
-                  document.querySelector('.page-tab[data-tab="cenario"]').click();
-              }
-          }
+      // 3. Controle da Aba "Entrega Final" (Visual Trancado até Sprint 4)
+const btnEntrega = document.getElementById('btn-entrega-final');
+if (btnEntrega) {
+    if (state.sprint >= 4) {
+        btnEntrega.style.opacity = "1";
+        btnEntrega.style.pointerEvents = "auto";
+        btnEntrega.style.cursor = "pointer";
+        btnEntrega.innerHTML = "🚀 Entrega Final";
+        btnEntrega.style.filter = "none";
+    } else {
+        btnEntrega.style.opacity = "0.5";
+        btnEntrega.style.pointerEvents = "none"; // Impede o clique
+        btnEntrega.style.cursor = "not-allowed";
+        btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
+        btnEntrega.style.filter = "grayscale(1)"; // Deixa cinza
+    }
+}
       }
   }
 
