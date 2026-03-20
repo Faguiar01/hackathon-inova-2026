@@ -13,6 +13,10 @@
     
     .topbar{position:fixed;top:0;left:0;right:0;z-index:400;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:10px 24px;background:rgba(7,9,15,.97);border-bottom:1px solid var(--border)}
     .tb-left{display:flex;align-items:center;gap:12px}
+    
+    /* NOVO: Ajuste da Logo na Topbar */
+    .tb-logo-img { height: 35px; width: 35px; border-radius: 50%; object-fit: cover; border: 1px solid var(--cyan); }
+    
     .tb-logo{font-family:'Bebas Neue', sans-serif;font-size:1.4rem;color:var(--cyan);letter-spacing:2px}
     .tb-team{font-family:'Space Mono', monospace;font-size:.8rem;color:var(--yellow);letter-spacing:1px; display:none;}
     .tb-center{text-align:center}
@@ -59,12 +63,89 @@
     .challenge-card{background:rgba(0,240,255,.05); border:1px solid rgba(0,240,255,.3); padding:20px; border-radius:8px;}
     .challenge-title{font-family:'Bebas Neue', sans-serif; font-size:1.5rem; color:var(--cyan); letter-spacing:1px; margin-bottom:10px;}
   
-    /* ESTILOS DO LOBBY VIP */
-    .lobby-box { background:var(--panel); border:1px solid var(--border); padding:60px 20px; text-align:center; border-radius:8px; min-height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-    .lobby-logo { font-family:'Bebas Neue', sans-serif; font-size:5rem; color:var(--cyan); letter-spacing:5px; margin:0; text-shadow:0 0 30px rgba(0,240,255,0.4); line-height: 1; }
-    .lobby-sub { font-family:'Space Mono', monospace; color:var(--muted); font-size:1rem; letter-spacing:2px; margin-top:10px; }
-    .lobby-timer { font-family:'Bebas Neue', sans-serif; font-size:6rem; color:#fff; letter-spacing:4px; margin: 30px 0; line-height: 1; }
-    .pulse-text { color:var(--yellow); font-family:'Space Mono', monospace; font-size:1.1rem; letter-spacing:1px; animation: pulse-opacity 1.5s infinite; padding: 10px 20px; border: 1px solid rgba(255,214,0,0.3); border-radius: 4px; background: rgba(255,214,0,0.05); }
+    /* =========================================
+       NOVO LOBBY VIP (IMERSIVO)
+       ========================================= */
+    .lobby-wrapper { 
+        padding: 40px 20px; 
+        min-height: 600px; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+    }
+    
+    .lobby-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 40px;
+    }
+
+    /* Animação Jota (Flutuar) */
+    .jota-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+    .jota-img {
+        max-width: 100%;
+        height: auto;
+        max-height: 480px;
+        z-index: 2;
+        animation: float-jota 4s ease-in-out infinite;
+        filter: drop-shadow(0 15px 20px rgba(0,0,0,0.6));
+    }
+    @keyframes float-jota {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    /* Efeito Holográfico sob os pés */
+    .jota-hologram {
+        width: 80%;
+        height: 40px;
+        background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.4) 0%, transparent 70%);
+        border-radius: 50%;
+        margin-top: -30px;
+        z-index: 1;
+        box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.8);
+        border: 2px solid rgba(0, 240, 255, 0.3);
+        transform: perspective(200px) rotateX(70deg);
+        animation: pulse-holo 3s infinite;
+    }
+    @keyframes pulse-holo {
+        0%, 100% { opacity: 0.8; box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.5); }
+        50% { opacity: 1; box-shadow: 0 0 60px rgba(0, 240, 255, 0.6), inset 0 0 25px rgba(0, 240, 255, 0.9); }
+    }
+
+    /* Coluna Direita (Textos) */
+    .lobby-info { text-align: center; }
+    .lobby-logo { font-family:'Bebas Neue', sans-serif; font-size:5.5rem; color:var(--cyan); letter-spacing:4px; margin:0; text-shadow:0 0 40px rgba(0,240,255,0.4); line-height: 1; }
+    .lobby-sub { font-family:'Space Mono', monospace; color:var(--muted); font-size:1rem; letter-spacing:2px; margin-top:15px; }
+    .lobby-timer { font-family:'Bebas Neue', sans-serif; font-size:6.5rem; color:#fff; letter-spacing:6px; margin: 30px 0; line-height: 1; }
+    
+    .squad-counter-box { font-family: 'Space Mono'; color: var(--cyan); font-size: 1rem; margin-top: 30px; border-top: 1px dashed rgba(0,240,255,0.3); padding-top: 20px;}
+    .squad-counter-box span { color: #fff; font-weight: bold; font-size: 1.6rem; margin-left: 10px; }
+
+    .pulse-text { 
+        width: 100%;
+        max-width: 800px;
+        color:var(--yellow); 
+        font-family:'Space Mono', monospace; 
+        font-size:1rem; 
+        letter-spacing:1px; 
+        animation: pulse-opacity 1.5s infinite; 
+        padding: 15px 20px; 
+        border: 1px solid rgba(255,214,0,0.3); 
+        border-radius: 8px; 
+        background: rgba(255,214,0,0.05); 
+        text-align: center;
+    }
     @keyframes pulse-opacity { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     
     /* ALERTA DO JOTA */
@@ -78,16 +159,19 @@
     .guide-alert { background: rgba(255, 214, 0, 0.1); color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.75rem; text-align: center; padding: 10px; letter-spacing: 1px; border-top: 1px dashed rgba(255, 214, 0, 0.3); }
 
     /* =========================================
-       AJUSTES DE RESPONSIVIDADE (MOBILE) - ALUNO
+       AJUSTES DE RESPONSIVIDADE (MOBILE)
        ========================================= */
     @media (max-width: 768px) {
         .topbar { grid-template-columns: 1fr; text-align: center; gap: 8px; padding: 10px; }
-        .tb-left { justify-content: center; flex-direction: column; gap: 4px; }
+        .tb-left { justify-content: center; flex-direction: row; gap: 8px; }
         .tb-right { justify-content: center; margin-top: 5px; }
         .tb-timer { font-size: 2rem; }
         
+        .lobby-content { grid-template-columns: 1fr; gap: 30px; }
         .lobby-logo { font-size: 3.5rem; }
-        .lobby-timer { font-size: 3.5rem; margin: 15px 0; }
+        .lobby-timer { font-size: 4.5rem; margin: 15px 0; }
+        .jota-img { max-height: 320px; }
+        .pulse-text { font-size: 0.8rem; }
         
         .mission-box { padding: 20px; min-height: auto; }
         .mission-title { font-size: 1.8rem; }
@@ -117,6 +201,7 @@
 
 <header class="topbar">
   <div class="tb-left">
+    <img src="../assets/img/logo.jpg" alt="Logo Inova+" class="tb-logo-img">
     <span class="tb-logo">INOVA+</span>
     <span class="tb-team" id="team-name-display"></span>
   </div>
@@ -131,14 +216,27 @@
 
 <main class="main">
   
-  <div class="lobby-box" id="view-lobby">
-    <h1 class="lobby-logo">INOVA+ 2026</h1>
-    <p class="lobby-sub">// HACKATHON SENAI JOINVILLE //</p>
-    <div class="lobby-timer" id="timer-lobby">00:00:00</div>
-    <div class="pulse-text">🚨 EQUIPE CONECTADA. Aguardando a Coordenação iniciar o evento...</div>
-    <div style="margin-top: 40px; font-family: 'Space Mono'; color: var(--cyan); font-size: 1.2rem; border-top: 1px dashed rgba(0,240,255,0.3); padding-top: 20px;">
-      SQUADS REGISTRADOS NA ARENA: <span id="contador-squads" style="color: #fff; font-weight: bold; font-size: 1.8rem;">0</span>
+  <div class="lobby-wrapper" id="view-lobby">
+    
+    <div class="lobby-content">
+        <div class="jota-container">
+            <img src="../assets/img/jota.png" alt="Jota" class="jota-img">
+            <div class="jota-hologram"></div>
+        </div>
+
+        <div class="lobby-info">
+            <h1 class="lobby-logo">INOVA+ 2026</h1>
+            <p class="lobby-sub">// HACKATHON SENAI JOINVILLE //</p>
+            <div class="lobby-timer" id="timer-lobby">00:00:00</div>
+            
+            <div class="squad-counter-box">
+                SQUADS REGISTRADOS NA ARENA: <span id="contador-squads">0</span>
+            </div>
+        </div>
     </div>
+
+    <div class="pulse-text">🚨 EQUIPE CONECTADA. Aguardando a Coordenação iniciar o evento...</div>
+    
   </div>
 
   <div class="mission-box" id="view-sorteio" style="display:none;">
@@ -279,12 +377,10 @@
       const btnLinks = document.querySelector('.page-tab[data-tab="links"]');
       const btnEntrega = document.getElementById('btn-entrega-final'); 
 
-      // 1. Controle do Botão "Pedir Ajuda da IA"
       if (btnMentor) {
           btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
       }
 
-      // 2. Controle da Aba "Central IA"
       if (btnLinks) {
           if (state.sprint >= 2) {
               btnLinks.style.display = 'inline-block';
@@ -296,7 +392,6 @@
           }
       }
 
-      // 3. Controle da Aba "Entrega Final"
       if (btnEntrega) {
           if (state.sprint >= 4) {
               btnEntrega.style.opacity = "1";
@@ -315,7 +410,6 @@
   }
 
   const missoes = [
-    // PRODUÇÃO
     { 
       vertente: "Produção",
       titulo: "A Linha de Montagem Infinita",
@@ -337,7 +431,6 @@
       dor: "Cena: Fim da esteira de uma injetora de peças plásticas translúcidas. Passam 60 peças por minuto.\nDor: O inspetor humano precisa focar o olho continuamente sob luz forte. Após 2 horas, a fadiga visual aguda causa 12% de 'falsos positivos' (peças boas descartadas no lixo), gerando um prejuízo invisível de milhares de reais ao mês.",
       desafio: "Missão: Como criar uma estação física de inspeção visual inteligente — usando visores, luzes adaptativas ou sensores — que destaque os defeitos automaticamente sem forçar o olho humano?"
     },    
-    // MANUTENÇÃO
     {
       vertente: "Manutenção",
       titulo: "O Painel das Sombras",
@@ -359,7 +452,6 @@
       dor: "Cena: Uma máquina robótica alemã recém-comprada para a produção principal apresenta o Erro E-404.\nDor: O manual técnico tem 800 páginas e fica na sala do supervisor. A pressão do tempo parado bloqueia a mente do técnico, que perde 30 minutos preciosos apenas procurando a página correta enquanto a fábrica inteira espera.",
       desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha, reduzindo o estresse mental?"
     },    
-    // LOGÍSTICA
     {
       vertente: "Logística",
       titulo: "A Caça ao Tesouro",
@@ -381,7 +473,6 @@
       dor: "Cena: Uma linha de montagem com 20 estações de trabalho diferentes operando simultaneamente.\nDor: O piloto da empilhadeira não tem visão de raio-x para ver as caixinhas acabando. Quando um único parafuso zera, a linha para, deixando 40 funcionários ociosos por 15 minutos até a reposição chegar.",
       desafio: "Missão: Como transformar caixas, prateleiras ou carrinhos de abastecimento em elementos visuais inteligentes que avisem fisicamente quando o material está acabando?"
     },    
-    // SUSTENTABILIDADE
     {
       vertente: "Sustentabilidade",
       titulo: "O Mistério do Descarte",
@@ -403,7 +494,6 @@
       dor: "Cena: Uma empresa quer contratar pessoas cadeirantes ou com nanismo para operar as máquinas.\nDor: O chão de fábrica revela a barreira: painéis fixos a 1,60m de altura. A empresa perde talentos porque não consegue adaptar seus equipamentos engessados de forma digna.",
       desafio: "Missão: Como desenhar um posto de trabalho ou bancada mecatrônica inteligente que adapte seu formato fisicamente para ser 100% inclusivo?"
     },    
-    // ADMINISTRATIVO
     {
       vertente: "Administrativo",
       titulo: "A Integração Fria",
@@ -430,7 +520,7 @@
   // 🔒 SCRIPT DAS ABAS (BLINDADO)
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      if(!tab.dataset.tab) return; // Evita bug se clicar em botões sem data-tab
+      if(!tab.dataset.tab) return; 
       
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
