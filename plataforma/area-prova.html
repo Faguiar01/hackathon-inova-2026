@@ -10,8 +10,6 @@
   
   <style>
     body { background: var(--dark); color: var(--text); font-family: 'Syne', sans-serif; transition: background-color 0.5s; }
-    
-    /* Efeito de alerta de 2 minutos (Flash) */
     body.transition-warning { animation: flash-bg 2s ease-in-out; }
     @keyframes flash-bg { 0%, 100% { background-color: var(--dark); } 50% { background-color: rgba(255, 68, 68, 0.2); } }
 
@@ -30,18 +28,12 @@
     .badge-amber { color:var(--yellow); border-color:var(--yellow); background:rgba(255,214,0,.08); }
     
     .main{padding:80px 24px 40px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
-    
-    .mission-box{background:var(--panel);border:1px solid var(--border);padding:32px;margin-bottom:24px;position:relative;overflow:hidden; border-radius:8px; min-height: 400px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;}
     .content-box{background:var(--panel);border:1px solid var(--border);padding:32px;border-radius:8px; text-align: left;}
     
     .btn-action {background:var(--cyan); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.5rem; padding:12px 32px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:all 0.2s;}
     .btn-action:hover:not(:disabled) {background:#fff; transform:scale(1.02);}
     .btn-action:disabled {opacity: 0.6; cursor: not-allowed;}
     
-    .btn-sortear{background:var(--yellow); color:var(--dark); font-family:'Bebas Neue', sans-serif; font-size:1.8rem; padding:16px 40px; border:none; border-radius:8px; cursor:pointer; letter-spacing:2px; box-shadow: 0 0 20px rgba(255,214,0,0.4); transition:all 0.2s; animation: pulse-btn 2s infinite;}
-    .btn-sortear:hover{transform:scale(1.05); background:#fff;}
-    @keyframes pulse-btn { 0%, 100% { box-shadow: 0 0 20px rgba(255,214,0,0.4); } 50% { box-shadow: 0 0 40px rgba(255,214,0,0.8); } }
-
     .sprint-indicator{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
     .si-item{flex:1;min-width:100px;padding:10px 16px;border:1px solid var(--border);background:var(--panel);text-align:center;transition:all .3s;cursor:default; border-radius:4px;}
     .si-item.active{border-color:var(--cyan);background:rgba(0,240,255,.08)}
@@ -55,7 +47,7 @@
 
     .page-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
     .page-tab{padding:9px 18px;background:var(--panel);border:1px solid var(--border);color:var(--muted);font-family:'Syne', sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s; border-radius:4px;}
-    .page-tab:hover,.page-tab.active{background:rgba(0,240,255,.1);border-color:var(--cyan);color:var(--cyan)}
+    .page-tab:hover:not([style*="pointer-events: none"]),.page-tab.active{background:rgba(0,240,255,.1);border-color:var(--cyan);color:var(--cyan)}
 
     .mission-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;}
     .mission-title{font-family:'Bebas Neue', sans-serif; font-size:2.5rem; color:#fff; letter-spacing:1px; line-height: 1.1; margin-top: 8px;}
@@ -64,7 +56,6 @@
     .challenge-card{background:rgba(0,240,255,.05); border:1px solid rgba(0,240,255,.3); padding:20px; border-radius:8px;}
     .challenge-title{font-family:'Bebas Neue', sans-serif; font-size:1.5rem; color:var(--cyan); letter-spacing:1px; margin-bottom:10px;}
   
-    /* NOVO LOBBY VIP */
     .lobby-wrapper { padding: 40px 20px; min-height: 600px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .lobby-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; width: 100%; max-width: 900px; margin-bottom: 40px; }
     .jota-container { display: flex; flex-direction: column; align-items: center; position: relative; }
@@ -80,8 +71,22 @@
     .squad-counter-box span { color: #fff; font-weight: bold; font-size: 1.6rem; margin-left: 10px; }
     .pulse-text { width: 100%; max-width: 800px; color:var(--yellow); font-family:'Space Mono', monospace; font-size:1rem; letter-spacing:1px; animation: pulse-opacity 1.5s infinite; padding: 15px 20px; border: 1px solid rgba(255,214,0,0.3); border-radius: 8px; background: rgba(255,214,0,0.05); text-align: center; }
     @keyframes pulse-opacity { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    
     @keyframes slideDownJota { from { top: -100px; opacity: 0; } to { top: 85px; opacity: 1; } }
+
+    .mission-choice-wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+    .choice-header { text-align: center; margin-bottom: 40px; max-width: 900px; }
+    .choice-title { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: #fff; margin: 0 0 10px 0; letter-spacing: 2px; }
+    .choice-subtitle { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--muted); line-height: 1.6; }
+    .choice-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+    .choice-card { background: var(--panel); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 25px; display: flex; flex-direction: column; transition: all 0.3s; position: relative; overflow: hidden; }
+    .choice-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+    .lvl-1 { border-top: 4px solid #00C851; } .lvl-2 { border-top: 4px solid var(--yellow); } .lvl-3 { border-top: 4px solid #ff4444; }
+    .choice-card:hover.lvl-1 { border-color: #00C851; } .choice-card:hover.lvl-2 { border-color: var(--yellow); } .choice-card:hover.lvl-3 { border-color: #ff4444; }
+    .lvl-badge { display: inline-block; font-family: 'Space Mono'; font-size: 0.75rem; padding: 5px 10px; border-radius: 4px; font-weight: bold; letter-spacing: 1px; }
+    .lvl-1 .lvl-badge { background: rgba(0,200,81,0.1); color: #00C851; border: 1px solid rgba(0,200,81,0.3); }
+    .lvl-2 .lvl-badge { background: rgba(255,214,0,0.1); color: var(--yellow); border: 1px solid rgba(255,214,0,0.3); }
+    .lvl-3 .lvl-badge { background: rgba(255,68,68,0.1); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
+    .xp-multiplier { font-family: 'Bebas Neue'; font-size: 1.2rem; color: #fff; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; }
 
     .guide-box { background: rgba(0, 240, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 8px; margin-top: 25px; overflow: hidden; }
     .guide-header { background: rgba(0, 240, 255, 0.1); padding: 12px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.2); }
@@ -89,13 +94,19 @@
     .guide-content { padding: 20px; }
     .guide-alert { background: rgba(255, 214, 0, 0.1); color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.75rem; text-align: center; padding: 10px; letter-spacing: 1px; border-top: 1px dashed rgba(255, 214, 0, 0.3); }
 
-    /* Estilos das Novas Caixas de Starter Data */
     .data-box-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
     .starter-data-card { background: rgba(255,214,0,.05); border: 1px solid rgba(255,214,0,.3); padding: 20px; border-radius: 8px; }
-    .prompt-starter-card { background: rgba(0,240,255,.05); border: 1px dashed rgba(0,240,255,.4); padding: 20px; border-radius: 8px; }
+    .prompt-starter-card { background: rgba(0,240,255,.05); border: 1px dashed rgba(0,240,255,.4); padding: 20px; border-radius: 8px; display: none; } /* Oculto por padrão */
     .starter-list li { margin-bottom: 10px; padding-left: 15px; position: relative; }
     .starter-list li::before { content: '›'; color: var(--yellow); position: absolute; left: 0; font-weight: bold; }
 
+    .roles-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .role-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 6px; }
+    .role-icon { font-size: 2rem; }
+    .role-info h4 { font-family: 'Bebas Neue'; color: var(--cyan); margin: 0 0 4px 0; font-size: 1.3rem; letter-spacing: 1px; }
+    .role-info p { margin: 0; color: var(--muted); font-size: 0.85rem; font-family: 'Syne'; }
+
+    @media (max-width: 900px) { .choice-cards { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
         .topbar { grid-template-columns: 1fr; text-align: center; gap: 8px; padding: 10px; }
         .tb-left { justify-content: center; flex-direction: row; gap: 8px; }
@@ -106,15 +117,12 @@
         .lobby-timer { font-size: 4.5rem; margin: 15px 0; }
         .jota-img { max-height: 320px; }
         .pulse-text { font-size: 0.8rem; }
-        .mission-box { padding: 20px; min-height: auto; }
-        .mission-title { font-size: 1.8rem; }
-        .btn-sortear { font-size: 1.3rem; padding: 12px 20px; width: 100%; }
-        #roleta-display { font-size: 2rem !important; }
+        .choice-title { font-size: 2.5rem; }
         .main { padding: 130px 15px 30px; } 
         .content-box { padding: 20px; }
         .page-tabs { justify-content: center; }
         .page-tab { flex: 1; text-align: center; min-width: 45%; }
-        .data-box-wrapper { grid-template-columns: 1fr; } /* Empilha no mobile */
+        .data-box-wrapper { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -167,11 +175,42 @@
     <div class="pulse-text">🚨 EQUIPE CONECTADA. Aguardando a Coordenação iniciar o evento...</div>
   </div>
 
-  <div class="mission-box" id="view-sorteio" style="display:none;">
-    <h2 id="titulo-sorteio" style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#fff; letter-spacing:2px; margin-bottom:12px; transition:0.3s;">SUA JORNADA COMEÇA AQUI</h2>
-    <p id="texto-sorteio" style="color:var(--muted); margin-bottom:32px; font-size:1rem; max-width:500px;">Como equipe de <strong id="lbl-vertente-escolhida" style="color:var(--cyan);"></strong>, o destino escolherá um problema real da indústria de Joinville para vocês resolverem.</p>
-    <div id="roleta-display" style="font-family:'Bebas Neue'; font-size:3rem; color:var(--yellow); margin: 20px 0; display:none; text-shadow: 0 0 20px rgba(255,214,0,0.5);"></div>
-    <button class="btn-sortear" onclick="sortearMissao()" id="btn-iniciar-sorteio">🎲 SORTEAR DESAFIO</button>
+  <div class="mission-choice-wrapper" id="view-escolha" style="display:none;">
+    <div class="choice-header">
+        <h2 class="choice-title">SELECIONEM O VOSSO DESAFIO</h2>
+        <p class="choice-subtitle" id="intro-vertente"></p>
+    </div>
+    <div class="choice-cards" id="cards-container"></div>
+  </div>
+
+  <div id="roles-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
+      <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:600px; border-radius:8px; overflow:hidden; position:relative; padding: 30px;">
+          <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--yellow); margin:0 0 10px 0; text-align:center; letter-spacing: 2px;">⚠️ ASSINATURA DE CONTRATO</h2>
+          <p style="color:var(--text); text-align:center; font-size:0.95rem; margin-bottom:20px;">Vocês escolheram o desafio <strong id="modal-missao-nome" style="color:var(--cyan);"></strong>. Antes de iniciarem, decidam as responsabilidades e anotem no Canvas de papel:</p>
+          <div class="roles-list">
+              <div class="role-item">
+                  <div class="role-icon">⏱️</div>
+                  <div class="role-info"><h4>LÍDER (Scrum Master)</h4><p>Controla o tempo e preenche as informações no Canvas de papel.</p></div>
+              </div>
+              <div class="role-item">
+                  <div class="role-icon">🤖</div>
+                  <div class="role-info"><h4>ENG. DE PROMPT</h4><p>O mestre da IA. Opera o ChatGPT/Gemini para testar ideias.</p></div>
+              </div>
+              <div class="role-item">
+                  <div class="role-icon">🎨</div>
+                  <div class="role-info"><h4>DESIGNER 3D</h4><p>Responsável pelo rascunho à mão e pela geração do Mockup.</p></div>
+              </div>
+              <div class="role-item">
+                  <div class="role-icon">📊</div>
+                  <div class="role-info"><h4>ANALISTA DE VIABILIDADE</h4><p>Garante que a ideia não é ficção científica. Avalia os riscos.</p></div>
+              </div>
+              <div class="role-item">
+                  <div class="role-icon">🎤</div>
+                  <div class="role-info"><h4>PORTA-VOZ (Pitcher)</h4><p>Organiza os argumentos e defende a ideia no palco para os jurados.</p></div>
+              </div>
+          </div>
+          <button class="btn-action" style="width:100%; margin-top: 10px;" onclick="iniciarHackathon()">TUDO PRONTO! INICIAR SPRINT 1</button>
+      </div>
   </div>
 
   <div id="view-dashboard" style="display:none;">
@@ -179,26 +218,27 @@
     <div class="sprint-indicator">
       <div class="si-item active" id="si-1"><span class="si-num">SPRINT 01</span><span class="si-name">Empatia</span></div>
       <div class="si-item" id="si-2"><span class="si-num">SPRINT 02</span><span class="si-name">Co-Piloto IA</span></div>
-      <div class="si-item" id="si-3"><span class="si-num">SPRINT 03</span><span class="si-name">Toque Humano</span></div>
-      <div class="si-item" id="si-4"><span class="si-num">SPRINT 04</span><span class="si-name">Ponte Digital</span></div>
+      <div class="si-item" id="si-3"><span class="si-num">SPRINT 03</span><span class="si-name">Viabilidade</span></div>
+      <div class="si-item" id="si-4"><span class="si-num">SPRINT 04</span><span class="si-name">Mockup Digital</span></div>
       <div class="si-item" id="si-5"><span class="si-num">SPRINT 05</span><span class="si-name">Pitch Final</span></div>
     </div>
 
     <div class="page-tabs">
-      <button class="page-tab active" data-tab="cenario">📍 Missão Ativa</button>
-      <button class="page-tab" data-tab="regras">📘 Regras de Ouro</button>
-      <button class="page-tab" data-tab="links">🔗 Central IA</button>
-      <button id="btn-ai-mentor" class="action-tab" style="display:none; color:#00e5ff; padding:9px 18px; background:var(--panel); border:1px solid var(--cyan); font-family:'Syne', sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; border-radius:4px; margin-left: 5px;">🤖 Pedir Ajuda da IA</button>
-      <button id="btn-entrega-final" class="page-tab" data-tab="entrega" style="color:#00C851; border-color:#00C851; margin-left: auto;">🚀 Entrega Final</button>
+      <button class="page-tab active" data-tab="cenario" id="tab-btn-cenario">📍 Missão Ativa</button>
+      <button class="page-tab" data-tab="links" id="tab-btn-links">🔗 Central IA</button>
+      <button class="page-tab" data-tab="regras" id="tab-btn-regras">📘 Viabilidade 5.0</button>
+      <button class="page-tab" data-tab="mockup" id="tab-btn-mockup">🖼️ Mockup Digital</button>
+      <button class="page-tab" data-tab="pitch" id="tab-btn-pitch">🎤 Entrega Pitch</button>
     </div>
 
     <div class="content-box" id="tab-cenario">
       <div class="mission-header">
         <div>
           <span class="badge badge-cyan" id="m-vertente"></span>
+          <span class="badge badge-amber" id="m-nivel-badge" style="margin-left: 5px;"></span>
           <h2 class="mission-title" id="m-titulo"></h2>
         </div>
-        <span class="badge badge-amber" style="font-size: 0.7rem;">CENÁRIO OFICIAL INOVA+</span>
+        <span class="badge" style="border-color: rgba(255,255,255,0.2); color: var(--muted); font-size: 0.7rem;">CENÁRIO OFICIAL INOVA+</span>
       </div>
       <div class="boss-card">
         <span class="boss-title">👤 O PROBLEMA (A DOR HUMANA)</span>
@@ -211,7 +251,7 @@
       </div>
       
       <div class="data-box-wrapper" id="m-data-boxes" style="display: none;">
-          <div class="starter-data-card">
+          <div class="starter-data-card" id="starter-data-card">
               <span class="boss-title" style="color:var(--yellow);"><span style="font-size:1.2rem;">📊</span> DADOS DE ENTRADA</span>
               <ul class="starter-list" style="color:var(--text); font-family:'Space Mono'; font-size:0.8rem; line-height:1.5; list-style:none; padding:0; margin-top:15px;">
                   <li><strong style="color:var(--muted);">Dado Real:</strong> <span id="m-dadoReal"></span></li>
@@ -219,7 +259,7 @@
                   <li><strong style="color:var(--yellow);">Gatilho Mental:</strong> <span id="m-gatilho"></span></li>
               </ul>
           </div>
-          <div class="prompt-starter-card">
+          <div class="prompt-starter-card" id="prompt-starter-card" style="display: none;">
               <span class="boss-title" style="color:var(--cyan);"><span style="font-size:1.2rem;">🤖</span> PROMPT START (DICA)</span>
               <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Copie este texto e cole na IA para quebrar a síndrome da tela em branco:</p>
               <div style="background:rgba(0,0,0,0.4); padding:15px; border-left:3px solid var(--cyan); border-radius:4px; margin-top:10px;">
@@ -234,57 +274,94 @@
               <h3 class="guide-title" id="guide-title">GUIA DO SPRINT</h3>
           </div>
           <div class="guide-content" id="guide-content"></div>
-          <div class="guide-alert">⚠️ LEMBRETE: ANOTEM ESSAS DEFINIÇÕES NO PAINEL FÍSICO DO SQUAD!</div>
+          <div class="guide-alert">⚠️ LEMBRETE: ANOTEM AS DEFINIÇÕES NO PAINEL FÍSICO DO SQUAD!</div>
       </div>
-    </div>
-
-    <div class="content-box" id="tab-regras" style="display:none;">
-      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:24px;">REGRAS DE OURO - INDÚSTRIA 5.0</h2>
-      <div style="display:grid; gap:16px;">
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">1. HUMAN-CENTRIC</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">A tecnologia existe para servir o trabalhador, não substituí-lo.</p>
-        </div>
-        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02);">
-          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.2rem; letter-spacing:1px;">2. TOQUE HUMANO 5.0</strong>
-          <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Não copie a resposta do ChatGPT. A ideia da IA deve ser corrigida pela equipe antes de virar protótipo.</p>
-        </div>
-      </div>
-      <p style="color:var(--muted); font-size:0.8rem; margin-top:30px; text-align:center;">* Os cenários apresentados são inspirados em desafios reais. As referências não endossam diretamente nenhuma marca corporativa.</p>
     </div>
 
     <div id="tab-links" style="display:none;">
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px;">
         <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🤖</span>
-          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Ideação</span></div>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">ChatGPT</strong><span style="color:var(--muted); font-size:0.85rem;">Ideação Grátis</span></div>
         </a>
         <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" style="padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">✨</span>
-          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa</span></div>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
+        <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
+          <span style="font-size:2.5rem;">🎨</span>
+          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Render 3D Grátis</span></div>
+        </a>
+      </div>
+      
+      <div style="margin-top: 30px; text-align: center; padding: 20px; background: rgba(0, 240, 255, 0.05); border: 1px dashed var(--cyan); border-radius: 8px;">
+          <h3 style="font-family:'Bebas Neue'; color:var(--cyan); font-size:1.5rem; margin-top:0;">ESTÃO BLOQUEADOS NA IA?</h3>
+          <p style="color:var(--muted); font-size:0.9rem;">O Co-Piloto Jota analisou os dados da indústria e preparou 3 diretrizes secretas para ajudar a vossa equipa.</p>
+          <button id="btn-ai-mentor" class="btn-action" style="margin-top:10px; font-size:1.2rem; padding:10px 20px;">🤖 PEDIR DICA DO JOTA</button>
       </div>
     </div>
 
-    <div id="tab-entrega" style="display:none; margin-top: 20px;">
+    <div class="content-box" id="tab-regras" style="display:none;">
+      <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:var(--yellow); letter-spacing:1px; margin-bottom:15px;">TOQUE HUMANO 5.0</h2>
+      <p style="color:var(--muted); font-size:1rem; margin-bottom: 25px; line-height: 1.6;">Chegou a hora de refinar a ideia gerada pela IA. A tecnologia deve servir o ser humano, e não criar novos problemas. Debatam e respondam às questões abaixo para garantir a viabilidade da vossa solução:</p>
+      
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+        <div style="padding:16px; border:1px solid rgba(0,240,255,.2); border-left:4px solid var(--cyan); background:rgba(0,240,255,.02); border-radius: 4px;">
+          <strong style="color:var(--cyan); font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">1. ÉTICA E INCLUSÃO</strong>
+          <p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">A solução exclui algum grupo de trabalhadores (ex: PCDs)? Ela respeita a privacidade de dados do utilizador?</p>
+        </div>
+        <div style="padding:16px; border:1px solid rgba(0,200,81,.2); border-left:4px solid #00C851; background:rgba(0,200,81,.02); border-radius: 4px;">
+          <strong style="color:#00C851; font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">2. SUSTENTABILIDADE</strong>
+          <p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">A ideia gera resíduos? Consome muita energia de forma desnecessária? Como pode ser mais verde?</p>
+        </div>
+        <div style="padding:16px; border:1px solid rgba(255,68,68,.2); border-left:4px solid #ff4444; background:rgba(255,68,68,.02); border-radius: 4px;">
+          <strong style="color:#ff4444; font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">3. SEGURANÇA (NRs)</strong>
+          <p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">O equipamento cria um novo risco de acidente na fábrica? Ele atende às normas de proteção exigidas?</p>
+        </div>
+        <div style="padding:16px; border:1px solid rgba(255,214,0,.2); border-left:4px solid var(--yellow); background:rgba(255,214,0,.02); border-radius: 4px;">
+          <strong style="color:var(--yellow); font-family:'Bebas Neue', sans-serif; font-size:1.4rem;">4. ERGONOMIA</strong>
+          <p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">A solução é pesada demais? Força alguma articulação? Ela reduz de facto a carga cognitiva e o esforço do trabalhador?</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-mockup" style="display:none; margin-top: 20px;">
       <div class="content-box" style="border:1px solid #00C851; background: rgba(0, 200, 81, 0.05);">
-        <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">PONTE DIGITAL (RENDER 3D)</h2>
-        
+        <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#00C851; letter-spacing:1px; margin-bottom:10px;">ENTREGA DE MOCKUP DIGITAL (RENDER 3D)</h2>
         <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
             <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
-                <li>Gere a imagem no seu Co-piloto de IA.</li>
-                <li>Renomeie o arquivo baixado para o <strong style="color:#fff;">NOME DO SEU SQUAD</strong>.</li>
-                <li>Faça o upload do arquivo na pasta do seu turno:
+                <li>Gere a imagem final no seu Co-piloto de IA.</li>
+                <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
+                <li>Faça o upload do ficheiro na pasta do seu turno:
                     <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
                     <br>🌙 <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Tarde ↗</a>
                 </li>
-                <li>Gere o link de compartilhamento do seu arquivo, cole abaixo e envie!</li>
+                <li>Gere o link de partilha do seu ficheiro no Google Drive, cole abaixo e envie!</li>
             </ol>
         </div>
-        
-        <input type="url" id="link-render" placeholder="Cole o link do seu Render aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
-        <button id="btn-enviar-render" class="btn-action" style="background:#00C851; color:#000; width:100%;" onclick="enviarRender()">ENVIAR PARA A BANCADA DOS JURADOS</button>
+        <input type="url" id="link-mockup" placeholder="Cole o link do seu Render 3D aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
+        <button id="btn-enviar-mockup" class="btn-action" style="background:#00C851; color:#000; width:100%;" onclick="enviarMockup()">ENVIAR MOCKUP PARA A BANCADA</button>
+      </div>
+    </div>
+
+    <div id="tab-pitch" style="display:none; margin-top: 20px;">
+      <div class="content-box" style="border:1px solid #ff4444; background: rgba(255, 68, 68, 0.05);">
+        <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2rem; color:#ff4444; letter-spacing:1px; margin-bottom:10px;">ENTREGA DO PITCH FINAL (SLIDES)</h2>
+        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
+            <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
+            <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
+                <li>Finalizem a apresentação de slides (Máx 3 slides recomendados).</li>
+                <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: PITCH-SQUAD-ALFA.pdf).</strong></li>
+                <li>Faça o upload do ficheiro na pasta do seu turno:
+                    <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
+                    <br>🌙 <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Tarde ↗</a>
+                </li>
+                <li>Gere o link de partilha, cole abaixo e envie à coordenação!</li>
+            </ol>
+        </div>
+        <input type="url" id="link-pitch" placeholder="Cole o link dos seus Slides aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #ff4444; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
+        <button id="btn-enviar-pitch" class="btn-action" style="background:#ff4444; color:#fff; width:100%;" onclick="enviarPitch()">ENVIAR PITCH PARA A ARENA</button>
       </div>
     </div>
   </div>
@@ -311,278 +388,182 @@
   }, 100);
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
-  let timerWarningDisparado = false; // Controle para disparar o aviso visual 1 vez por sprint
-  let sprintAtualControle = 0;
   
-  // 🔒 CONTROLE INTELIGENTE DAS ABAS
-  function controlarBotaoIA() {
+  // 🔒 CONTROLE DE ABAS COM "PROGRESSIVE DISCLOSURE"
+  function controlarAbasPorSprint() {
       if (!window.SprintTimer) return;
       const state = window.SprintTimer.getState();
-      const btnMentor = document.getElementById('btn-ai-mentor');
-      const btnLinks = document.querySelector('.page-tab[data-tab="links"]');
-      const btnEntrega = document.getElementById('btn-entrega-final'); 
+      const sprint = state.sprint;
 
-      if (btnMentor) btnMentor.style.display = (state.sprint === 2) ? 'inline-block' : 'none';
+      const tabs = {
+          cenario: document.getElementById('tab-btn-cenario'),
+          links: document.getElementById('tab-btn-links'),
+          regras: document.getElementById('tab-btn-regras'),
+          mockup: document.getElementById('tab-btn-mockup'),
+          pitch: document.getElementById('tab-btn-pitch')
+      };
 
-      if (btnLinks) {
-          if (state.sprint >= 2) {
-              btnLinks.style.display = 'inline-block';
-          } else {
-              btnLinks.style.display = 'none';
-              if (btnLinks.classList.contains('active')) document.querySelector('.page-tab[data-tab="cenario"]').click();
+      // Bloqueia e acinzenta todas as abas (exceto missão ativa)
+      Object.values(tabs).forEach(btn => {
+          if (btn && btn.id !== 'tab-btn-cenario') {
+              btn.style.opacity = "0.4";
+              btn.style.pointerEvents = "none";
+              btn.style.filter = "grayscale(1)";
+              btn.title = "Aguarde o Sprint correto para desbloquear";
           }
+      });
+
+      // A Missão Ativa está sempre disponível
+      if (tabs.cenario) { tabs.cenario.style.opacity = "1"; tabs.cenario.style.pointerEvents = "auto"; tabs.cenario.style.filter = "none"; }
+
+      // Habilita APENAS a aba correspondente ao Sprint atual
+      if (sprint === 2 && tabs.links) { tabs.links.style.opacity = "1"; tabs.links.style.pointerEvents = "auto"; tabs.links.style.filter = "none"; tabs.links.title = ""; }
+      if (sprint === 3 && tabs.regras) { tabs.regras.style.opacity = "1"; tabs.regras.style.pointerEvents = "auto"; tabs.regras.style.filter = "none"; tabs.regras.title = ""; }
+      if (sprint === 4 && tabs.mockup) { tabs.mockup.style.opacity = "1"; tabs.mockup.style.pointerEvents = "auto"; tabs.mockup.style.filter = "none"; tabs.mockup.title = ""; }
+      if (sprint === 5 && tabs.pitch) { tabs.pitch.style.opacity = "1"; tabs.pitch.style.pointerEvents = "auto"; tabs.pitch.style.filter = "none"; tabs.pitch.title = ""; }
+
+      // Se a aba em que o aluno está atualmente for bloqueada (ex: mudou do sprint 2 para o 3), volta para a Missão Ativa
+      const activeTab = document.querySelector('.page-tab.active');
+      if (activeTab && activeTab.style.pointerEvents === 'none') {
+          if (tabs.cenario) tabs.cenario.click();
       }
 
-      if (btnEntrega) {
-          if (state.sprint >= 4) {
-              btnEntrega.style.opacity = "1";
-              btnEntrega.style.pointerEvents = "auto";
-              btnEntrega.style.cursor = "pointer";
-              btnEntrega.innerHTML = "🚀 Entrega Final";
-              btnEntrega.style.filter = "none";
-          } else {
-              btnEntrega.style.opacity = "0.5";
-              btnEntrega.style.pointerEvents = "none"; 
-              btnEntrega.style.cursor = "not-allowed";
-              btnEntrega.innerHTML = "🔒 Entrega (Sprint 4)";
-              btnEntrega.style.filter = "grayscale(1)"; 
-          }
+      // 💡 CONTROLO DE VISIBILIDADE DOS ELEMENTOS INTERNOS 💡
+      // Oculta/Mostra o Prompt Dica
+      const promptCard = document.getElementById('prompt-starter-card');
+      if (promptCard) {
+          promptCard.style.display = sprint >= 2 ? 'block' : 'none';
+      }
+
+      // Oculta/Mostra o Link do Copilot (Render 3D) dentro da Central IA
+      const linkCopilot = document.getElementById('link-copilot');
+      if (linkCopilot) {
+          linkCopilot.style.display = sprint >= 4 ? 'flex' : 'none';
       }
   }
 
-  // 🚀 MISSOES ATUALIZADAS (SEM MARCAS, COM DADOS E PROMPTS)
   const missoes = [
-    // ⚙️ VERTENTE: PRODUÇÃO
-    { 
-      vertente: "Produção",
-      titulo: "A Linha de Montagem Inteligente",
-      imagem: "/assets/img/desafios/producao-linha-montagem.png",
+    { vertente: "Produção", titulo: "A Linha de Montagem Inteligente", imagem: "/assets/img/desafios/producao-linha-montagem.png",
       dor: "Cena: Linha de montagem com alta repetição de movimentos.\nDor: A fadiga física extrema gera erros de produção e afastamentos médicos.",
       desafio: "Missão: Desenhar um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
-      starterData: {
-        dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.",
-        restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.",
-        perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?"
-      },
+      starterData: { dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.", restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.", perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?" },
       promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos simples (sem bateria) para aliviar os braços de operadores de linha de montagem."
     },
-    {
-      vertente: "Produção",
-      titulo: "O Calor da Fundição",
-      imagem: "/assets/img/desafios/producao-fundicao.png",
+    { vertente: "Produção", titulo: "O Calor da Fundição", imagem: "/assets/img/desafios/producao-fundicao.png",
       dor: "Cena: Operador num ambiente de fundição de metais extremamente quente.\nDor: Exaustão térmica severa e queda brusca de rendimento e foco.",
       desafio: "Missão: Projetar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
-      starterData: {
-        dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.",
-        restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.",
-        perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?"
-      },
+      starterData: { dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.", restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.", perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?" },
       promptExemplo: "Atue como designer de moda industrial. Como tecidos de resfriamento ativo ou coletes com circulação de água poderiam ser desenhados para ambientes de calor extremo?"
     },
-    {
-      vertente: "Produção",
-      titulo: "A Inspeção Assistida",
-      imagem: "/assets/img/desafios/producao-inspecao-visual.png",
+    { vertente: "Produção", titulo: "A Inspeção Assistida", imagem: "/assets/img/desafios/producao-inspecao-visual.png",
       dor: "Cena: Inspeção visual de pequenas peças plásticas sob luz intensa o dia todo.\nDor: Fadiga ocular aguda, dores de cabeça e aumento de peças boas atiradas para o lixo.",
       desafio: "Missão: Desenhar uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
-      starterData: {
-        dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.",
-        restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.",
-        perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?"
-      },
+      starterData: { dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.", restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.", perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?" },
       promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
     },    
 
-    // 🔧 VERTENTE: MANUTENÇÃO
-    {
-      vertente: "Manutenção",
-      titulo: "O EPI Iluminado",
-      imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
+    { vertente: "Manutenção", titulo: "O EPI Iluminado", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
       dor: "Cena: Manutenção noturna num painel elétrico sem luz adequada no local.\nDor: Segurar a lanterna com a boca ou de forma improvisada aumenta o risco de choque fatal.",
       desafio: "Missão: Criar um Equipamento de Proteção Individual (EPI) que ilumine a área de trabalho sem ocupar nenhuma das mãos.",
-      starterData: {
-        dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.",
-        restricao: "A fonte de luz não pode ofuscar a visão do próprio técnico.",
-        perguntaGatilho: "Onde posicionar a luz no corpo (ombros, peito, luvas) para eliminar as sombras das mãos?"
-      },
+      starterData: { dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.", restricao: "A fonte de luz não pode ofuscar a visão do próprio técnico.", perguntaGatilho: "Onde posicionar a luz no corpo (ombros, peito, luvas) para eliminar as sombras das mãos?" },
       promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas voltadas para manutenção elétrica em locais sem energia, que não fiquem presas ao capacete."
     },
-    {
-      vertente: "Manutenção",
-      titulo: "O Ouvido Mecânico",
-      imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
+    { vertente: "Manutenção", titulo: "O Ouvido Mecânico", imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
       dor: "Cena: Ambiente industrial extremamente barulhento com várias máquinas a operar.\nDor: O técnico precisa de se aproximar perigosamente das engrenagens para 'ouvir' se a máquina tem algum problema.",
       desafio: "Missão: Projetar uma ferramenta física simples que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
-      starterData: {
-        dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.",
-        restricao: "Deve ser uma ferramenta portátil e simples, sem fios espalhados pelo chão.",
-        perguntaGatilho: "Como transformar a vibração da máquina num sinal visual ou de tremor nas mãos do técnico?"
-      },
+      starterData: { dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.", restricao: "Deve ser uma ferramenta portátil e simples, sem fios espalhados pelo chão.", perguntaGatilho: "Como transformar a vibração da máquina num sinal visual ou de tremor nas mãos do técnico?" },
       promptExemplo: "Atue como inventor. Quais são 3 formas criativas de usar sensores de vibração baratos numa 'vara de inspeção' mecânica para locais barulhentos?"
     },
-    {
-      vertente: "Manutenção",
-      titulo: "O Manual Invisível",
-      imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
+    { vertente: "Manutenção", titulo: "O Manual Invisível", imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
       dor: "Cena: Técnico de frente a uma máquina avariada, perdido no meio de um manual de 800 páginas.\nDor: Perda de tempo crucial e elevado risco de errar o conserto por stress.",
       desafio: "Missão: Desenhar um sistema visual físico ou wearable (vestível) que mostre as instruções diretamente em cima da máquina avariada.",
-      starterData: {
-        dadoReal: "Técnicos perdem cerca de 25% do tempo da manutenção apenas à procura de diagramas em manuais de papel.",
-        restricao: "Não desenhar capacetes gigantes de Realidade Virtual, pois são pesados e pouco práticos.",
-        perguntaGatilho: "Como projetar a imagem, usar óculos simples ou tótens com QR code para exibir o passo a passo?"
-      },
+      starterData: { dadoReal: "Técnicos perdem cerca de 25% do tempo da manutenção apenas à procura de diagramas em manuais de papel.", restricao: "Não desenhar capacetes gigantes de Realidade Virtual, pois são pesados e pouco práticos.", perguntaGatilho: "Como projetar a imagem, usar óculos simples ou tótens com QR code para exibir o passo a passo?" },
       promptExemplo: "Descreva 3 aplicações baratas de Realidade Aumentada (AR) através de óculos leves ou tablets para ajudar técnicos a consertar máquinas passo a passo."
     },    
 
-    // 📦 VERTENTE: LOGÍSTICA
-    {
-      vertente: "Logística",
-      titulo: "O Caminho Inteligente",
-      imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
+    { vertente: "Logística", titulo: "O Caminho Inteligente", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
       dor: "Cena: Operador a andar quilómetros dentro de um enorme galpão de estoque.\nDor: O cansaço físico mental extremo leva a erros na hora de recolher as caixas corretas.",
       desafio: "Missão: Criar um sistema visual direto que guie o operador exatamente até ao item correto na prateleira.",
-      starterData: {
-        dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.",
-        restricao: "O operador não pode ter ecrãs (telemóveis/tablets) a ocupar as suas mãos.",
-        perguntaGatilho: "Como usar luzes LED nas prateleiras, cores ou sinalização no chão para o guiar sem precisar de ler nada?"
-      },
+      starterData: { dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.", restricao: "O operador não pode ter ecrãs (telemóveis/tablets) a ocupar as suas mãos.", perguntaGatilho: "Como usar luzes LED nas prateleiras, cores ou sinalização no chão para o guiar sem precisar de ler nada?" },
       promptExemplo: "Atue como inovador logístico. Explique como funciona o sistema 'Pick-to-Light' e como ele poderia ser desenhado de forma barata usando fitas de LED."
     },
-    {
-      vertente: "Logística",
-      titulo: "A Doca Automatizada",
-      imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
+    { vertente: "Logística", titulo: "A Doca Automatizada", imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
       dor: "Cena: Receção de mercadorias com vários caminhões a chegar ao mesmo tempo debaixo de chuva.\nDor: O conferente fica molhado, os papéis rasgam e as multas por atraso de caminhão são gigantes.",
       desafio: "Missão: Desenhar um sistema físico e visual para o pátio que organize a fila e a prioridade de descarga automaticamente.",
-      starterData: {
-        dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.",
-        restricao: "O motorista do caminhão não pode sair da cabine por normas de segurança.",
-        perguntaGatilho: "Como o caminhão pode 'comunicar' quem ele é usando câmaras, placas grandes ou portais de luz?"
-      },
+      starterData: { dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.", restricao: "O motorista do caminhão não pode sair da cabine por normas de segurança.", perguntaGatilho: "Como o caminhão pode 'comunicar' quem ele é usando câmaras, placas grandes ou portais de luz?" },
       promptExemplo: "Liste 3 ideias integrando Câmaras OCR (leitura de matrículas), QR Codes gigantes nos vidros e semáforos para organizar caminhões numa fábrica."
     },
-    {
-      vertente: "Logística",
-      titulo: "O Estoque Vivo",
-      imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
+    { vertente: "Logística", titulo: "O Estoque Vivo", imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
       dor: "Cena: A linha de montagem para de repente porque os parafusos de uma caixa acabaram e ninguém reparou.\nDor: Atraso na produção inteira e trabalhadores ociosos à espera do empilhador.",
       desafio: "Missão: Criar caixas, gavetas ou prateleiras que indiquem visualmente e sozinhas quando o seu nível de estoque está a chegar ao fim.",
-      starterData: {
-        dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.",
-        restricao: "Não utilizar sensores industriais a laser que são caros e avariam facilmente.",
-        perguntaGatilho: "Como usar o próprio peso da caixa, molas, inclinação ou bandeiras coloridas para avisar de longe?"
-      },
+      starterData: { dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.", restricao: "Não utilizar sensores industriais a laser que são caros e avariam facilmente.", perguntaGatilho: "Como usar o próprio peso da caixa, molas, inclinação ou bandeiras coloridas para avisar de longe?" },
       promptExemplo: "Como podemos modernizar o conceito de caixas kanban adicionando balanças mecânicas simples que acionam botões ou luzes ao ficarem leves?"
     },    
 
-    // ♻️ VERTENTE: SUSTENTABILIDADE
-    {
-      vertente: "Sustentabilidade",
-      titulo: "A Lixeira Inteligente",
-      imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
+    { vertente: "Sustentabilidade", titulo: "A Lixeira Inteligente", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
       dor: "Cena: Funcionários a jogar peças de metal e plástico sujo de óleo no lixo comum pela pressa.\nDor: A fábrica é multada e o custo para incinerar lixo misturado com óleo é altíssimo.",
       desafio: "Missão: Projetar uma lixeira industrial que induza fisicamente o funcionário a descartar no lugar certo, de forma automática.",
-      starterData: {
-        dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').",
-        restricao: "Sem sistemas de Inteligência Artificial com câmaras na lixeira (avariam na poeira).",
-        perguntaGatilho: "Como o formato da boca da lixeira, o pedal ou o som podem 'ensinar' e obrigar a fazer o certo?"
-      },
+      starterData: { dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').", restricao: "Sem sistemas de Inteligência Artificial com câmaras na lixeira (avariam na poeira).", perguntaGatilho: "Como o formato da boca da lixeira, o pedal ou o som podem 'ensinar' e obrigar a fazer o certo?" },
       promptExemplo: "Sugira 3 formas focadas em Design Comportamental (Nudge) para criar lixeiras de chão de fábrica que impeçam fisicamente de jogar lixo no buraco errado."
     },
-    {
-      vertente: "Sustentabilidade",
-      titulo: "O Detector Visual de Vazamento",
-      imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
+    { vertente: "Sustentabilidade", titulo: "O Detector Visual de Vazamento", imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
       dor: "Cena: Tubulações que transportam ar comprimido suspensas pelo teto da fábrica.\nDor: Vazamentos microscópicos são invisíveis e inaudíveis, desperdiçando milhares de reais em energia elétrica atirada ao ar.",
       desafio: "Missão: Criar um sistema visual simples e prático acoplado aos tubos que indique imediatamente onde o ar está a vazar.",
-      starterData: {
-        dadoReal: "Um único furo de 3mm numa mangueira de ar comprimido custa à fábrica cerca de R$ 5.000 desperdiçados por ano.",
-        restricao: "Sem aparelhos de ultrassom caríssimos. A solução deve ficar no próprio tubo.",
-        perguntaGatilho: "Como usar fitas, movimento, mudança de cor ou reações físicas ao ar frio para destacar o furo?"
-      },
+      starterData: { dadoReal: "Um único furo de 3mm numa mangueira de ar comprimido custa à fábrica cerca de R$ 5.000 desperdiçados por ano.", restricao: "Sem aparelhos de ultrassom caríssimos. A solução deve ficar no próprio tubo.", perguntaGatilho: "Como usar fitas, movimento, mudança de cor ou reações físicas ao ar frio para destacar o furo?" },
       promptExemplo: "Atue como químico de materiais. Imagine revestimentos, adesivos com micro-hélices ou películas que reagiriam visualmente ao vento de uma fuga de ar."
     },
-    {
-      vertente: "Sustentabilidade",
-      titulo: "A Bancada Inclusiva",
-      imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
+    { vertente: "Sustentabilidade", titulo: "A Bancada Inclusiva", imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
       dor: "Cena: A fábrica tenta contratar pessoas em cadeira de rodas, mas todas as bancadas e controlos são muito altos e chumbados ao chão.\nDor: Exclusão de bons profissionais por falta de acessibilidade.",
       desafio: "Missão: Desenhar uma bancada de trabalho que ajuste a sua altura e o seu painel rapidamente para qualquer utilizador.",
-      starterData: {
-        dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.",
-        restricao: "O ajuste deve ser simples. Lembrar que a mão do utilizador também precisa de alcançar as ferramentas.",
-        perguntaGatilho: "Como transformar uma bancada rígida numa mesa 'articulada' com motores simples de apertar botão?"
-      },
+      starterData: { dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.", restricao: "O ajuste deve ser simples. Lembrar que a mão do utilizador também precisa de alcançar as ferramentas.", perguntaGatilho: "Como transformar uma bancada rígida numa mesa 'articulada' com motores simples de apertar botão?" },
       promptExemplo: "Crie um conceito de 'Bancada Universal'. Como braços articulados, plataformas de elevação simples e ecrãs móveis fariam a mesa 'moldar-se' a um cadeirante?"
     },    
 
-    // 🏢 VERTENTE: ADMINISTRATIVO
-    {
-      vertente: "Administrativo",
-      titulo: "O Treinamento Imersivo",
-      imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
+    { vertente: "Administrativo", titulo: "O Treinamento Imersivo", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
       dor: "Cena: Sala teórica com dezenas de jovens sentados a ouvir sobre uso de capacete e botas por 4 horas.\nDor: Treino extremamente chato. Ninguém presta atenção e os acidentes reais acontecem depois.",
       desafio: "Missão: Criar uma experiência física interativa e lúdica para ensinar segurança sem tédio.",
-      starterData: {
-        dadoReal: "Estudos mostram que o cérebro humano retém apenas 20% do que escuta, mas memoriza 75% daquilo que experimenta na prática.",
-        restricao: "A simulação não pode causar nenhum arranhão ou risco real aos funcionários.",
-        perguntaGatilho: "Como transformar a sala num 'jogo de fuga' ou usar desafios táteis para eles viverem a experiência?"
-      },
+      starterData: { dadoReal: "Estudos mostram que o cérebro humano retém apenas 20% do que escuta, mas memoriza 75% daquilo que experimenta na prática.", restricao: "A simulação não pode causar nenhum arranhão ou risco real aos funcionários.", perguntaGatilho: "Como transformar a sala num 'jogo de fuga' ou usar desafios táteis para eles viverem a experiência?" },
       promptExemplo: "Atue como Game Designer. Crie um conceito para uma sala de treinamento de 15 minutos onde a equipa só consegue destrancar a porta se vestir os EPIs na ordem certa."
     },
-    {
-      vertente: "Administrativo",
-      titulo: "A Mesa Inteligente",
-      imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
+    { vertente: "Administrativo", titulo: "A Mesa Inteligente", imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
       dor: "Cena: Assistente num escritório com pilhas de papéis, a bater números do papel para o ecrã.\nDor: O cansaço mental extremo leva a digitação errada de códigos fiscais, gerando multas para a empresa.",
       desafio: "Missão: Projetar uma estação de trabalho de escritório que valide informações visualmente para a pessoa, reduzindo o cansaço visual.",
-      starterData: {
-        dadoReal: "Erros de digitação (data-entry) custam fortunas e ocorrem mais no período da tarde devido ao foco prolongado da visão.",
-        restricao: "A solução tem de integrar a folha de papel física e não apenas o computador.",
-        perguntaGatilho: "Como lâmpadas, câmaras de documento ou réguas com luzes poderiam dar 'feedback verde ou vermelho' imediato?"
-      },
+      starterData: { dadoReal: "Erros de digitação (data-entry) custam fortunas e ocorrem mais no período da tarde devido ao foco prolongado da visão.", restricao: "A solução tem de integrar a folha de papel física e não apenas o computador.", perguntaGatilho: "Como lâmpadas, câmaras de documento ou réguas com luzes poderiam dar 'feedback verde ou vermelho' imediato?" },
       promptExemplo: "O que é um leitor OCR de mesa? Liste 3 formas de acoplar pequenas câmaras ou sensores debaixo do monitor para escanear a nota fiscal e ajudar o funcionário."
     },
-    {
-      vertente: "Administrativo",
-      titulo: "A Comunicação Invisível",
-      imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
+    { vertente: "Administrativo", titulo: "A Comunicação Invisível", imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
       dor: "Cena: A gerência envia um aviso urgente sobre troca de turnos por e-mail corporativo.\nDor: 80% dos operadores das máquinas não acedem a computadores nem andam com o telemóvel na fábrica. Eles ficam desinformados.",
       desafio: "Missão: Criar um sistema físico de comunicação visual para garantir que a informação chegue aos olhos de toda a operação.",
-      starterData: {
-        dadoReal: "Trabalhadores não-digitalizados (deskless workers) sentem-se isolados da empresa por não terem o WhatsApp corporativo.",
-        restricao: "É proibido usar o telemóvel próprio no chão de fábrica.",
-        perguntaGatilho: "Para onde o trabalhador é 'obrigado' a olhar todos os dias (chão, teto, catraca, copo de água) e como projetar o recado lá?"
-      },
+      starterData: { dadoReal: "Trabalhadores não-digitalizados (deskless workers) sentem-se isolados da empresa por não terem o WhatsApp corporativo.", restricao: "É proibido usar o telemóvel próprio no chão de fábrica.", perguntaGatilho: "Para onde o trabalhador é 'obrigado' a olhar todos os dias (chão, teto, catraca, copo de água) e como projetar o recado lá?" },
       promptExemplo: "Liste 3 invenções físicas para comunicação de massa numa fábrica, pensando em projetores de imagem no teto, smartwatches bloqueados ou ecrãs nas máquinas de café."
     }
   ];
 
-  // 🔒 SCRIPT DAS ABAS (BLINDADO)
+  // 🔒 CONTROLE DE CLIQUES NAS ABAS
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       if(!tab.dataset.tab) return; 
       
+      // Impede o clique manual se a aba estiver bloqueada no CSS
+      if(tab.style.pointerEvents === 'none') return;
+      
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       
-      ['cenario', 'regras', 'links', 'entrega'].forEach(id => {
+      ['cenario', 'links', 'regras', 'mockup', 'pitch'].forEach(id => {
         const divAba = document.getElementById('tab-' + id);
-        if(divAba) {
-            divAba.style.display = tab.dataset.tab === id ? 'block' : 'none';
-        }
+        if(divAba) divAba.style.display = tab.dataset.tab === id ? 'block' : 'none';
       });
     });
   });
 
   let telaAtual = ''; 
+  let missaoSelecionada = null;
 
   function iniciarPagina() {
       window.AUTH.require('participante');
 
-      window.InovaDB.onValue(
-        window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'),
-        (snapshot) => {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'), (snapshot) => {
           const msgData = snapshot.val();
           if (msgData && msgData.texto && msgData.timestamp) {
               const msgLida = sessionStorage.getItem('jota_msg_lida');
@@ -596,84 +577,58 @@
                   }
               }
           }
-        }
-      );
+      });
 
-      window.InovaDB.onValue(
-        window.InovaDB.ref(window.InovaDB.db, 'controle/eventoEncerrado'),
-        (snapshot) => {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/eventoEncerrado'), (snapshot) => {
           if (snapshot.val() === true) {
-              const btnEntrega = document.getElementById('btn-enviar-render');
-              const inputLink = document.getElementById('link-render');
-              
-              if (btnEntrega && inputLink) {
-                  if (btnEntrega.textContent !== "✅ PROJETO ENTREGUE") {
-                      btnEntrega.disabled = true;
-                      btnEntrega.textContent = "🔒 TEMPO ESGOTADO (ENTREGAS ENCERRADAS)";
-                      btnEntrega.style.background = "#ff4444";
-                      btnEntrega.style.color = "#fff";
-                      btnEntrega.style.border = "1px solid #ff4444";
-                      
-                      inputLink.disabled = true;
-                      inputLink.placeholder = "O tempo para envio acabou.";
-                      inputLink.style.opacity = "0.5";
+              ['mockup', 'pitch'].forEach(tipo => {
+                  const btn = document.getElementById(`btn-enviar-${tipo}`);
+                  const input = document.getElementById(`link-${tipo}`);
+                  if (btn && input && btn.textContent !== `✅ ${tipo.toUpperCase()} ENTREGUE`) {
+                      btn.disabled = true; btn.textContent = "🔒 TEMPO ESGOTADO"; btn.style.background = "#ff4444"; btn.style.color = "#fff"; btn.style.border = "1px solid #ff4444";
+                      input.disabled = true; input.placeholder = "O tempo para envio acabou."; input.style.opacity = "0.5";
                   }
-              }
+              });
           }
-        }
-      );
+      });
 
-      window.InovaDB.onValue(
-        window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'),
-        (snapshot) => {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'), (snapshot) => {
           const liberado = snapshot.val() === true;
-
           if (liberado) {
             document.getElementById('view-lobby').style.display = 'none';
-            
             const equipSaved = sessionStorage.getItem('inova_equipe');
             const vertSaved = sessionStorage.getItem('inova_vertente');
-            
             if (equipSaved && vertSaved) {
                 telaAtual = 'ativo';
                 initApp(equipSaved, vertSaved);
-            } else {
-                console.error("Dados da equipe não encontrados no cache!");
             }
           } else {
             document.getElementById('view-lobby').style.display = 'flex';
-            document.getElementById('view-sorteio').style.display = 'none';
+            document.getElementById('view-escolha').style.display = 'none';
             document.getElementById('view-dashboard').style.display = 'none';
             telaAtual = 'lobby';
           }
-        }
-      );
+      });
 
-      window.InovaDB.onValue(
-        window.InovaDB.ref(window.InovaDB.db, 'equipes'),
-        (snapshot) => {
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           const totalEquipes = data ? Object.keys(data).length : 0;
           const elContador = document.getElementById('contador-squads');
           if (elContador) elContador.textContent = totalEquipes;
-        }
-      );
+      });
 
       setInterval(atualizarCronometroLobby, 1000);
       atualizarCronometroLobby();
 
       setInterval(() => {
         if (!window.SprintTimer) return;
-
         const rem = window.SprintTimer.getRemaining();
         const state = window.SprintTimer.getState();
 
         document.getElementById('sprint-timer').textContent = window.fmtTime(rem);
-        controlarBotaoIA();
-        
+        controlarAbasPorSprint();
         atualizarGuiaSprint(state.sprint);
 
-        // 🚨 NOVO: ALERTA DE 2 MINUTOS PARA O ESTUDANTE
         if (state.running && rem === 120) {
             window.toast(`⏰ Sprint ${state.sprint} terminando em 2 minutos! Preparem a transição.`, 'warning');
             document.body.classList.add('transition-warning');
@@ -681,11 +636,9 @@
         }
 
         if (state.sprint >= 1 && state.sprint <= 5) {
-          document.getElementById('sprint-label').textContent =
-            `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
+          document.getElementById('sprint-label').textContent = `// SPRINT ${state.sprint} — ${sprintNames[state.sprint - 1].toUpperCase()}`;
         } else {
-          document.getElementById('sprint-label').textContent =
-            state.sprint === 0 ? '// AGUARDANDO INÍCIO' : '// EVENTO ENCERRADO';
+          document.getElementById('sprint-label').textContent = state.sprint === 0 ? '// AGUARDANDO INÍCIO' : '// EVENTO ENCERRADO';
         }
 
         document.querySelectorAll('.si-item').forEach((el, i) => {
@@ -699,15 +652,13 @@
   function initApp(equipeNome, vertenteNome) {
       const missaoKey = 'inova_missao_' + equipeNome;
       const missaoSaved = localStorage.getItem(missaoKey);
-
       showTeamName(equipeNome);
 
       if (missaoSaved && missaoSaved.includes("Cena:")) {
         exibirDashboard(JSON.parse(missaoSaved));
       } else {
-        mostrarRoleta(vertenteNome);
+        mostrarEscolhaMissao(vertenteNome);
       }
-
       verificarEntrega(equipeNome);
   }
 
@@ -715,14 +666,10 @@
       const agora = new Date();
       let alvo1 = new Date(2026, 3, 9, 10, 0, 0); 
       let alvo2 = new Date(2026, 3, 9, 15, 0, 0);
-
       let alvoAtual = alvo1;
       if (agora > alvo1 && agora < alvo2) alvoAtual = alvo2;
-      else if (agora > alvo2) {
-          document.getElementById('timer-lobby').textContent = "PREPARANDO...";
-          return;
-      }
-
+      else if (agora > alvo2) { document.getElementById('timer-lobby').textContent = "PREPARANDO..."; return; }
+      
       const diff = alvoAtual - agora;
       if (diff > 0) {
           const horas = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
@@ -736,282 +683,136 @@
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           if (!data) return;
-
-          const equipeId = Object.keys(data).find(
-              key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
-          );
-
-          if (equipeId && data[equipeId].notasEquipe && data[equipeId].notasEquipe.renderEnviado) {
-              const linkInput = document.getElementById('link-render');
-              const btn = document.getElementById('btn-enviar-render');
-              
-              linkInput.value = data[equipeId].notasEquipe.renderLink || "Projeto já enviado.";
-              linkInput.disabled = true;
-              linkInput.style.opacity = "0.6";
-              
-              btn.textContent = "✅ PROJETO ENTREGUE";
-              btn.style.background = "transparent";
-              btn.style.color = "#00C851";
-              btn.style.border = "1px solid #00C851";
-              btn.disabled = true;
+          const equipeId = Object.keys(data).find(key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase());
+          
+          if (equipeId && data[equipeId].notasEquipe) {
+              if (data[equipeId].notasEquipe.renderEnviado) {
+                  const link = document.getElementById('link-mockup'); const btn = document.getElementById('btn-enviar-mockup');
+                  if(link && btn) { link.value = data[equipeId].notasEquipe.renderLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ MOCKUP ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+              }
+              if (data[equipeId].notasEquipe.pitchEnviado) {
+                  const link = document.getElementById('link-pitch'); const btn = document.getElementById('btn-enviar-pitch');
+                  if(link && btn) { link.value = data[equipeId].notasEquipe.pitchLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ PITCH ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+              }
           }
       }, { onlyOnce: true });
   }
 
   function showTeamName(nome) {
     if(!nome) return;
-    const el = document.getElementById('team-name-display');
-    el.textContent = '⚡ SQUAD: ' + nome.toUpperCase();
-    el.style.display = 'block';
+    const el = document.getElementById('team-name-display'); el.textContent = '⚡ SQUAD: ' + nome.toUpperCase(); el.style.display = 'block';
   }
 
-  function mostrarRoleta(vertente) {
-    document.getElementById('lbl-vertente-escolhida').textContent = vertente;
+  function mostrarEscolhaMissao(vertente) {
+      document.getElementById('view-lobby').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'none'; document.getElementById('view-escolha').style.display = 'flex';
+      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O vosso papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o vosso desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
 
-    document.getElementById('view-lobby').style.display = 'none';
-    document.getElementById('view-dashboard').style.display = 'none';
-    document.getElementById('view-sorteio').style.display = 'flex';
+      const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertente));
+      if (missoesFiltradas.length === 0) missoesFiltradas = missoes.slice(0,3);
 
-    const titulo = document.getElementById('titulo-sorteio');
-    const texto = document.getElementById('texto-sorteio');
-    const roleta = document.getElementById('roleta-display');
-    const botao = document.getElementById('btn-iniciar-sorteio');
+      const container = document.getElementById('cards-container'); container.innerHTML = '';
+      const niveisInfo = [
+          { nome: "NÍVEL 1: TÁTICO", class: "lvl-1", mult: "x1.0", num: 1 },
+          { nome: "NÍVEL 2: ESTRATÉGICO", class: "lvl-2", mult: "x1.1 (+10% Pontos)", num: 2 },
+          { nome: "NÍVEL 3: SISTÊMICO", class: "lvl-3", mult: "x1.2 (+20% Pontos)", num: 3 }
+      ];
 
-    titulo.textContent = 'SUA JORNADA COMEÇA AQUI';
-    titulo.style.color = '#fff';
-
-    texto.style.display = 'block';
-    roleta.style.display = 'none';
-    roleta.textContent = '';
-    roleta.style.color = 'var(--yellow)';
-    roleta.style.transform = 'scale(1)';
-    roleta.style.transition = 'none';
-
-    botao.style.display = 'inline-block';
+      missoesFiltradas.forEach((missao, index) => {
+          const info = niveisInfo[index]; missao.nivelObj = info; 
+          const card = document.createElement('div'); card.className = `choice-card ${info.class}`;
+          card.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;"><span class="lvl-badge">${info.nome}</span><span class="xp-multiplier">XP: ${info.mult}</span></div><h3 style="font-family:'Bebas Neue'; font-size:2rem; color:#fff; margin:0 0 10px 0; line-height:1.1;">${missao.titulo}</h3><p style="color:var(--muted); font-size:0.85rem; line-height:1.6; margin-bottom:20px; flex-grow:1;">${missao.dor}</p><button class="btn-action" style="font-size:1.2rem; padding:12px; width:100%;" onclick='abrirModalPapeis(${JSON.stringify(missao)})'>ACEITAR ESTE DESAFIO</button>`;
+          container.appendChild(card);
+      });
   }
 
-  window.sortearMissao = function() {
-    document.getElementById('btn-iniciar-sorteio').style.display = "none";
-    document.getElementById('texto-sorteio').style.display = "none";
-    
-    const tituloSorteio = document.getElementById('titulo-sorteio');
-    const roletaDisplay = document.getElementById('roleta-display');
-    
-    tituloSorteio.textContent = "PROCESSANDO DADOS DA INDÚSTRIA...";
-    tituloSorteio.style.color = "var(--cyan)";
-    roletaDisplay.style.display = "block";
+  window.abrirModalPapeis = function(missao) {
+      missaoSelecionada = missao;
+      document.getElementById('modal-missao-nome').textContent = missao.titulo.toUpperCase();
+      document.getElementById('roles-modal').style.display = 'flex';
+  }
 
-    const vertenteEscolhida = sessionStorage.getItem('inova_vertente');
-    const equipe = sessionStorage.getItem('inova_equipe');
-    const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    
-    let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertenteEscolhida));
-    if (missoesFiltradas.length === 0) missoesFiltradas = missoes; 
-
-    let giros = 0;
-    const maxGiros = 30; 
-    const velocidade = 80; 
-
-    const efeitoRoleta = setInterval(() => {
-        const indexTemporario = Math.floor(Math.random() * missoesFiltradas.length);
-        roletaDisplay.textContent = missoesFiltradas[indexTemporario].titulo.toUpperCase();
-        giros++;
-
-        if (giros >= maxGiros) {
-            clearInterval(efeitoRoleta);
-            
-            const indexFinal = Math.floor(Math.random() * missoesFiltradas.length);
-            const missaoSorteada = missoesFiltradas[indexFinal];
-            
-            roletaDisplay.textContent = "⭐ " + missaoSorteada.titulo.toUpperCase() + " ⭐";
-            roletaDisplay.style.color = "#00C851"; 
-            roletaDisplay.style.transform = "scale(1.1)";
-            roletaDisplay.style.transition = "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-            
-            tituloSorteio.textContent = "MISSÃO DEFINIDA!";
-            tituloSorteio.style.color = "#fff";
-            
-            localStorage.setItem('inova_missao_' + equipe, JSON.stringify(missaoSorteada));
-            window.toast("Missão revelada! Que os Sprints comecem.", "success");
-
-            setTimeout(() => {
-                exibirDashboard(missaoSorteada);
-            }, 2000);
-        }
-    }, velocidade);
-  };
+  window.iniciarHackathon = function() {
+      const equipe = sessionStorage.getItem('inova_equipe');
+      localStorage.setItem('inova_missao_' + equipe, JSON.stringify(missaoSelecionada));
+      document.getElementById('roles-modal').style.display = 'none';
+      window.toast("Contrato assinado! Que os Sprints comecem.", "success");
+      exibirDashboard(missaoSelecionada);
+  }
 
   function exibirDashboard(missao) {
-      document.getElementById('view-sorteio').style.display = 'none';
-      document.getElementById('view-dashboard').style.display = 'block';
-
+      document.getElementById('view-escolha').style.display = 'none'; document.getElementById('roles-modal').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'block';
       document.getElementById('m-vertente').textContent = "📦 " + missao.vertente.toUpperCase();
+      
+      const badgeNivel = document.getElementById('m-nivel-badge');
+      if (missao.nivelObj) { badgeNivel.textContent = missao.nivelObj.nome; badgeNivel.style.display = 'inline-flex'; } else { badgeNivel.style.display = 'none'; }
       document.getElementById('m-titulo').textContent = missao.titulo;
 
-      let textoDor = missao.dor
-          .replace(/\n/g, '<br><br>')
-          .replace('Cena:', '<strong style="color:var(--cyan); letter-spacing:1px;">🎬 CENA:</strong>')
-          .replace('Dor:', '<strong style="color:#ff4444; letter-spacing:1px;">⚠️ A DOR:</strong>');
-          
-      let textoDesafio = missao.desafio
-          .replace('Missão:', '<strong style="color:var(--yellow); letter-spacing:1px;">🚀 SUA MISSÃO:</strong>');
-
-      document.getElementById('m-dor').innerHTML = textoDor;
-      document.getElementById('m-desafio').innerHTML = textoDesafio;
+      let textoDor = missao.dor.replace(/\n/g, '<br><br>').replace('Cena:', '<strong style="color:var(--cyan); letter-spacing:1px;">🎬 CENA:</strong>').replace('Dor:', '<strong style="color:#ff4444; letter-spacing:1px;">⚠️ A DOR:</strong>');
+      let textoDesafio = missao.desafio.replace('Missão:', '<strong style="color:var(--yellow); letter-spacing:1px;">🚀 SUA MISSÃO:</strong>');
+      document.getElementById('m-dor').innerHTML = textoDor; document.getElementById('m-desafio').innerHTML = textoDesafio;
 
       const img = document.getElementById('m-imagem');
-      if (missao.imagem && missao.imagem.trim() !== '') {
-          img.src = missao.imagem;
-          img.alt = `Cenário do desafio ${missao.titulo}`;
-          img.style.display = 'block';
-      } else {
-          img.src = '';
-          img.alt = 'Cenário visual do desafio';
-          img.style.display = 'none';
-      }
+      if (missao.imagem && missao.imagem.trim() !== '') { img.src = missao.imagem; img.alt = `Cenário do desafio ${missao.titulo}`; img.style.display = 'block'; } else { img.src = ''; img.alt = 'Cenário visual do desafio'; img.style.display = 'none'; }
 
-      // 🚨 NOVO: RENDERIZAR OS DADOS DE ENTRADA (Starter Data)
       if (missao.starterData) {
-          document.getElementById('m-data-boxes').style.display = 'grid';
-          document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal;
-          document.getElementById('m-restricao').textContent = missao.starterData.restricao;
-          document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho;
-          document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
+          document.getElementById('m-data-boxes').style.display = 'grid'; document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal; document.getElementById('m-restricao').textContent = missao.starterData.restricao; document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho; document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
       }
   }
 
-  window.enviarRender = function() {
-      const linkInput = document.getElementById('link-render');
-      const link = linkInput.value.trim();
-      
-      try {
-          new URL(link);
-      } catch (e) {
-          window.toast("Por favor, cole um link válido (começando com http ou https)", "warning");
-          return;
-      }
-      
+  // 🚀 NOVAS FUNÇÕES SEPARADAS DE ENTREGA
+  window.enviarMockup = function() {
+      const link = document.getElementById('link-mockup').value.trim();
+      try { new URL(link); } catch (e) { window.toast("Cole um link válido (http/https)", "warning"); return; }
+      salvarEntregaNoBanco('renderEnviado', 'renderLink', link, 'btn-enviar-mockup', 'link-mockup', 'MOCKUP ENTREGUE');
+  };
+
+  window.enviarPitch = function() {
+      const link = document.getElementById('link-pitch').value.trim();
+      try { new URL(link); } catch (e) { window.toast("Cole um link válido (http/https)", "warning"); return; }
+      salvarEntregaNoBanco('pitchEnviado', 'pitchLink', link, 'btn-enviar-pitch', 'link-pitch', 'PITCH ENTREGUE');
+  };
+
+  function salvarEntregaNoBanco(campoStatus, campoLink, link, btnId, inputId, msgSucesso) {
       const equipeNome = sessionStorage.getItem('inova_equipe');
-      if (!equipeNome) {
-          window.toast("Sessão expirada. Faça login novamente.", "error");
-          setTimeout(() => window.AUTH.logout(), 2000);
-          return;
-      }
+      if (!equipeNome) return window.toast("Sessão expirada. Faça login novamente.", "error");
       
-      const btn = document.getElementById('btn-enviar-render');
-      btn.textContent = "PROCESSANDO...";
-      btn.disabled = true;
+      const btn = document.getElementById(btnId);
+      btn.textContent = "PROCESSANDO..."; btn.disabled = true;
 
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
-          if (!data) {
-              window.toast("Erro: Banco de dados indisponível.", "error");
-              btn.textContent = "TENTAR NOVAMENTE";
-              btn.disabled = false;
-              return;
-          }
-
-          const equipeId = Object.keys(data).find(
-              key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase()
-          );
-
-          if (!equipeId) {
-              window.toast("Equipe não localizada. Chame um monitor.", "error");
-              btn.textContent = "TENTAR NOVAMENTE";
-              btn.disabled = false;
-              return;
-          }
+          if (!data) { window.toast("Erro no banco.", "error"); btn.textContent = "TENTAR NOVAMENTE"; btn.disabled = false; return; }
+          const equipeId = Object.keys(data).find(key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase());
+          if (!equipeId) { window.toast("Equipe não localizada.", "error"); btn.textContent = "TENTAR NOVAMENTE"; btn.disabled = false; return; }
 
           const updates = {};
-          updates[`equipes/${equipeId}/notasEquipe/renderEnviado`] = true;
-          updates[`equipes/${equipeId}/notasEquipe/renderLink`] = link;
-          updates[`equipes/${equipeId}/notasEquipe/renderAprovado`] = null; 
-          updates[`equipes/${equipeId}/notasEquipe/dataEnvio`] = new Date().toLocaleString();
+          updates[`equipes/${equipeId}/notasEquipe/${campoStatus}`] = true;
+          updates[`equipes/${equipeId}/notasEquipe/${campoLink}`] = link;
 
           window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
               .then(() => {
-                  window.toast("Projeto enviado aos jurados com sucesso!", "success");
-                  btn.innerHTML = "✅ PROJETO ENTREGUE PARA AVALIAÇÃO";
-                  btn.style.background = "transparent";
-                  btn.style.color = "#00C851";
-                  btn.style.border = "1px solid #00C851";
-                  
-                  linkInput.disabled = true;
-                  linkInput.style.opacity = "0.6";
-              })
-              .catch(err => {
-                  console.error(err);
-                  window.toast("Falha na conexão. Tente novamente.", "error");
-                  btn.textContent = "TENTAR NOVAMENTE";
-                  btn.disabled = false;
-              });
+                  window.toast("Enviado com sucesso!", "success");
+                  btn.innerHTML = `✅ ${msgSucesso}`; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851";
+                  const input = document.getElementById(inputId);
+                  input.disabled = true; input.style.opacity = "0.6";
+              }).catch(() => { window.toast("Falha na conexão.", "error"); btn.textContent = "TENTAR NOVAMENTE"; btn.disabled = false; });
       }, { onlyOnce: true });
-  };
+  }
   
-  window.fecharModalIA = () => {
-      document.getElementById('ai-modal').style.display = 'none';
-      document.getElementById('ai-modal-content').innerHTML = ''; 
-  };
+  window.fecharModalIA = () => { document.getElementById('ai-modal').style.display = 'none'; document.getElementById('ai-modal-content').innerHTML = ''; };
 
   document.getElementById('btn-ai-mentor').onclick = () => {
-      const tituloMissao = document.getElementById('m-titulo').textContent.trim();
-      const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      const titulo = normalizar(tituloMissao);
-
-      let ideias = [];
-
-      if (titulo.includes('linha de montagem')) {
-        ideias = [
-          "Exoesqueleto leve para reduzir esforço repetitivo dos braços.",
-          "Ferramenta inteligente com apoio ergonômico e sensor de fadiga.",
-          "Bancada ajustável que acompanha altura e postura do operador."
-        ];
-      } else if (titulo.includes('calor da fundicao') || titulo.includes('fundicao')) {
-        ideias = [
-          "Cabine térmica com visor seguro para monitoramento remoto.",
-          "Traje refrigerado com circulação interna de ar.",
-          "Escudo inteligente móvel entre operador e forno."
-        ];
-      } else if (titulo.includes('inspecao')) {
-        ideias = [
-          "Mesa de inspeção com luz adaptativa automática.",
-          "Visor com marcação digital de microdefeitos.",
-          "Sistema de iluminação polarizada para destacar imperfeições."
-        ];
-      } else {
-        ideias = [
-          "Criar uma solução física inteligente centrada no trabalhador.",
-          "Usar automação para reduzir dor, risco e esforço humano.",
-          "Projetar um equipamento simples, visual e fácil de entender."
-        ];
-      }
-
-      const modal = document.getElementById('ai-modal');
-      const content = document.getElementById('ai-modal-content');
-      modal.style.display = 'flex';
+      const tituloMissao = document.getElementById('m-titulo').textContent.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      let ideias = ["Sair da caixa: O que a indústria faz hoje que está ultrapassado?", "Foque no utilizador final, não na máquina.", "Qual é o atalho mais barato e seguro para a solução?"];
+      if (tituloMissao.includes('montagem')) ideias = ["Exoesqueleto passivo", "Bancada ergonómica", "Apoio modular"];
       
-      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">Processando dados na base Indústria 5.0... aguarde.</span>';
+      const modal = document.getElementById('ai-modal'); const content = document.getElementById('ai-modal-content');
+      modal.style.display = 'flex';
+      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">O Jota está a analisar o vosso desafio...</span>';
 
       setTimeout(() => {
-          content.innerHTML = ''; 
-          
-          const linhas = [
-              `<span style="color:var(--muted)">// ANÁLISE CONCLUÍDA. DIRETRIZES GERADAS:</span><br><br>`,
-              `<strong style="color:var(--cyan); font-size:1.1rem;">[1]</strong> ${ideias[0]}<br><br>`,
-              `<strong style="color:var(--cyan); font-size:1.1rem;">[2]</strong> ${ideias[1]}<br><br>`,
-              `<strong style="color:var(--cyan); font-size:1.1rem;">[3]</strong> ${ideias[2]}`
-          ];
-          
-          let l = 0;
-          const dataStream = setInterval(() => {
-              if(l < linhas.length) {
-                  content.innerHTML += linhas[l];
-                  l++;
-              } else {
-                  clearInterval(dataStream);
-              }
-          }, 800); 
-
+          content.innerHTML = `<span style="color:var(--muted)">// DIRETRIZES DO JOTA:</span><br><br><strong style="color:var(--cyan); font-size:1.1rem;">[1]</strong> ${ideias[0]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[2]</strong> ${ideias[1]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[3]</strong> ${ideias[2]}`;
       }, 2000); 
   };
 
@@ -1021,70 +822,22 @@
       const guideContent = document.getElementById('guide-content');
 
       if (!guideBox) return;
-      if (sprintAtual < 1 || sprintAtual > 5) {
-          guideBox.style.display = 'none';
-          return;
-      }
-
+      if (sprintAtual < 1 || sprintAtual > 5) { guideBox.style.display = 'none'; return; }
       guideBox.style.display = 'block';
 
       const guias = {
-          1: {
-              titulo: "SPRINT 1: EMPATIA HUMANA",
-              dicas: [
-                  "Definam a <strong>Persona do Trabalhador</strong> e a dor principal identificada.",
-                  "Identifiquem a <strong>Causa Raiz</strong> do problema (Por quê?).",
-                  "Busquem Dados e Estatísticas reais (com fonte) para validar a dor.",
-                  "Respondam: Quem mais é afetado além do operador?"
-              ]
-          },
-          2: {
-              titulo: "SPRINT 2: CO-PILOTO IA",
-              dicas: [
-                  "Acessem a aba 'Central IA' e comecem a testar as soluções.",
-                  "Anotem no painel o <strong>Prompt Principal</strong> utilizado.",
-                  "Debatam em grupo: O que a IA acertou? O que ela errou?",
-                  "Selecionem e registrem as <strong>TOP 3 Ideias</strong> geradas."
-              ]
-          },
-          3: {
-              titulo: "SPRINT 3: TOQUE HUMANO 5.0",
-              dicas: [
-                  "Definam a <strong>Solução Escolhida</strong> (O refinamento feito por vocês).",
-                  "Resumam o Problema e a Solução em 1 frase cada.",
-                  "Avaliagem a Ética, Segurança e os <strong>Riscos</strong> da solução.",
-                  "Estudem a Viabilidade Real (Custo/Prazo) e respondam: Quem essa solução exclui?"
-              ]
-          },
-          4: {
-              titulo: "SPRINT 4: PONTE DIGITAL",
-              dicas: [
-                  "Façam o <strong>Rascunho/Esboço</strong> da solução à mão no espaço do painel.",
-                  "Anotem o Prompt que vão usar para pedir o Gerador de Imagem 3D.",
-                  "Acessem a aba 'Entrega Final' para ler as regras de envio da imagem.",
-                  "Não esqueçam de anotar o Link/ID do render no painel físico."
-              ]
-          },
-          5: {
-              titulo: "SPRINT 5: IMPACTO & PITCH",
-              dicas: [
-                  "Escrevam o <strong>Roteiro do Pitch</strong> (apresentação máxima de 2 minutos).",
-                  "Definam quem será o Porta-Voz da equipe.",
-                  "Revisem a Fonte e Evidência principal do projeto.",
-                  "Usem este tempo para ensaiar a fala antes de ir para a Arena!"
-              ]
-          }
+          1: { titulo: "SPRINT 1: EMPATIA HUMANA", dicas: ["Definam a <strong>Persona do Trabalhador</strong> e a dor principal.", "Identifiquem a <strong>Causa Raiz</strong> do problema.", "Busquem Dados reais para validar a dor."] },
+          2: { titulo: "SPRINT 2: CO-PILOTO IA", dicas: ["Anotem o <strong>Prompt Principal</strong> no Canvas de papel.", "Debatam o que a IA acertou e errou.", "Selecionem a melhor ideia para a próxima fase."] },
+          3: { titulo: "SPRINT 3: VIABILIDADE 5.0", dicas: ["Vão à aba <strong>Viabilidade 5.0</strong> e respondam às 4 perguntas.", "Preencham as secções de Ética e Segurança no painel físico.", "Calculem se a ideia é barata e viável para o mercado."] },
+          4: { titulo: "SPRINT 4: MOCKUP DIGITAL", dicas: ["Desenem o Esboço no Canvas de papel (Rascunho).", "Usem o Copilot Image para gerar o Render 3D.", "Vão à aba <strong>Mockup Digital</strong> e enviem o link."] },
+          5: { titulo: "SPRINT 5: PITCH FINAL", dicas: ["Preencham o Roteiro do Pitch no Canvas de papel.", "O Porta-Voz deve rever os argumentos.", "Vão à aba <strong>Entrega Pitch</strong> e façam o upload final!"] }
       };
 
       const info = guias[sprintAtual];
       guideTitle.textContent = info.titulo;
-      
       let htmlList = `<ul style="color: var(--text); font-size: 0.95rem; line-height: 1.6; padding-left: 20px; font-family: 'Syne'; margin: 0;">`;
-      info.dicas.forEach(dica => {
-          htmlList += `<li style="margin-bottom: 12px;">${dica}</li>`;
-      });
+      info.dicas.forEach(dica => { htmlList += `<li style="margin-bottom: 12px;">${dica}</li>`; });
       htmlList += `</ul>`;
-      
       guideContent.innerHTML = htmlList;
   }
 </script>

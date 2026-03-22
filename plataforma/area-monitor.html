@@ -78,6 +78,12 @@
     }
     .squad-detail-header h3{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:2.5rem;letter-spacing:2px;margin:0; line-height: 1;}
     .squad-detail-header p{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--cyan);margin-top:8px;text-transform:uppercase; letter-spacing: 1px;}
+    
+    /* NOVO: TAG DO NÍVEL DO DESAFIO */
+    .nivel-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; font-weight: bold; margin-left: 10px; vertical-align: middle; display: inline-block; margin-bottom: 5px; }
+    .lvl-1 { background: rgba(0,200,81,0.1); color: #00C851; border: 1px solid rgba(0,200,81,0.3); }
+    .lvl-2 { background: rgba(255,214,0,0.1); color: var(--yellow); border: 1px solid rgba(255,214,0,0.3); }
+    .lvl-3 { background: rgba(255,68,68,0.1); color: #ff4444; border: 1px solid rgba(255,68,68,0.3); }
 
     /* ── LAYOUT 2 COLUNAS ── */
     .two-col{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;margin-bottom:40px}
@@ -111,7 +117,7 @@
     .nota-sprint label{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--yellow);letter-spacing:2px;display:block;margin-bottom:8px}
 
     /* ══════════════════════════
-       P3 — APROVAÇÃO DO RENDER
+       P3 — APROVAÇÃO DO RENDER E PITCH
     ══════════════════════════ */
     .render-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:25px;height:100%;display:flex;flex-direction:column;gap:20px}
     .render-box-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--yellow);letter-spacing:1.5px}
@@ -172,24 +178,9 @@
     .criterio-btn{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--yellow);cursor:pointer;letter-spacing:1px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);padding:4px 10px;border-radius:12px; transition: 0.2s;}
     .criterio-btn:hover{background:rgba(255,214,0,.2); color:#fff;}
 
-    .criterio-tooltip{
-      display:none;
-      position:absolute;
-      bottom:calc(100% + 10px);
-      left:50%;
-      transform:translateX(-50%);
-      background:#0d1117;
-      border:1px solid var(--cyan);
-      border-radius:10px;
-      padding:16px;
-      width:250px;
-      z-index:200;
-      box-shadow:0 10px 40px rgba(0,0,0,.8);
-      text-align: left;
-    }
+    .criterio-tooltip{ display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#0d1117; border:1px solid var(--cyan); border-radius:10px; padding:16px; width:250px; z-index:200; box-shadow:0 10px 40px rgba(0,0,0,.8); text-align: left; }
     .criterio-tooltip.show{display:block; animation: fadeInTooltip 0.2s ease;}
     @keyframes fadeInTooltip { from{opacity:0; transform:translate(-50%, 10px);} to{opacity:1; transform:translate(-50%, 0);} }
-    
     .criterio-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--cyan)}
     .criterio-tooltip h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--yellow);letter-spacing:1px;margin-bottom:12px; border-bottom: 1px dashed rgba(255,214,0,0.3); padding-bottom: 5px;}
     .criterio-tooltip ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
@@ -202,6 +193,9 @@
 
     .score-total-box{background:rgba(0,200,81,.1);border:1px solid rgba(0,200,81,.4);padding:10px 15px;border-radius:8px;display:inline-block;min-width:80px; box-shadow: 0 0 15px rgba(0,200,81,0.2);}
     .score-total{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#00ff99}
+    
+    .score-bonus-box{background:rgba(0,240,255,.1);border:1px solid rgba(0,240,255,.4);padding:10px 15px;border-radius:8px;display:inline-block;min-width:80px; box-shadow: 0 0 15px rgba(0,240,255,0.2);}
+    .score-bonus{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--cyan)}
 
     .td-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);color:#fff;padding:16px;font-family:'Syne',sans-serif;font-size:.95rem;border-radius:8px;outline:none;transition:.2s;resize:vertical;min-height:90px;width:100%}
     .td-input:focus{border-color:var(--cyan);background:rgba(0,240,255,.03); box-shadow: 0 0 15px rgba(0,240,255,0.1);}
@@ -217,37 +211,26 @@
     .toast-custom.show{opacity:1;transform:translateY(0)}
     .toast-custom.error{border-color:rgba(255,60,60,.5);color:#ff6b6b}
 
-    /* =========================================
-       UX MOBILE-FIRST & AVALIADORES (AJUSTES FINAIS)
-       ========================================= */
     @media(max-width:768px){
       .topbar { flex-direction: column; padding: 12px; gap: 10px; align-items: stretch; }
       .topbar > div { width: 100%; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
       #user-info-box { border-right: none; padding-right: 0; text-align: left; }
-      
       .main { padding-top: 160px; padding-left: 15px; padding-right: 15px; }
       .sprint-alert { top: 110px; font-size: 0.7rem; padding: 8px; }
-      
       .lembretes{grid-template-columns:1fr}
       .painel-geral{grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap: 10px;}
       .squad-card { padding: 12px; }
       .squad-card-name { font-size: 1.2rem; }
-
       .squad-detail-header { flex-direction: column; align-items: flex-start; padding: 20px; gap: 15px; }
       .squad-detail-header h3 { font-size: 1.8rem; }
       #squad-render-badge { width: 100%; }
       .render-status-tag { display: block; width: 100%; padding: 10px; }
-
       .cl-body-inner, .nota-sprint { padding-left: 15px; padding-right: 0; }
       .sprint-cl-header { padding: 12px 15px; }
       .cl-num { width: 36px; height: 36px; font-size: 1.2rem; }
-      
       .render-actions { flex-direction: column; }
       .btn-render-ok, .btn-render-rej { width: 100%; }
-
-      .mobile-scroll-hint { display: block; } /* Mostra dica de scroll apenas no celular */
-      
-      /* Previne o Tooltip de vazar para fora da tela mobile */
+      .mobile-scroll-hint { display: block; }
       .criterio-tooltip { left: 50%; transform: translateX(-50%); width: 85vw; max-width: 300px; margin-left: 0; }
     }
   </style>
@@ -279,7 +262,7 @@
 
   <div class="lembretes">
     <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo. Quando faltarem 3 minutos para acabar o sprint, a barra vermelha piscará no topo.</p></div>
-    <div class="lembrete"><span class="lembrete-icon">🧠</span><p>Avalie o processo investigativo, não o resultado final. Observe colaboração, uso crítico de IA e validação de dores.</p></div>
+    <div class="lembrete"><span class="lembrete-icon">🧠</span><p>Avalie o processo investigativo, não apenas o resultado final. Observe colaboração, uso crítico de IA e viabilidade.</p></div>
   </div>
 
   <div class="sec-label cyan">VISÃO GERAL — TODOS OS SQUADS</div>
@@ -336,12 +319,12 @@
         <div class="sprint-cl" id="cl3">
           <div class="sprint-cl-header" onclick="toggleCL('cl3')">
             <span class="cl-num">03</span>
-            <div class="cl-title-wrap"><span class="cl-title">Toque Humano 5.0</span><span class="cl-time">SPRINT 3 · 15 MIN</span></div>
+            <div class="cl-title-wrap"><span class="cl-title">Viabilidade 5.0</span><span class="cl-time">SPRINT 3 · 15 MIN</span></div>
             <span class="cl-progress" id="prog3">0/2</span>
           </div>
           <div class="cl-body"><div class="cl-body-inner" id="clb3">
-            <div class="check-item" onclick="toggleCheck(this,'cl3',0)"><div class="check-box"></div><span class="check-text">Adaptaram a ideia da IA com foco forte em ergonomia ou sustentabilidade.</span></div>
-            <div class="check-item" onclick="toggleCheck(this,'cl3',1)"><div class="check-box"></div><span class="check-text">Analisaram viabilidade técnica: a solução é segura e aplicável na fábrica?</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl3',0)"><div class="check-box"></div><span class="check-text">Adaptaram a ideia da IA com foco forte em ergonomia, segurança ou inclusão.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl3',1)"><div class="check-box"></div><span class="check-text">Analisaram viabilidade real: a solução é viável financeiramente na fábrica?</span></div>
           </div>
           <div class="nota-sprint">
             <label>// ANOTAÇÃO RÁPIDA — SPRINT 3</label>
@@ -352,16 +335,16 @@
         <div class="sprint-cl" id="cl4">
           <div class="sprint-cl-header" onclick="toggleCL('cl4')">
             <span class="cl-num">04</span>
-            <div class="cl-title-wrap"><span class="cl-title">Ponte Digital</span><span class="cl-time">SPRINT 4 · 30 MIN</span></div>
+            <div class="cl-title-wrap"><span class="cl-title">Mockup Digital</span><span class="cl-time">SPRINT 4 · 30 MIN</span></div>
             <span class="cl-progress" id="prog4">0/2</span>
           </div>
           <div class="cl-body"><div class="cl-body-inner" id="clb4">
-            <div class="check-item" onclick="toggleCheck(this,'cl4',0)"><div class="check-box"></div><span class="check-text">Finalizaram o Blueprint (desenho no papel) cobrindo todos os detalhes.</span></div>
-            <div class="check-item" onclick="toggleCheck(this,'cl4',1)"><div class="check-box"></div><span class="check-text">Geraram com sucesso a imagem fotorrealista no gerador de IA e enviaram.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl4',0)"><div class="check-box"></div><span class="check-text">Finalizaram o Esboço (desenho no papel) cobrindo os detalhes mecânicos.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl4',1)"><div class="check-box"></div><span class="check-text">Geraram com sucesso a imagem fotorrealista no Copilot e enviaram.</span></div>
           </div>
           <div class="nota-sprint">
             <label>// ANOTAÇÃO RÁPIDA — SPRINT 4</label>
-            <textarea placeholder="Ex: Ficaram presos gerando imagens repetidas em vez de focar no pitch..." oninput="saveNotaSprint('ns4', this.value)" id="ns4-input"></textarea>
+            <textarea placeholder="Ex: Ficaram presos gerando imagens repetidas em vez de focar na entrega..." oninput="saveNotaSprint('ns4', this.value)" id="ns4-input"></textarea>
           </div></div>
         </div>
 
@@ -369,7 +352,7 @@
     </div>
 
     <div>
-      <div class="sec-label yellow" style="margin-bottom:15px">IMAGEM 3D — APROVAÇÃO DE QUALIDADE</div>
+      <div class="sec-label yellow" style="margin-bottom:15px">IMAGEM 3D — APROVAÇÃO E LINK DO PITCH</div>
       <div class="render-box">
         <div class="render-box-title">🖼️ IMAGEM ENVIADA PARA O TELÃO</div>
 
@@ -382,19 +365,20 @@
         </div>
 
         <div>
-          <label style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:1px;display:block;margin-bottom:8px">LINK DA IMAGEM GERADA</label>
+          <label style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--cyan);letter-spacing:1px;display:block;margin-bottom:8px">LINK DO MOCKUP (IMAGEM GERADA)</label>
           <input type="text" class="render-link-input" id="render-link-input" placeholder="https://..." oninput="previewRender(this.value)"/>
         </div>
 
         <div id="render-status-display"></div>
 
         <div class="render-actions">
-          <button class="btn-render-ok" id="btn-aprovar" onclick="aprovarRender(true)">✅ APROVAR</button>
-          <button class="btn-render-rej" id="btn-rejeitar" onclick="aprovarRender(false)">↩️ REFAZER</button>
+          <button class="btn-render-ok" id="btn-aprovar" onclick="aprovarRender(true)">✅ APROVAR MOCKUP</button>
+          <button class="btn-render-rej" id="btn-rejeitar" onclick="aprovarRender(false)">↩️ REFAZER MOCKUP</button>
         </div>
-
-        <div style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);line-height:1.6; text-align: center;">
-          Ao aprovar, a imagem fica liberada para os Jurados Especialistas e Telão Principal da Arena.
+        
+        <div style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+            <label style="font-family:'Space Mono',monospace;font-size:.65rem;color:#ff4444;letter-spacing:1px;display:block;margin-bottom:8px">LINK DO PITCH (SLIDES):</label>
+            <input type="text" class="render-link-input" id="pitch-link-input" placeholder="Aguardando entrega da equipe..." readonly style="opacity: 0.7; border-color: rgba(255,68,68,0.3);"/>
         </div>
       </div>
     </div>
@@ -418,8 +402,7 @@
                 <h4>C1 · Investigação & Empatia</h4>
                 <ul>
                   <li>Identificou dor real com dado concreto?</li>
-                  <li>A fonte pesquisada é confiável?</li>
-                  <li>Entendeu o contexto do trabalhador e não apenas da máquina?</li>
+                  <li>Entendeu o contexto humano e não apenas a máquina?</li>
                 </ul>
               </div>
             </div>
@@ -431,9 +414,8 @@
               <div class="criterio-tooltip" id="tt2">
                 <h4>C2 · Colaboração (Soft Skill)</h4>
                 <ul>
-                  <li>Todos os membros participaram ativamente?</li>
+                  <li>Todos os membros assumiram seus papéis?</li>
                   <li>Houve escuta ativa e respeito entre o grupo?</li>
-                  <li>A liderança foi distribuída ou centralizada em uma pessoa?</li>
                 </ul>
               </div>
             </div>
@@ -445,34 +427,33 @@
               <div class="criterio-tooltip" id="tt3">
                 <h4>C3 · Uso Crítico de IA</h4>
                 <ul>
-                  <li>Questionaram a IA em vez de apenas copiar e colar?</li>
-                  <li>Refinaram os prompts para buscar respostas profundas?</li>
-                  <li>Aplicaram pensamento crítico à resposta gerada?</li>
+                  <li>Questionaram a IA em vez de apenas copiar?</li>
+                  <li>Refinaram os prompts buscando inovação?</li>
                 </ul>
               </div>
             </div>
           </th>
           <th>
             <div class="criterio-wrap">
-              <span class="criterio-label" style="color: var(--cyan);">C4: PITCH PRÉVIO</span>
+              <span class="criterio-label" style="color: var(--cyan);">C4: VIABILIDADE</span>
               <span class="criterio-btn" onclick="toggleTooltip('tt4')">? DETALHES</span>
               <div class="criterio-tooltip" id="tt4">
-                <h4>C4 · Qualidade do Pitch Prévio</h4>
+                <h4>C4 · Viabilidade e 5.0</h4>
                 <ul>
-                  <li>Comunicaram o problema e a solução com clareza nos ensaios?</li>
-                  <li>A ideia central faz sentido e agrega valor?</li>
-                  <li>Demonstraram segurança para apresentar aos jurados?</li>
+                  <li>A solução atende NRs de segurança e ergonomia?</li>
+                  <li>A ideia é aplicável de verdade na fábrica?</li>
                 </ul>
               </div>
             </div>
           </th>
-          <th>NOTA FINAL (MÉDIA)</th>
+          <th>MÉDIA PURA</th>
+          <th>NOTA C/ BÔNUS (XP)</th>
         </tr>
       </thead>
       <tbody id="ss-tbody">
         <tr>
           <td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:.8rem;padding:30px">Selecione um squad acima para avaliar</td>
-          <td></td><td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
         </tr>
       </tbody>
     </table>
@@ -480,7 +461,7 @@
 
   <div style="margin-top:20px">
     <button class="btn btn-amber" style="width:100%;padding:20px;border-radius:10px;opacity:.9;pointer-events:none; font-size: 1.3rem; letter-spacing: 2px;">
-      ✅ TODAS AS SUAS MARCAÇÕES, NOTAS E APROVAÇÕES SÃO SALVAS AUTOMATICAMENTE
+      ✅ TODAS AS SUAS MARCAÇÕES E APROVAÇÕES SÃO SALVAS AUTOMATICAMENTE NO BANCO
     </button>
   </div>
 
@@ -490,13 +471,9 @@
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
-// ── ESTADO LOCAL ──
 let dbEquipes   = {};
 let currentTeamId = null;
 
-// ─────────────────────────────────────
-// BOOT
-// ─────────────────────────────────────
 const checkLoad = setInterval(() => {
   if (window.AUTH && window.SprintTimer && window.InovaDB) {
     clearInterval(checkLoad);
@@ -515,7 +492,6 @@ function iniciarMonitor() {
     document.getElementById('nome-avaliador-display').textContent = 'Avaliador: ' + avaliador;
   }
 
-  // Cronômetro
   setInterval(() => {
     const rem   = window.SprintTimer.getRemaining();
     const state = window.SprintTimer.getState();
@@ -526,7 +502,6 @@ function iniciarMonitor() {
     if (state.running) {
       lbl.textContent = `SPRINT ${state.sprint} (EM ANDAMENTO)`;
       lbl.style.color = 'var(--cyan)';
-      // P5 — alerta 3 min
       alerta.classList.toggle('show', rem <= 180 && rem > 0);
     } else {
       lbl.textContent = `SPRINT ${state.sprint} (PAUSADO)`;
@@ -552,9 +527,6 @@ function solicitarNomeAvaliador() {
 }
 window.trocarAvaliador = () => { sessionStorage.removeItem('inova_nome_monitor'); solicitarNomeAvaliador(); };
 
-// ─────────────────────────────────────
-// CARREGAR EQUIPES (FIREBASE)
-// ─────────────────────────────────────
 function carregarEquipes() {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
     dbEquipes = snap.val() || {};
@@ -563,9 +535,6 @@ function carregarEquipes() {
   });
 }
 
-// ─────────────────────────────────────
-// P1 — PAINEL GERAL
-// ─────────────────────────────────────
 function renderPainelGeral() {
   const container = document.getElementById('painel-geral');
   const chaves    = Object.keys(dbEquipes);
@@ -583,40 +552,23 @@ function renderPainelGeral() {
     const renderRej = n.renderAprovado === false && n.renderEnviado;
     const isActive  = key === currentTeamId ? 'active' : '';
 
-    const pillNota   = temNota
-      ? `<span class="status-pill pill-ok">NOTA ✓</span>`
-      : `<span class="status-pill pill-none">SEM NOTA</span>`;
-
-    const pillRender = renderOk
-      ? `<span class="status-pill pill-ok">IMG ✓</span>`
-      : renderRej
-        ? `<span class="status-pill pill-pend">IMG ↩</span>`
-        : `<span class="status-pill pill-none">IMG —</span>`;
-
-    const checkTotal = ['cl1','cl2','cl3','cl4'].reduce((acc, clId) => {
-      const checks = (eq[`checklist_${clId}`] || []).filter(Boolean).length;
-      return acc + checks;
-    }, 0);
-    const pillCheck = checkTotal >= 8
-      ? `<span class="status-pill pill-ok">CHK ✓</span>`
-      : checkTotal > 0
-        ? `<span class="status-pill pill-pend">CHK ${checkTotal}/8</span>`
-        : `<span class="status-pill pill-none">CHK —</span>`;
+    const pillNota   = temNota ? `<span class="status-pill pill-ok">NOTA ✓</span>` : `<span class="status-pill pill-none">SEM NOTA</span>`;
+    const pillRender = renderOk ? `<span class="status-pill pill-ok">IMG ✓</span>` : renderRej ? `<span class="status-pill pill-pend">IMG ↩</span>` : `<span class="status-pill pill-none">IMG —</span>`;
+    
+    // Novo: Pill Pitch
+    const pillPitch = n.pitchEnviado ? `<span class="status-pill pill-ok">PTH ✓</span>` : `<span class="status-pill pill-none">PTH —</span>`;
 
     return `
       <div class="squad-card ${isActive}" onclick="selectEquipe('${key}', this)">
         <div class="squad-card-name">${(eq.nomeEquipe||'???').toUpperCase()}</div>
         <div class="squad-card-vertente">${eq.vertente || '—'}</div>
-        <div class="squad-card-status">${pillNota}${pillRender}${pillCheck}</div>
+        <div class="squad-card-status">${pillNota}${pillRender}${pillPitch}</div>
       </div>`;
   }).join('');
 
   if (!currentTeamId && chaves.length) selectEquipe(chaves[0], container.firstElementChild);
 }
 
-// ─────────────────────────────────────
-// SELECIONAR SQUAD E RENDERIZAR NOTAS
-// ─────────────────────────────────────
 window.selectEquipe = function(teamKey, btn) {
   currentTeamId = teamKey;
   document.querySelectorAll('.squad-card').forEach(b => b.classList.remove('active'));
@@ -629,23 +581,27 @@ function renderDetalhes() {
   const td = dbEquipes[currentTeamId];
   const n  = td.notasEquipe || {};
 
-  // Header
   document.getElementById('equipe-nome-display').textContent      = `SQUAD: ${(td.nomeEquipe||'').toUpperCase()}`;
-  document.getElementById('equipe-vertente-display').textContent   = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
-
-  // Badge render no header
-  const badge = document.getElementById('squad-render-badge');
-  if (n.renderAprovado === true) {
-    badge.innerHTML = `<span class="render-status-tag approved">✅ IMAGEM 3D APROVADA</span>`;
-  } else if (n.renderAprovado === false) {
-    badge.innerHTML = `<span class="render-status-tag rejected">↩️ SQUAD PRECISA REFAZER IMAGEM</span>`;
-  } else if (n.renderEnviado) {
-    badge.innerHTML = `<span class="render-status-tag pending">⏳ IMAGEM ENVIADA. VERIFIQUE ABAIXO.</span>`;
-  } else {
-    badge.innerHTML = `<span class="render-status-tag pending">⏳ AGUARDANDO SQUAD ENVIAR PROJETO</span>`;
+  
+  // 🚀 NOVO: RECUPERANDO A MISSÃO E O NÍVEL SE O ALUNO TIVER SALVO
+  // (Precisamos buscar no localStorage simulado ou pedir para a equipe salvar no BD depois. 
+  // Por enquanto, faremos o app do aluno salvar isso no BD na próxima etapa. Aqui, vamos prever que a missão venha do Firebase).
+  let vertenteDisplay = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
+  
+  if(td.missaoAtiva) {
+      vertenteDisplay += ` <br><span style="font-size: 0.7rem; color: #fff;">DESAFIO: ${td.missaoAtiva.titulo}</span>`;
+      if(td.missaoAtiva.nivelObj) {
+          vertenteDisplay += `<span class="nivel-tag ${td.missaoAtiva.nivelObj.class}">${td.missaoAtiva.nivelObj.nome} (${td.missaoAtiva.nivelObj.mult})</span>`;
+      }
   }
+  document.getElementById('equipe-vertente-display').innerHTML   = vertenteDisplay;
 
-  // Checklists (restaura estado salvo)
+  const badge = document.getElementById('squad-render-badge');
+  if (n.renderAprovado === true) badge.innerHTML = `<span class="render-status-tag approved">✅ MOCKUP APROVADO</span>`;
+  else if (n.renderAprovado === false) badge.innerHTML = `<span class="render-status-tag rejected">↩️ SQUAD PRECISA REFAZER MOCKUP</span>`;
+  else if (n.renderEnviado) badge.innerHTML = `<span class="render-status-tag pending">⏳ MOCKUP ENVIADO. AVALIE ABAIXO.</span>`;
+  else badge.innerHTML = `<span class="render-status-tag pending">⏳ AGUARDANDO ENVIO DO MOCKUP</span>`;
+
   ['cl1','cl2','cl3','cl4'].forEach((clId, ci) => {
     const saved = td[`checklist_${clId}`] || [];
     const items = document.querySelectorAll(`#clb${ci+1} .check-item`);
@@ -657,25 +613,22 @@ function renderDetalhes() {
     updateProgress(clId);
   });
 
-  // Notas rápidas de sprint
   ['ns1','ns2','ns3','ns4'].forEach(ns => {
     const el = document.getElementById(ns + '-input');
     if (el) el.value = n[ns] || '';
   });
 
-  // Render preview
-  const link = n.renderLink || '';
-  document.getElementById('render-link-input').value = link;
-  previewRender(link);
+  const linkMockup = n.renderLink || '';
+  document.getElementById('render-link-input').value = linkMockup;
+  previewRender(linkMockup);
   renderStatusDisplay(n.renderAprovado, n.renderEnviado);
+  
+  const linkPitch = n.pitchLink || '';
+  document.getElementById('pitch-link-input').value = linkPitch;
 
-  // Notas (com o cálculo corrigido)
-  renderTabelaNotas(n);
+  renderTabelaNotas(td);
 }
 
-// ─────────────────────────────────────
-// P3 — RENDER / IMAGEM 3D
-// ─────────────────────────────────────
 window.previewRender = function(url) {
   const img   = document.getElementById('render-img');
   const ph    = document.getElementById('render-placeholder');
@@ -685,8 +638,7 @@ window.previewRender = function(url) {
     img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
     img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
   } else {
-    img.classList.remove('loaded');
-    ph.style.display = 'block';
+    img.classList.remove('loaded'); ph.style.display = 'block';
   }
 };
 
@@ -703,7 +655,7 @@ window.aprovarRender = function(aprovar) {
 
   window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
     .then(() => {
-      toastMsg(aprovar ? 'Imagem 3D aprovada e enviada para o Telão!' : 'Aviso enviado! O Squad deve gerar nova imagem.', aprovar ? 'success' : 'error');
+      toastMsg(aprovar ? 'Mockup aprovado e enviado para o Telão!' : 'Aviso enviado! O Squad deve gerar nova imagem.', aprovar ? 'success' : 'error');
       renderStatusDisplay(aprovar, true);
     })
     .catch(() => toastMsg('Erro ao salvar aprovação. Verifique a internet.', 'error'));
@@ -711,17 +663,15 @@ window.aprovarRender = function(aprovar) {
 
 function renderStatusDisplay(aprovado, enviado) {
   const el = document.getElementById('render-status-display');
-  if (aprovado === true)        el.innerHTML = `<div class="render-status-tag approved">✅ IMAGEM APROVADA COM SUCESSO</div>`;
-  else if (aprovado === false)  el.innerHTML = `<div class="render-status-tag rejected">↩️ IMAGEM DEVOLVIDA PARA A EQUIPE</div>`;
-  else if (enviado)             el.innerHTML = `<div class="render-status-tag pending">⏳ IMAGEM AGUARDANDO SUA AVALIAÇÃO NESTE PAINEL</div>`;
+  if (aprovado === true)        el.innerHTML = `<div class="render-status-tag approved">✅ MOCKUP APROVADO COM SUCESSO</div>`;
+  else if (aprovado === false)  el.innerHTML = `<div class="render-status-tag rejected">↩️ MOCKUP DEVOLVIDO PARA A EQUIPE</div>`;
+  else if (enviado)             el.innerHTML = `<div class="render-status-tag pending">⏳ MOCKUP AGUARDANDO SUA AVALIAÇÃO</div>`;
   else                          el.innerHTML = `<div class="render-status-tag pending">⏳ SQUAD AINDA NÃO ENVIOU NENHUM LINK</div>`;
 }
 
-// ─────────────────────────────────────
-// P2 — TABELA DE NOTAS COM CÁLCULO SEGURO
-// ─────────────────────────────────────
-function renderTabelaNotas(n) {
-  // Parsing seguro, igual fizemos antes
+// 🚀 RENDER DA TABELA COM CÁLCULO DE MULTIPLICADOR DE DIFICULDADE
+function renderTabelaNotas(equipeData) {
+  const n = equipeData.notasEquipe || {};
   const c1 = n.c1 !== undefined && n.c1 !== "" ? parseFloat(n.c1) : undefined;
   const c2 = n.c2 !== undefined && n.c2 !== "" ? parseFloat(n.c2) : undefined;
   const c3 = n.c3 !== undefined && n.c3 !== "" ? parseFloat(n.c3) : undefined;
@@ -729,7 +679,17 @@ function renderTabelaNotas(n) {
   
   let preenchidas = [c1, c2, c3, c4].filter(v => v !== undefined).length;
   let soma = [c1, c2, c3, c4].filter(v => v !== undefined).reduce((a, b) => a + b, 0);
-  const media = preenchidas > 0 ? (soma / preenchidas).toFixed(1) : '-';
+  
+  let mediaPura = preenchidas > 0 ? (soma / preenchidas) : 0;
+  
+  // LÓGICA DE MULTIPLICADOR XP
+  let multiplicador = 1.0;
+  if(equipeData.missaoAtiva && equipeData.missaoAtiva.nivelObj) {
+      if(equipeData.missaoAtiva.nivelObj.num === 2) multiplicador = 1.1;
+      else if(equipeData.missaoAtiva.nivelObj.num === 3) multiplicador = 1.2;
+  }
+  
+  let mediaBonus = (mediaPura * multiplicador).toFixed(1);
 
   document.getElementById('ss-tbody').innerHTML = `
     <tr>
@@ -738,12 +698,13 @@ function renderTabelaNotas(n) {
       <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c2 !== undefined ? c2 : ''}" onchange="saveScore('c2', this.value)"/></td>
       <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c3 !== undefined ? c3 : ''}" onchange="saveScore('c3', this.value)"/></td>
       <td><input type="number" step="0.5" min="0" max="10" class="score-input" placeholder="-" value="${c4 !== undefined ? c4 : ''}" onchange="saveScore('c4', this.value)"/></td>
-      <td><div class="score-total-box"><span class="score-total">${media}</span></div></td>
+      <td><div class="score-total-box"><span class="score-total">${preenchidas > 0 ? mediaPura.toFixed(1) : '-'}</span></div></td>
+      <td><div class="score-bonus-box"><span class="score-bonus">${preenchidas > 0 ? mediaBonus : '-'}</span></div></td>
     </tr>
     <tr>
-      <td colspan="6" style="padding:25px 20px;border:none;text-align:left">
+      <td colspan="7" style="padding:25px 20px;border:none;text-align:left">
         <label style="font-family:'Space Mono',monospace;font-size:.75rem;color:var(--cyan);display:block;margin-bottom:10px;letter-spacing:1px">PARECER GERAL DE ENCERRAMENTO DO MONITOR (OPCIONAL):</label>
-        <textarea class="td-input" placeholder="Ex: O grupo se dividiu bem as tarefas, a solução aborda ergonomia, porém faltou aprofundar na pesquisa financeira..." onchange="saveScore('obs', this.value)">${n.obs||''}</textarea>
+        <textarea class="td-input" placeholder="Ex: O grupo se dividiu bem as tarefas, a solução aborda ergonomia, porém faltou aprofundar na pesquisa..." onchange="saveScore('obs', this.value)">${n.obs||''}</textarea>
       </td>
     </tr>`;
 }
@@ -751,11 +712,8 @@ function renderTabelaNotas(n) {
 window.saveScore = function(field, valStr) {
   if (!currentTeamId) return;
   const avaliador = sessionStorage.getItem('inova_nome_monitor') || 'Monitor';
-  
   let val = valStr;
-  if (field !== 'obs') {
-      val = valStr === '' ? '' : Math.min(10, Math.max(0, parseFloat(valStr)));
-  }
+  if (field !== 'obs') val = valStr === '' ? '' : Math.min(10, Math.max(0, parseFloat(valStr)));
 
   const updates = {};
   updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
@@ -766,19 +724,13 @@ window.saveScore = function(field, valStr) {
     .catch(() => toastMsg('Erro ao salvar no banco!', 'error'));
 };
 
-// ─────────────────────────────────────
-// CHECKLISTS (P4 — persiste no Firebase)
-// ─────────────────────────────────────
 window.toggleCL = function(id) {
   const item = document.getElementById(id);
   const body = item.querySelector('.cl-body');
   const isOpen = body.style.maxHeight;
-  
   document.querySelectorAll('.cl-body').forEach(b => { 
-      b.style.maxHeight = null; 
-      b.parentElement.querySelector('.sprint-cl-header').style.background = 'transparent';
+      b.style.maxHeight = null; b.parentElement.querySelector('.sprint-cl-header').style.background = 'transparent';
   });
-  
   if (!isOpen) {
       body.style.maxHeight = (body.scrollHeight + 40) + 'px';
       item.querySelector('.sprint-cl-header').style.background = 'rgba(0,240,255,0.03)';
@@ -788,8 +740,7 @@ window.toggleCL = function(id) {
 window.toggleCheck = function(el, clId, idx) {
   el.classList.toggle('checked');
   el.querySelector('.check-box').textContent = el.classList.contains('checked') ? '✓' : '';
-  updateProgress(clId);
-  saveChecklist(clId);
+  updateProgress(clId); saveChecklist(clId);
 };
 
 function updateProgress(clId) {
@@ -804,48 +755,29 @@ function saveChecklist(clId) {
   const num   = clId.replace('cl', '');
   const items = document.querySelectorAll(`#clb${num} .check-item`);
   const state = Array.from(items).map(el => el.classList.contains('checked'));
-  
   const updates = {};
   updates[`equipes/${currentTeamId}/${`checklist_${clId}`}`] = state;
-  
-  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-    .catch(() => toastMsg('Erro de sincronização do checklist', 'error'));
+  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates).catch(() => toastMsg('Erro de sincronização', 'error'));
 }
 
-// ─────────────────────────────────────
-// NOTA RÁPIDA POR SPRINT (P6)
-// ─────────────────────────────────────
 window.saveNotaSprint = function(field, val) {
   if (!currentTeamId) return;
-  const updates = {};
-  updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
+  const updates = {}; updates[`equipes/${currentTeamId}/notasEquipe/${field}`] = val;
   window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates);
 };
 
-// ─────────────────────────────────────
-// P2 — TOOLTIPS DE CRITÉRIO
-// ─────────────────────────────────────
 window.toggleTooltip = function(id) {
-  document.querySelectorAll('.criterio-tooltip').forEach(t => {
-    if (t.id !== id) t.classList.remove('show');
-  });
+  document.querySelectorAll('.criterio-tooltip').forEach(t => { if (t.id !== id) t.classList.remove('show'); });
   document.getElementById(id).classList.toggle('show');
 };
 document.addEventListener('click', e => {
-  if (!e.target.closest('.criterio-wrap')) {
-    document.querySelectorAll('.criterio-tooltip').forEach(t => t.classList.remove('show'));
-  }
+  if (!e.target.closest('.criterio-wrap')) document.querySelectorAll('.criterio-tooltip').forEach(t => t.classList.remove('show'));
 });
 
-// ─────────────────────────────────────
-// TOAST INTERNO
-// ─────────────────────────────────────
 function toastMsg(msg, type='success') {
   const el = document.getElementById('toast-custom');
-  el.textContent = msg;
-  el.className   = `toast-custom ${type} show`;
-  clearTimeout(el._timer);
-  el._timer = setTimeout(() => el.classList.remove('show'), 2800);
+  el.textContent = msg; el.className   = `toast-custom ${type} show`;
+  clearTimeout(el._timer); el._timer = setTimeout(() => el.classList.remove('show'), 2800);
 }
 </script>
 </body>
