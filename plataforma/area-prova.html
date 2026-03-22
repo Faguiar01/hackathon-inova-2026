@@ -96,9 +96,15 @@
 
     .data-box-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
     .starter-data-card { background: rgba(255,214,0,.05); border: 1px solid rgba(255,214,0,.3); padding: 20px; border-radius: 8px; }
-    .prompt-starter-card { background: rgba(0,240,255,.05); border: 1px dashed rgba(0,240,255,.4); padding: 20px; border-radius: 8px; display: none; } /* Oculto por padrão */
+    .fonte-starter-card { background: rgba(0,200,81,.05); border: 1px solid rgba(0,200,81,.3); padding: 20px; border-radius: 8px; }
+    .prompt-starter-card { background: rgba(0,240,255,.05); border: 1px dashed rgba(0,240,255,.4); padding: 20px; border-radius: 8px; display: none; grid-column: span 2; } 
+    
     .starter-list li { margin-bottom: 10px; padding-left: 15px; position: relative; }
     .starter-list li::before { content: '›'; color: var(--yellow); position: absolute; left: 0; font-weight: bold; }
+
+    .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; }
+    .fonte-btn.highlight { background: rgba(0,200,81,0.1); border: 1px solid #00C851; color: #00ff99; }
+    .fonte-btn.highlight:hover { background: rgba(0,200,81,0.2); transform: translateX(5px); }
 
     .roles-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
     .role-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 6px; }
@@ -123,6 +129,7 @@
         .page-tabs { justify-content: center; }
         .page-tab { flex: 1; text-align: center; min-width: 45%; }
         .data-box-wrapper { grid-template-columns: 1fr; }
+        .prompt-starter-card { grid-column: span 1; }
     }
   </style>
 </head>
@@ -259,9 +266,17 @@
                   <li><strong style="color:var(--yellow);">Gatilho Mental:</strong> <span id="m-gatilho"></span></li>
               </ul>
           </div>
-          <div class="prompt-starter-card" id="prompt-starter-card" style="display: none;">
-              <span class="boss-title" style="color:var(--cyan);"><span style="font-size:1.2rem;">🤖</span> PROMPT START (DICA)</span>
-              <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Copie este texto e cole na IA para quebrar a síndrome da tela em branco:</p>
+          
+          <div class="fonte-starter-card" id="fonte-starter-card">
+              <span class="boss-title" style="color:#00C851;"><span style="font-size:1.2rem;">📚</span> FONTES DIRETAS DE PESQUISA</span>
+              <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Usem os links abaixo para acederem a normas oficiais e artigos que validam esta dor (Sprint 1):</p>
+              <div id="m-fontes-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
+                  </div>
+          </div>
+
+          <div class="prompt-starter-card" id="prompt-starter-card">
+              <span class="boss-title" style="color:var(--cyan);"><span style="font-size:1.2rem;">🤖</span> PROMPT START (DICA DA IA)</span>
+              <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Copie este texto e cole na Inteligência Artificial para quebrar a síndrome da tela em branco:</p>
               <div style="background:rgba(0,0,0,0.4); padding:15px; border-left:3px solid var(--cyan); border-radius:4px; margin-top:10px;">
                   <p id="m-prompt" style="color:#fff; font-family:'Syne'; font-size:0.95rem; font-style:italic; margin:0;"></p>
               </div>
@@ -288,9 +303,9 @@
           <span style="font-size:2.5rem;">✨</span>
           <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
-        <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid var(--border); border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
+        <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid #00C851; border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🎨</span>
-          <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Render 3D Grátis</span></div>
+          <div><strong style="color:#00ff99; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Gerador 3D Grátis</span></div>
         </a>
       </div>
       
@@ -331,7 +346,7 @@
         <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
             <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
-                <li>Gere a imagem final no seu Co-piloto de IA.</li>
+                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
                 <li>Faça o upload do ficheiro na pasta do seu turno:
                     <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
@@ -389,7 +404,6 @@
 
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
   
-  // 🔒 CONTROLE DE ABAS COM "PROGRESSIVE DISCLOSURE"
   function controlarAbasPorSprint() {
       if (!window.SprintTimer) return;
       const state = window.SprintTimer.getState();
@@ -403,138 +417,184 @@
           pitch: document.getElementById('tab-btn-pitch')
       };
 
-      // Bloqueia e acinzenta todas as abas (exceto missão ativa)
       Object.values(tabs).forEach(btn => {
           if (btn && btn.id !== 'tab-btn-cenario') {
-              btn.style.opacity = "0.4";
-              btn.style.pointerEvents = "none";
-              btn.style.filter = "grayscale(1)";
-              btn.title = "Aguarde o Sprint correto para desbloquear";
+              btn.style.opacity = "0.4"; btn.style.pointerEvents = "none"; btn.style.filter = "grayscale(1)"; btn.title = "Aguarde o Sprint correto para desbloquear";
           }
       });
 
-      // A Missão Ativa está sempre disponível
       if (tabs.cenario) { tabs.cenario.style.opacity = "1"; tabs.cenario.style.pointerEvents = "auto"; tabs.cenario.style.filter = "none"; }
+      if (sprint >= 2 && tabs.links) { tabs.links.style.opacity = "1"; tabs.links.style.pointerEvents = "auto"; tabs.links.style.filter = "none"; tabs.links.title = ""; }
+      if (sprint >= 3 && tabs.regras) { tabs.regras.style.opacity = "1"; tabs.regras.style.pointerEvents = "auto"; tabs.regras.style.filter = "none"; tabs.regras.title = ""; }
+      if (sprint >= 4 && tabs.mockup) { tabs.mockup.style.opacity = "1"; tabs.mockup.style.pointerEvents = "auto"; tabs.mockup.style.filter = "none"; tabs.mockup.title = ""; }
+      if (sprint >= 5 && tabs.pitch) { tabs.pitch.style.opacity = "1"; tabs.pitch.style.pointerEvents = "auto"; tabs.pitch.style.filter = "none"; tabs.pitch.title = ""; }
 
-      // Habilita APENAS a aba correspondente ao Sprint atual
-      if (sprint === 2 && tabs.links) { tabs.links.style.opacity = "1"; tabs.links.style.pointerEvents = "auto"; tabs.links.style.filter = "none"; tabs.links.title = ""; }
-      if (sprint === 3 && tabs.regras) { tabs.regras.style.opacity = "1"; tabs.regras.style.pointerEvents = "auto"; tabs.regras.style.filter = "none"; tabs.regras.title = ""; }
-      if (sprint === 4 && tabs.mockup) { tabs.mockup.style.opacity = "1"; tabs.mockup.style.pointerEvents = "auto"; tabs.mockup.style.filter = "none"; tabs.mockup.title = ""; }
-      if (sprint === 5 && tabs.pitch) { tabs.pitch.style.opacity = "1"; tabs.pitch.style.pointerEvents = "auto"; tabs.pitch.style.filter = "none"; tabs.pitch.title = ""; }
-
-      // Se a aba em que o aluno está atualmente for bloqueada (ex: mudou do sprint 2 para o 3), volta para a Missão Ativa
       const activeTab = document.querySelector('.page-tab.active');
       if (activeTab && activeTab.style.pointerEvents === 'none') {
           if (tabs.cenario) tabs.cenario.click();
       }
 
-      // 💡 CONTROLO DE VISIBILIDADE DOS ELEMENTOS INTERNOS 💡
-      // Oculta/Mostra o Prompt Dica
       const promptCard = document.getElementById('prompt-starter-card');
-      if (promptCard) {
-          promptCard.style.display = sprint >= 2 ? 'block' : 'none';
-      }
+      if (promptCard) promptCard.style.display = sprint >= 2 ? 'block' : 'none';
 
-      // Oculta/Mostra o Link do Copilot (Render 3D) dentro da Central IA
       const linkCopilot = document.getElementById('link-copilot');
-      if (linkCopilot) {
-          linkCopilot.style.display = sprint >= 4 ? 'flex' : 'none';
-      }
+      if (linkCopilot) { linkCopilot.style.display = sprint >= 4 ? 'flex' : 'none'; }
   }
 
+  // 🚀 MISSÕES COM FONTES DIRETAS (Arrays de Links Específicos)
   const missoes = [
     { vertente: "Produção", titulo: "A Linha de Montagem Inteligente", imagem: "/assets/img/desafios/producao-linha-montagem.png",
       dor: "Cena: Linha de montagem com alta repetição de movimentos.\nDor: A fadiga física extrema gera erros de produção e afastamentos médicos.",
-      desafio: "Missão: Desenhar um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
-      starterData: { dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.", restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.", perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?" },
+      desafio: "Missão: Desenvolver um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
+      starterData: { dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.", restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.", perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?", 
+      fontes: [
+          {nome: "📄 Artigos sobre LER/DORT (SciELO)", link: "https://search.scielo.org/?q=LER+DORT+linha+de+montagem+ergonomia"},
+          {nome: "⚖️ Norma Oficial: NR-17 Ergonomia", link: "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-17-nr-17"}
+      ]},
       promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos simples (sem bateria) para aliviar os braços de operadores de linha de montagem."
     },
     { vertente: "Produção", titulo: "O Calor da Fundição", imagem: "/assets/img/desafios/producao-fundicao.png",
       dor: "Cena: Operador num ambiente de fundição de metais extremamente quente.\nDor: Exaustão térmica severa e queda brusca de rendimento e foco.",
-      desafio: "Missão: Projetar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
-      starterData: { dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.", restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.", perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?" },
+      desafio: "Missão: Criar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
+      starterData: { dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.", restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.", perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?", 
+      fontes: [
+          {nome: "📄 Artigos sobre Estresse Térmico", link: "https://search.scielo.org/?q=estresse+termico+fundicao+metalurgica"},
+          {nome: "⚖️ Norma Oficial: NR-15 (Anexo 3 - Calor)", link: "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-15-nr-15"}
+      ]},
       promptExemplo: "Atue como designer de moda industrial. Como tecidos de resfriamento ativo ou coletes com circulação de água poderiam ser desenhados para ambientes de calor extremo?"
     },
     { vertente: "Produção", titulo: "A Inspeção Assistida", imagem: "/assets/img/desafios/producao-inspecao-visual.png",
       dor: "Cena: Inspeção visual de pequenas peças plásticas sob luz intensa o dia todo.\nDor: Fadiga ocular aguda, dores de cabeça e aumento de peças boas atiradas para o lixo.",
-      desafio: "Missão: Desenhar uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
-      starterData: { dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.", restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.", perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?" },
+      desafio: "Missão: Desenvolver uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
+      starterData: { dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.", restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.", perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?", 
+      fontes: [
+          {nome: "📄 Estudo sobre Fadiga Visual (SciELO)", link: "https://search.scielo.org/?q=fadiga+visual+inspecao+qualidade"},
+          {nome: "📚 NHO 11: Níveis de Iluminação (Fundacentro)", link: "https://www.gov.br/fundacentro/pt-br/centrais-de-conteudo/publicacoes/normas-de-higiene-ocupacional/nho-11-pdf"}
+      ]},
       promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
     },    
 
     { vertente: "Manutenção", titulo: "O EPI Iluminado", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
       dor: "Cena: Manutenção noturna num painel elétrico sem luz adequada no local.\nDor: Segurar a lanterna com a boca ou de forma improvisada aumenta o risco de choque fatal.",
       desafio: "Missão: Criar um Equipamento de Proteção Individual (EPI) que ilumine a área de trabalho sem ocupar nenhuma das mãos.",
-      starterData: { dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.", restricao: "A fonte de luz não pode ofuscar a visão do próprio técnico.", perguntaGatilho: "Onde posicionar a luz no corpo (ombros, peito, luvas) para eliminar as sombras das mãos?" },
+      starterData: { dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.", restricao: "A fonte de luz não pode ofuscar a visão do próprio técnico.", perguntaGatilho: "Onde posicionar a luz no corpo (ombros, peito, luvas) para eliminar as sombras das mãos?", 
+      fontes: [
+          {nome: "⚖️ Norma Oficial: NR-10 (Segurança Elétrica)", link: "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-10-nr-10"},
+          {nome: "🎓 Artigos: Iluminação e Acidentes", link: "https://scholar.google.com.br/scholar?q=iluminacao+acidentes+de+trabalho+manutencao"}
+      ]},
       promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas voltadas para manutenção elétrica em locais sem energia, que não fiquem presas ao capacete."
     },
     { vertente: "Manutenção", titulo: "O Ouvido Mecânico", imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
       dor: "Cena: Ambiente industrial extremamente barulhento com várias máquinas a operar.\nDor: O técnico precisa de se aproximar perigosamente das engrenagens para 'ouvir' se a máquina tem algum problema.",
-      desafio: "Missão: Projetar uma ferramenta física simples que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
-      starterData: { dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.", restricao: "Deve ser uma ferramenta portátil e simples, sem fios espalhados pelo chão.", perguntaGatilho: "Como transformar a vibração da máquina num sinal visual ou de tremor nas mãos do técnico?" },
+      desafio: "Missão: Desenvolver uma ferramenta física simples que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
+      starterData: { dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.", restricao: "Deve ser uma ferramenta portátil e simples, sem fios espalhados pelo chão.", perguntaGatilho: "Como transformar a vibração da máquina num sinal visual ou de tremor nas mãos do técnico?", 
+      fontes: [
+          {nome: "🎓 Manutenção Preditiva e Vibração", link: "https://scholar.google.com.br/scholar?q=manutencao+preditiva+analise+de+vibracao+sensores"},
+          {nome: "⚖️ Norma Oficial: NR-15 (Anexo 1 - Ruído)", link: "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-15-nr-15"}
+      ]},
       promptExemplo: "Atue como inventor. Quais são 3 formas criativas de usar sensores de vibração baratos numa 'vara de inspeção' mecânica para locais barulhentos?"
     },
     { vertente: "Manutenção", titulo: "O Manual Invisível", imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
       dor: "Cena: Técnico de frente a uma máquina avariada, perdido no meio de um manual de 800 páginas.\nDor: Perda de tempo crucial e elevado risco de errar o conserto por stress.",
-      desafio: "Missão: Desenhar um sistema visual físico ou wearable (vestível) que mostre as instruções diretamente em cima da máquina avariada.",
-      starterData: { dadoReal: "Técnicos perdem cerca de 25% do tempo da manutenção apenas à procura de diagramas em manuais de papel.", restricao: "Não desenhar capacetes gigantes de Realidade Virtual, pois são pesados e pouco práticos.", perguntaGatilho: "Como projetar a imagem, usar óculos simples ou tótens com QR code para exibir o passo a passo?" },
+      desafio: "Missão: Conceber um sistema visual físico ou wearable (vestível) que mostre as instruções diretamente em cima da máquina avariada.",
+      starterData: { dadoReal: "Técnicos perdem cerca de 25% do tempo da manutenção apenas à procura de diagramas em manuais de papel.", restricao: "Não projetar capacetes gigantes de Realidade Virtual, pois são pesados e pouco práticos.", perguntaGatilho: "Como projetar a imagem, usar óculos simples ou tótens com QR code para exibir o passo a passo?", 
+      fontes: [
+          {nome: "🎓 Artigos: Realidade Aumentada (AR)", link: "https://scholar.google.com.br/scholar?q=realidade+aumentada+manutencao+industrial"},
+          {nome: "📄 Revistas: Indústria 4.0 e Manuais", link: "https://search.scielo.org/?q=manutencao+instrucoes+visuais+industria+4.0"}
+      ]},
       promptExemplo: "Descreva 3 aplicações baratas de Realidade Aumentada (AR) através de óculos leves ou tablets para ajudar técnicos a consertar máquinas passo a passo."
     },    
 
     { vertente: "Logística", titulo: "O Caminho Inteligente", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
       dor: "Cena: Operador a andar quilómetros dentro de um enorme galpão de estoque.\nDor: O cansaço físico mental extremo leva a erros na hora de recolher as caixas corretas.",
       desafio: "Missão: Criar um sistema visual direto que guie o operador exatamente até ao item correto na prateleira.",
-      starterData: { dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.", restricao: "O operador não pode ter ecrãs (telemóveis/tablets) a ocupar as suas mãos.", perguntaGatilho: "Como usar luzes LED nas prateleiras, cores ou sinalização no chão para o guiar sem precisar de ler nada?" },
-      promptExemplo: "Atue como inovador logístico. Explique como funciona o sistema 'Pick-to-Light' e como ele poderia ser desenhado de forma barata usando fitas de LED."
+      starterData: { dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.", restricao: "O operador não pode ter ecrãs (telemóveis/tablets) a ocupar as suas mãos.", perguntaGatilho: "Como usar luzes LED nas prateleiras, cores ou sinalização no chão para o guiar sem precisar de ler nada?", 
+      fontes: [
+          {nome: "🎓 O que é Sistema Pick-to-Light?", link: "https://scholar.google.com.br/scholar?q=pick-to-light+logistica+armazem+eficiencia"},
+          {nome: "📄 Fadiga Cognitiva em Picking", link: "https://search.scielo.org/?q=fadiga+operador+logistica+armazenagem"}
+      ]},
+      promptExemplo: "Atue como inovador logístico. Explique como funciona o sistema 'Pick-to-Light' e como ele poderia ser desenvolvido de forma barata usando fitas de LED."
     },
     { vertente: "Logística", titulo: "A Doca Automatizada", imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
       dor: "Cena: Receção de mercadorias com vários caminhões a chegar ao mesmo tempo debaixo de chuva.\nDor: O conferente fica molhado, os papéis rasgam e as multas por atraso de caminhão são gigantes.",
-      desafio: "Missão: Desenhar um sistema físico e visual para o pátio que organize a fila e a prioridade de descarga automaticamente.",
-      starterData: { dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.", restricao: "O motorista do caminhão não pode sair da cabine por normas de segurança.", perguntaGatilho: "Como o caminhão pode 'comunicar' quem ele é usando câmaras, placas grandes ou portais de luz?" },
+      desafio: "Missão: Estruturar um sistema físico e visual para o pátio que organize a fila e a prioridade de descarga automaticamente.",
+      starterData: { dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.", restricao: "O motorista do caminhão não pode sair da cabine por normas de segurança.", perguntaGatilho: "Como o caminhão pode 'comunicar' quem ele é usando câmaras, placas grandes ou portais de luz?", 
+      fontes: [
+          {nome: "🎓 O que é YMS (Yard Management System)?", link: "https://scholar.google.com.br/scholar?q=Yard+Management+System+gestao+de+patio+docas"},
+          {nome: "📄 Artigos sobre Gargalos em Docas", link: "https://search.scielo.org/?q=logistica+recebimento+docas+gargalo"}
+      ]},
       promptExemplo: "Liste 3 ideias integrando Câmaras OCR (leitura de matrículas), QR Codes gigantes nos vidros e semáforos para organizar caminhões numa fábrica."
     },
     { vertente: "Logística", titulo: "O Estoque Vivo", imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
       dor: "Cena: A linha de montagem para de repente porque os parafusos de uma caixa acabaram e ninguém reparou.\nDor: Atraso na produção inteira e trabalhadores ociosos à espera do empilhador.",
       desafio: "Missão: Criar caixas, gavetas ou prateleiras que indiquem visualmente e sozinhas quando o seu nível de estoque está a chegar ao fim.",
-      starterData: { dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.", restricao: "Não utilizar sensores industriais a laser que são caros e avariam facilmente.", perguntaGatilho: "Como usar o próprio peso da caixa, molas, inclinação ou bandeiras coloridas para avisar de longe?" },
+      starterData: { dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.", restricao: "Não utilizar sensores industriais a laser que são caros e avariam facilmente.", perguntaGatilho: "Como usar o próprio peso da caixa, molas, inclinação ou bandeiras coloridas para avisar de longe?", 
+      fontes: [
+          {nome: "🎓 IoT no Kanban Eletrônico", link: "https://scholar.google.com.br/scholar?q=e-kanban+iot+intralogistica+sensores"},
+          {nome: "📄 Falhas no Abastecimento (Milk Run)", link: "https://search.scielo.org/?q=milk+run+abastecimento+linha+de+montagem"}
+      ]},
       promptExemplo: "Como podemos modernizar o conceito de caixas kanban adicionando balanças mecânicas simples que acionam botões ou luzes ao ficarem leves?"
     },    
 
     { vertente: "Sustentabilidade", titulo: "A Lixeira Inteligente", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
       dor: "Cena: Funcionários a jogar peças de metal e plástico sujo de óleo no lixo comum pela pressa.\nDor: A fábrica é multada e o custo para incinerar lixo misturado com óleo é altíssimo.",
-      desafio: "Missão: Projetar uma lixeira industrial que induza fisicamente o funcionário a descartar no lugar certo, de forma automática.",
-      starterData: { dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').", restricao: "Sem sistemas de Inteligência Artificial com câmaras na lixeira (avariam na poeira).", perguntaGatilho: "Como o formato da boca da lixeira, o pedal ou o som podem 'ensinar' e obrigar a fazer o certo?" },
+      desafio: "Missão: Desenvolver uma lixeira industrial que induza fisicamente o funcionário a descartar no lugar certo, de forma automática.",
+      starterData: { dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').", restricao: "Sem sistemas de Inteligência Artificial com câmaras na lixeira (avariam na poeira).", perguntaGatilho: "Como o formato da boca da lixeira, o pedal ou o som podem 'ensinar' e obrigar a fazer o certo?", 
+      fontes: [
+          {nome: "🎓 Teoria do Nudge (Empurrãozinho)", link: "https://scholar.google.com.br/scholar?q=nudge+theory+waste+management+reciclagem"},
+          {nome: "📄 Design Comportamental e Lixo", link: "https://search.scielo.org/?q=design+comportamental+residuos+solidos"}
+      ]},
       promptExemplo: "Sugira 3 formas focadas em Design Comportamental (Nudge) para criar lixeiras de chão de fábrica que impeçam fisicamente de jogar lixo no buraco errado."
     },
     { vertente: "Sustentabilidade", titulo: "O Detector Visual de Vazamento", imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
       dor: "Cena: Tubulações que transportam ar comprimido suspensas pelo teto da fábrica.\nDor: Vazamentos microscópicos são invisíveis e inaudíveis, desperdiçando milhares de reais em energia elétrica atirada ao ar.",
       desafio: "Missão: Criar um sistema visual simples e prático acoplado aos tubos que indique imediatamente onde o ar está a vazar.",
-      starterData: { dadoReal: "Um único furo de 3mm numa mangueira de ar comprimido custa à fábrica cerca de R$ 5.000 desperdiçados por ano.", restricao: "Sem aparelhos de ultrassom caríssimos. A solução deve ficar no próprio tubo.", perguntaGatilho: "Como usar fitas, movimento, mudança de cor ou reações físicas ao ar frio para destacar o furo?" },
+      starterData: { dadoReal: "Um único furo de 3mm numa mangueira de ar comprimido custa à fábrica cerca de R$ 5.000 desperdiçados por ano.", restricao: "Sem aparelhos de ultrassom caríssimos. A solução deve ficar no próprio tubo.", perguntaGatilho: "Como usar fitas, movimento, mudança de cor ou reações físicas ao ar frio para destacar o furo?", 
+      fontes: [
+          {nome: "🎓 Custos do Ar Comprimido (Energia)", link: "https://scholar.google.com.br/scholar?q=eficiencia+energetica+vazamento+ar+comprimido"},
+          {nome: "📄 Artigos de Engenharia Térmica", link: "https://search.scielo.org/?q=ar+comprimido+perdas+energia+industria"}
+      ]},
       promptExemplo: "Atue como químico de materiais. Imagine revestimentos, adesivos com micro-hélices ou películas que reagiriam visualmente ao vento de uma fuga de ar."
     },
     { vertente: "Sustentabilidade", titulo: "A Bancada Inclusiva", imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
       dor: "Cena: A fábrica tenta contratar pessoas em cadeira de rodas, mas todas as bancadas e controlos são muito altos e chumbados ao chão.\nDor: Exclusão de bons profissionais por falta de acessibilidade.",
-      desafio: "Missão: Desenhar uma bancada de trabalho que ajuste a sua altura e o seu painel rapidamente para qualquer utilizador.",
-      starterData: { dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.", restricao: "O ajuste deve ser simples. Lembrar que a mão do utilizador também precisa de alcançar as ferramentas.", perguntaGatilho: "Como transformar uma bancada rígida numa mesa 'articulada' com motores simples de apertar botão?" },
+      desafio: "Missão: Idealizar uma bancada de trabalho que ajuste a sua altura e o seu painel rapidamente para qualquer utilizador.",
+      starterData: { dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.", restricao: "O ajuste deve ser simples. Lembrar que a mão do utilizador também precisa de alcançar as ferramentas.", perguntaGatilho: "Como transformar uma bancada rígida numa mesa 'articulada' com motores simples de apertar botão?", 
+      fontes: [
+          {nome: "⚖️ Norma Oficial: NR-17 (Ergonomia e Inclusão)", link: "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-17-nr-17"},
+          {nome: "🎓 Conceito de Desenho Universal", link: "https://scholar.google.com.br/scholar?q=desenho+universal+posto+de+trabalho+pcd+industria"}
+      ]},
       promptExemplo: "Crie um conceito de 'Bancada Universal'. Como braços articulados, plataformas de elevação simples e ecrãs móveis fariam a mesa 'moldar-se' a um cadeirante?"
     },    
 
     { vertente: "Administrativo", titulo: "O Treinamento Imersivo", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
       dor: "Cena: Sala teórica com dezenas de jovens sentados a ouvir sobre uso de capacete e botas por 4 horas.\nDor: Treino extremamente chato. Ninguém presta atenção e os acidentes reais acontecem depois.",
       desafio: "Missão: Criar uma experiência física interativa e lúdica para ensinar segurança sem tédio.",
-      starterData: { dadoReal: "Estudos mostram que o cérebro humano retém apenas 20% do que escuta, mas memoriza 75% daquilo que experimenta na prática.", restricao: "A simulação não pode causar nenhum arranhão ou risco real aos funcionários.", perguntaGatilho: "Como transformar a sala num 'jogo de fuga' ou usar desafios táteis para eles viverem a experiência?" },
+      starterData: { dadoReal: "Estudos mostram que o cérebro humano retém apenas 20% do que escuta, mas memoriza 75% daquilo que experimenta na prática.", restricao: "A simulação não pode causar nenhum arranhão ou risco real aos funcionários.", perguntaGatilho: "Como transformar a sala num 'jogo de fuga' ou usar desafios táteis para eles viverem a experiência?", 
+      fontes: [
+          {nome: "🎓 Pirâmide de Aprendizagem de Glasser", link: "https://scholar.google.com.br/scholar?q=piramide+de+aprendizagem+william+glasser"},
+          {nome: "📄 Gamificação na Segurança do Trabalho", link: "https://search.scielo.org/?q=gamificacao+seguranca+do+trabalho+treinamento"}
+      ]},
       promptExemplo: "Atue como Game Designer. Crie um conceito para uma sala de treinamento de 15 minutos onde a equipa só consegue destrancar a porta se vestir os EPIs na ordem certa."
     },
     { vertente: "Administrativo", titulo: "A Mesa Inteligente", imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
       dor: "Cena: Assistente num escritório com pilhas de papéis, a bater números do papel para o ecrã.\nDor: O cansaço mental extremo leva a digitação errada de códigos fiscais, gerando multas para a empresa.",
-      desafio: "Missão: Projetar uma estação de trabalho de escritório que valide informações visualmente para a pessoa, reduzindo o cansaço visual.",
-      starterData: { dadoReal: "Erros de digitação (data-entry) custam fortunas e ocorrem mais no período da tarde devido ao foco prolongado da visão.", restricao: "A solução tem de integrar a folha de papel física e não apenas o computador.", perguntaGatilho: "Como lâmpadas, câmaras de documento ou réguas com luzes poderiam dar 'feedback verde ou vermelho' imediato?" },
+      desafio: "Missão: Conceber uma estação de trabalho de escritório que valide informações visualmente para a pessoa, reduzindo o cansaço visual.",
+      starterData: { dadoReal: "Erros de digitação (data-entry) custam fortunas e ocorrem mais no período da tarde devido ao foco prolongado da visão.", restricao: "A solução tem de integrar a folha de papel física e não apenas o computador.", perguntaGatilho: "Como lâmpadas, câmaras de documento ou réguas com luzes poderiam dar 'feedback verde ou vermelho' imediato?", 
+      fontes: [
+          {nome: "🎓 O que é OCR (Reconhecimento Ótico)?", link: "https://scholar.google.com.br/scholar?q=OCR+automacao+documentos+fiscais"},
+          {nome: "📄 Fadiga Cognitiva em Escritórios", link: "https://search.scielo.org/?q=fadiga+cognitiva+trabalho+administrativo+erros"}
+      ]},
       promptExemplo: "O que é um leitor OCR de mesa? Liste 3 formas de acoplar pequenas câmaras ou sensores debaixo do monitor para escanear a nota fiscal e ajudar o funcionário."
     },
     { vertente: "Administrativo", titulo: "A Comunicação Invisível", imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
       dor: "Cena: A gerência envia um aviso urgente sobre troca de turnos por e-mail corporativo.\nDor: 80% dos operadores das máquinas não acedem a computadores nem andam com o telemóvel na fábrica. Eles ficam desinformados.",
       desafio: "Missão: Criar um sistema físico de comunicação visual para garantir que a informação chegue aos olhos de toda a operação.",
-      starterData: { dadoReal: "Trabalhadores não-digitalizados (deskless workers) sentem-se isolados da empresa por não terem o WhatsApp corporativo.", restricao: "É proibido usar o telemóvel próprio no chão de fábrica.", perguntaGatilho: "Para onde o trabalhador é 'obrigado' a olhar todos os dias (chão, teto, catraca, copo de água) e como projetar o recado lá?" },
+      starterData: { dadoReal: "Trabalhadores não-digitalizados (deskless workers) sentem-se isolados da empresa por não terem o WhatsApp corporativo.", restricao: "É proibido usar o telemóvel próprio no chão de fábrica.", perguntaGatilho: "Para onde o trabalhador é 'obrigado' a olhar todos os dias (chão, teto, catraca, copo de água) e como projetar o recado lá?", 
+      fontes: [
+          {nome: "🎓 O Desafio dos 'Deskless Workers'", link: "https://scholar.google.com.br/scholar?q=deskless+workers+comunicacao+interna+chao+de+fabrica"},
+          {nome: "📄 Artigos sobre Engajamento Industrial", link: "https://search.scielo.org/?q=comunicacao+interna+industria+operacionais"}
+      ]},
       promptExemplo: "Liste 3 invenções físicas para comunicação de massa numa fábrica, pensando em projetores de imagem no teto, smartwatches bloqueados ou ecrãs nas máquinas de café."
     }
   ];
@@ -543,8 +603,6 @@
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       if(!tab.dataset.tab) return; 
-      
-      // Impede o clique manual se a aba estiver bloqueada no CSS
       if(tab.style.pointerEvents === 'none') return;
       
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
@@ -737,6 +795,19 @@
       localStorage.setItem('inova_missao_' + equipe, JSON.stringify(missaoSelecionada));
       document.getElementById('roles-modal').style.display = 'none';
       window.toast("Contrato assinado! Que os Sprints comecem.", "success");
+      
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+              const equipeId = Object.keys(data).find(key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipe.toLowerCase());
+              if (equipeId) {
+                  const updates = {};
+                  updates[`equipes/${equipeId}/missaoAtiva`] = missaoSelecionada;
+                  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates);
+              }
+          }
+      }, { onlyOnce: true });
+
       exibirDashboard(missaoSelecionada);
   }
 
@@ -756,11 +827,25 @@
       if (missao.imagem && missao.imagem.trim() !== '') { img.src = missao.imagem; img.alt = `Cenário do desafio ${missao.titulo}`; img.style.display = 'block'; } else { img.src = ''; img.alt = 'Cenário visual do desafio'; img.style.display = 'none'; }
 
       if (missao.starterData) {
-          document.getElementById('m-data-boxes').style.display = 'grid'; document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal; document.getElementById('m-restricao').textContent = missao.starterData.restricao; document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho; document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
+          document.getElementById('m-data-boxes').style.display = 'grid'; 
+          document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal; 
+          document.getElementById('m-restricao').textContent = missao.starterData.restricao; 
+          document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho; 
+          document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
+          
+          // 💡 NOVO: RENDERIZA OS LINKS DIRETOS DA MISSÃO 💡
+          if(missao.starterData.fontes && missao.starterData.fontes.length > 0) {
+              const fontesContainer = document.getElementById('m-fontes-container');
+              fontesContainer.innerHTML = missao.starterData.fontes.map(f => 
+                  `<a href="${f.link}" target="_blank" class="fonte-btn highlight"><span>🎯</span> <span>${f.nome}</span></a>`
+              ).join('');
+              document.getElementById('fonte-starter-card').style.display = 'block';
+          } else {
+              document.getElementById('fonte-starter-card').style.display = 'none';
+          }
       }
   }
 
-  // 🚀 NOVAS FUNÇÕES SEPARADAS DE ENTREGA
   window.enviarMockup = function() {
       const link = document.getElementById('link-mockup').value.trim();
       try { new URL(link); } catch (e) { window.toast("Cole um link válido (http/https)", "warning"); return; }
@@ -826,7 +911,7 @@
       guideBox.style.display = 'block';
 
       const guias = {
-          1: { titulo: "SPRINT 1: EMPATIA HUMANA", dicas: ["Definam a <strong>Persona do Trabalhador</strong> e a dor principal.", "Identifiquem a <strong>Causa Raiz</strong> do problema.", "Busquem Dados reais para validar a dor."] },
+          1: { titulo: "SPRINT 1: EMPATIA HUMANA", dicas: ["Definam a <strong>Persona do Trabalhador</strong> e a dor principal.", "Identifiquem a <strong>Causa Raiz</strong> do problema.", "Busquem Dados reais (usem os botões de Pesquisa) para validar a dor."] },
           2: { titulo: "SPRINT 2: CO-PILOTO IA", dicas: ["Anotem o <strong>Prompt Principal</strong> no Canvas de papel.", "Debatam o que a IA acertou e errou.", "Selecionem a melhor ideia para a próxima fase."] },
           3: { titulo: "SPRINT 3: VIABILIDADE 5.0", dicas: ["Vão à aba <strong>Viabilidade 5.0</strong> e respondam às 4 perguntas.", "Preencham as secções de Ética e Segurança no painel físico.", "Calculem se a ideia é barata e viável para o mercado."] },
           4: { titulo: "SPRINT 4: MOCKUP DIGITAL", dicas: ["Desenem o Esboço no Canvas de papel (Rascunho).", "Usem o Copilot Image para gerar o Render 3D.", "Vão à aba <strong>Mockup Digital</strong> e enviem o link."] },
