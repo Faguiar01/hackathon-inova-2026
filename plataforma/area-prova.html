@@ -352,205 +352,209 @@
 
   // 🚀 MISSOES ATUALIZADAS (SEM MARCAS, COM DADOS E PROMPTS)
   const missoes = [
-    // PRODUÇÃO
+    // ⚙️ VERTENTE: PRODUÇÃO
     { 
       vertente: "Produção",
-      titulo: "A Linha de Montagem Infinita",
+      titulo: "A Linha de Montagem Inteligente",
       imagem: "/assets/img/desafios/producao-linha-montagem.png",
-      dor: "Cena: Uma linha de montagem de compressores na zona industrial. A meta é alta: 1.200 peças montadas por turno.\nDor: O operador realiza mais de 4.800 movimentos repetitivos por dia. A fadiga nas últimas 2 horas de turno aumenta a taxa de defeitos em 15% e as licenças médicas por LER disparam.",
-      desafio: "Missão: Como criar uma solução física inteligente (vestível ou acoplada) que reduza o esforço repetitivo e proteja o corpo do operador?",
+      dor: "Cena: Linha de montagem com alta repetição de movimentos.\nDor: A fadiga física extrema gera erros de produção e afastamentos médicos.",
+      desafio: "Missão: Desenhar um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
       starterData: {
-        dadoReal: "Estudos de ergonomia apontam que a fadiga motora nas últimas 2 horas do turno reduz a precisão manual em até 30%.",
-        restricao: "A solução não pode pesar mais de 2kg se acoplada ao corpo.",
-        perguntaGatilho: "Como dar suporte ao peso do braço do trabalhador sem limitar sua mobilidade?"
+        dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.",
+        restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.",
+        perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?"
       },
-      promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos (sem bateria) de baixo custo para operadores de linha de montagem..."
+      promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos simples (sem bateria) para aliviar os braços de operadores de linha de montagem."
     },
     {
       vertente: "Produção",
       titulo: "O Calor da Fundição",
       imagem: "/assets/img/desafios/producao-fundicao.png",
-      dor: "Cena: O setor de vazamento de uma grande fundição metalúrgica local, com fornos a 1.200°C.\nDor: A sensação térmica chega a 50°C. O operador perde até 2 litros de água em suor por turno. O risco de exaustão térmica força a empresa a fazer rodízios a cada 45 minutos.",
-      desafio: "Missão: Como projetar uma solução física de proteção térmica (cabine, traje, escudo) para que o operador trabalhe com conforto e segurança contínua?",
+      dor: "Cena: Operador num ambiente de fundição de metais extremamente quente.\nDor: Exaustão térmica severa e queda brusca de rendimento e foco.",
+      desafio: "Missão: Projetar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
       starterData: {
-        dadoReal: "A temperatura interna de EPIs de couro espessos aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.",
-        restricao: "O trabalhador deve manter campo de visão 100% livre para não causar acidentes.",
-        perguntaGatilho: "Como criar um 'microclima' gelado ao redor do operador sem afetar a temperatura do metal fundido?"
+        dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.",
+        restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.",
+        perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?"
       },
-      promptExemplo: "Atue como pesquisador de novos materiais. Explique como tecidos de resfriamento ativo ou coletes de circulação de água poderiam ser usados na indústria pesada."
+      promptExemplo: "Atue como designer de moda industrial. Como tecidos de resfriamento ativo ou coletes com circulação de água poderiam ser desenhados para ambientes de calor extremo?"
     },
     {
       vertente: "Produção",
-      titulo: "A Inspeção de Plásticos",
+      titulo: "A Inspeção Assistida",
       imagem: "/assets/img/desafios/producao-inspecao-visual.png",
-      dor: "Cena: Fim da esteira de uma injetora de peças plásticas translúcidas. Passam 60 peças por minuto.\nDor: O inspetor humano precisa focar o olho continuamente sob luz forte. Após 2 horas, a fadiga visual causa 12% de 'falsos positivos' (peças boas jogadas no lixo).",
-      desafio: "Missão: Como criar uma estação física de inspeção visual inteligente que destaque os defeitos automaticamente sem forçar o olho humano?",
+      dor: "Cena: Inspeção visual de pequenas peças plásticas sob luz intensa o dia todo.\nDor: Fadiga ocular aguda, dores de cabeça e aumento de peças boas atiradas para o lixo.",
+      desafio: "Missão: Desenhar uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
       starterData: {
-        dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular.",
-        restricao: "A solução não pode ser substituir o humano por uma câmera. O humano deve dar a palavra final.",
-        perguntaGatilho: "Como a cor da luz ou o uso de lentes pode fazer o defeito no plástico 'brilhar' para o operador?"
+        dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.",
+        restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.",
+        perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?"
       },
-      promptExemplo: "Atue como designer industrial. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou polarizada em bancadas de inspeção visual para reduzir cansaço."
+      promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
     },    
-    // MANUTENÇÃO
+
+    // 🔧 VERTENTE: MANUTENÇÃO
     {
       vertente: "Manutenção",
-      titulo: "O Painel das Sombras",
+      titulo: "O EPI Iluminado",
       imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
-      dor: "Cena: Manutenção noturna emergencial em uma subestação de energia de uma fábrica têxtil.\nDor: O técnico tem 40 minutos para voltar a energia. A NR-10 exige mãos livres, mas a iluminação do local falhou. Segurar a lanterna improvisadamente aumenta em 40% o risco de choque.",
-      desafio: "Missão: Como inventar um Equipamento de Proteção Individual (EPI) inteligente que ilumine a área de trabalho mantendo as mãos 100% livres?",
+      dor: "Cena: Manutenção noturna num painel elétrico sem luz adequada no local.\nDor: Segurar a lanterna com a boca ou de forma improvisada aumenta o risco de choque fatal.",
+      desafio: "Missão: Criar um Equipamento de Proteção Individual (EPI) que ilumine a área de trabalho sem ocupar nenhuma das mãos.",
       starterData: {
-        dadoReal: "Lanternas de capacete convencionais criam sombras no painel elétrico dependendo do ângulo da cabeça do técnico.",
+        dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.",
         restricao: "A fonte de luz não pode ofuscar a visão do próprio técnico.",
-        perguntaGatilho: "Se a luz não estiver na cabeça nem na mão, onde ela pode estar acoplada no corpo?"
+        perguntaGatilho: "Onde posicionar a luz no corpo (ombros, peito, luvas) para eliminar as sombras das mãos?"
       },
-      promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas (como luvas, ombros ou peitoral) voltadas para manutenção elétrica em locais sem energia."
+      promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas voltadas para manutenção elétrica em locais sem energia, que não fiquem presas ao capacete."
     },
     {
       vertente: "Manutenção",
-      titulo: "A Máquina Barulhenta",
+      titulo: "O Ouvido Mecânico",
       imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
-      dor: "Cena: Um pavilhão de usinagem pesada com dezenas de tornos CNC operando a 85 decibéis.\nDor: Para ouvir se um rolamento interno está quebrando, o técnico aproxima a cabeça a menos de 30cm de eixos rodando a 3.000 RPM, criando risco grave de esmagamento.",
-      desafio: "Missão: Como criar uma ferramenta física inteligente que detecte ruído ou vibração mecânica à distância, sem expor o técnico ao perigo?",
+      dor: "Cena: Ambiente industrial extremamente barulhento com várias máquinas a operar.\nDor: O técnico precisa de se aproximar perigosamente das engrenagens para 'ouvir' se a máquina tem algum problema.",
+      desafio: "Missão: Projetar uma ferramenta física simples que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
       starterData: {
-        dadoReal: "Vibrações anormais imperceptíveis ao ouvido humano já indicam 90% da chance de quebra mecânica nos próximos dias.",
-        restricao: "Deve funcionar em ambientes onde o ruído de fundo (outras máquinas) é ensurdecedor.",
-        perguntaGatilho: "Como 'ver' o som e a vibração através de uma ferramenta alongada ou tela portátil?"
+        dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.",
+        restricao: "Deve ser uma ferramenta portátil e simples, sem fios espalhados pelo chão.",
+        perguntaGatilho: "Como transformar a vibração da máquina num sinal visual ou de tremor nas mãos do técnico?"
       },
-      promptExemplo: "Atue como técnico mecatrônico. Quais são 3 formas criativas de usar sensores de vibração ou microfones direcionais de baixo custo em uma ferramenta de inspeção?"
+      promptExemplo: "Atue como inventor. Quais são 3 formas criativas de usar sensores de vibração baratos numa 'vara de inspeção' mecânica para locais barulhentos?"
     },
     {
       vertente: "Manutenção",
-      titulo: "O Manual Perdido",
+      titulo: "O Manual Invisível",
       imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
-      dor: "Cena: Uma máquina robótica europeia recém-comprada para a produção apresenta o Erro E-404.\nDor: O manual tem 800 páginas e fica na sala do supervisor. A pressão bloqueia a mente do técnico, que perde 30 minutos apenas procurando a página correta.",
-      desafio: "Missão: Como desenvolver um visor, óculos ou equipamento físico inteligente que entregue a instrução visual exata no local da falha?",
+      dor: "Cena: Técnico de frente a uma máquina avariada, perdido no meio de um manual de 800 páginas.\nDor: Perda de tempo crucial e elevado risco de errar o conserto por stress.",
+      desafio: "Missão: Desenhar um sistema visual físico ou wearable (vestível) que mostre as instruções diretamente em cima da máquina avariada.",
       starterData: {
-        dadoReal: "Técnicos industriais gastam cerca de 25% do tempo do seu turno apenas procurando informações em PDFs ou papéis.",
-        restricao: "Muitos técnicos têm aversão a usar capacetes de realidade virtual muito pesados.",
-        perguntaGatilho: "Como projetar a informação diretamente na máquina ou em um óculos leve?"
+        dadoReal: "Técnicos perdem cerca de 25% do tempo da manutenção apenas à procura de diagramas em manuais de papel.",
+        restricao: "Não desenhar capacetes gigantes de Realidade Virtual, pois são pesados e pouco práticos.",
+        perguntaGatilho: "Como projetar a imagem, usar óculos simples ou tótens com QR code para exibir o passo a passo?"
       },
-      promptExemplo: "Descreva 3 aplicações práticas e baratas de Realidade Aumentada (AR) para ajudar técnicos mecânicos a consertar máquinas sem precisar ler manuais de papel."
+      promptExemplo: "Descreva 3 aplicações baratas de Realidade Aumentada (AR) através de óculos leves ou tablets para ajudar técnicos a consertar máquinas passo a passo."
     },    
-    // LOGÍSTICA
+
+    // 📦 VERTENTE: LOGÍSTICA
     {
       vertente: "Logística",
-      titulo: "A Caça ao Tesouro",
+      titulo: "O Caminho Inteligente",
       imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
-      dor: "Cena: O Centro de Distribuição com mais de 10.000 tipos de peças (SKUs).\nDor: O separador caminha 12 km por turno empurrando carrinhos. O cansaço físico nas horas finais eleva o erro de envio de peças para 4%, gerando devoluções e prejuízo.",
-      desafio: "Missão: Como criar uma solução física inteligente (carrinho, pulseira, prateleira) que guie visualmente ou fisicamente o operador até o item certo sem precisar ler papéis?",
+      dor: "Cena: Operador a andar quilómetros dentro de um enorme galpão de estoque.\nDor: O cansaço físico mental extremo leva a erros na hora de recolher as caixas corretas.",
+      desafio: "Missão: Criar um sistema visual direto que guie o operador exatamente até ao item correto na prateleira.",
       starterData: {
-        dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo de separação logística.",
-        restricao: "Usar tablets ou scanners na mão retarda o processo pois exige soltar as ferramentas.",
-        perguntaGatilho: "E se a própria prateleira conversasse visualmente com a pulseira ou carrinho do operador?"
+        dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.",
+        restricao: "O operador não pode ter ecrãs (telemóveis/tablets) a ocupar as suas mãos.",
+        perguntaGatilho: "Como usar luzes LED nas prateleiras, cores ou sinalização no chão para o guiar sem precisar de ler nada?"
       },
-      promptExemplo: "Atue como inovador em logística. O que é o sistema 'Pick-to-Light' e como ele pode ser melhorado adicionando tecnologias vestíveis (wearables) no operador?"
+      promptExemplo: "Atue como inovador logístico. Explique como funciona o sistema 'Pick-to-Light' e como ele poderia ser desenhado de forma barata usando fitas de LED."
     },
     {
       vertente: "Logística",
-      titulo: "O Gargalo da Doca",
+      titulo: "A Doca Automatizada",
       imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
-      dor: "Cena: Pátio de recebimento sob forte chuva tropical. 15 carretas chegam de uma vez.\nDor: O conferente se molha tentando ler notas fiscais borradas para ver quem tem prioridade. Caminhões esperam 3 horas, gerando multas de estadia caríssimas.",
-      desafio: "Missão: Como redesenhar o pátio com soluções físicas e visuais (painéis, semáforos, portais) que tornem a triagem automática e protejam o conferente?",
+      dor: "Cena: Receção de mercadorias com vários caminhões a chegar ao mesmo tempo debaixo de chuva.\nDor: O conferente fica molhado, os papéis rasgam e as multas por atraso de caminhão são gigantes.",
+      desafio: "Missão: Desenhar um sistema físico e visual para o pátio que organize a fila e a prioridade de descarga automaticamente.",
       starterData: {
-        dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na recepção das docas.",
-        restricao: "O motorista de fora não pode descer do caminhão na área industrial por motivos de segurança.",
-        perguntaGatilho: "Como o caminhão pode 'avisar' o que está carregando antes mesmo de passar pelo portão?"
+        dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.",
+        restricao: "O motorista do caminhão não pode sair da cabine por normas de segurança.",
+        perguntaGatilho: "Como o caminhão pode 'comunicar' quem ele é usando câmaras, placas grandes ou portais de luz?"
       },
-      promptExemplo: "Liste 3 ideias integrando Câmeras OCR (leitura de placas), QR Codes e painéis de LED para organizar o trânsito de caminhões de forma 100% automatizada."
+      promptExemplo: "Liste 3 ideias integrando Câmaras OCR (leitura de matrículas), QR Codes gigantes nos vidros e semáforos para organizar caminhões numa fábrica."
     },
     {
       vertente: "Logística",
-      titulo: "A Corrida Contra o Estoque",
+      titulo: "O Estoque Vivo",
       imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
-      dor: "Cena: Uma linha de montagem de grande porte com 20 estações diferentes.\nDor: O piloto da empilhadeira não tem 'visão de raio-x' para ver qual caixa está esvaziando. Quando falta parafuso, a linha para inteira, deixando 40 funcionários ociosos.",
-      desafio: "Missão: Como transformar as caixas ou prateleiras em elementos visuais inteligentes que avisem sozinhos que o material está acabando?",
+      dor: "Cena: A linha de montagem para de repente porque os parafusos de uma caixa acabaram e ninguém reparou.\nDor: Atraso na produção inteira e trabalhadores ociosos à espera do empilhador.",
+      desafio: "Missão: Criar caixas, gavetas ou prateleiras que indiquem visualmente e sozinhas quando o seu nível de estoque está a chegar ao fim.",
       starterData: {
-        dadoReal: "O abastecimento tipo 'Milk Run' tradicional depende da memória do empilhador e causa falhas de desabastecimento.",
-        restricao: "Sensores a laser são caros e quebram na poeira industrial.",
-        perguntaGatilho: "Como usar gravidade, balanças simples ou cores para enviar um sinal automático para a empilhadeira?"
+        dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.",
+        restricao: "Não utilizar sensores industriais a laser que são caros e avariam facilmente.",
+        perguntaGatilho: "Como usar o próprio peso da caixa, molas, inclinação ou bandeiras coloridas para avisar de longe?"
       },
-      promptExemplo: "Como podemos modernizar o conceito de gavetas kanban industriais adicionando IoT (Internet das Coisas) e pesagem para que enviem alertas via Wi-Fi?"
+      promptExemplo: "Como podemos modernizar o conceito de caixas kanban adicionando balanças mecânicas simples que acionam botões ou luzes ao ficarem leves?"
     },    
-    // SUSTENTABILIDADE
+
+    // ♻️ VERTENTE: SUSTENTABILIDADE
     {
       vertente: "Sustentabilidade",
-      titulo: "O Mistério do Descarte",
+      titulo: "A Lixeira Inteligente",
       imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
-      dor: "Cena: Área de usinagem com caçambas lado a lado para cavaco metálico, óleo solúvel e lixo comum.\nDor: Nos 5 minutos finais do turno, a pressa faz com que 20% do lixo comum seja contaminado por óleo. A empresa paga 5x mais caro para incinerar tudo.",
-      desafio: "Missão: Como projetar uma estação de descarte industrial inteligente que 'obrigue' fisicamente o funcionário a pensar antes de separar o lixo?",
+      dor: "Cena: Funcionários a jogar peças de metal e plástico sujo de óleo no lixo comum pela pressa.\nDor: A fábrica é multada e o custo para incinerar lixo misturado com óleo é altíssimo.",
+      desafio: "Missão: Projetar uma lixeira industrial que induza fisicamente o funcionário a descartar no lugar certo, de forma automática.",
       starterData: {
-        dadoReal: "Placas com texto explicativo ('Jogue plástico aqui') são ignoradas pelo cérebro humano após 3 dias de rotina (cegueira de paisagem).",
-        restricao: "Lixeiras eletrônicas complexas podem quebrar com sujeira de graxa e metal.",
-        perguntaGatilho: "Como os formatos dos buracos das lixeiras ou respostas sonoras podem educar o descarte instantaneamente?"
+        dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').",
+        restricao: "Sem sistemas de Inteligência Artificial com câmaras na lixeira (avariam na poeira).",
+        perguntaGatilho: "Como o formato da boca da lixeira, o pedal ou o som podem 'ensinar' e obrigar a fazer o certo?"
       },
-      promptExemplo: "Sugira 3 formas criativas focadas em Design Comportamental (Nudge) para criar lixeiras industriais que impeçam o descarte de latas de óleo no lixo comum."
+      promptExemplo: "Sugira 3 formas focadas em Design Comportamental (Nudge) para criar lixeiras de chão de fábrica que impeçam fisicamente de jogar lixo no buraco errado."
     },
     {
       vertente: "Sustentabilidade",
-      titulo: "O Vazamento Invisível",
+      titulo: "O Detector Visual de Vazamento",
       imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
-      dor: "Cena: 2 km de tubulação de ar comprimido suspensos pelo teto dos galpões.\nDor: Micro-furos assobiam, mas o barulho é abafado pelas máquinas. Cerca de 25% da conta de energia elétrica vai para o ralo sem ninguém perceber onde está o vazamento.",
-      desafio: "Missão: Como criar um material inteligente, revestimento ou sensor visual para os tubos que denuncie imediatamente onde o ar está escapando?",
+      dor: "Cena: Tubulações que transportam ar comprimido suspensas pelo teto da fábrica.\nDor: Vazamentos microscópicos são invisíveis e inaudíveis, desperdiçando milhares de reais em energia elétrica atirada ao ar.",
+      desafio: "Missão: Criar um sistema visual simples e prático acoplado aos tubos que indique imediatamente onde o ar está a vazar.",
       starterData: {
-        dadoReal: "Apenas 1 furo de 3mm no ar comprimido custa à fábrica cerca de R$ 5.000 em energia elétrica desperdiçada por ano.",
-        restricao: "Contratar uma equipe de caça-vazamento ultrassônica toda semana é muito caro.",
-        perguntaGatilho: "E se a tubulação mudasse de cor ou fizesse algo fisicamente visível quando houvesse mudança de pressão?"
+        dadoReal: "Um único furo de 3mm numa mangueira de ar comprimido custa à fábrica cerca de R$ 5.000 desperdiçados por ano.",
+        restricao: "Sem aparelhos de ultrassom caríssimos. A solução deve ficar no próprio tubo.",
+        perguntaGatilho: "Como usar fitas, movimento, mudança de cor ou reações físicas ao ar frio para destacar o furo?"
       },
-      promptExemplo: "Atue como químico industrial. Imagine revestimentos, fitas adesivas ou películas térmicas que poderiam mudar de cor em reação a vazamento de ar comprimido frio."
+      promptExemplo: "Atue como químico de materiais. Imagine revestimentos, adesivos com micro-hélices ou películas que reagiriam visualmente ao vento de uma fuga de ar."
     },
     {
       vertente: "Sustentabilidade",
-      titulo: "Fábrica para Todos",
+      titulo: "A Bancada Inclusiva",
       imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
-      dor: "Cena: Uma empresa quer contratar pessoas cadeirantes ou com nanismo para operar máquinas leves.\nDor: O chão de fábrica revela a barreira: painéis fixos e bancadas a 1,60m de altura. A empresa perde grandes talentos porque não tem ergonomia inclusiva.",
-      desafio: "Missão: Como desenhar um posto de trabalho ou bancada inteligente que adapte seu formato fisicamente para ser 100% inclusivo para qualquer altura e condição?",
+      dor: "Cena: A fábrica tenta contratar pessoas em cadeira de rodas, mas todas as bancadas e controlos são muito altos e chumbados ao chão.\nDor: Exclusão de bons profissionais por falta de acessibilidade.",
+      desafio: "Missão: Desenhar uma bancada de trabalho que ajuste a sua altura e o seu painel rapidamente para qualquer utilizador.",
       starterData: {
-        dadoReal: "A falta de adaptação física impede que mais de 60% das vagas PCD industriais sejam preenchidas no mercado de trabalho brasileiro.",
-        restricao: "Não basta ser apenas um elevador; os botões de controle da máquina também precisam alcançar as mãos do usuário.",
-        perguntaGatilho: "Como a bancada pode 'reconhecer' quem chegou e se autoconfigurar em segundos?"
+        dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.",
+        restricao: "O ajuste deve ser simples. Lembrar que a mão do utilizador também precisa de alcançar as ferramentas.",
+        perguntaGatilho: "Como transformar uma bancada rígida numa mesa 'articulada' com motores simples de apertar botão?"
       },
-      promptExemplo: "Crie um conceito de 'Bancada Mecatrônica Universal'. Como motores lineares simples e sensores de aproximação podem adaptar a altura e o painel para um cadeirante?"
+      promptExemplo: "Crie um conceito de 'Bancada Universal'. Como braços articulados, plataformas de elevação simples e ecrãs móveis fariam a mesa 'moldar-se' a um cadeirante?"
     },    
-    // ADMINISTRATIVO
+
+    // 🏢 VERTENTE: ADMINISTRATIVO
     {
       vertente: "Administrativo",
-      titulo: "A Integração Fria",
+      titulo: "O Treinamento Imersivo",
       imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
-      dor: "Cena: Sala de RH recebendo 40 novos jovens aprendizes em treinamento inicial.\nDor: Eles são obrigados a ler apostilas e ouvir 4 horas de explicação sobre normas de segurança (EPI, rotas de fuga). O ambiente monótono faz a retenção de conhecimento ser mínima.",
-      desafio: "Missão: Como criar um kit físico, totem interativo ou 'escape room' de boas-vindas que transforme o aprendizado de regras em algo prático e inesquecível?",
+      dor: "Cena: Sala teórica com dezenas de jovens sentados a ouvir sobre uso de capacete e botas por 4 horas.\nDor: Treino extremamente chato. Ninguém presta atenção e os acidentes reais acontecem depois.",
+      desafio: "Missão: Criar uma experiência física interativa e lúdica para ensinar segurança sem tédio.",
       starterData: {
-        dadoReal: "Estudos de andragogia mostram que retemos apenas 20% do que ouvimos, mas 75% do que fazemos na prática.",
-        restricao: "A dinâmica de segurança não pode colocar ninguém em risco real durante o treinamento.",
-        perguntaGatilho: "Como usar gamificação (VR, botões, quebra-cabeças físicos) para eles 'viverem' o acidente e aprenderem a evitá-lo?"
+        dadoReal: "Estudos mostram que o cérebro humano retém apenas 20% do que escuta, mas memoriza 75% daquilo que experimenta na prática.",
+        restricao: "A simulação não pode causar nenhum arranhão ou risco real aos funcionários.",
+        perguntaGatilho: "Como transformar a sala num 'jogo de fuga' ou usar desafios táteis para eles viverem a experiência?"
       },
-      promptExemplo: "Atue como especialista em gamificação. Desenvolva uma ideia para um 'Safety Room' (sala de escape) de 15 minutos onde o funcionário precisa usar EPIs corretamente para sair."
+      promptExemplo: "Atue como Game Designer. Crie um conceito para uma sala de treinamento de 15 minutos onde a equipa só consegue destrancar a porta se vestir os EPIs na ordem certa."
     },
     {
       vertente: "Administrativo",
-      titulo: "O Labirinto das Notas",
+      titulo: "A Mesa Inteligente",
       imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
-      dor: "Cena: Escritório logístico durante o fechamento do mês de faturamento.\nDor: O assistente precisa conferir manualmente códigos de 12 dígitos entre papel e tela por 6 horas seguidas. O cansaço visual e mental gera multas fiscais pesadas por digitação errada.",
-      desafio: "Missão: Como criar uma estação física inteligente de triagem na mesa do escritório que valide documentos instantaneamente e reduza a carga mental?",
+      dor: "Cena: Assistente num escritório com pilhas de papéis, a bater números do papel para o ecrã.\nDor: O cansaço mental extremo leva a digitação errada de códigos fiscais, gerando multas para a empresa.",
+      desafio: "Missão: Projetar uma estação de trabalho de escritório que valide informações visualmente para a pessoa, reduzindo o cansaço visual.",
       starterData: {
-        dadoReal: "Erros de entrada de dados (data-entry) custam em média 1% a 5% da receita bruta anual de uma grande empresa devido a multas e retrabalho.",
-        restricao: "A solução tem que integrar papéis impressos antigos com o software do computador.",
-        perguntaGatilho: "Como escâneres de mesa com inteligência artificial podem 'ler e piscar luz verde' antes de o humano digitar algo?"
+        dadoReal: "Erros de digitação (data-entry) custam fortunas e ocorrem mais no período da tarde devido ao foco prolongado da visão.",
+        restricao: "A solução tem de integrar a folha de papel física e não apenas o computador.",
+        perguntaGatilho: "Como lâmpadas, câmaras de documento ou réguas com luzes poderiam dar 'feedback verde ou vermelho' imediato?"
       },
-      promptExemplo: "O que é tecnologia OCR (Reconhecimento Ótico de Caracteres)? Liste 3 formas de instalar OCR em lâmpadas de mesa para ajudar assistentes fiscais a lerem notas em papel."
+      promptExemplo: "O que é um leitor OCR de mesa? Liste 3 formas de acoplar pequenas câmaras ou sensores debaixo do monitor para escanear a nota fiscal e ajudar o funcionário."
     },
     {
       vertente: "Administrativo",
-      titulo: "O Silo de Informação",
+      titulo: "A Comunicação Invisível",
       imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
-      dor: "Cena: Fábrica operando a todo vapor enquanto a gerência dispara um aviso importante de segurança por e-mail.\nDor: 80% do chão de fábrica não tem nem e-mail corporativo nem senta em computadores. Murais de papel ficam invisíveis. A mensagem crítica simplesmente não chega à operação.",
-      desafio: "Missão: Como criar totens, painéis ou wearables (relógios) físicos no ambiente industrial que garantam a comunicação visual para quem não tem computador?",
+      dor: "Cena: A gerência envia um aviso urgente sobre troca de turnos por e-mail corporativo.\nDor: 80% dos operadores das máquinas não acedem a computadores nem andam com o telemóvel na fábrica. Eles ficam desinformados.",
+      desafio: "Missão: Criar um sistema físico de comunicação visual para garantir que a informação chegue aos olhos de toda a operação.",
       starterData: {
-        dadoReal: "Pesquisas de RH indicam que funcionários da operação se sentem 50% mais desengajados devido à falta de comunicação da liderança com o chão de fábrica.",
-        restricao: "Celulares particulares são proibidos na área de produção por normas de segurança (NR).",
-        perguntaGatilho: "Onde o operador precisa olhar de qualquer maneira (bebedouro, catraca, ferramenta) e como colocar a informação ali?"
+        dadoReal: "Trabalhadores não-digitalizados (deskless workers) sentem-se isolados da empresa por não terem o WhatsApp corporativo.",
+        restricao: "É proibido usar o telemóvel próprio no chão de fábrica.",
+        perguntaGatilho: "Para onde o trabalhador é 'obrigado' a olhar todos os dias (chão, teto, catraca, copo de água) e como projetar o recado lá?"
       },
-      promptExemplo: "Crie 3 ideias para comunicação digital inclusiva no chão de fábrica, usando totens holográficos ou telas de e-ink (tinta digital) em locais estratégicos."
+      promptExemplo: "Liste 3 invenções físicas para comunicação de massa numa fábrica, pensando em projetores de imagem no teto, smartwatches bloqueados ou ecrãs nas máquinas de café."
     }
   ];
 
