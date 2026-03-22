@@ -105,6 +105,11 @@
     .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
     .fonte-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--cyan); color: var(--cyan); transform: translateX(5px); }
 
+    /* NOVO: Estilos para os Botões do Drive (Mockup e Pitch) */
+    .drive-links-container { display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+    .btn-drive { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(0,240,255,0.05); border: 1px dashed var(--cyan); color: var(--cyan); text-decoration: none; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.85rem; transition: all 0.2s; font-weight: bold; }
+    .btn-drive:hover { background: rgba(0,240,255,0.15); border-style: solid; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,240,255,0.2); color: #fff; }
+
     .roles-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
     .role-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 6px; }
     .role-icon { font-size: 2rem; }
@@ -129,6 +134,7 @@
         .page-tab { flex: 1; text-align: center; min-width: 45%; }
         .data-box-wrapper { grid-template-columns: 1fr; }
         .prompt-starter-card { grid-column: span 1; }
+        .btn-drive { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -309,7 +315,6 @@
           <span style="font-size:2.5rem;">✨</span>
           <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
-        
         <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid #00C851; border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🎨</span>
           <div><strong style="color:#00ff99; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Gerador 3D Grátis</span></div>
@@ -355,11 +360,13 @@
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
                 <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
-                <li>Faça o upload do ficheiro na pasta do seu turno:
-                    <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
-                    <br>🌙 <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Tarde ↗</a>
+                <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
+                    <div class="drive-links-container">
+                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-drive">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
+                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-drive">🌙 ABRIR DRIVE (TARDE) ↗</a>
+                    </div>
                 </li>
-                <li>Gere o link de partilha do seu ficheiro no Google Drive, cole abaixo e envie!</li>
+                <li>Volte aqui, cole o link de partilha da sua imagem gerada no Drive abaixo e envie!</li>
             </ol>
         </div>
         <input type="url" id="link-mockup" placeholder="Cole o link do seu Render 3D aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
@@ -375,11 +382,13 @@
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
                 <li>Finalizem a apresentação de slides (Máx 3 slides recomendados).</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: PITCH-SQUAD-ALFA.pdf).</strong></li>
-                <li>Faça o upload do ficheiro na pasta do seu turno:
-                    <br>☀️ <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Manhã ↗</a>
-                    <br>🌙 <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" style="color: var(--cyan); text-decoration: none;">Drive - Turno Tarde ↗</a>
+                <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
+                    <div class="drive-links-container">
+                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-drive">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
+                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-drive">🌙 ABRIR DRIVE (TARDE) ↗</a>
+                    </div>
                 </li>
-                <li>Gere o link de partilha, cole abaixo e envie à coordenação!</li>
+                <li>Volte aqui, cole o link de partilha da sua apresentação gerada no Drive abaixo e envie à coordenação!</li>
             </ol>
         </div>
         <input type="url" id="link-pitch" placeholder="Cole o link dos seus Slides aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #ff4444; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
@@ -802,7 +811,6 @@
           { nome: "NÍVEL 3: SISTÊMICO", class: "lvl-3", mult: "x1.2 (+20% Pontos)", num: 3 }
       ];
 
-      // 💡 CORREÇÃO 1: Usa o índice global (da array missoes inteira) para evitar o erro de Syntax Error
       missoesFiltradas.forEach((missao, index) => {
           const globalIndex = missoes.indexOf(missao);
           const info = niveisInfo[index]; missao.nivelObj = info; 
@@ -812,7 +820,6 @@
       });
   }
 
-  // 💡 CORREÇÃO 1 (continuação): Recebe o index e puxa da array global
   window.abrirModalPapeis = function(index) {
       missaoSelecionada = missoes[index];
       document.getElementById('modal-missao-nome').textContent = missaoSelecionada.titulo.toUpperCase();
@@ -843,7 +850,6 @@
   function exibirDashboard(missaoSalva) {
       document.getElementById('view-escolha').style.display = 'none'; document.getElementById('roles-modal').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'block';
       
-      // 💡 CORREÇÃO 2: Força a leitura da array 'missoes' nova, ignorando a velha que está no cache (LocalStorage)
       let missao = missoes.find(m => m.titulo === missaoSalva.titulo) || missaoSalva;
       if (missaoSalva.nivelObj) missao.nivelObj = missaoSalva.nivelObj;
 
@@ -870,7 +876,7 @@
           if(missao.starterData.fontes && missao.starterData.fontes.length > 0) {
               const fontesContainer = document.getElementById('m-fontes-container');
               fontesContainer.innerHTML = missao.starterData.fontes.map(f => 
-                  `<a href="${f.link}" target="_blank" class="fonte-btn normal"><span>🔗</span> <span>${f.nome}</span></a>`
+                  `<a href="${f.link}" target="_blank" class="btn-drive" style="background: rgba(0,200,81,0.05); border-color: #00C851; color: #00ff99;"><span>🔗</span> <span>${f.nome} ↗</span></a>`
               ).join('');
               document.getElementById('fonte-starter-card').style.display = 'block';
           } else {

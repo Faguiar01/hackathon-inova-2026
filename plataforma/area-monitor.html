@@ -187,7 +187,6 @@
       #user-info-box { border-right: none; padding-right: 0; text-align: left; }
       .main { padding-top: 160px; padding-left: 15px; padding-right: 15px; }
       .sprint-alert { top: 110px; font-size: 0.7rem; padding: 8px; }
-      .lembretes{grid-template-columns:1fr}
       .squad-detail-header { flex-direction: column; align-items: flex-start; padding: 20px; gap: 15px; }
       .squad-detail-header h3 { font-size: 1.8rem; }
       #squad-render-badge { width: 100%; }
@@ -462,7 +461,7 @@ const checkLoad = setInterval(() => {
 
 function iniciarMonitor() {
   window.AUTH.require('monitor');
-  carregarEquipes(true); // Carrega tudo antes de pedir login
+  carregarEquipes(true);
 
   setInterval(() => {
     const rem   = window.SprintTimer.getRemaining();
@@ -487,7 +486,6 @@ function carregarEquipes(isInitialLoad = false) {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
     dbEquipes = snap.val() || {};
     
-    // Alimenta o Select do Modal para o Monitor escolher
     const select = document.getElementById('select-monitor-squad');
     if (select && select.options.length <= 1) {
         select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
@@ -520,7 +518,7 @@ function verificarLoginMonitor() {
         document.getElementById('nome-avaliador-display').textContent = 'Monitor: ' + avaliador;
         
         currentTeamId = squad;
-        renderDetalhes(); // Renderiza diretamente o Squad dele
+        renderDetalhes();
     }
 }
 
@@ -553,7 +551,6 @@ function renderDetalhes() {
   
   let vertenteDisplay = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
   
-  // Exibe a Missão e o multiplicador de XP
   if(td.missaoAtiva) {
       vertenteDisplay += ` <br><span style="font-size: 0.7rem; color: #fff;">DESAFIO: ${td.missaoAtiva.titulo}</span>`;
       if(td.missaoAtiva.nivelObj) {
@@ -595,12 +592,29 @@ function renderDetalhes() {
   renderTabelaNotas(td);
 }
 
+// 🚀 A MÁGICA DE CONVERTER LINK DO DRIVE ESTÁ AQUI
 window.previewRender = function(url) {
   const img   = document.getElementById('render-img');
   const ph    = document.getElementById('render-placeholder');
   
-  if (url && url.startsWith('http')) {
-    img.src = url;
+  if (!url) {
+      img.classList.remove('loaded'); ph.style.display = 'block';
+      return;
+  }
+
+  let finalUrl = url;
+  
+  // Tenta extrair o ID do arquivo do Google Drive
+  const driveRegex = /drive\.google\.com\/file\/d\/([-_a-zA-Z0-9]+)/;
+  const match = url.match(driveRegex);
+  
+  if (match && match[1]) {
+      // Reconstrói o URL para forçar visualização direta da imagem
+      finalUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
+
+  if (finalUrl && finalUrl.startsWith('http')) {
+    img.src = finalUrl;
     img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
     img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
   } else {
