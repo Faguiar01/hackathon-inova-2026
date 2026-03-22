@@ -33,35 +33,6 @@
     .sec-label.cyan{color:var(--cyan)}
     .sec-label.yellow{color:var(--yellow)}
 
-    /* ══════════════════════════════
-       P1 — PAINEL GERAL DOS SQUADS
-    ══════════════════════════════ */
-    .painel-geral{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;margin-bottom:40px}
-
-    .squad-card{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:10px;
-      padding:16px 20px;
-      cursor:pointer;
-      transition:all .3s;
-      position:relative;
-      overflow:hidden;
-    }
-    .squad-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--border);transition:.3s}
-    .squad-card:hover{border-color:rgba(255,255,255,.3);transform:translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
-    .squad-card.active{border-color:var(--cyan);box-shadow:0 0 25px rgba(0,240,255,.2); background:rgba(0,240,255,0.03);}
-    .squad-card.active::before{background:var(--cyan)}
-
-    .squad-card-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff;letter-spacing:1px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .squad-card-vertente{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:1px;margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; text-transform: uppercase;}
-
-    .squad-card-status{display:flex;gap:8px;flex-wrap:wrap}
-    .status-pill{font-family:'Space Mono',monospace;font-size:.6rem;padding:4px 8px;border-radius:20px;letter-spacing:.5px;border:1px solid transparent;white-space:nowrap; font-weight: bold;}
-    .pill-ok   {background:rgba(0,200,81,.1); border-color:rgba(0,200,81,.4); color:#00ff99}
-    .pill-pend {background:rgba(255,214,0,.1);border-color:rgba(255,214,0,.4);color:var(--yellow)}
-    .pill-none {background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:var(--muted)}
-
     /* ── SQUAD DETAIL HEADER ── */
     .squad-detail-header{
       margin-bottom:30px;
@@ -79,7 +50,6 @@
     .squad-detail-header h3{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:2.5rem;letter-spacing:2px;margin:0; line-height: 1;}
     .squad-detail-header p{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--cyan);margin-top:8px;text-transform:uppercase; letter-spacing: 1px;}
     
-    /* NOVO: TAG DO NÍVEL DO DESAFIO */
     .nivel-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; font-weight: bold; margin-left: 10px; vertical-align: middle; display: inline-block; margin-bottom: 5px; }
     .lvl-1 { background: rgba(0,200,81,0.1); color: #00C851; border: 1px solid rgba(0,200,81,0.3); }
     .lvl-2 { background: rgba(255,214,0,0.1); color: var(--yellow); border: 1px solid rgba(255,214,0,0.3); }
@@ -109,7 +79,6 @@
     .check-text{font-size:.85rem;color:var(--muted);transition:.2s;line-height:1.5}
     .check-item.checked .check-text{color:#fff}
 
-    /* ── NOTA RÁPIDA POR SPRINT (P6) ── */
     .nota-sprint{margin-top:12px;padding:0 24px 20px 86px}
     .nota-sprint textarea{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);color:#fff;padding:12px 16px;font-family:'Syne',sans-serif;font-size:.85rem;border-radius:8px;outline:none;resize:vertical;min-height:70px;transition:.2s}
     .nota-sprint textarea:focus{border-color:var(--yellow);box-shadow: 0 0 10px rgba(255,214,0,0.2);}
@@ -172,7 +141,6 @@
     .ss-table td{padding:22px 20px;border-bottom:1px solid rgba(0,240,255,.05);vertical-align:top;text-align:center}
     .ss-table td:first-child{text-align:left}
 
-    /* Critério com tooltip */
     .criterio-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:6px}
     .criterio-label{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:1px}
     .criterio-btn{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--yellow);cursor:pointer;letter-spacing:1px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.3);padding:4px 10px;border-radius:12px; transition: 0.2s;}
@@ -205,6 +173,8 @@
     .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
     .btn-ghost:hover{color:#fff;border-color:#fff; background: rgba(255,255,255,0.05);}
     .btn-amber{background:var(--yellow);color:var(--dark);font-size:1.3rem}
+    .btn-action{background:var(--cyan); color:#000; font-family:'Bebas Neue',sans-serif; font-size:1.2rem; padding:12px 24px; border:none; border-radius:4px; cursor:pointer; letter-spacing:2px; transition:0.2s;}
+    .btn-action:hover{background:#fff; transform:scale(1.02);}
 
     /* ── TOAST ── */
     .toast-custom{position:fixed;bottom:30px;right:30px;background:#0d1117;border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Space Mono',monospace;font-size:.8rem;padding:16px 24px;border-radius:8px;z-index:9999;opacity:0;transform:translateY(15px);transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none;letter-spacing:1px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);}
@@ -218,9 +188,6 @@
       .main { padding-top: 160px; padding-left: 15px; padding-right: 15px; }
       .sprint-alert { top: 110px; font-size: 0.7rem; padding: 8px; }
       .lembretes{grid-template-columns:1fr}
-      .painel-geral{grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap: 10px;}
-      .squad-card { padding: 12px; }
-      .squad-card-name { font-size: 1.2rem; }
       .squad-detail-header { flex-direction: column; align-items: flex-start; padding: 20px; gap: 15px; }
       .squad-detail-header h3 { font-size: 1.8rem; }
       #squad-render-badge { width: 100%; }
@@ -241,6 +208,23 @@
   ⚠️ ATENÇÃO: FALTAM 3 MINUTOS PARA O FIM DO SPRINT ATUAL — AVISE A EQUIPE!
 </div>
 
+<div id="monitor-login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
+    <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:400px; border-radius:8px; padding: 35px;">
+        <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--cyan); margin:0 0 10px 0; text-align:center; letter-spacing: 1px;">📋 ACESSO DO MONITOR</h2>
+        <p style="color:var(--muted); text-align:center; font-size:0.9rem; margin-bottom:25px; font-family: 'Syne';">Identifique-se e selecione a mesa (Squad) que irá avaliar durante o Hackathon.</p>
+
+        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">SEU NOME (Monitor):</label>
+        <input type="text" id="input-monitor-nome" placeholder="Digite seu nome..." style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; margin-bottom:20px; font-family:'Syne'; outline: none; box-sizing: border-box;" />
+
+        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">MESA / SQUAD:</label>
+        <select id="select-monitor-squad" style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; margin-bottom:30px; font-family:'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; outline: none; box-sizing: border-box;">
+            <option value="">Carregando mesas da Arena...</option>
+        </select>
+
+        <button class="btn-action" style="width:100%; font-size: 1.5rem;" onclick="confirmarLoginMonitor()">ENTRAR NA MESA</button>
+    </div>
+</div>
+
 <header class="topbar">
   <span class="tb-logo">INOVA+</span>
   <span class="tb-role">📋 AVALIADOR TÉCNICO</span>
@@ -248,7 +232,7 @@
   <div style="margin-left:auto;display:flex;align-items:center;gap:25px">
     <div style="text-align:right;border-right:1px solid rgba(255,255,255,.1);padding-right:25px;display:none" id="user-info-box">
       <span id="nome-avaliador-display" style="display:block;font-family:'Space Mono',monospace;font-size:.75rem;color:var(--cyan);font-weight:bold; letter-spacing: 1px;">Avaliador: ---</span>
-      <a href="#" onclick="window.trocarAvaliador()" style="font-size:.6rem;color:var(--yellow);text-decoration:none;text-transform:uppercase;letter-spacing:1px; margin-top: 4px; display: inline-block;">(Trocar)</a>
+      <a href="#" onclick="window.trocarAvaliador()" style="font-size:.6rem;color:var(--yellow);text-decoration:none;text-transform:uppercase;letter-spacing:1px; margin-top: 4px; display: inline-block;">(Trocar de Mesa)</a>
     </div>
     <div style="text-align:right">
       <span style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);letter-spacing:2px;line-height:1;display:block" id="crono-display">--:--</span>
@@ -258,21 +242,16 @@
   </div>
 </header>
 
-<main class="main">
+<main class="main" id="main-content" style="display: none;">
 
   <div class="lembretes">
-    <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo. Quando faltarem 3 minutos para acabar o sprint, a barra vermelha piscará no topo.</p></div>
+    <div class="lembrete"><span class="lembrete-icon">⏱️</span><p>Você é o guardião do tempo desta mesa. Quando faltarem 3 minutos, a barra vermelha piscará no topo.</p></div>
     <div class="lembrete"><span class="lembrete-icon">🧠</span><p>Avalie o processo investigativo, não apenas o resultado final. Observe colaboração, uso crítico de IA e viabilidade.</p></div>
-  </div>
-
-  <div class="sec-label cyan">VISÃO GERAL — TODOS OS SQUADS</div>
-  <div class="painel-geral" id="painel-geral">
-    <div style="color:var(--cyan);font-family:'Space Mono';border:1px dashed var(--cyan);padding:20px;border-radius:8px;font-size:.8rem; text-align: center;">Sincronizando Banco de Dados...</div>
   </div>
 
   <div class="squad-detail-header" id="squad-detail-header">
     <div>
-      <h3 id="equipe-nome-display">SELECIONE UM SQUAD ACIMA</h3>
+      <h3 id="equipe-nome-display">CARREGANDO MESA...</h3>
       <p id="equipe-vertente-display">VERTENTE: —</p>
     </div>
     <div id="squad-render-badge"></div>
@@ -292,7 +271,7 @@
           </div>
           <div class="cl-body"><div class="cl-body-inner" id="clb1">
             <div class="check-item" onclick="toggleCheck(this,'cl1',0)"><div class="check-box"></div><span class="check-text">Identificaram a dor real do trabalhador com base no cenário sorteado.</span></div>
-            <div class="check-item" onclick="toggleCheck(this,'cl1',1)"><div class="check-box"></div><span class="check-text">Validaram o problema com dado estatístico ou notícia de fonte externa.</span></div>
+            <div class="check-item" onclick="toggleCheck(this,'cl1',1)"><div class="check-box"></div><span class="check-text">Validaram o problema com dado estatístico ou pesquisa das fontes fornecidas.</span></div>
           </div>
           <div class="nota-sprint">
             <label>// ANOTAÇÃO RÁPIDA — SPRINT 1</label>
@@ -452,7 +431,7 @@
       </thead>
       <tbody id="ss-tbody">
         <tr>
-          <td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:.8rem;padding:30px">Selecione um squad acima para avaliar</td>
+          <td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:.8rem;padding:30px">Aguardando dados...</td>
           <td></td><td></td><td></td><td></td><td></td><td></td>
         </tr>
       </tbody>
@@ -483,14 +462,7 @@ const checkLoad = setInterval(() => {
 
 function iniciarMonitor() {
   window.AUTH.require('monitor');
-
-  let avaliador = sessionStorage.getItem('inova_nome_monitor');
-  if (!avaliador) {
-    solicitarNomeAvaliador();
-  } else {
-    document.getElementById('user-info-box').style.display = 'block';
-    document.getElementById('nome-avaliador-display').textContent = 'Avaliador: ' + avaliador;
-  }
+  carregarEquipes(true); // Carrega tudo antes de pedir login
 
   setInterval(() => {
     const rem   = window.SprintTimer.getRemaining();
@@ -509,71 +481,67 @@ function iniciarMonitor() {
       alerta.classList.remove('show');
     }
   }, 1000);
-
-  carregarEquipes();
 }
 
-function solicitarNomeAvaliador() {
-  const nome = prompt('ACESSO LIBERADO! Por favor, identifique-se (Seu Nome):');
-  if (nome && nome.trim().length > 2) {
-    sessionStorage.setItem('inova_nome_monitor', nome.trim());
-    document.getElementById('user-info-box').style.display = 'block';
-    document.getElementById('nome-avaliador-display').textContent = 'Avaliador: ' + nome.trim();
-    toastMsg('Identificado como: ' + nome.trim(), 'success');
-  } else {
-    alert('A identificação é obrigatória para o registro das notas no sistema.');
-    solicitarNomeAvaliador();
-  }
-}
-window.trocarAvaliador = () => { sessionStorage.removeItem('inova_nome_monitor'); solicitarNomeAvaliador(); };
-
-function carregarEquipes() {
+function carregarEquipes(isInitialLoad = false) {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
     dbEquipes = snap.val() || {};
-    renderPainelGeral();
-    if (currentTeamId && dbEquipes[currentTeamId]) renderDetalhes();
+    
+    // Alimenta o Select do Modal para o Monitor escolher
+    const select = document.getElementById('select-monitor-squad');
+    if (select && select.options.length <= 1) {
+        select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
+        Object.keys(dbEquipes).forEach(k => {
+            const eq = dbEquipes[k];
+            select.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()}</option>`;
+        });
+    }
+
+    if (isInitialLoad) {
+        verificarLoginMonitor();
+    } else if (currentTeamId && dbEquipes[currentTeamId]) {
+        renderDetalhes();
+    }
   });
 }
 
-function renderPainelGeral() {
-  const container = document.getElementById('painel-geral');
-  const chaves    = Object.keys(dbEquipes);
+function verificarLoginMonitor() {
+    const avaliador = sessionStorage.getItem('inova_nome_monitor');
+    const squad = sessionStorage.getItem('inova_squad_monitor');
 
-  if (!chaves.length) {
-    container.innerHTML = `<div style="color:#ff4444;font-family:'Space Mono';border:1px dashed #ff4444;padding:20px;border-radius:8px;font-size:.8rem; text-align: center;">Nenhuma equipe ingressou no Hackathon ainda.</div>`;
-    return;
-  }
-
-  container.innerHTML = chaves.map(key => {
-    const eq  = dbEquipes[key];
-    const n   = eq.notasEquipe || {};
-    const temNota   = n.c1 !== undefined || n.c2 !== undefined || n.c3 !== undefined || n.c4 !== undefined;
-    const renderOk  = n.renderAprovado === true;
-    const renderRej = n.renderAprovado === false && n.renderEnviado;
-    const isActive  = key === currentTeamId ? 'active' : '';
-
-    const pillNota   = temNota ? `<span class="status-pill pill-ok">NOTA ✓</span>` : `<span class="status-pill pill-none">SEM NOTA</span>`;
-    const pillRender = renderOk ? `<span class="status-pill pill-ok">IMG ✓</span>` : renderRej ? `<span class="status-pill pill-pend">IMG ↩</span>` : `<span class="status-pill pill-none">IMG —</span>`;
-    
-    // Novo: Pill Pitch
-    const pillPitch = n.pitchEnviado ? `<span class="status-pill pill-ok">PTH ✓</span>` : `<span class="status-pill pill-none">PTH —</span>`;
-
-    return `
-      <div class="squad-card ${isActive}" onclick="selectEquipe('${key}', this)">
-        <div class="squad-card-name">${(eq.nomeEquipe||'???').toUpperCase()}</div>
-        <div class="squad-card-vertente">${eq.vertente || '—'}</div>
-        <div class="squad-card-status">${pillNota}${pillRender}${pillPitch}</div>
-      </div>`;
-  }).join('');
-
-  if (!currentTeamId && chaves.length) selectEquipe(chaves[0], container.firstElementChild);
+    if (!avaliador || !squad) {
+        document.getElementById('monitor-login-modal').style.display = 'flex';
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('user-info-box').style.display = 'none';
+    } else {
+        document.getElementById('monitor-login-modal').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('user-info-box').style.display = 'block';
+        document.getElementById('nome-avaliador-display').textContent = 'Monitor: ' + avaliador;
+        
+        currentTeamId = squad;
+        renderDetalhes(); // Renderiza diretamente o Squad dele
+    }
 }
 
-window.selectEquipe = function(teamKey, btn) {
-  currentTeamId = teamKey;
-  document.querySelectorAll('.squad-card').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderDetalhes();
+window.confirmarLoginMonitor = function() {
+    const nome = document.getElementById('input-monitor-nome').value.trim();
+    const squad = document.getElementById('select-monitor-squad').value;
+    
+    if(nome.length < 3) return alert('Por favor, digite seu nome corretamente.');
+    if(!squad) return alert('Por favor, selecione a mesa (Squad) que você vai avaliar.');
+
+    sessionStorage.setItem('inova_nome_monitor', nome);
+    sessionStorage.setItem('inova_squad_monitor', squad);
+    
+    toastMsg('Acesso liberado à mesa!', 'success');
+    verificarLoginMonitor();
+};
+
+window.trocarAvaliador = () => { 
+    sessionStorage.removeItem('inova_nome_monitor'); 
+    sessionStorage.removeItem('inova_squad_monitor'); 
+    verificarLoginMonitor(); 
 };
 
 function renderDetalhes() {
@@ -583,11 +551,9 @@ function renderDetalhes() {
 
   document.getElementById('equipe-nome-display').textContent      = `SQUAD: ${(td.nomeEquipe||'').toUpperCase()}`;
   
-  // 🚀 NOVO: RECUPERANDO A MISSÃO E O NÍVEL SE O ALUNO TIVER SALVO
-  // (Precisamos buscar no localStorage simulado ou pedir para a equipe salvar no BD depois. 
-  // Por enquanto, faremos o app do aluno salvar isso no BD na próxima etapa. Aqui, vamos prever que a missão venha do Firebase).
   let vertenteDisplay = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
   
+  // Exibe a Missão e o multiplicador de XP
   if(td.missaoAtiva) {
       vertenteDisplay += ` <br><span style="font-size: 0.7rem; color: #fff;">DESAFIO: ${td.missaoAtiva.titulo}</span>`;
       if(td.missaoAtiva.nivelObj) {
@@ -669,7 +635,6 @@ function renderStatusDisplay(aprovado, enviado) {
   else                          el.innerHTML = `<div class="render-status-tag pending">⏳ SQUAD AINDA NÃO ENVIOU NENHUM LINK</div>`;
 }
 
-// 🚀 RENDER DA TABELA COM CÁLCULO DE MULTIPLICADOR DE DIFICULDADE
 function renderTabelaNotas(equipeData) {
   const n = equipeData.notasEquipe || {};
   const c1 = n.c1 !== undefined && n.c1 !== "" ? parseFloat(n.c1) : undefined;
@@ -682,7 +647,6 @@ function renderTabelaNotas(equipeData) {
   
   let mediaPura = preenchidas > 0 ? (soma / preenchidas) : 0;
   
-  // LÓGICA DE MULTIPLICADOR XP
   let multiplicador = 1.0;
   if(equipeData.missaoAtiva && equipeData.missaoAtiva.nivelObj) {
       if(equipeData.missaoAtiva.nivelObj.num === 2) multiplicador = 1.1;
