@@ -335,7 +335,8 @@
         <div class="render-box-title">🖼️ IMAGEM ENVIADA PARA O TELÃO</div>
 
         <div class="render-preview" id="render-preview">
-          <img id="render-img" src="" alt="Render do Squad"/>
+          <img id="render-img" src="" alt="Render do Squad" style="display:none;"/>
+          <iframe id="render-iframe" src="" style="width:100%; height:100%; border:none; display:none;"></iframe>
           <div class="render-placeholder" id="render-placeholder">
             <div style="font-size:3rem; margin-bottom: 10px;">🎨</div>
             <p>NENHUMA IMAGEM SINCRONIZADA<br><br>O SQUAD DEVE ENVIAR O LINK<br>ATRAVÉS DO PAINEL DELES</p>
@@ -592,33 +593,42 @@ function renderDetalhes() {
   renderTabelaNotas(td);
 }
 
-// 🚀 A MÁGICA DE CONVERTER LINK DO DRIVE ESTÁ AQUI
+// 🚀 FUNÇÃO CORRIGIDA PARA SUPORTAR LINKS DO GOOGLE DRIVE COM IFRAME 🚀
 window.previewRender = function(url) {
-  const img   = document.getElementById('render-img');
-  const ph    = document.getElementById('render-placeholder');
+  const img    = document.getElementById('render-img');
+  const iframe = document.getElementById('render-iframe');
+  const ph     = document.getElementById('render-placeholder');
   
   if (!url) {
-      img.classList.remove('loaded'); ph.style.display = 'block';
+      img.classList.remove('loaded');
+      iframe.style.display = 'none';
+      ph.style.display = 'block';
       return;
   }
 
-  let finalUrl = url;
-  
-  // Tenta extrair o ID do arquivo do Google Drive
+  // Verifica se é Google Drive
   const driveRegex = /drive\.google\.com\/file\/d\/([-_a-zA-Z0-9]+)/;
   const match = url.match(driveRegex);
-  
-  if (match && match[1]) {
-      // Reconstrói o URL para forçar visualização direta da imagem
-      finalUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
-  }
 
-  if (finalUrl && finalUrl.startsWith('http')) {
-    img.src = finalUrl;
-    img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
-    img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
+  if (match && match[1]) {
+      // É Google Drive: usa iFrame com endpoint /preview (Oficial do Google)
+      const fileId = match[1];
+      img.classList.remove('loaded');
+      img.style.display = 'none';
+      iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+      iframe.style.display = 'block';
+      ph.style.display = 'none';
+  } else if (url.startsWith('http')) {
+      // É uma imagem comum (Imgur, etc)
+      iframe.style.display = 'none';
+      img.style.display = 'block';
+      img.src = url;
+      img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
+      img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
   } else {
-    img.classList.remove('loaded'); ph.style.display = 'block';
+      img.classList.remove('loaded');
+      iframe.style.display = 'none';
+      ph.style.display = 'block';
   }
 };
 
