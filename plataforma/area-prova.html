@@ -102,9 +102,8 @@
     .starter-list li { margin-bottom: 10px; padding-left: 15px; position: relative; }
     .starter-list li::before { content: '›'; color: var(--yellow); position: absolute; left: 0; font-weight: bold; }
 
-    .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; }
-    .fonte-btn.highlight { background: rgba(0,200,81,0.1); border: 1px solid #00C851; color: #00ff99; }
-    .fonte-btn.highlight:hover { background: rgba(0,200,81,0.2); transform: translateX(5px); }
+    .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; background: rgba(0,200,81,0.1); border: 1px solid #00C851; color: #00ff99; }
+    .fonte-btn:hover { background: rgba(0,200,81,0.2); transform: translateX(5px); }
 
     .roles-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
     .role-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 6px; }
@@ -149,7 +148,7 @@
 
 <header class="topbar">
   <div class="tb-left">
-    <img src="../assets/img/logo.jpg" alt="Logo Inova+" class="tb-logo-img">
+    <img src="../assets/img/logo.jpg" alt="Logo Inova+" class="tb-logo-img" onerror="this.src='../assets/img/logo.png'">
     <span class="tb-logo">INOVA+</span>
     <span class="tb-team" id="team-name-display"></span>
   </div>
@@ -173,6 +172,13 @@
         <div class="lobby-info">
             <h1 class="lobby-logo">INOVA+ 2026</h1>
             <p class="lobby-sub">// HACKATHON SENAI JOINVILLE //</p>
+            
+            <div style="margin-top: 20px; padding: 15px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--cyan); border-radius: 8px; display: inline-block;">
+                <div style="font-family: 'Space Mono'; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px;">SQUAD AUTENTICADO:</div>
+                <div style="font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; letter-spacing: 2px;" id="lobby-squad-name">---</div>
+                <div style="font-family: 'Space Mono'; font-size: 0.75rem; color: var(--yellow); letter-spacing: 1px; margin-top: 5px;" id="lobby-squad-vertente">VERTENTE: ---</div>
+            </div>
+
             <div class="lobby-timer" id="timer-lobby">00:00:00</div>
             <div class="squad-counter-box">
                 SQUADS REGISTRADOS NA ARENA: <span id="contador-squads">0</span>
@@ -267,9 +273,10 @@
               </ul>
           </div>
           
-          <div class="fonte-starter-card" id="fonte-starter-card">
-              <span class="boss-title" style="color:#00C851;"><span style="font-size:1.2rem;">📚</span> FONTES DIRETAS DE PESQUISA</span>
-              <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Usem os links abaixo para acederem a normas oficiais e artigos que validam esta dor (Sprint 1):</p>
+          <div class="fonte-starter-card" id="fonte-starter-card" style="display: none;">
+              <span class="boss-title" style="color:#00C851;"><span style="font-size:1.2rem;">📚</span> FONTES DE PESQUISA RÁPIDA</span>
+              <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Usem os links diretos abaixo para encontrar normas e artigos que validam esta dor:</p>
+              
               <div id="m-fontes-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
                   </div>
           </div>
@@ -303,6 +310,7 @@
           <span style="font-size:2.5rem;">✨</span>
           <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
+        
         <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid #00C851; border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🎨</span>
           <div><strong style="color:#00ff99; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Gerador 3D Grátis</span></div>
@@ -441,7 +449,6 @@
       if (linkCopilot) { linkCopilot.style.display = sprint >= 4 ? 'flex' : 'none'; }
   }
 
-  // 🚀 MISSÕES COM FONTES DIRETAS (Arrays de Links Específicos)
   const missoes = [
     { vertente: "Produção", titulo: "A Linha de Montagem Inteligente", imagem: "/assets/img/desafios/producao-linha-montagem.png",
       dor: "Cena: Linha de montagem com alta repetição de movimentos.\nDor: A fadiga física extrema gera erros de produção e afastamentos médicos.",
@@ -599,7 +606,6 @@
     }
   ];
 
-  // 🔒 CONTROLE DE CLIQUES NAS ABAS
   document.querySelectorAll('.page-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       if(!tab.dataset.tab) return; 
@@ -620,6 +626,15 @@
 
   function iniciarPagina() {
       window.AUTH.require('participante');
+
+      // EXIBE INFORMAÇÕES NO LOBBY IMEDIATAMENTE APÓS O LOGIN
+      const equipSaved = sessionStorage.getItem('inova_equipe');
+      const vertSaved = sessionStorage.getItem('inova_vertente');
+      if(equipSaved) {
+          document.getElementById('lobby-squad-name').textContent = equipSaved.toUpperCase();
+          document.getElementById('lobby-squad-vertente').textContent = "VERTENTE: " + (vertSaved ? vertSaved.toUpperCase() : 'AGUARDANDO');
+          showTeamName(equipSaved);
+      }
 
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/mensagemJota'), (snapshot) => {
           const msgData = snapshot.val();
@@ -654,8 +669,6 @@
           const liberado = snapshot.val() === true;
           if (liberado) {
             document.getElementById('view-lobby').style.display = 'none';
-            const equipSaved = sessionStorage.getItem('inova_equipe');
-            const vertSaved = sessionStorage.getItem('inova_vertente');
             if (equipSaved && vertSaved) {
                 telaAtual = 'ativo';
                 initApp(equipSaved, vertSaved);
@@ -833,7 +846,6 @@
           document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho; 
           document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
           
-          // 💡 NOVO: RENDERIZA OS LINKS DIRETOS DA MISSÃO 💡
           if(missao.starterData.fontes && missao.starterData.fontes.length > 0) {
               const fontesContainer = document.getElementById('m-fontes-container');
               fontesContainer.innerHTML = missao.starterData.fontes.map(f => 
