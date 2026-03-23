@@ -102,11 +102,7 @@
     .starter-list li { margin-bottom: 10px; padding-left: 15px; position: relative; }
     .starter-list li::before { content: '›'; color: var(--yellow); position: absolute; left: 0; font-weight: bold; }
 
-    .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
-    .fonte-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--cyan); color: var(--cyan); transform: translateX(5px); }
-
-    /* NOVO: Estilos para os Botões do Drive (Mockup e Pitch) */
-    .drive-links-container { display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+    .drive-links-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
     .btn-drive { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(0,240,255,0.05); border: 1px dashed var(--cyan); color: var(--cyan); text-decoration: none; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.85rem; transition: all 0.2s; font-weight: bold; }
     .btn-drive:hover { background: rgba(0,240,255,0.15); border-style: solid; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,240,255,0.2); color: #fff; }
 
@@ -134,7 +130,6 @@
         .page-tab { flex: 1; text-align: center; min-width: 45%; }
         .data-box-wrapper { grid-template-columns: 1fr; }
         .prompt-starter-card { grid-column: span 1; }
-        .btn-drive { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -282,7 +277,7 @@
           <div class="fonte-starter-card" id="fonte-starter-card" style="display: none;">
               <span class="boss-title" style="color:#00C851;"><span style="font-size:1.2rem;">📚</span> FONTES DE PESQUISA RÁPIDA</span>
               <p style="color:var(--muted); font-size:0.8rem; margin-top:10px; line-height:1.4;">Usem os links diretos abaixo para encontrar normas e artigos que validam esta dor:</p>
-              <div id="m-fontes-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
+              <div id="m-fontes-container" style="margin-top: 15px;">
                   </div>
           </div>
 
@@ -315,6 +310,7 @@
           <span style="font-size:2.5rem;">✨</span>
           <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
+        
         <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid #00C851; border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🎨</span>
           <div><strong style="color:#00ff99; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Gerador 3D Grátis</span></div>
@@ -361,12 +357,12 @@
                 <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
                 <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
-                    <div class="drive-links-container">
-                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-drive">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
-                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-drive">🌙 ABRIR DRIVE (TARDE) ↗</a>
+                    <div style="display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-action" style="font-size: 1.2rem; background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
+                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-action" style="font-size: 1.2rem; background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);">🌙 ABRIR DRIVE (TARDE) ↗</a>
                     </div>
                 </li>
-                <li>Volte aqui, cole o link de partilha da sua imagem gerada no Drive abaixo e envie!</li>
+                <li>Volte aqui, cole o link de partilha do seu ficheiro no Google Drive, cole abaixo e envie!</li>
             </ol>
         </div>
         <input type="url" id="link-mockup" placeholder="Cole o link do seu Render 3D aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
@@ -383,9 +379,9 @@
                 <li>Finalizem a apresentação de slides (Máx 3 slides recomendados).</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: PITCH-SQUAD-ALFA.pdf).</strong></li>
                 <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
-                    <div class="drive-links-container">
-                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-drive">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
-                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-drive">🌙 ABRIR DRIVE (TARDE) ↗</a>
+                    <div style="display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <a href="https://drive.google.com/drive/folders/131GQMTjTaF8PMwoTHM6fO9njAu9BS2AL?usp=sharing" target="_blank" class="btn-action" style="font-size: 1.2rem; background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);">☀️ ABRIR DRIVE (MANHÃ) ↗</a>
+                        <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-action" style="font-size: 1.2rem; background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);">🌙 ABRIR DRIVE (TARDE) ↗</a>
                     </div>
                 </li>
                 <li>Volte aqui, cole o link de partilha da sua apresentação gerada no Drive abaixo e envie à coordenação!</li>
@@ -866,17 +862,18 @@
       const img = document.getElementById('m-imagem');
       if (missao.imagem && missao.imagem.trim() !== '') { img.src = missao.imagem; img.alt = `Cenário do desafio ${missao.titulo}`; img.style.display = 'block'; } else { img.src = ''; img.alt = 'Cenário visual do desafio'; img.style.display = 'none'; }
 
+      // 🚨 CÓDIGO CORRIGIDO DA INJEÇÃO DOS DADOS REAIS E FONTES 🚨
       if (missao.starterData) {
           document.getElementById('m-data-boxes').style.display = 'grid'; 
-          document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal; 
-          document.getElementById('m-restricao').textContent = missao.starterData.restricao; 
-          document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho; 
-          document.getElementById('m-prompt').textContent = `"${missao.promptExemplo}"`;
+          document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal || ''; 
+          document.getElementById('m-restricao').textContent = missao.starterData.restricao || ''; 
+          document.getElementById('m-gatilho').textContent = missao.starterData.perguntaGatilho || ''; 
+          document.getElementById('m-prompt').textContent = missao.promptExemplo ? `"${missao.promptExemplo}"` : '';
           
           if(missao.starterData.fontes && missao.starterData.fontes.length > 0) {
               const fontesContainer = document.getElementById('m-fontes-container');
               fontesContainer.innerHTML = missao.starterData.fontes.map(f => 
-                  `<a href="${f.link}" target="_blank" class="btn-drive" style="background: rgba(0,200,81,0.05); border-color: #00C851; color: #00ff99;"><span>🔗</span> <span>${f.nome} ↗</span></a>`
+                  `<a href="${f.link}" target="_blank" class="btn-drive" style="background: rgba(0,200,81,0.05); border-color: #00C851; color: #00ff99; margin-bottom: 8px; width: 100%; justify-content: flex-start;"><span>🔗</span> <span>${f.nome} ↗</span></a>`
               ).join('');
               document.getElementById('fonte-starter-card').style.display = 'block';
           } else {
