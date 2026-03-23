@@ -105,7 +105,6 @@
     .fonte-btn { padding: 10px 15px; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.2s; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
     .fonte-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--cyan); color: var(--cyan); transform: translateX(5px); }
 
-    /* NOVO: Estilos para os Botões do Drive (Mockup e Pitch) */
     .drive-links-container { display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap; }
     .btn-drive { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(0,240,255,0.05); border: 1px dashed var(--cyan); color: var(--cyan); text-decoration: none; border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.85rem; transition: all 0.2s; font-weight: bold; }
     .btn-drive:hover { background: rgba(0,240,255,0.15); border-style: solid; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,240,255,0.2); color: #fff; }
@@ -315,6 +314,7 @@
           <span style="font-size:2.5rem;">✨</span>
           <div><strong style="color:#fff; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Gemini</strong><span style="color:var(--muted); font-size:0.85rem;">Pesquisa Rápida</span></div>
         </a>
+        
         <a href="https://copilot.microsoft.com/images/create" target="_blank" id="link-copilot" style="display:none; padding:24px; background:var(--panel); border:1px solid #00C851; border-radius:8px; text-decoration:none; align-items:center; gap:16px;">
           <span style="font-size:2.5rem;">🎨</span>
           <div><strong style="color:#00ff99; font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:1px; display:block;">Copilot Image</strong><span style="color:var(--muted); font-size:0.85rem;">Gerador 3D Grátis</span></div>
@@ -366,7 +366,7 @@
                         <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-drive">🌙 ABRIR DRIVE (TARDE) ↗</a>
                     </div>
                 </li>
-                <li>Volte aqui, cole o link de partilha da sua imagem gerada no Drive abaixo e envie!</li>
+                <li>Volte aqui, cole o link de partilha do seu ficheiro no Google Drive, cole abaixo e envie!</li>
             </ol>
         </div>
         <input type="url" id="link-mockup" placeholder="Cole o link do seu Render 3D aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
@@ -464,9 +464,9 @@
       desafio: "Missão: Desenvolver um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
       starterData: { dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.", restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.", perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?", 
       fontes: [
-          {nome: "📄 Exoesqueletos Industriais", link: "https://www.universal-robots.com/br/blog/exoesqueleto-robotico/"},
-          {nome: "📄 Ergonomia e Exoesqueletos ", link: "https://gobio-robot.com/pt/exoesqueletos-industriais/"},
-          {nome: "📚 NR-17: Ergonomia no Trabalho", link: "https://www.dantech.ind.br/nr17-aet-ergonomia-goiania-goias"}
+          {nome: "📄 Edge Global: Robótica Colaborativa", link: "https://edgeglobal.com.br"},
+          {nome: "📄 EVSINT: Cobots na Manufatura", link: "https://www.evsint.com"},
+          {nome: "📚 Portal da Indústria: Manufatura", link: "https://www.portaldaindustria.com.br"}
       ]},
       promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos simples (sem bateria) para aliviar os braços de operadores de linha de montagem."
     },
@@ -475,10 +475,9 @@
       desafio: "Missão: Criar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
       starterData: { dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.", restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.", perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?", 
       fontes: [
-          {nome: "📄 EPI para altas temperaturas", link: "https://benetherm.com.br/blog/como-saber-se-um-epi-para-altas-temperaturas-e-realmente-eficaz "},
-          {nome: "📄 Calor radiante", link: "https://supremaluvas.com.br/epis-para-calor-radiante/ "},
-          {nome: "📚 EPIs para fundição", link: "https://supremaluvas.com.br/epis-para-fundicao"}
-          {nome: "📚 PROTEÇÃO termica", link: "https://drive.google.com/file/d/1TPnoJuSWQCplD8rA_H5yxPq_HzStawdU/view?usp=sharing"}
+          {nome: "📄 Miniparo Robotics", link: "https://miniparobotics.com.br"},
+          {nome: "📄 ResearchGate: Robótica Colaborativa", link: "https://www.researchgate.net"},
+          {nome: "📚 SENAI-SE: Era da IA e Ind. 5.0", link: "https://www.se.senai.br"}
       ]},
       promptExemplo: "Atue como designer de moda industrial. Como tecidos de resfriamento ativo ou coletes com circulação de água poderiam ser desenhados para ambientes de calor extremo?"
     },
@@ -487,10 +486,9 @@
       desafio: "Missão: Desenvolver uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
       starterData: { dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.", restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.", perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?", 
       fontes: [
-          {nome: "📄 Inspeção visual", link: "https://www.arvsystems.com.br/blog/inspecao-visual-quais-os-principais-tipos-e-suas-vantagens-competitivas-para-cada-segmento/
-"},
-          {nome: "📄 Inspeções Automatizadas com IA", link: "https://checklistfacil.com/blog/inspecao-visual-manual-vs-automatizada-com-ia/"},
-          {nome: "📚 Equipamentos para Inspeção Visual", link: "https://www.robotika.com.br/projeto-equipamentos-inspecao-visual-automatica"}
+          {nome: "📄 Atlântico: IA na Manufatura", link: "https://www.atlantico.com.br"},
+          {nome: "📄 Mitsubishi Electric: Fábricas", link: "https://mitsubishielectric.com.br"},
+          {nome: "📚 A Voz da Indústria: Robótica", link: "https://avozdaindustria.com.br"}
       ]},
       promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
     },    
@@ -501,9 +499,9 @@
       desafio: "Missão: Criar um Equipamento de Proteção Individual (EPI) vestível que ilumine perfeitamente a área sem usar as mãos.",
       starterData: { dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.", restricao: "REGRA DE OURO: É estritamente proibido usar o capacete como fonte de luz. Pense em outras partes do corpo.", perguntaGatilho: "Se a luz não está na cabeça, como ela pode estar integrada no peitoral, ombros ou luvas do técnico?", 
       fontes: [
-          {nome: "📄 Manutenção eficiente", link: "https://www.produttivo.com.br/blog/epi-para-eletricista/"},
-          {nome: "📄 Trajes vestíveis com LEDs:", link: "https://forum.arduino.cc/t/wearable-led-costumes-instrumcontrolled-by-app/432616"},
-          {nome: "📚 Home Led", link: "https://www.target.com/p/hom-led-flashlight-gloves-wearable-flash-light-perfect-for-night-fishing-repairing-camping-running-mechanic-tools-one-size-fits-most-1-pair/-/A-1003210418"}
+          {nome: "📄 Revista Automação: IoT", link: "https://www.revista-automacao.com"},
+          {nome: "📄 IFPB: IA e IoT na Ind. 4.0", link: "https://repositorio.ifpb.edu.br"},
+          {nome: "📚 Fortune Business: Manutenção", link: "https://www.fortunebusinessinsights.com"}
       ]},
       promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas (como suspensórios, luvas ou peitorais) voltadas para manutenção elétrica, que eliminem o uso de lanternas de capacete."
     },
@@ -512,9 +510,9 @@
       desafio: "Missão: Desenvolver uma ferramenta física direcional (bastão, pistola) que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
       starterData: { dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.", restricao: "Deve ser uma ferramenta manual e portátil, sem fios espalhados pelo chão.", perguntaGatilho: "Como transformar a vibração da máquina num ecrã visual ou num retorno tátil (tremor) na mão do técnico?", 
       fontes: [
-          {nome: "📄 Análise de Vibração na Manutenção", link: "https://www.abecom.com.br/analise-de-vibracao/"},
-          {nome: "📄 Conceitos de análise de vibração", link: "https://www.engefaz.com/conceitos-de-analise-de-vibracao-na-manutencao-preditiva/"},
-          {nome: "📚 Análise de vibração", link: "https://www.abecom.com.br/analise-de-vibracao/"}
+          {nome: "📄 Pruftechnik: Preditiva", link: "https://www.pruftechnik.com"},
+          {nome: "📄 ProGrow AI: IoT na Manutenção", link: "https://www.progrow.ai"},
+          {nome: "📚 IPEA: Inovação Tecnológica", link: "https://repositorio.ipea.gov.br"}
       ]},
       promptExemplo: "Atue como inventor de hardware. Quais são 3 formas criativas de usar sensores de vibração numa 'vara de inspeção' mecânica com feedback em LED para locais barulhentos?"
     },
@@ -523,9 +521,8 @@
       desafio: "Missão: Criar uma ferramenta física (chave, alicate, parafusadeira) que guie o técnico passo a passo durante o uso.",
       starterData: { dadoReal: "60% das falhas de manutenção ocorrem por erro na sequência de aperto ou montagem de componentes críticos.", restricao: "A instrução tem que estar na própria ferramenta ou na mão do técnico. Nada de papéis ou tablets distantes.", perguntaGatilho: "Como luzes na chave, ecrãs no cabo, travas mecânicas ou feedback tátil (vibração) podem impedir o erro físico?", 
       fontes: [
-          {nome: "🎓 Artigos: Poka-Yoke na Manutenção", link: "https://www.mecalux.com.br/blog/poka-yoke"},
-          {nome: "📄 Ferramentas Inteligentes", link: "https://www.desouttertools.com/pt-pt/p/q-shield-c-smart-connected-wrench-192333"}
-          {nome: "📄 Ferramentas Inteligentes 2", link: "https://www.atlascopco.com/pt-br/itba/plp/revo-ha"}
+          {nome: "🎓 Artigos: Poka-Yoke na Manutenção", link: "https://scholar.google.com.br/scholar?q=poka-yoke+manutencao+industrial"},
+          {nome: "📄 Revistas: Ferramentas Inteligentes", link: "https://search.scielo.org/?q=smart+tools+manutencao+industria+4.0"}
       ]},
       promptExemplo: "Desenvolva o conceito de uma 'Chave de Fenda Inteligente' com LEDs e pequenos displays no cabo que travam se o técnico pular a sequência correta de parafusos."
     },    
@@ -536,9 +533,9 @@
       desafio: "Missão: Criar um hardware visual acoplado às prateleiras ou aos carrinhos que guie o operador até à caixa correta sem ele precisar de ler papéis.",
       starterData: { dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.", restricao: "O operador não pode segurar tablets ou celulares. As mãos devem estar livres.", perguntaGatilho: "Como o carrinho logístico pode interagir visualmente com a prateleira usando lasers ou LEDs direcionais?", 
       fontes: [
-          {nome: "📄 Precisão dos Pedidos:", link: "https://www.exotec.com/insights/what-are-pick-to-light-systems/"},
-          {nome: "📄 Separação de pedidos", link: "https://www.suresolutions.in/blogs/wireless-pick-to-light-system/"},
-          {nome: "📚 Tecnologia:", link: "https://etiquetaselectronicas.com/etiquetas-electronicas-para-logistica/"}
+          {nome: "📄 Portal da Indústria: Logística", link: "https://www.portaldaindustria.com.br"},
+          {nome: "📄 Sebrae: Logística Integrada", link: "https://sebrae.com.br"},
+          {nome: "📚 NDD Tech: Tendências 5.0", link: "https://ndd.tech"}
       ]},
       promptExemplo: "Atue como engenheiro de hardware logístico. Como o sistema 'Pick-to-Light' poderia ser modernizado usando projetores a laser acoplados nos carrinhos de carga?"
     },
@@ -547,9 +544,9 @@
       desafio: "Missão: Estruturar um objeto físico (como um Semáforo Inteligente ou Portal de Triagem) que faça a verificação visual do caminhão automaticamente.",
       starterData: { dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.", restricao: "Foque apenas no Totem/Semáforo externo. O motorista não pode sair da cabine.", perguntaGatilho: "Como um totem com câmaras de leitura de placas e um ecrã de LED gigante interage com o motorista?", 
       fontes: [
-          {nome: "📄 Logística 5.0", link: "https://logpyx.com/reconhecimento-otico-de-placas-ocr-com-revolog-patio/"},
-          {nome: "📄 Controle Inteligente ", link: "https://yardex.com.br/blog/2025/02/24/controle-inteligente-de-docas/"},
-          {nome: "📚 Pátio logístico", link: "https://www.totvs.com/blog/gestao-logistica/gestao-de-patio/"}
+          {nome: "📄 TOTVS: Logística 5.0", link: "https://www.totvs.com"},
+          {nome: "📄 Brazil Modal: Inovação Logística", link: "https://brazilmodal.com.br"},
+          {nome: "📚 FoccoERP: Tecnologias", link: "https://foccoerp.com.br"}
       ]},
       promptExemplo: "Descreva o design físico de um Totem de Doca Industrial projetado para ler QR Codes a 5 metros de distância e orientar motoristas por letreiros LED."
     },
@@ -558,9 +555,9 @@
       desafio: "Missão: Criar uma estrutura física de gavetas ou prateleiras que indiquem visualmente quando o seu peso/nível está a chegar ao fim.",
       starterData: { dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.", restricao: "Não utilizar redes complexas de IA. A solução deve ter uma mecânica ou balança de base simples.", perguntaGatilho: "Como usar molas, inclinação ou balanças embutidas na gaveta para acender uma luz amarela no corredor?", 
       fontes: [
-          {nome: "📄 prateleiras inteligentes", link: "https://www.sick.com/br/pt/sistema-de-prateleiras-inteligentes/s/digitalsolutions-inventories-smartshelf"},
-          {nome: "📄 Torre de sinalização", link: "https://www.universal-robots.com/br/blog/torre-de-sinalizacao-industrial-entenda-o-que-e-e-para-que-serve-esse-dispositivo/"},
-          {nome: "📚 Milk Run Logística", link: "https://inovarsul.com.br/sistema-milk-run-logistica-o-guia-para-otimizar-a-coleta-com-fornecedores/"}
+          {nome: "📄 Still Portugal: Integração", link: "https://www.still.pt"},
+          {nome: "📄 Fabrimetal: Fator Humano", link: "https://fabrimetalarmazenagem.com.br"},
+          {nome: "📚 Portal da Indústria: Segurança", link: "https://www.portaldaindustria.com.br"}
       ]},
       promptExemplo: "Desenhe o conceito de uma 'Prateleira de Peso'. Como balanças mecânicas integradas em caixas de parafusos poderiam acionar bandeiras físicas ou LEDs?"
     },    
@@ -571,9 +568,9 @@
       desafio: "Missão: Desenvolver uma lixeira industrial física que induza fisicamente o funcionário a descartar no lugar certo (Design Comportamental).",
       starterData: { dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').", restricao: "Sem ecrãs ou tablets na lixeira. Foco no formato, tampa ou resposta física/sonora.", perguntaGatilho: "Como o formato da boca da lixeira ou um pedal mecânico podem 'ensinar' e obrigar a fazer o certo?", 
       fontes: [
-          {nome: "📄 Coleta de lixo reciclável inteligente", link: "https://portalsustentabilidade.com/2021/07/15/brasileiro-cria-sistema-de-coleta-de-lixo-reciclavel-inteligente-para-remunerar-cidadaos/"},
-          {nome: "📄 Design comportamental?", link: "https://cba-design.com/latam/insights-design-comportamental/"},
-          {nome: "📚 Design Funcional ", link: "https://cestosdelixoelixeiras.com.br/blog-lixeiras/como-o-design-das-lixeiras-pode-estimular-a-reciclagem?spm=a2ty_o01.29997173.0.0.29305171curTsE"}
+          {nome: "📄 ABNT Sustentabilidade", link: "https://portalsustentabilidade.com"},
+          {nome: "📄 Produza: Prática Industrial", link: "https://produza.ind.br"},
+          {nome: "📚 Portal ABNT Sustentabilidade", link: "https://portaldasustentabilidade.com"}
       ]},
       promptExemplo: "Sugira 3 formas focadas em Design de Produto (Nudge) para criar as tampas de lixeiras industriais que impeçam o descarte de latas no buraco errado."
     },
@@ -582,8 +579,8 @@
       desafio: "Missão: Criar uma lixeira ou estação física que automaticamente direcione o resíduo correto sem depender da decisão do operador.",
       starterData: { dadoReal: "Erros na triagem manual de resíduos aumentam os custos de gestão ambiental industrial em quase 300%.", restricao: "Mecânica pura. Esqueçam IA com câmaras. Usem gravidade, ímãs, vento ou formatos.", perguntaGatilho: "Como grelhas, desvios por peso (balanças de mola) ou formatos de buracos específicos podem forçar a separação física?", 
       fontes: [
-          {nome: "🎓 Separação Mecânica de Resíduos", link: "https://www.instructables.com/Automatic-Waste-Sorting-Machine/?spm=a2ty_o01.29997173.0.0.29305171curTsE"},
-          {nome: "📄 Gestão de Resíduos Sólidos", link: "https://www.muqeen.com/en/fully-automatic-waste-sorting-plants?spm=a2ty_o01.29997173.0.0.29305171curTsE"}
+          {nome: "🎓 Separação Mecânica de Resíduos", link: "https://scholar.google.com.br/scholar?q=separacao+mecanica+residuos+solidos+industriais"},
+          {nome: "📄 Gestão de Resíduos Sólidos", link: "https://search.scielo.org/?q=triagem+residuos+solidos+mecanica"}
       ]},
       promptExemplo: "Atue como engenheiro de automação mecânica. Desenhe o conceito de uma 'Bica de Lixo' que usa um forte ímã e uma rampa perfurada para separar parafusos de papéis molhados."
     },
@@ -592,9 +589,9 @@
       desafio: "Missão: Idealizar o design físico de uma bancada de trabalho mecânica que se adapte rapidamente para utilizadores de qualquer altura.",
       starterData: { dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.", restricao: "O painel de botões e porta-ferramentas também tem de se aproximar das mãos do utilizador.", perguntaGatilho: "Como combinar braços articulados de monitores com sistemas de elevação pneumática na mesa?", 
       fontes: [
-          {nome: "📄 Ergonomia", link: "https://telemedicinamorsch.com.br/blog/ergonomia-no-trabalho?srsltid=AfmBOorJf3wcgZ1wlZ1U5Qb1sTSj1v1ofR-M03xCKh4Z32rHnKL033W5"},
-          {nome: "📄 12 dicas de ergonomia", link: "https://ocupacional.com.br/site/12-dicas-de-ergonomia-para-quem-trabalha-em-industrias/?spm=a2ty_o01.29997173.0.0.2930517176nv5Z"},
-          {nome: "📚 Entendendo os ajustes antropométricos (NR-17 aplicada)", link: "https://sistemaescudo.com.br/artigos/nr-17-aplicada/"}
+          {nome: "📄 Portal da Indústria: Inclusão", link: "https://www.portaldaindustria.com.br"},
+          {nome: "📄 Sebrae: Acessibilidade", link: "https://sebrae.com.br"},
+          {nome: "📚 Revista Automação: Inclusão", link: "https://www.revista-automacao.com"}
       ]},
       promptExemplo: "Crie o design industrial de uma 'Bancada Universal de Manufatura'. Foque em mecanismos físicos (manivelas, motores lineares, braços articulados) para cadeirantes."
     },    
@@ -605,9 +602,8 @@
       desafio: "Missão: Criar um dispositivo físico de mesa ou mobiliário que reduza distrações e aumente imediatamente o foco cognitivo.",
       starterData: { dadoReal: "Estudos de neurociência apontam que o cérebro demora cerca de 23 minutos para recuperar o foco total após uma simples distração no escritório.", restricao: "Não é um simples 'fone de ouvido'. Pense num acessório de mesa ou mobiliário integrado.", perguntaGatilho: "Como bloqueadores físicos de visão retráteis, luzes de sinalização ('modo foco') ou cúpulas acústicas funcionariam na mesa?", 
       fontes: [
-          {nome: "🎓 Neuroarquitetura", link: "https://pdfpremium.com.br/blog/nao-categorizado/a-neuroarquitetura-do-vidro-inteligente-como-a-opacidade-controlada-reduz-o-estresse-e-eleva-o-alto-padrao-em-2026/"},
-          {nome: "📄 Planejamento cognitivo", link: "https://marfilinea.com.br/planejamento-cognitivo-do-escritorio-como-reduzir-fadiga-mental-sem-perder-produtividade/"}
-          {nome: "📄 fontes de distração", link: "https://linktoleaders.com/as-15-maiores-fontes-de-distracao-num-espaco-de-trabalho/"}
+          {nome: "🎓 Neurociência e Foco no Trabalho", link: "https://scholar.google.com.br/scholar?q=ergonomia+cognitiva+distracao+escritorio"},
+          {nome: "📄 Ergonomia Cognitiva (SciELO)", link: "https://search.scielo.org/?q=foco+produtividade+ambiente+de+trabalho"}
       ]},
       promptExemplo: "Desenhe o conceito de uma 'Estação de Mesa Anti-Distração'. Imagine paredes acústicas modulares que sobem, e luzes LED que avisam os colegas para não interromper."
     },
@@ -616,8 +612,8 @@
       desafio: "Missão: Criar uma estação física de mesa que organize os documentos usando mecânica simples conforme eles entram.",
       starterData: { dadoReal: "Funcionários administrativos gastam até 20% do seu dia apenas à procura de documentos físicos perdidos nas próprias mesas.", restricao: "Proibido depender de um software complexo de digitalização (OCR). A solução é física e espacial.", perguntaGatilho: "Como trilhos, caixas com molas de peso ou marcações visuais com grandes QR Codes criariam uma 'linha de montagem de papel'?", 
       fontes: [
-          {nome: "🎓 Organizar documentos", link: "https://bhrecicla.com.br/2021/05/26/10-passos-para-organizar-documentos-de-escritorio/"},
-          {nome: "📄 sistema de arquivamento", link: "https://www.panoramamoveis.com.br/blog/transforme-seu-escritorio-em-um-espaco-organizado"}
+          {nome: "🎓 Metodologia 5S no Escritório", link: "https://scholar.google.com.br/scholar?q=5S+escritorio+organizacao+de+documentos"},
+          {nome: "📄 Eficiência Administrativa Física", link: "https://search.scielo.org/?q=gestao+de+documentos+fisicos+produtividade"}
       ]},
       promptExemplo: "Atue como designer de produto. Desenvolva o conceito 3D de 'Bandejas Empilháveis Inteligentes', onde o peso do papel aciona uma alavanca para indicar prioridade."
     },
@@ -626,8 +622,8 @@
       desafio: "Missão: Criar um sistema físico de alerta no ambiente que indique as prioridades da equipa sem depender de telemóveis ou computadores.",
       starterData: { dadoReal: "A sobrecarga de notificações digitais faz com que 40% dos alertas realmente urgentes sejam ignorados pelos gestores.", restricao: "A solução deve estar integrada no espaço físico da sala (parede, mesa, teto, chão).", perguntaGatilho: "Como objetos que mudam fisicamente, iluminação ambiente que altera a cor ou bandeiras mecânicas podem chamar a atenção?", 
       fontes: [
-          {nome: "🎓 5S na Metodologia Lean:", link: "https://vockan.com/5-principios-metodologia-lean-5s-organizacao-manufatura/"},
-          {nome: "📄 GAlertas de Problemas em Tempo Real", link: "https://sixsigmadsi.com/what-is-andon-system/"}
+          {nome: "🎓 Displays Ambientais (Ambient Displays)", link: "https://scholar.google.com.br/scholar?q=ambient+displays+workplace+alertas"},
+          {nome: "📄 Gestão à Vista em Escritórios", link: "https://search.scielo.org/?q=gestao+a+vista+escritorio+comunicacao+visual"}
       ]},
       promptExemplo: "Imagine um 'Mural de Alertas Cinético' para a parede de um escritório. Como peças físicas (painéis de madeira ou acrílico) poderiam girar e ficar vermelhas quando há uma emergência?"
     }
