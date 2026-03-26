@@ -47,21 +47,29 @@
 
     .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); display: inline-block; margin-right: 8px; }
     .status-dot.active { background: #00C851; box-shadow: 0 0 10px #00C851; }
-  /* =========================================
-       AJUSTES DE RESPONSIVIDADE (MOBILE) - ADM
-       ========================================= */
+
+    .turno-tag { font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
+    .turno-manha { background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.3); color: var(--yellow); }
+    .turno-tarde { background: rgba(255,31,142,0.1); border: 1px solid rgba(255,31,142,0.3); color: #ff1f8e; }
+
+    /* ESTILO DO FILTRO */
+    .filtro-select { background: rgba(0,0,0,0.5); border: 1px solid var(--purple); color: #fff; padding: 8px 15px; border-radius: 6px; font-family: 'Bebas Neue'; font-size: 1.2rem; outline: none; cursor: pointer; letter-spacing: 1px; transition: 0.2s; }
+    .filtro-select:focus { box-shadow: 0 0 15px rgba(213,0,249,0.3); }
+    .filtro-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
+
     @media (max-width: 900px) {
-        .dash-grid-top { grid-template-columns: 1fr 1fr; } /* Cai de 4 colunas para 2 */
+        .dash-grid-top { grid-template-columns: 1fr 1fr; }
         .master-timer-card { grid-template-columns: 1fr; text-align: center; gap: 20px; }
         .master-timer-card > div[style*="grid-template-columns"] { grid-template-columns: 1fr 1fr !important; }
         .adm-tabs { flex-wrap: wrap; justify-content: center; }
         .adm-tab { width: 45%; text-align: center; font-size: 1.1rem; }
         .topbar { flex-direction: column; text-align: center; gap: 10px; }
         .main { padding-top: 140px; }
+        .filtro-container { flex-direction: column; gap: 10px; align-items: stretch; }
     }
     
     @media (max-width: 600px) {
-        .dash-grid-top { grid-template-columns: 1fr; } /* No celular, cai para 1 coluna */
+        .dash-grid-top { grid-template-columns: 1fr; }
         .master-timer-card > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
         .adm-tab { width: 100%; }
     }
@@ -91,11 +99,11 @@
     </div>
     
     <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:12px;">
-  <button class="btn btn-purple" onclick="liberarEquipes()">🚪 LIBERAR EQUIPES</button>
-  <button class="btn" style="background:#555; color:#fff;" onclick="fecharLobby()">🔒 FECHAR LOBBY</button>
-  <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
-  <button class="btn" style="background:#ffbb33; color:#000; border:none; font-family:'Bebas Neue'; font-size:1.1rem; border-radius:6px; cursor:pointer;" onclick="masterPause()">⏸ PAUSAR</button>
-</div>
+      <button class="btn btn-purple" onclick="liberarEquipes()">🚪 LIBERAR EQUIPES</button>
+      <button class="btn" style="background:#555; color:#fff;" onclick="fecharLobby()">🔒 FECHAR LOBBY</button>
+      <button class="btn btn-green" id="btn-start" onclick="masterStart()">▶ INICIAR</button>
+      <button class="btn" style="background:#ffbb33; color:#000; border:none; font-family:'Bebas Neue'; font-size:1.1rem; border-radius:6px; cursor:pointer;" onclick="masterPause()">⏸ PAUSAR</button>
+    </div>
       
       <div style="display:flex; gap:8px;">
         <select id="select-sprint-jump" onchange="pularParaSprint(this.value)" style="flex:1; background:var(--purple); border:1px solid #d500f9; color:#fff; padding:12px; border-radius:6px; font-family:'Bebas Neue'; font-size:1.2rem; letter-spacing:1px; outline:none; cursor:pointer; text-align:center;">
@@ -109,9 +117,9 @@
       </div>
 
       <button class="btn btn-danger" onclick="masterReset()">↺ ZERAR TEMPO DA FASE ATUAL</button>
-    <button class="btn" style="background: #222; color: #555; border: 1px dashed #444; margin-top: 10px; width: 100%; font-size: 0.7rem;" onclick="resetGeralComSenha()">
-    💀 RESET TOTAL DO BANCO (TESTES)
-</button>
+      <button class="btn" style="background: #222; color: #555; border: 1px dashed #444; margin-top: 10px; width: 100%; font-size: 0.7rem;" onclick="resetGeralComSenha()">
+        💀 RESET TOTAL DO BANCO (TESTES)
+      </button>
     </div>
   </div>
 
@@ -129,14 +137,30 @@
       <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Sprint Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">1</span></div>
       <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
     </div>
-    <div class="table-container" style="padding: 20px;">
-      <div style="font-family:'Bebas Neue'; color:var(--purple); margin-bottom:20px;">ENTREGAS DE RENDER (CHECK)</div>
-      <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
+    
+    <div class="table-container">
+      <div class="filtro-container">
+        <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">ENTREGAS DE RENDER (DASHBOARD)</div>
+        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
+            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
+            <option value="manha">☀️ SOMENTE MANHÃ</option>
+            <option value="tarde">🌙 SOMENTE TARDE</option>
+        </select>
+      </div>
+      <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px;"></div>
     </div>
   </div>
 
   <div id="tab-engajamento" class="tab-content" style="display:none">
     <div class="table-container">
+      <div class="filtro-container">
+        <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">CLASSIFICAÇÃO GERAL</div>
+        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
+            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
+            <option value="manha">☀️ SOMENTE MANHÃ</option>
+            <option value="tarde">🌙 SOMENTE TARDE</option>
+        </select>
+      </div>
       <table>
         <thead>
           <tr>
@@ -155,6 +179,14 @@
 
   <div id="tab-equipes" class="tab-content" style="display:none">
     <div class="table-container">
+      <div class="filtro-container">
+        <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">LISTA DE EQUIPES</div>
+        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
+            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
+            <option value="manha">☀️ SOMENTE MANHÃ</option>
+            <option value="tarde">🌙 SOMENTE TARDE</option>
+        </select>
+      </div>
       <table>
         <thead>
           <tr><th># ID</th><th>NOME DO SQUAD</th><th>MESA</th><th>INTEGRANTES</th></tr>
@@ -183,6 +215,7 @@
   }, 100);
 
   let teams = [];
+  let filtroTurnoGlobal = 'todos'; // Variável de controle do filtro
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
 
   function iniciarPainelADM() {
@@ -202,16 +235,40 @@
       });
   }
 
-  function renderTudo() {
-      const sorted = [...teams].sort((a,b) => calcularTotal(b) - calcularTotal(a));
+  window.mudarFiltroADM = function(valor) {
+      filtroTurnoGlobal = valor;
+      // Sincroniza todos os selects da tela
+      document.querySelectorAll('.filtro-select').forEach(el => el.value = valor);
+      renderTudo();
+  };
 
+  function formatarTurnoBadge(turno) {
+      if (turno === 'tarde') return '<span class="turno-tag turno-tarde">🌙 TARDE</span>';
+      return '<span class="turno-tag turno-manha">☀️ MANHÃ</span>'; // Fallback
+  }
+
+  function renderTudo() {
+      // 1. APLICA O FILTRO ANTES DE RENDERIZAR
+      let equipesFiltradas = teams;
+      if (filtroTurnoGlobal === 'manha') {
+          // Assume que vazio ou 'manha' é do turno da manhã
+          equipesFiltradas = teams.filter(t => !t.turno || t.turno === 'manha');
+      } else if (filtroTurnoGlobal === 'tarde') {
+          equipesFiltradas = teams.filter(t => t.turno === 'tarde');
+      }
+
+      // 2. ORDENA PARA O RANKING
+      const sorted = [...equipesFiltradas].sort((a,b) => calcularTotal(b) - calcularTotal(a));
+
+      // RANKING E NOTAS
       document.getElementById('eng-tbody').innerHTML = sorted.map((t, i) => {
           const n = t.notasEquipe || {};
           const mon = (parseFloat(n.c1)||0) + (parseFloat(n.c2)||0) + (parseFloat(n.c3)||0) + (parseFloat(n.c4)||0);
           const cli = (parseFloat(n.nota_cliente)||0) * 2;
+          
           return `<tr>
             <td style="font-family:'Bebas Neue'; font-size:1.5rem; color:var(--muted)">${i+1}º</td>
-            <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()}</td>
+            <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()} ${formatarTurnoBadge(t.turno)}</td>
             <td style="text-align:center">
                 <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)">
                 <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)">
@@ -222,16 +279,12 @@
           </tr>`;
       }).join('');
 
-      // GERAÇÃO DA TABELA DE GERENCIAMENTO DE EQUIPES (COM SELEÇÃO DE MESA)
-      document.getElementById('teams-tbody').innerHTML = teams.map((t,i) => {
-          // Cria a opção SEM MESA
+      // GERENCIAMENTO DE EQUIPES
+      document.getElementById('teams-tbody').innerHTML = equipesFiltradas.map((t,i) => {
           let optionsMesa = '<option value="">SEM MESA</option>';
-          
-          // CRIA A OPÇÃO ONLINE (MESA VIRTUAL)
           const selectedOnline = (t.mesa === 'ONLINE') ? 'selected' : '';
           optionsMesa += `<option value="ONLINE" ${selectedOnline}>🌐 SQUAD ONLINE</option>`;
 
-          // Cria as opções de MESA FÍSICA de 01 a 20
           for(let m = 1; m <= 20; m++) {
               const numMesa = m.toString().padStart(2, '0');
               const selected = (t.mesa === numMesa) ? 'selected' : '';
@@ -241,7 +294,7 @@
           return `
           <tr>
             <td style="font-family:'Space Mono'; color:var(--muted);">${i+1}</td>
-            <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()}</td>
+            <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()} ${formatarTurnoBadge(t.turno)}</td>
             <td>
                 <select class="adm-score-input" style="width: 150px; cursor: pointer; text-align: left; padding-left: 15px;" onchange="atribuirMesa('${t.id}', this.value)">
                     ${optionsMesa}
@@ -252,7 +305,8 @@
           `;
       }).join('');
 
-      document.getElementById('dash-team-status').innerHTML = teams.map(t => `
+      // DASHBOARD AO VIVO (RENDERS)
+      document.getElementById('dash-team-status').innerHTML = equipesFiltradas.map(t => `
         <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
             <span class="status-dot ${t.renderEnviado ? 'active' : ''}"></span>
             <span style="font-size:0.8rem; font-weight:600;">${t.nomeEquipe}</span>
@@ -261,10 +315,20 @@
   }
 
   function updateDashboardKPIs() {
-      if(teams.length === 0) return;
-      const totalEng = teams.reduce((acc, t) => acc + (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5, 0);
-      document.getElementById('kpi-teams').textContent = teams.length;
-      document.getElementById('kpi-eng').textContent = totalEng;
+      // Os KPIs (Número de Equipes e Social Total) refletem APENAS o turno selecionado!
+      let equipesAtuais = teams;
+      if (filtroTurnoGlobal === 'manha') equipesAtuais = teams.filter(t => !t.turno || t.turno === 'manha');
+      if (filtroTurnoGlobal === 'tarde') equipesAtuais = teams.filter(t => t.turno === 'tarde');
+
+      if(equipesAtuais.length === 0) {
+          document.getElementById('kpi-teams').textContent = 0;
+          document.getElementById('kpi-eng').textContent = 0;
+      } else {
+          const totalEng = equipesAtuais.reduce((acc, t) => acc + (parseInt(t.eng_likes)||0) + (parseInt(t.eng_comments)||0)*5, 0);
+          document.getElementById('kpi-teams').textContent = equipesAtuais.length;
+          document.getElementById('kpi-eng').textContent = totalEng;
+      }
+      
       document.getElementById('kpi-phase').textContent = window.SprintTimer.getState().sprint;
   }
 
@@ -305,73 +369,59 @@
   });
 
   window.masterStart = () => window.SprintTimer.start();
-window.masterPause = () => window.SprintTimer.pause();
-window.masterReset = () => confirm('Zerar cronômetro desta fase?') && window.SprintTimer.reset();
+  window.masterPause = () => window.SprintTimer.pause();
+  window.masterReset = () => confirm('Zerar cronômetro desta fase?') && window.SprintTimer.reset();
 
-window.liberarEquipes = () => {
-  if (confirm('Liberar todas as equipes do lobby para a roleta?')) {
-    const updates = {};
-    updates['controle/liberarEquipes'] = true;
-
-    const btn = document.querySelector('button[onclick="liberarEquipes()"]');
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = '✅ EQUIPES LIBERADAS';
-      btn.style.opacity = '0.8';
-    }
-
-    window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-      .then(() => {
-        window.toast('Equipes liberadas com sucesso!', 'success');
-      })
-      .catch((err) => {
-        console.error(err);
-        window.toast('Erro ao liberar equipes.', 'error');
-
-        if (btn) {
-          btn.disabled = false;
-          btn.textContent = '🚪 LIBERAR EQUIPES';
-          btn.style.opacity = '1';
-        }
-      });
-  }
-};
-window.fecharLobby = () => {
-  const updates = {};
-  updates['controle/liberarEquipes'] = false;
-
-  window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-    .then(() => {
-      window.toast('Lobby fechado com sucesso!', 'success');
+  window.liberarEquipes = () => {
+    if (confirm('Liberar todas as equipes do lobby para a roleta?')) {
+      const updates = {};
+      updates['controle/liberarEquipes'] = true;
 
       const btn = document.querySelector('button[onclick="liberarEquipes()"]');
       if (btn) {
-        btn.disabled = false;
-        btn.textContent = '🚪 LIBERAR EQUIPES';
-        btn.style.opacity = '1';
+        btn.disabled = true;
+        btn.textContent = '✅ EQUIPES LIBERADAS';
+        btn.style.opacity = '0.8';
       }
-    })
-    .catch((err) => {
-      console.error(err);
-      window.toast('Erro ao fechar lobby.', 'error');
-    });
-};
 
- // 🚀 MUDANÇA DE FASE USANDO A FUNÇÃO NATIVA DO APP.JS
+      window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+        .then(() => {
+          window.toast('Equipes liberadas com sucesso!', 'success');
+        })
+        .catch((err) => {
+          console.error(err);
+          window.toast('Erro ao liberar equipes.', 'error');
+          if (btn) { btn.disabled = false; btn.textContent = '🚪 LIBERAR EQUIPES'; btn.style.opacity = '1'; }
+        });
+    }
+  };
+
+  window.fecharLobby = () => {
+    const updates = {};
+    updates['controle/liberarEquipes'] = false;
+
+    window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+      .then(() => {
+        window.toast('Lobby fechado com sucesso!', 'success');
+        const btn = document.querySelector('button[onclick="liberarEquipes()"]');
+        if (btn) { btn.disabled = false; btn.textContent = '🚪 LIBERAR EQUIPES'; btn.style.opacity = '1'; }
+      })
+      .catch((err) => {
+        console.error(err);
+        window.toast('Erro ao fechar lobby.', 'error');
+      });
+  };
+
   window.pularParaSprint = (val) => {
       const selectEl = document.getElementById('select-sprint-jump');
       if (!val) return;
 
       const novoSprint = parseInt(val);
       if (confirm(`ATENÇÃO COORDENAÇÃO: Mudar o evento inteiro para o SPRINT ${novoSprint}?`)) {
-          
-          // 1. Chama a função oficial e segura que já existe no seu app.js
           if (window.SprintTimer && typeof window.SprintTimer.setSprint === 'function') {
               window.SprintTimer.setSprint(novoSprint);
               window.toast(`Mudando para Sprint ${novoSprint}...`, 'success');
               
-              // 2. Truque Visual: Atualiza a tela na hora para não confundir o operador 
-              // enquanto o Firebase faz a sincronização pelo app.js
               const nome = sprintNames[novoSprint-1].toUpperCase();
               document.getElementById('master-sprint-label').textContent = `// SPRINT ${novoSprint} — ${nome} (SINCRONIZANDO...) //`;
               
@@ -382,11 +432,9 @@ window.fecharLobby = () => {
               alert("Erro: Função setSprint não encontrada no sistema.");
           }
       }
-      
-      selectEl.value = ""; // Reseta o menu de volta para o texto "⚡ PULAR PARA OUTRA FASE..."
+      selectEl.value = ""; 
   };
 
-  // ENVIO DE MENSAGEM GLOBAL (JOTA)
   window.postMural = () => {
       const msg = document.getElementById('mural-msg').value;
       if(!msg) return;
@@ -396,10 +444,9 @@ window.fecharLobby = () => {
       btn.disabled = true;
 
       const updates = {};
-      // Atualiza um nó único no Firebase que todos os alunos vão "ouvir"
       updates['controle/mensagemJota'] = {
           texto: msg,
-          timestamp: Date.now() // Usamos o tempo exato para o sistema do aluno saber que é uma mensagem nova
+          timestamp: Date.now() 
       };
 
       window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
@@ -416,53 +463,43 @@ window.fecharLobby = () => {
               btn.disabled = false;
           });
   };
-  // NOVA FUNÇÃO: Atribuir Mesa à Equipe
+
   window.atribuirMesa = (equipeId, numeroMesa) => {
       const updates = {};
       updates[`equipes/${equipeId}/mesa`] = numeroMesa;
       
       window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-          .then(() => {
-              window.toast(`Mesa ${numeroMesa} atribuída com sucesso!`, 'success');
-          })
-          .catch((err) => {
-              console.error(err);
-              window.toast('Erro ao salvar a mesa. Verifique a conexão.', 'error');
-          });
+          .then(() => { window.toast(`Mesa ${numeroMesa} atribuída com sucesso!`, 'success'); })
+          .catch((err) => { console.error(err); window.toast('Erro ao salvar a mesa. Verifique a conexão.', 'error'); });
   };
 
-window.resetGeralComSenha = () => {
-    // 1. Barreira de Segurança
-    const senha = prompt("DIGITE A SENHA DE MESTRE PARA APAGAR TUDO:");
-    
-    if (senha === "inova2026") { // Você pode mudar essa senha
-        const confirmacaoFinal = confirm("ÚLTIMO AVISO: Isso vai deletar TODAS as equipes e zerar o evento. Tem certeza absoluta?");
-        
-        if (confirmacaoFinal) {
-            const updates = {};
-            
-            // Definindo o que será resetado
-            updates['equipes'] = null; // Apaga o nó de equipes
-            updates['controle/liberarEquipes'] = false;
-            updates['controle/eventoEncerrado'] = false;
-            updates['controle/mensagemJota'] = { texto: "Sistema Resetado", timestamp: Date.now() };
-            
-            // Executa no Firebase
-            window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-                .then(() => {
-                    window.toast("BANCO DE DADOS LIMPO COM SUCESSO!", "success");
-                    // Opcional: recarregar a página para limpar a tela do ADM
-                    setTimeout(() => location.reload(), 1500);
-                })
-                .catch(err => {
-                    console.error(err);
-                    window.toast("Erro ao resetar banco.", "error");
-                });
-        }
-    } else if (senha !== null) {
-        alert("Senha incorreta! Acesso negado.");
-    }
-};
+  window.resetGeralComSenha = () => {
+      const senha = prompt("DIGITE A SENHA DE MESTRE PARA APAGAR TUDO:");
+      
+      if (senha === "inova2026") { 
+          const confirmacaoFinal = confirm("ÚLTIMO AVISO: Isso vai deletar TODAS as equipes e zerar o evento. Tem certeza absoluta?");
+          
+          if (confirmacaoFinal) {
+              const updates = {};
+              updates['equipes'] = null; 
+              updates['controle/liberarEquipes'] = false;
+              updates['controle/eventoEncerrado'] = false;
+              updates['controle/mensagemJota'] = { texto: "Sistema Resetado", timestamp: Date.now() };
+              
+              window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+                  .then(() => {
+                      window.toast("BANCO DE DADOS LIMPO COM SUCESSO!", "success");
+                      setTimeout(() => location.reload(), 1500);
+                  })
+                  .catch(err => {
+                      console.error(err);
+                      window.toast("Erro ao resetar banco.", "error");
+                  });
+          }
+      } else if (senha !== null) {
+          alert("Senha incorreta! Acesso negado.");
+      }
+  };
 </script>
 </body>
 </html>
