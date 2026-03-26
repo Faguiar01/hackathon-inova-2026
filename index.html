@@ -661,6 +661,14 @@
                             </div>
 
                             <div class="form-row"><label>MODALIDADE *</label><select id="f-mod" required><option value="">SELECIONE...</option><option value="presencial">🏢 PRESENCIAL --- SENAI Joinville (02/04)</option><option value="online">🌐 ONLINE (02/04)</option></select></div>
+                            <div class="form-row">
+    <label>TURNO *</label>
+    <select id="f-turno" required>
+        <option value="">SELECIONE SEU TURNO...</option>
+        <option value="manha">☀️ MANHÃ</option>
+        <option value="tarde">🌙 TARDE</option>
+    </select>
+</div>
                             <div class="form-row"><label>VERTENTE DO DESAFIO *</label><select id="f-vert" required><option value="">ESCOLHA UMA ÁREA...</option><option value="Logística">📦 Logística</option><option value="Manutenção">🔧 Manutenção</option><option value="Produção">⚙️ Produção</option><option value="Administrativo">🗂️ Administrativo</option><option value="Sustentabilidade">♻️ Sustentabilidade</option></select></div>
                                                                              
                             <button type="submit" class="form-submit" id="btn-submit-cad">⚡ CADASTRAR SQUAD</button>
@@ -784,6 +792,7 @@
           const lider = document.getElementById('f-nome').value;
           const membros = document.getElementById('f-membros').value;
           const modalidade = document.getElementById('f-mod').value;
+          const turno = document.getElementById('f-turno').value;
           const vertente = document.getElementById('f-vert').value;
           
 
@@ -797,6 +806,7 @@
               lider: lider,
               membros: membros,
               modalidade: modalidade,
+              turno: turno,
               vertente: vertente,
               dataCadastro: new Date().toISOString(),
               
