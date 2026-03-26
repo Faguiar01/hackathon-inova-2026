@@ -487,7 +487,7 @@
           {nome: "📚 A Voz da Indústria: Robótica", link: "https://avozdaindustria.com.br"}
       ]},
       promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
-    },    
+    },   
 
     // 🔧 VERTENTE: MANUTENÇÃO
     { vertente: "Manutenção", titulo: "O EPI Iluminado", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
@@ -521,7 +521,7 @@
           {nome: "📄 Revistas: Ferramentas Inteligentes", link: "https://search.scielo.org/?q=smart+tools+manutencao+industria+4.0"}
       ]},
       promptExemplo: "Desenvolva o conceito de uma 'Chave de Fenda Inteligente' com LEDs e pequenos displays no cabo que travam se o técnico pular a sequência correta de parafusos."
-    },    
+    },   
 
     // 📦 VERTENTE: LOGÍSTICA
     { vertente: "Logística", titulo: "O Caminho Inteligente", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
@@ -556,7 +556,7 @@
           {nome: "📚 Portal da Indústria: Segurança", link: "https://www.portaldaindustria.com.br"}
       ]},
       promptExemplo: "Desenhe o conceito de uma 'Prateleira de Peso'. Como balanças mecânicas integradas em caixas de parafusos poderiam acionar bandeiras físicas ou LEDs?"
-    },    
+    },   
 
     // ♻️ VERTENTE: SUSTENTABILIDADE
     { vertente: "Sustentabilidade", titulo: "A Lixeira Inteligente", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
@@ -590,7 +590,7 @@
           {nome: "📚 Revista Automação: Inclusão", link: "https://www.revista-automacao.com"}
       ]},
       promptExemplo: "Crie o design industrial de uma 'Bancada Universal de Manufatura'. Foque em mecanismos físicos (manivelas, motores lineares, braços articulados) para cadeirantes."
-    },    
+    },   
 
     // 🏢 VERTENTE: ADMINISTRATIVO
     { vertente: "Administrativo", titulo: "A Sala Anti-Distração", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
@@ -685,7 +685,12 @@
 
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'), (snapshot) => {
           const liberado = snapshot.val() === true;
-          if (liberado) {
+
+          // ⭐ VERIFICAÇÃO NINJA DO JOTA AQUI ⭐
+          // Se não estiver liberado, mas o nome da equipe contiver a palavra "TESTE" (case-insensitive), permite a entrada.
+          const ehEquipeDeTeste = equipSaved && equipSaved.toLowerCase().includes('teste');
+
+          if (liberado || ehEquipeDeTeste) {
             document.getElementById('view-lobby').style.display = 'none';
             if (equipSaved && vertSaved) {
                 telaAtual = 'ativo';
@@ -862,7 +867,6 @@
       const img = document.getElementById('m-imagem');
       if (missao.imagem && missao.imagem.trim() !== '') { img.src = missao.imagem; img.alt = `Cenário do desafio ${missao.titulo}`; img.style.display = 'block'; } else { img.src = ''; img.alt = 'Cenário visual do desafio'; img.style.display = 'none'; }
 
-      // 🚨 CÓDIGO CORRIGIDO DA INJEÇÃO DOS DADOS REAIS E FONTES 🚨
       if (missao.starterData) {
           document.getElementById('m-data-boxes').style.display = 'grid'; 
           document.getElementById('m-dadoReal').textContent = missao.starterData.dadoReal || ''; 
