@@ -455,17 +455,25 @@
 
   const missoes = [
     // ⚙️ VERTENTE: PRODUÇÃO
-    { vertente: "Produção", titulo: "A Linha de Montagem Inteligente", imagem: "/assets/img/desafios/producao-linha-montagem.png",
-      dor: "Cena: Linha de montagem com alta repetição de movimentos.\nDor: A fadiga física extrema gera erros de produção e afastamentos médicos.",
-      desafio: "Missão: Desenvolver um dispositivo físico simples (vestível ou acoplado à mesa) que reduza o esforço repetitivo do braço do operador.",
-      starterData: { dadoReal: "Estudos de ergonomia apontam que a fadiga motora no fim do turno reduz a precisão manual em até 30%.", restricao: "A solução deve funcionar preferencialmente sem depender de energia elétrica constante.", perguntaGatilho: "Como redistribuir o peso do braço usando molas, elásticos, contrapesos ou apoios mecânicos?", 
-      fontes: [
-          {nome: "📄 Edge Global: Robótica Colaborativa", link: "https://edgeglobal.com.br"},
-          {nome: "📄 EVSINT: Cobots na Manufatura", link: "https://www.evsint.com"},
-          {nome: "📚 Portal da Indústria: Manufatura", link: "https://www.portaldaindustria.com.br"}
-      ]},
-      promptExemplo: "Atue como engenheiro de segurança do trabalho. Sugira 3 ideias de exoesqueletos mecânicos simples (sem bateria) para aliviar os braços de operadores de linha de montagem."
-    },
+    {  vertente: "Produção",
+  titulo: "Inspeção Visual Inteligente",
+  imagem: "/assets/img/desafios/producao-inspecao-visual-inteligente.png",
+  empresaReferencia: "Toyota",
+  linkReferencia: "https://www.mdpi.com/2311-7524/9/11/1213",
+  dor: "Cena: Durante o turno da tarde, Lucas trabalha na inspeção final de peças plásticas que saem de uma máquina de injeção. As peças são claras e possuem pequenos detalhes, como rebarbas finas, microfissuras e pequenas deformações. A iluminação do ambiente é uniforme, mas com pouco contraste, dificultando a visualização. Com o ritmo acelerado da produção, pequenos defeitos começam a passar despercebidos e algumas peças só são identificadas como defeituosas quando já chegaram ao cliente.\nDor: Defeitos visuais sutis passam despercebidos durante a inspeção manual, gerando retrabalho, desperdício e falhas de qualidade.",
+  desafio: "Missão: Criar uma bancada ou dispositivo físico de inspeção que ajude o operador a identificar defeitos difíceis de enxergar em peças plásticas.",
+  starterData: {
+    dadoReal: "Defeitos em peças plásticas muitas vezes só podem ser percebidos corretamente dependendo do ângulo, da luz e do contraste visual durante a inspeção.",
+    restricao: "O operador continua sendo o responsável final pela decisão. A solução não pode depender de celular ou aplicativo externo, não pode apenas aumentar a luz do ambiente, deve funcionar com peças de diferentes tamanhos e precisa ser física e visível.",
+    entregavel: "Uma bancada ou dispositivo físico que auxilie o operador a enxergar melhor defeitos visuais sutis durante a inspeção.",
+    perguntaGatilho: "Como revelar defeitos que só aparecem quando a luz e o ângulo estão certos?",
+    fontes: [
+      { nome: "📚 ScienceDirect: Human Factors in Visual Inspection", link: "https://www.sciencedirect.com/science/article/pii/S0003687018303168" }
+      { nome: "📚 Estudos sobre inspeção visual industrial", link: "https://www.mdpi.com/2311-7524/9/11/1213" }
+    ]
+  },
+  promptExemplo: "Atue como designer de soluções industriais. Sugira 3 ideias de bancadas físicas de inspeção visual que ajudem operadores a identificar defeitos sutis em peças plásticas usando ângulo, contraste, sombra ou orientação visual."
+},
     { vertente: "Produção", titulo: "O Calor da Fundição", imagem: "/assets/img/desafios/producao-fundicao.png",
       dor: "Cena: Operador num ambiente de fundição de metais extremamente quente.\nDor: Exaustão térmica severa e queda brusca de rendimento e foco.",
       desafio: "Missão: Criar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
