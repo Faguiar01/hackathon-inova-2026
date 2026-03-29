@@ -465,6 +465,8 @@ function renderDropdownEquipes() {
 
 function carregarEquipes(isInitialLoad = false) {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
+    if (!snap.exists()) return; // Validação adicionada para evitar erros caso o banco esteja vazio
+    
     dbEquipes = snap.val() || {};
     
     renderDropdownEquipes(); // Usa a nova função com filtro
@@ -577,9 +579,9 @@ window.previewRender = function(url) {
   const ph     = document.getElementById('render-placeholder');
   
   if (!url) {
-      img.classList.remove('loaded');
-      iframe.style.display = 'none';
-      ph.style.display = 'block';
+      if(img) img.classList.remove('loaded');
+      if(iframe) iframe.style.display = 'none';
+      if(ph) ph.style.display = 'block';
       return;
   }
 
@@ -588,21 +590,27 @@ window.previewRender = function(url) {
 
   if (match && match[1]) {
       const fileId = match[1];
-      img.classList.remove('loaded');
-      img.style.display = 'none';
-      iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
-      iframe.style.display = 'block';
-      ph.style.display = 'none';
+      if(img) {
+        img.classList.remove('loaded');
+        img.style.display = 'none';
+      }
+      if(iframe) {
+        iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+        iframe.style.display = 'block';
+      }
+      if(ph) ph.style.display = 'none';
   } else if (url.startsWith('http')) {
-      iframe.style.display = 'none';
-      img.style.display = 'block';
-      img.src = url;
-      img.onload  = () => { img.classList.add('loaded'); ph.style.display = 'none'; };
-      img.onerror = () => { img.classList.remove('loaded'); ph.style.display = 'block'; };
+      if(iframe) iframe.style.display = 'none';
+      if(img) {
+        img.style.display = 'block';
+        img.src = url;
+        img.onload  = () => { img.classList.add('loaded'); if(ph) ph.style.display = 'none'; };
+        img.onerror = () => { img.classList.remove('loaded'); if(ph) ph.style.display = 'block'; };
+      }
   } else {
-      img.classList.remove('loaded');
-      iframe.style.display = 'none';
-      ph.style.display = 'block';
+      if(img) img.classList.remove('loaded');
+      if(iframe) iframe.style.display = 'none';
+      if(ph) ph.style.display = 'block';
   }
 };
 
