@@ -404,9 +404,11 @@
   </div>
 
 </main>
+</main>
 
 <script type="module" src="../assets/js/app.js"></script>
-const checkLoad = setInterval(() => {
+<script>
+  const checkLoad = setInterval(() => {
       if (window.AUTH && window.SprintTimer && window.InovaDB) {
           clearInterval(checkLoad);
           iniciarPagina();
@@ -682,8 +684,6 @@ const checkLoad = setInterval(() => {
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'), (snapshot) => {
           const liberado = snapshot.val() === true;
 
-          // ⭐ VERIFICAÇÃO NINJA DO JOTA AQUI ⭐
-          // Se não estiver liberado, mas o nome da equipe contiver a palavra "TESTE" (case-insensitive), permite a entrada.
           const ehEquipeDeTeste = equipSaved && equipSaved.toLowerCase().includes('teste');
 
           if (liberado || ehEquipeDeTeste) {
