@@ -453,183 +453,172 @@
       if (linkCopilot) { linkCopilot.style.display = sprint >= 4 ? 'flex' : 'none'; }
   }
 
+  // 🚀 NOVOS CENÁRIOS ATUALIZADOS PARA O HACKATHON 2026
   const missoes = [
     // ⚙️ VERTENTE: PRODUÇÃO
-    {  vertente: "Produção",
-  titulo: "Inspeção Visual Inteligente",
-  imagem: "/assets/img/desafios/producao-inspecao-visual-inteligente.png",
-  empresaReferencia: "Toyota",
-  linkReferencia: "https://www.mdpi.com/2311-7524/9/11/1213",
-  dor: "Cena: Durante o turno da tarde, Lucas trabalha na inspeção final de peças plásticas que saem de uma máquina de injeção. As peças são claras e possuem pequenos detalhes, como rebarbas finas, microfissuras e pequenas deformações. A iluminação do ambiente é uniforme, mas com pouco contraste, dificultando a visualização. Com o ritmo acelerado da produção, pequenos defeitos começam a passar despercebidos e algumas peças só são identificadas como defeituosas quando já chegaram ao cliente.\nDor: Defeitos visuais sutis passam despercebidos durante a inspeção manual, gerando retrabalho, desperdício e falhas de qualidade.",
-  desafio: "Missão: Criar uma bancada ou dispositivo físico de inspeção que ajude o operador a identificar defeitos difíceis de enxergar em peças plásticas.",
-  starterData: {
-    dadoReal: "Defeitos em peças plásticas muitas vezes só podem ser percebidos corretamente dependendo do ângulo, da luz e do contraste visual durante a inspeção.",
-    restricao: "O operador continua sendo o responsável final pela decisão. A solução não pode depender de celular ou aplicativo externo, não pode apenas aumentar a luz do ambiente, deve funcionar com peças de diferentes tamanhos e precisa ser física e visível.",
-    entregavel: "Uma bancada ou dispositivo físico que auxilie o operador a enxergar melhor defeitos visuais sutis durante a inspeção.",
-    perguntaGatilho: "Como revelar defeitos que só aparecem quando a luz e o ângulo estão certos?",
-    fontes: [
-      { nome: "📚 ScienceDirect: Human Factors in Visual Inspection", link: "https://www.sciencedirect.com/science/article/pii/S0003687018303168" }
-      { nome: "📚 Estudos sobre inspeção visual industrial", link: "https://www.mdpi.com/2311-7524/9/11/1213" }
-    ]
-  },
-  promptExemplo: "Atue como designer de soluções industriais. Sugira 3 ideias de bancadas físicas de inspeção visual que ajudem operadores a identificar defeitos sutis em peças plásticas usando ângulo, contraste, sombra ou orientação visual."
-},
-    { vertente: "Produção", titulo: "O Calor da Fundição", imagem: "/assets/img/desafios/producao-fundicao.png",
-      dor: "Cena: Operador num ambiente de fundição de metais extremamente quente.\nDor: Exaustão térmica severa e queda brusca de rendimento e foco.",
-      desafio: "Missão: Criar um sistema físico de resfriamento localizado para o operador (focar na pessoa, não em ar-condicionado para o pavilhão inteiro).",
-      starterData: { dadoReal: "A temperatura interna de EPIs de couro aumenta o ritmo cardíaco do operador em 15% devido ao estresse térmico.", restricao: "Não usar sistemas complexos industriais. Pense em algo acoplado ao traje ou ao posto.", perguntaGatilho: "Como criar sombra móvel, ventilação direcionada ou isolamento térmico inteligente no EPI?", 
+    { vertente: "Produção", titulo: "Controle Visual de Ferramentas", imagem: "/assets/img/desafios/producao-ferramentas.png",
+      dor: "Cena: Em uma linha de usinagem, operadores compartilham um conjunto de ferramentas especiais em um posto de trabalho comum.\nDor: As ferramentas \"desaparecem\" entre turnos, gerando perda de tempo (média de 12 min/operador) e custos absurdos de reposição (R$ 8.000/ano).",
+      desafio: "Missão: Desenvolver um dispositivo físico no posto de trabalho que indique de forma imediata e visual quando uma ferramenta não foi devolvida ao seu local após o uso.",
+      starterData: { dadoReal: "Ferramentas perdidas causam 12 minutos de inatividade diária por funcionário, além do custo de R$ 8.000 ao ano em reposição na área.", restricao: "A solução deve ser de baixo custo, não interferir na operação ou segurança, e a indicação visual tem de ser clara à distância.", perguntaGatilho: "Como garantir que o operador perceba a falta sem precisar contar? Como identificar cada ferramenta individualmente sem telas?", 
       fontes: [
-          {nome: "📄 Miniparo Robotics", link: "https://miniparobotics.com.br"},
-          {nome: "📄 ResearchGate: Robótica Colaborativa", link: "https://www.researchgate.net"},
-          {nome: "📚 SENAI-SE: Era da IA e Ind. 5.0", link: "https://www.se.senai.br"}
+          {nome: "🔗 Kromi", link: "https://www.kromi.com.br/"},
+          {nome: "🔗 Gühring (Gestão)", link: "https://guehring.com/es-pt/servico-de-assistencia/gestao-de-ferramentas/"},
+          {nome: "🔗 Leitz (Logística de Ferramentas)", link: "https://www.leitz.org/pt-br/servicos/gerenciamento-e-logistica-de-ferramentas"}
       ]},
-      promptExemplo: "Atue como designer de moda industrial. Como tecidos de resfriamento ativo ou coletes com circulação de água poderiam ser desenhados para ambientes de calor extremo?"
+      promptExemplo: "Atue como especialista em Lean Manufacturing. Sugira 3 conceitos de quadros de sombras magnéticos tridimensionais (ou suportes com molas) que acendam um alerta visual puramente mecânico se a ferramenta for removida e não devolvida."
     },
-    { vertente: "Produção", titulo: "A Inspeção Assistida", imagem: "/assets/img/desafios/producao-inspecao-visual.png",
-      dor: "Cena: Inspeção visual de pequenas peças plásticas sob luz intensa o dia todo.\nDor: Fadiga ocular aguda, dores de cabeça e aumento de peças boas atiradas para o lixo.",
-      desafio: "Missão: Desenvolver uma bancada de inspeção física que ajude o olho do operador a enxergar defeitos com muito menos esforço.",
-      starterData: { dadoReal: "80% da fadiga ocular industrial é causada por reflexos de lâmpadas brancas fortes direto no globo ocular humano.", restricao: "A solução não pode substituir o humano por uma câmara. O humano deve dar a palavra final.", perguntaGatilho: "Como usar mudanças de cor de luz, contraste de fundo ou lentes de aumento para destacar os defeitos?", 
+    { vertente: "Produção", titulo: "Redução de Esforço Repetitivo", imagem: "/assets/img/desafios/producao-linha-montagem.png",
+      dor: "Cena: Carlos trabalha em uma linha de montagem e precisa manter os braços elevados durante boa parte do turno.\nDor: Com as horas, a fadiga física por esforço repetitivo e má postura reduz drasticamente a precisão e gera falhas na peça final.",
+      desafio: "Missão: Desenvolver uma forma física de reduzir o esforço durante tarefas repetitivas, ajudando o operador a manter a precisão e o conforto a longo prazo.",
+      starterData: { dadoReal: "A fadiga motora nos ombros reduz a precisão de montagem em quase 30% nas duas últimas horas do turno.", restricao: "A solução não pode restringir os movimentos essenciais. Deve ser confortável, segura e adaptável a diferentes alturas/biotipos.", perguntaGatilho: "Que tipo de dispositivo de assistência física pode ser utilizado? Exoesqueletos passivos, suportes suspensos ou contrapesos?", 
       fontes: [
-          {nome: "📄 Atlântico: IA na Manufatura", link: "https://www.atlantico.com.br"},
-          {nome: "📄 Mitsubishi Electric: Fábricas", link: "https://mitsubishielectric.com.br"},
-          {nome: "📚 A Voz da Indústria: Robótica", link: "https://avozdaindustria.com.br"}
+          {nome: "🔗 Linak - Ergonomia na linha de produção", link: "https://www.linak.com.br/"},
+          {nome: "🔗 Baroig - Ergonomia Industrial", link: "https://www.baroig.com/"},
+          {nome: "🔗 Cenea - Ergonomia Laboral", link: "https://www.cenea.com/"}
       ]},
-      promptExemplo: "Atue como oftalmologista e engenheiro. Liste 3 formas inovadoras de utilizar luz ultravioleta (UV) ou fundos polarizados numa bancada de inspeção visual."
-    },   
-
-    // 🔧 VERTENTE: MANUTENÇÃO
-    { vertente: "Manutenção", titulo: "O EPI Iluminado", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
-      dor: "Cena: Manutenção noturna num painel elétrico sem luz adequada no local.\nDor: Segurar a lanterna com a boca ou de forma improvisada aumenta o risco de choque fatal.",
-      desafio: "Missão: Criar um Equipamento de Proteção Individual (EPI) vestível que ilumine perfeitamente a área sem usar as mãos.",
-      starterData: { dadoReal: "Lanternas de capacete convencionais criam sombras cegas no painel dependendo do ângulo da cabeça do técnico.", restricao: "REGRA DE OURO: É estritamente proibido usar o capacete como fonte de luz. Pense em outras partes do corpo.", perguntaGatilho: "Se a luz não está na cabeça, como ela pode estar integrada no peitoral, ombros ou luvas do técnico?", 
-      fontes: [
-          {nome: "📄 Revista Automação: IoT", link: "https://www.revista-automacao.com"},
-          {nome: "📄 IFPB: IA e IoT na Ind. 4.0", link: "https://repositorio.ifpb.edu.br"},
-          {nome: "📚 Fortune Business: Manutenção", link: "https://www.fortunebusinessinsights.com"}
-      ]},
-      promptExemplo: "Gere 3 conceitos de iluminação acoplada em vestimentas (como suspensórios, luvas ou peitorais) voltadas para manutenção elétrica, que eliminem o uso de lanternas de capacete."
+      promptExemplo: "Sugira 3 designs para um sistema de sustentação ergonômico passivo (sem motores) com polias e elásticos, que ajude a suportar o peso dos braços de operadores de montagem de painéis."
     },
-    { vertente: "Manutenção", titulo: "O Ouvido Mecânico", imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
-      dor: "Cena: Ambiente industrial extremamente barulhento com várias máquinas a operar.\nDor: O técnico precisa de se aproximar perigosamente das engrenagens para 'ouvir' se a máquina tem algum problema.",
-      desafio: "Missão: Desenvolver uma ferramenta física direcional (bastão, pistola) que permita ao técnico 'ver' ou 'sentir' a vibração da falha à distância segura.",
-      starterData: { dadoReal: "Vibrações anormais impercetíveis ao ouvido indicam 90% da chance de quebra mecânica nos dias seguintes.", restricao: "Deve ser uma ferramenta manual e portátil, sem fios espalhados pelo chão.", perguntaGatilho: "Como transformar a vibração da máquina num ecrã visual ou num retorno tátil (tremor) na mão do técnico?", 
+    { vertente: "Produção", titulo: "Dosador Seletivo de Parafusos", imagem: "/assets/img/desafios/producao-inspecao-visual.png",
+      dor: "Cena: Na montagem de um motor, operadores usam parafusos de classes diferentes (ex: 8.8, 12.9) que acabam por ser misturados acidentalmente nas caixas.\nDor: Um parafuso com a classe errada (resistência menor) causa quebra do motor em operação, originando prejuízos acima de R$ 10.000 por evento.",
+      desafio: "Missão: Desenvolver um dispositivo dosador puramente mecânico que separe e libere apenas parafusos de uma classe específica, impedindo misturas perigosas.",
+      starterData: { dadoReal: "Eventos de misturas de parafusos ocorrem em média 2 vezes por mês, causando retrabalho e riscos de recall de motores inteiros.", restricao: "A máquina não pode usar sensores eletrônicos ou câmaras. Deve distinguir o parafuso por geometria (cabeça/corpo) ou magnetismo.", perguntaGatilho: "Quais pequenas características físicas distinguem um parafuso do outro? Como criar um 'Poka-Yoke' que trave ao abastecer a máquina com a peça errada?", 
       fontes: [
-          {nome: "📄 Pruftechnik: Preditiva", link: "https://www.pruftechnik.com"},
-          {nome: "📄 ProGrow AI: IoT na Manutenção", link: "https://www.progrow.ai"},
-          {nome: "📚 IPEA: Inovação Tecnológica", link: "https://repositorio.ipea.gov.br"}
+          {nome: "🔗 Deprag - Screwdriving Technology", link: "https://www.deprag.com/pt/"},
+          {nome: "🔗 Visumatic - Industrial Feeders", link: "https://www.visumatic.com/"},
+          {nome: "🔗 Weber-online - Feeding Systems", link: "https://www.weber-online.com/"}
       ]},
-      promptExemplo: "Atue como inventor de hardware. Quais são 3 formas criativas de usar sensores de vibração numa 'vara de inspeção' mecânica com feedback em LED para locais barulhentos?"
-    },
-    { vertente: "Manutenção", titulo: "A Ferramenta Guiada", imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
-      dor: "Cena: Técnico erra a sequência de aperto numa manutenção complexa.\nDor: A quebra de sequência ou torque errado causa retrabalho, danifica a máquina e põe a operação em risco.",
-      desafio: "Missão: Criar uma ferramenta física (chave, alicate, parafusadeira) que guie o técnico passo a passo durante o uso.",
-      starterData: { dadoReal: "60% das falhas de manutenção ocorrem por erro na sequência de aperto ou montagem de componentes críticos.", restricao: "A instrução tem que estar na própria ferramenta ou na mão do técnico. Nada de papéis ou tablets distantes.", perguntaGatilho: "Como luzes na chave, ecrãs no cabo, travas mecânicas ou feedback tátil (vibração) podem impedir o erro físico?", 
-      fontes: [
-          {nome: "🎓 Artigos: Poka-Yoke na Manutenção", link: "https://scholar.google.com.br/scholar?q=poka-yoke+manutencao+industrial"},
-          {nome: "📄 Revistas: Ferramentas Inteligentes", link: "https://search.scielo.org/?q=smart+tools+manutencao+industria+4.0"}
-      ]},
-      promptExemplo: "Desenvolva o conceito de uma 'Chave de Fenda Inteligente' com LEDs e pequenos displays no cabo que travam se o técnico pular a sequência correta de parafusos."
+      promptExemplo: "Liste 3 conceitos de mecanismos puramente físicos (ex: trilhos com ranhuras em formato de 'V' e ímanes de neodímio) que consigam filtrar parafusos que têm apenas 2 milímetros de diferença na cabeça."
     },   
 
     // 📦 VERTENTE: LOGÍSTICA
-    { vertente: "Logística", titulo: "O Caminho Inteligente", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
-      dor: "Cena: Operador a andar quilómetros dentro de um enorme galpão de estoque.\nDor: O cansaço físico mental extremo leva a erros na hora de recolher as caixas corretas.",
-      desafio: "Missão: Criar um hardware visual acoplado às prateleiras ou aos carrinhos que guie o operador até à caixa correta sem ele precisar de ler papéis.",
-      starterData: { dadoReal: "O processo de 'Procurar e Identificar' a caixa correta consome 60% do tempo na logística.", restricao: "O operador não pode segurar tablets ou celulares. As mãos devem estar livres.", perguntaGatilho: "Como o carrinho logístico pode interagir visualmente com a prateleira usando lasers ou LEDs direcionais?", 
+    { vertente: "Logística", titulo: "Picking - Contador de Parafusos", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
+      dor: "Cena: No almoxarifado, operadores de picking separam kits com exatos 10 parafusos contando-os um a um manualmente a partir de caixas gigantes.\nDor: A contagem gera cansaço visual, demora excessiva (15 min perdidos por operador/turno) e o envio da quantidade errada para a linha.",
+      desafio: "Missão: Desenvolver um dispositivo fixo na caixa que, ao ser acionado manualmente, libere uma quantidade exata de parafusos e registe a contagem visualmente.",
+      starterData: { dadoReal: "O processo de conferência manual rouba em média 15 minutos de produtividade por turno de CADA funcionário logístico.", restricao: "Funcionamento puramente mecânico (alavancas, engrenagens). Deve ser fácil de recarregar e ter custo de fabrico menor que R$ 50.", perguntaGatilho: "Como garantir que a 'catraca' não trave se o parafuso cair torto? É possível ajustar para tamanhos diferentes?", 
       fontes: [
-          {nome: "📄 Portal da Indústria: Logística", link: "https://www.portaldaindustria.com.br"},
-          {nome: "📄 Sebrae: Logística Integrada", link: "https://sebrae.com.br"},
-          {nome: "📚 NDD Tech: Tendências 5.0", link: "https://ndd.tech"}
+          {nome: "🔗 Vention Material Handling", link: "https://vention.io/"},
+          {nome: "🔗 Misumi Brasil - Automação", link: "https://br.misumi-ec.com/"}
       ]},
-      promptExemplo: "Atue como engenheiro de hardware logístico. Como o sistema 'Pick-to-Light' poderia ser modernizado usando projetores a laser acoplados nos carrinhos de carga?"
+      promptExemplo: "Atue como desenhador industrial. Como adaptar o princípio de um distribuidor mecânico de doces ou moedas, para libertar com precisão lotes de 10 parafusos sempre que a manivela der uma volta completa?"
     },
-    { vertente: "Logística", titulo: "A Doca Automatizada", imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
-      dor: "Cena: Receção de mercadorias com dezenas de caminhões a chegar ao mesmo tempo debaixo de chuva.\nDor: O conferente fica molhado a ler papéis rasgados, gerando caos e multas por atraso.",
-      desafio: "Missão: Estruturar um objeto físico (como um Semáforo Inteligente ou Portal de Triagem) que faça a verificação visual do caminhão automaticamente.",
-      starterData: { dadoReal: "Empresas perdem milhões anualmente pagando 'diária de caminhão parado' pela lentidão na triagem de papel.", restricao: "Foque apenas no Totem/Semáforo externo. O motorista não pode sair da cabine.", perguntaGatilho: "Como um totem com câmaras de leitura de placas e um ecrã de LED gigante interage com o motorista?", 
+    { vertente: "Logística", titulo: "Compartimentação Modular de Caminhões", imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
+      dor: "Cena: O centro de distribuição carrega camiões com caixas de todos os tamanhos, e o espaço vazio obriga a empilhar desordenadamente a carga menor.\nDor: Caminhões saem com até 20% do espaço desperdiçado e a carga solta danifica-se seriamente nas curvas da estrada.",
+      desafio: "Missão: Projetar um sistema modular de compartimentos ajustáveis para dividir o interior do baú do caminhão sem deixar espaços vazios.",
+      starterData: { dadoReal: "A má alocação de espaço e a carga solta geram um prejuízo silencioso no aumento de rotas e devolução de mercadorias amassadas.", restricao: "Módulos têm de ser removíveis à mão (sem ferramentas), leves (plástico/alumínio) e não podem furar ou aparafusar a parede do caminhão.", perguntaGatilho: "Como fixar painéis sanfonados à parede usando pressão (molas) ou fitas de amarração já existentes no caminhão?", 
       fontes: [
-          {nome: "📄 TOTVS: Logística 5.0", link: "https://www.totvs.com"},
-          {nome: "📄 Brazil Modal: Inovação Logística", link: "https://brazilmodal.com.br"},
-          {nome: "📚 FoccoERP: Tecnologias", link: "https://foccoerp.com.br"}
+          {nome: "🔗 Sortimo Organizadores de Carga", link: "https://www.mysortimo.com/"},
+          {nome: "🔗 Bott Brasil - Equipamentos", link: "https://www.bott-group.com/"},
+          {nome: "🔗 Ancra Systems - Cargo Restraint", link: "https://www.ancrasystems.com/"}
       ]},
-      promptExemplo: "Descreva o design físico de um Totem de Doca Industrial projetado para ler QR Codes a 5 metros de distância e orientar motoristas por letreiros LED."
+      promptExemplo: "Dê 3 ideias de estruturas modulares baseadas em 'barras de tensão' ou biombos dobráveis de colmeia para organizar pequenas caixas soltas no meio do baú de um caminhão."
     },
-    { vertente: "Logística", titulo: "O Estoque Vivo", imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
-      dor: "Cena: A linha de montagem para de repente porque os parafusos de uma gaveta acabaram e ninguém reparou.\nDor: Atraso na produção inteira e trabalhadores ociosos à espera do empilhador.",
-      desafio: "Missão: Criar uma estrutura física de gavetas ou prateleiras que indiquem visualmente quando o seu peso/nível está a chegar ao fim.",
-      starterData: { dadoReal: "Depender da memória visual humana para reabastecer a fábrica (Milk Run) gera em média 3 paradas de linha semanais.", restricao: "Não utilizar redes complexas de IA. A solução deve ter uma mecânica ou balança de base simples.", perguntaGatilho: "Como usar molas, inclinação ou balanças embutidas na gaveta para acender uma luz amarela no corredor?", 
+    { vertente: "Logística", titulo: "Descarga Ergonômica de Sacarias", imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
+      dor: "Cena: Camiões chegam carregados de sacos de resina pesando 25 kg cada. Os operadores puxam tudo à mão durante horas a fio.\nDor: Exaustão brutal, riscos de lesões lombares graves na equipa, e filas enormes de camiões a poluir o pátio enquanto esperam a sua vez.",
+      desafio: "Missão: Desenvolver um equipamento auxiliar que possa ser encaixado entre o caminhão e a esteira para facilitar a descida das sacarias sem exigir elevação humana.",
+      starterData: { dadoReal: "Uma descarga manual tradicional leva de 2 a 3 horas. Reduzir esse tempo elimina o engarrafamento e reduz drasticamente o risco do trabalho.", restricao: "A solução tem de se adaptar a alturas de camiões variados, ser facilmente removível e não pode rasgar a embalagem plástica do produto.", perguntaGatilho: "Como um escorregador telescópico com roletes ou lona deslizante poderia levar o saco da carroçaria até o chão suavemente?", 
       fontes: [
-          {nome: "📄 Still Portugal: Integração", link: "https://www.still.pt"},
-          {nome: "📄 Fabrimetal: Fator Humano", link: "https://fabrimetalarmazenagem.com.br"},
-          {nome: "📚 Portal da Indústria: Segurança", link: "https://www.portaldaindustria.com.br"}
+          {nome: "🔗 Moveit - Correias e Roletes", link: "https://www.moveit.com.br/"},
+          {nome: "🔗 Dalmec - Manipuladores Industriais", link: "https://www.dalmec.com/"},
+          {nome: "🔗 Hytrol - Truck Unloading Solutions", link: "https://hytrol.com/"}
       ]},
-      promptExemplo: "Desenhe o conceito de uma 'Prateleira de Peso'. Como balanças mecânicas integradas em caixas de parafusos poderiam acionar bandeiras físicas ou LEDs?"
+      promptExemplo: "Projete o esboço físico de uma 'rampa de roletes telescópica' dobrável que possa ser rapidamente presa ao piso de qualquer caminhão para fazer deslizar sacos de 25kg em segurança."
+    },   
+
+    // 🔧 VERTENTE: MANUTENÇÃO
+    { vertente: "Manutenção", titulo: "Dispositivo de Contenção de Peças", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
+      dor: "Cena: Técnicos de manutenção desmontam as máquinas industriais e acabam pousando as porcas e os parafusos na própria estrutura do equipamento ou no chão.\nDor: Peças minúsculas perdem-se ou caem dentro das engrenagens, o que gera explosões mecânicas quando a máquina é religada.",
+      desafio: "Missão: Projetar um dispositivo de contenção portátil, de rápida fixação temporária ao lado do trabalho, para segurar todas as ferramentas e parafusos de forma segura.",
+      starterData: { dadoReal: "A perda de pequenos componentes gera não só o custo do parafuso novo, mas também danos na ordem de milhares de euros se este for mastigado pela máquina.", restricao: "Deve custar menos de R$ 150 por unidade, resistir a líquidos industriais (óleo de corte) e não arranhar a pintura das máquinas.", perguntaGatilho: "Como uma bandeja magnética emborrachada flexível, ou um 'tapete com bordas' acoplável, poderia envolver a peça em conserto?", 
+      fontes: [
+          {nome: "🔗 Mechanix Wear - Magnetic Trays", link: "https://www.mechanix.com/"},
+          {nome: "🔗 Grip-On Locking Tools", link: "https://www.grip-on.com/"},
+          {nome: "🔗 Norbar - Torque Tools", link: "https://www.norbar.com/"}
+      ]},
+      promptExemplo: "Desenhe uma bandeja de trabalho flexível, feita de neoprene com poderosos ímanes costurados. Ela deve conseguir abraçar cantos de tubos ou ficar presa a 90 graus na chapa da máquina sem que as peças escorreguem."
+    },
+    { vertente: "Manutenção", titulo: "Sistema Portátil de Ventilação", imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
+      dor: "Cena: Técnicos precisam de entrar constantemente em tanques químicos ou silos apertados (Espaços Confinados) onde o ar não circula.\nDor: Gases tóxicos mortais acumulam-se no fundo destes poços, criando um risco letal iminente por asfixia ou explosão à menor faísca.",
+      desafio: "Missão: Projetar um sistema de ventilação 100% portátil, rápido de prender à porta do tanque e capaz de garantir um ambiente seguro de imediato.",
+      starterData: { dadoReal: "A imobilidade de frentes de serviço em áreas distantes inviabiliza exaustores de parede. Equipamentos têm de ser montados e ligados em menos de 2 minutos.", restricao: "Precisa de ter fluxo de ar reversível (sugador/soprador) e indicar visualmente por meios físicos se a pressão está correta.", perguntaGatilho: "O ventilador funcionaria a bateria ou a manivela mecânica? Como vedar a estrutura na abertura redonda do buraco (bueiro)?", 
+      fontes: [
+          {nome: "🔗 Allegro Industries - Blower Systems", link: "https://www.allegrosafety.com/"},
+          {nome: "🔗 Nederman - Portable Fans", link: "https://www.nederman.com/"}
+      ]},
+      promptExemplo: "Imagine um insuflador/exaustor a bateria com tubos flexíveis sanfonados, onde o ar que passa por ele faz girar uma pequena catavento no painel visual: se o catavento parar, o técnico tem de fugir do poço!"
+    },
+    { vertente: "Manutenção", titulo: "Organizador de Ordens de Serviço (OS)", imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
+      dor: "Cena: As tarefas do dia dos técnicos circulam num formato de papéis impressos. Estes papéis andam esquecidos nos bolsos sujos de massa consistente, expostos à chuva ou em pilhas de secretária.\nDor: Ordens cruciais são perdidas ou rasgam-se, gerando um efeito dominó de máquinas que não foram reparadas a tempo por pura falta de comunicação e esquecimento.",
+      desafio: "Missão: Projetar um sistema organizador físico fixo na parede da oficina, que proteja o papel da humidade e mostre visualmente o status exato daquele conserto.",
+      starterData: { dadoReal: "A 'perda de rasto' das Ordens de Serviço no chão de fábrica é a causa n.º 1 de atrasos na reparação de equipamento de apoio vital da fábrica.", restricao: "Tem de permitir que o papel seja inserido em 2 segundos e que seja atualizado para (Pendente/Concluído) de forma rápida e visual de longe.", perguntaGatilho: "Como micas plásticas fixas num rail magnético com 'bandeiras de cor' giratórias podem substituir a prancheta de madeira e as molas enferrujadas?", 
+      fontes: [
+          {nome: "🔗 Quadros Visuais Lean", link: "https://www.lean.org.br/quadro-visual"},
+          {nome: "🔗 Treston", link: "https://www.treston.com.br"}
+      ]},
+      promptExemplo: "Desenvolva o conceito de um quadro físico 'Kanban da Pesada', com envelopes de policarbonato vedados, de onde o técnico retira uma OS e move um pino vermelho (Avariado) para verde (Testado)."
     },   
 
     // ♻️ VERTENTE: SUSTENTABILIDADE
-    { vertente: "Sustentabilidade", titulo: "A Lixeira Inteligente", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
-      dor: "Cena: Funcionários a jogar peças de metal e plástico sujo de óleo no lixo comum pela pressa.\nDor: A fábrica é multada e o custo para incinerar lixo misturado com óleo é altíssimo.",
-      desafio: "Missão: Desenvolver uma lixeira industrial física que induza fisicamente o funcionário a descartar no lugar certo (Design Comportamental).",
-      starterData: { dadoReal: "Avisos de papel colados na parede são ignorados pelo cérebro humano após 3 dias ('cegueira de paisagem').", restricao: "Sem ecrãs ou tablets na lixeira. Foco no formato, tampa ou resposta física/sonora.", perguntaGatilho: "Como o formato da boca da lixeira ou um pedal mecânico podem 'ensinar' e obrigar a fazer o certo?", 
+    { vertente: "Sustentabilidade", titulo: "Captação de Água de Chuva", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
+      dor: "Cena: Quando chove, o galpão industrial recebe litros intermináveis de água que escoam pelo telhado diretamente para o esgoto pluvial municipal da rua.\nDor: Desperdício revoltante da água enquanto a fábrica consome a cara água potável tratada pela autarquia para regar os jardins e despejar em sanitas.",
+      desafio: "Missão: Projetar um sistema simples, inteiramente sem eletricidade ou motores, para captar do cano do teto, filtrar sujidades do telhado e armazenar esta água.",
+      starterData: { dadoReal: "Substituir usos secundários por água pluvial reduz a conta municipal em até 40% na indústria moderna.", restricao: "A gravidade deve ser a única força a agir. O primeiro jato d'água da chuva (cheio de poeiras) deve ser rejeitado automaticamente por uma boia mecânica.", perguntaGatilho: "Como um cano em 'Y' com uma bola de esponja interna bloqueia a passagem de água até o lodo descer por inteiro, filtrando de seguida?", 
       fontes: [
-          {nome: "📄 ABNT Sustentabilidade", link: "https://portalsustentabilidade.com"},
-          {nome: "📄 Produza: Prática Industrial", link: "https://produza.ind.br"},
-          {nome: "📚 Portal ABNT Sustentabilidade", link: "https://portaldasustentabilidade.com"}
+          {nome: "🔗 Rainwater Harvesting Solutions", link: "https://www.rainwaterharvesting.com/"},
+          {nome: "🔗 Aquahouse", link: "https://www.aquahouse.com.br/"}
       ]},
-      promptExemplo: "Sugira 3 formas focadas em Design de Produto (Nudge) para criar as tampas de lixeiras industriais que impeçam o descarte de latas no buraco errado."
+      promptExemplo: "Esboce um 'Filtro Ciclone de Telhado'. A água de uma calha desce em espiral mecânica que atira as folhas e pedras para o lado de fora do cano antes de cair cristalina no depósito principal!"
     },
-    { vertente: "Sustentabilidade", titulo: "O Separador Inteligente", imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
-      dor: "Cena: Resíduos misturados (plástico, metal, papel molhado) descem pela mesma esteira na área de descarte.\nDor: Custo elevado de triagem manual e perda de materiais recicláveis valiosos para a empresa.",
-      desafio: "Missão: Criar uma lixeira ou estação física que automaticamente direcione o resíduo correto sem depender da decisão do operador.",
-      starterData: { dadoReal: "Erros na triagem manual de resíduos aumentam os custos de gestão ambiental industrial em quase 300%.", restricao: "Mecânica pura. Esqueçam IA com câmaras. Usem gravidade, ímãs, vento ou formatos.", perguntaGatilho: "Como grelhas, desvios por peso (balanças de mola) ou formatos de buracos específicos podem forçar a separação física?", 
+    { vertente: "Sustentabilidade", titulo: "Compactação e Triagem de Retalhos", imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
+      dor: "Cena: Sacos gigantes na estamparia estão transbordar com todo o tipo de retalhos de tecidos atirados ao calhas e misturados.\nDor: O camião da reciclagem cobra fortunas para recolher 'sacos que são 70% ar' e deita muito material no aterro por estar irremediavelmente misturado.",
+      desafio: "Missão: Projetar um sistema físico de compactação (Prensa Manual) e organização com divisórias por tipo de material.",
+      starterData: { dadoReal: "Ao comprimir tecidos para 1/3 do seu tamanho, a logística reversa da indústria de fast-fashion atinge o seu 'break-even' económico e viabiliza a reciclagem.", restricao: "O processo deve usar a alavancagem manual, gerar blocos/fardos em formato de caixas iguais, e ser rápido de amarrar.", perguntaGatilho: "Uma alavanca tipo prensa com 2 metros de braço aumenta a força humana drasticamente. Como dividi-la em 3 caixotes (Algodão, Nylon e Malha)?", 
       fontes: [
-          {nome: "🎓 Separação Mecânica de Resíduos", link: "https://scholar.google.com.br/scholar?q=separacao+mecanica+residuos+solidos+industriais"},
-          {nome: "📄 Gestão de Resíduos Sólidos", link: "https://search.scielo.org/?q=triagem+residuos+solidos+mecanica"}
+          {nome: "🔗 Miltek", link: "https://www.miltek.com/"},
+          {nome: "🔗 Harmony Enterprises", link: "https://www.harmony1.com/"}
       ]},
-      promptExemplo: "Atue como engenheiro de automação mecânica. Desenhe o conceito de uma 'Bica de Lixo' que usa um forte ímã e uma rampa perfurada para separar parafusos de papéis molhados."
+      promptExemplo: "Desenhe uma enfardadeira manual (sem hidráulica). Uma haste comprida aciona uma placa metálica de grande superfície que espalma pilhas inteiras de tecidos, permitindo que a linha trespasse o bloco no final."
     },
-    { vertente: "Sustentabilidade", titulo: "A Bancada Inclusiva", imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
-      dor: "Cena: A fábrica tenta contratar pessoas em cadeira de rodas, mas as bancadas e controlos são muito altos e chumbados ao chão.\nDor: Exclusão de bons profissionais por pura barreira física.",
-      desafio: "Missão: Idealizar o design físico de uma bancada de trabalho mecânica que se adapte rapidamente para utilizadores de qualquer altura.",
-      starterData: { dadoReal: "A falta de adaptação mecânica nos postos de trabalho impede o preenchimento de mais de 60% das vagas PCD (Pessoas com Deficiência) na indústria.", restricao: "O painel de botões e porta-ferramentas também tem de se aproximar das mãos do utilizador.", perguntaGatilho: "Como combinar braços articulados de monitores com sistemas de elevação pneumática na mesa?", 
+    { vertente: "Sustentabilidade", titulo: "Redirecionamento de Luz Solar", imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
+      dor: "Cena: Meio-dia com sol a pino lá fora. E o pavilhão industrial gigantesco encontra-se inteiramente iluminado com mil potentes lâmpadas fluorescentes para que se consiga trabalhar nas máquinas.\nDor: Conta de luz na estratosfera sem necessidade (responsável por 25% da energia total) e um ambiente com luz sem vibração artificial que suga a energia humana.",
+      desafio: "Missão: Desenvolver um captador puramente físico para telhados, ou calhas de reflexão para janelas altas, que apanhe o sol externo e espalhe a sua luz internamente.",
+      starterData: { dadoReal: "A 'Síndrome do Prédio Doente' ataca mais severamente colaboradores que não recebem luz solar natural durante os seus turnos de 8 horas.", restricao: "Sem peças motorizadas a seguir o sol. O feixe não pode cruzar como um laser e encandear ninguém nos olhos. Tem de ser difuso.", perguntaGatilho: "Garrafas com água no teto dão certo para casas, e para fábricas de 10 metros de altura? Domos refletores de alumínio brilhante tipo espelho no cano do teto?", 
       fontes: [
-          {nome: "📄 Portal da Indústria: Inclusão", link: "https://www.portaldaindustria.com.br"},
-          {nome: "📄 Sebrae: Acessibilidade", link: "https://sebrae.com.br"},
-          {nome: "📚 Revista Automação: Inclusão", link: "https://www.revista-automacao.com"}
+          {nome: "🔗 Solatube", link: "https://www.solatube.com/"},
+          {nome: "🔗 Velux Brasil", link: "https://www.velux.com.br/"}
       ]},
-      promptExemplo: "Crie o design industrial de uma 'Bancada Universal de Manufatura'. Foque em mecanismos físicos (manivelas, motores lineares, braços articulados) para cadeirantes."
+      promptExemplo: "Sugira como materiais baratos e recicláveis como cones de folha de alumínio polida, cobertos por um acrílico translúcido contra a chuva, poderiam chover luz num diâmetro enorme dentro do pavilhão."
     },   
 
     // 🏢 VERTENTE: ADMINISTRATIVO
-    { vertente: "Administrativo", titulo: "A Sala Anti-Distração", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
-      dor: "Cena: Ambiente administrativo aberto com notificações, telefones e pessoas a passar o tempo todo.\nDor: Queda brutal de foco e produtividade, gerando stress e retrabalho constante na gestão.",
-      desafio: "Missão: Criar um dispositivo físico de mesa ou mobiliário que reduza distrações e aumente imediatamente o foco cognitivo.",
-      starterData: { dadoReal: "Estudos de neurociência apontam que o cérebro demora cerca de 23 minutos para recuperar o foco total após uma simples distração no escritório.", restricao: "Não é um simples 'fone de ouvido'. Pense num acessório de mesa ou mobiliário integrado.", perguntaGatilho: "Como bloqueadores físicos de visão retráteis, luzes de sinalização ('modo foco') ou cúpulas acústicas funcionariam na mesa?", 
+    { vertente: "Administrativo", titulo: "Controle de Chaves por Turno", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
+      dor: "Cena: Um calhamaço de chaves de arranque das máquinas atirado para a última gaveta. O operador da noite vai para casa e leva a chave-mestra no bolso por distração.\nDor: O trabalhador da manhã chega, não acha a chave e o setor de produção fica parado 3 horas a arrombar fechaduras com um martelo e a procurar as chaves.",
+      desafio: "Missão: Projetar um armário visual de chaves com uma fechadura genial de mecânica por turnos (Turno A não pode pegar as chaves do Turno B e vice-versa).",
+      starterData: { dadoReal: "Esquecimentos de chaves ou chaves 'emprestadas' param as rotinas vitais em dezenas de fábricas diariamente.", restricao: "O painel tem de expor visivelmente todas as argolas num relance (nada de cofres cegos), e o mecanismo tem de trancar a devolução.", perguntaGatilho: "Como painéis de correr que se abrem apenas com uma 'Super-Chave' de mestre que fica com a coordenação evitam este conflito diário?", 
       fontes: [
-          {nome: "🎓 Neurociência e Foco no Trabalho", link: "https://scholar.google.com.br/scholar?q=ergonomia+cognitiva+distracao+escritorio"},
-          {nome: "📄 Ergonomia Cognitiva (SciELO)", link: "https://search.scielo.org/?q=foco+produtividade+ambiente+de+trabalho"}
+          {nome: "🔗 Morse Watchmans - Key Control", link: "https://www.morsewatchmans.com/"},
+          {nome: "🔗 Nilko - Armários", link: "https://www.nilko.com.br/"}
       ]},
-      promptExemplo: "Desenhe o conceito de uma 'Estação de Mesa Anti-Distração'. Imagine paredes acústicas modulares que sobem, e luzes LED que avisam os colegas para não interromper."
+      promptExemplo: "Desenhe um quadro de chaves onde as abas verdes correm lateralmente tampando a secção do turno A com um pino. Ao fim da tarde, o supervisor arrasta a grade vermelha que só deixa o turno B mexer nos ganchos visíveis."
     },
-    { vertente: "Administrativo", titulo: "O Organizador de Documentos", imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
-      dor: "Cena: Papéis, notas fiscais e relatórios técnicos acumulam-se em pilhas caóticas nas mesas.\nDor: O erro humano explode e o retrabalho atrasa toda a burocracia do chão de fábrica.",
-      desafio: "Missão: Criar uma estação física de mesa que organize os documentos usando mecânica simples conforme eles entram.",
-      starterData: { dadoReal: "Funcionários administrativos gastam até 20% do seu dia apenas à procura de documentos físicos perdidos nas próprias mesas.", restricao: "Proibido depender de um software complexo de digitalização (OCR). A solução é física e espacial.", perguntaGatilho: "Como trilhos, caixas com molas de peso ou marcações visuais com grandes QR Codes criariam uma 'linha de montagem de papel'?", 
+    { vertente: "Administrativo", titulo: "Vending Machine Industrial (EPIs)", imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
+      dor: "Cena: Batem as 08:00h e dezenas de pessoas correm ao portão do almoxarifado para receber um par de luvas novo ou tampões nos ouvidos, fazendo o senhor anotar todos os nomes num caderno.\nDor: A empresa paga uma verdadeira fortuna nos salários desses 20 minutos de fila matinal que são repetidos todos os santos dias e ainda fica sem stock porque o registo falhou no papel.",
+      desafio: "Missão: Projetar um dispensador de Equipamento de Proteção (EPI) mecânico que substitua a entrega humana sem perder as anotações visuais.",
+      starterData: { dadoReal: "Distribuidores automáticos ('Vending') economizam até 40% de gastos totais em EPIs só por garantirem o registo visual rigoroso na entrega sem esforço humano.", restricao: "Não tem ligação à tomada. A liberação do produto pode usar moedas, cartões com furos ou alavancas empurradas num registador de papel interno.", perguntaGatilho: "A luva fica num carrossel espiral como batatas fritas? Ou num sistema de molas gravítico onde só sai um óculo se o crachá bater na trava?", 
       fontes: [
-          {nome: "🎓 Metodologia 5S no Escritório", link: "https://scholar.google.com.br/scholar?q=5S+escritorio+organizacao+de+documentos"},
-          {nome: "📄 Eficiência Administrativa Física", link: "https://search.scielo.org/?q=gestao+de+documentos+fisicos+produtividade"}
+          {nome: "🔗 Fastenal - Industrial Vending", link: "https://www.fastenal.com/"},
+          {nome: "🔗 Cintas - PPE Services", link: "https://www.cintas.com/"}
       ]},
-      promptExemplo: "Atue como designer de produto. Desenvolva o conceito 3D de 'Bandejas Empilháveis Inteligentes', onde o peso do papel aciona uma alavanca para indicar prioridade."
+      promptExemplo: "Como fabricar um dispensador por gravidade (como aqueles porta-copos plásticos de máquina de água) que solte os protetores de ouvido embalados um a um ao clicar de uma ficha?"
     },
-    { vertente: "Administrativo", titulo: "O Alerta Invisível de Prioridade", imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
-      dor: "Cena: E-mails urgentes perdem-se na caixa de entrada e os gestores não percebem os problemas críticos a tempo.\nDor: Atrasos severos na cadeia produtiva por pura falta de priorização visual.",
-      desafio: "Missão: Criar um sistema físico de alerta no ambiente que indique as prioridades da equipa sem depender de telemóveis ou computadores.",
-      starterData: { dadoReal: "A sobrecarga de notificações digitais faz com que 40% dos alertas realmente urgentes sejam ignorados pelos gestores.", restricao: "A solução deve estar integrada no espaço físico da sala (parede, mesa, teto, chão).", perguntaGatilho: "Como objetos que mudam fisicamente, iluminação ambiente que altera a cor ou bandeiras mecânicas podem chamar a atenção?", 
+    { vertente: "Administrativo", titulo: "Crachá Físico de Habilitações", imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
+      dor: "Cena: O encarregado de logística grita: 'Quem é que tem habilitação de grua atualizada?'. Ninguém responde de pronto e um amador voluntaria-se sem estar habilitado para agradar ao chefe.\nDor: O controlo de validade das licenças de máquinas perigosas (Empilhadeiras/Pontes Rolantes) repousa em pastas cegas do escritório de RH. Isto causa mortes trágicas quando alguém toca no que não tem capacidade para operar.",
+      desafio: "Missão: Projetar a mecânica visual de um novo 'Crachá Pessoal' fixo ao peito que berre visualmente, à distância de 10 metros, quais as validades ou categorias atuais daquela pessoa.",
+      starterData: { dadoReal: "O Risco de Operação Não Qualificada é combatido instantaneamente com Gestão à Vista: o próprio grupo repreende se o crachá não estiver brilhante e válido para o cargo.", restricao: "A prova plástica tem de ser atualizável (nada de deitar fora e imprimir outro plástico novo todos os meses), ser selada a ponto do operador não adulterar com a unha, e suportar calor e poeira.", perguntaGatilho: "E se por trás do papel do crachá girar uma minúscula roda dentada com cores ou letras? Ou cartões finos sobrepostos de pregos cegos?", 
       fontes: [
-          {nome: "🎓 Displays Ambientais (Ambient Displays)", link: "https://scholar.google.com.br/scholar?q=ambient+displays+workplace+alertas"},
-          {nome: "📄 Gestão à Vista em Escritórios", link: "https://search.scielo.org/?q=gestao+a+vista+escritorio+comunicacao+visual"}
+          {nome: "🔗 Brady", link: "https://www.brady.com.br/"},
+          {nome: "🔗 Praxio", link: "https://www.praxio.com/"}
       ]},
-      promptExemplo: "Imagine um 'Mural de Alertas Cinético' para a parede de um escritório. Como peças físicas (painéis de madeira ou acrílico) poderiam girar e ficar vermelhas quando há uma emergência?"
+      promptExemplo: "Crie o molde 3D para um crachá plástico industrial com ranhuras vazadas ao longo da base, onde o RH encaixa rebites coloridos redondos (Verde/Empilhadeira, Laranja/Solda) que trancam permanentemente atrás por clique."
     }
   ];
 
