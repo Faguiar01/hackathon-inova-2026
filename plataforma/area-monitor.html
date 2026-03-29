@@ -123,15 +123,34 @@
 </div>
 
 <div id="monitor-login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
-    <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:400px; border-radius:8px; padding: 35px;">
+    <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:480px; border-radius:8px; padding: 35px;">
         <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--cyan); margin:0 0 10px 0; text-align:center; letter-spacing: 1px;">📋 ACESSO DO MONITOR</h2>
-        <p style="color:var(--muted); text-align:center; font-size:0.9rem; margin-bottom:25px; font-family: 'Syne';">Identifique-se e selecione a mesa (Squad) que irá avaliar durante o Hackathon.</p>
+        <p style="color:var(--muted); text-align:center; font-size:0.9rem; margin-bottom:25px; font-family: 'Syne';">Identifique-se e filtre a mesa (Squad) que irá avaliar.</p>
 
         <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">SEU NOME (Monitor):</label>
         <input type="text" id="input-monitor-nome" placeholder="Digite seu nome..." style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; margin-bottom:20px; font-family:'Syne'; outline: none; box-sizing: border-box;" />
 
-        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">MESA / SQUAD:</label>
-        <select id="select-monitor-squad" style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; margin-bottom:30px; font-family:'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; outline: none; box-sizing: border-box;">
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <div style="flex: 1;">
+                <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--cyan); display:block; margin-bottom:5px; letter-spacing: 1px;">FILTRO: TURNO</label>
+                <select id="filtro-monitor-turno" onchange="mudarFiltroMonitorTurno(this.value)" style="width:100%; padding:12px; background:rgba(0,0,0,0.5); border:1px solid rgba(0,240,255,0.3); color:#fff; border-radius:6px; font-family:'Bebas Neue'; font-size: 1.1rem; outline: none; cursor:pointer;">
+                    <option value="todos">🌍 TODOS</option>
+                    <option value="manha">☀️ MANHÃ</option>
+                    <option value="tarde">🌙 TARDE</option>
+                </select>
+            </div>
+            <div style="flex: 1;">
+                <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--cyan); display:block; margin-bottom:5px; letter-spacing: 1px;">FILTRO: MODALIDADE</label>
+                <select id="filtro-monitor-modalidade" onchange="mudarFiltroMonitorModalidade(this.value)" style="width:100%; padding:12px; background:rgba(0,0,0,0.5); border:1px solid rgba(0,240,255,0.3); color:#fff; border-radius:6px; font-family:'Bebas Neue'; font-size: 1.1rem; outline: none; cursor:pointer;">
+                    <option value="todas">👥 TODAS</option>
+                    <option value="presencial">🏢 PRESENCIAL</option>
+                    <option value="online">🌐 ONLINE</option>
+                </select>
+            </div>
+        </div>
+
+        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">SELECIONE O SQUAD:</label>
+        <select id="select-monitor-squad" style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid var(--yellow); color:#fff; border-radius:6px; margin-bottom:30px; font-family:'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; outline: none; box-sizing: border-box; cursor:pointer;">
             <option value="">Carregando mesas da Arena...</option>
         </select>
 
@@ -368,6 +387,10 @@
 let dbEquipes   = {};
 let currentTeamId = null;
 
+// Variáveis de filtro do Avaliador
+let filtroMonitorTurno = 'todos';
+let filtroMonitorModalidade = 'todas';
+
 const checkLoad = setInterval(() => {
   if (window.AUTH && window.SprintTimer && window.InovaDB) {
     clearInterval(checkLoad);
@@ -398,19 +421,53 @@ function iniciarMonitor() {
   }, 1000);
 }
 
+// Funções para alterar e renderizar filtros
+window.mudarFiltroMonitorTurno = function(valor) {
+    filtroMonitorTurno = valor;
+    renderDropdownEquipes();
+};
+
+window.mudarFiltroMonitorModalidade = function(valor) {
+    filtroMonitorModalidade = valor;
+    renderDropdownEquipes();
+};
+
+function renderDropdownEquipes() {
+    const select = document.getElementById('select-monitor-squad');
+    if (!select) return;
+    
+    select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
+    let qtdEncontrada = 0;
+
+    Object.keys(dbEquipes).forEach(k => {
+        const eq = dbEquipes[k];
+        
+        // Aplicação do Filtro de Turno
+        if (filtroMonitorTurno === 'manha' && eq.turno === 'tarde') return;
+        if (filtroMonitorTurno === 'tarde' && eq.turno !== 'tarde') return;
+        
+        // Aplicação do Filtro de Modalidade
+        const isOnline = eq.mesa === 'ONLINE';
+        if (filtroMonitorModalidade === 'online' && !isOnline) return;
+        if (filtroMonitorModalidade === 'presencial' && isOnline) return;
+
+        const turnoFormatado = eq.turno === 'tarde' ? '🌙 TARDE' : '☀️ MANHÃ';
+        const modFormatado = isOnline ? '🌐 ONLINE' : ('🏢 MESA ' + (eq.mesa || '--'));
+        
+        select.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()} - ${turnoFormatado} - ${modFormatado}</option>`;
+        qtdEncontrada++;
+    });
+
+    if (qtdEncontrada === 0) {
+        select.innerHTML = '<option value="">❌ NENHUM SQUAD NESTES FILTROS</option>';
+    }
+}
+
 function carregarEquipes(isInitialLoad = false) {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
     dbEquipes = snap.val() || {};
     
-    const select = document.getElementById('select-monitor-squad');
-    if (select && select.options.length <= 1) {
-        select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
-        Object.keys(dbEquipes).forEach(k => {
-            const eq = dbEquipes[k];
-            const turnoFormatado = eq.turno === 'tarde' ? '🌙 TARDE' : '☀️ MANHÃ';
-            select.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()} [${turnoFormatado}]</option>`;
-        });
-    }
+    renderDropdownEquipes(); // Usa a nova função com filtro
 
     if (isInitialLoad) {
         verificarLoginMonitor();
@@ -457,10 +514,7 @@ window.trocarAvaliador = () => {
     sessionStorage.removeItem('inova_nome_monitor'); 
     sessionStorage.removeItem('inova_squad_monitor'); 
     
-    const select = document.getElementById('select-monitor-squad');
-    if (select) select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
-    carregarEquipes(true);
-    
+    renderDropdownEquipes(); // Recarrega os dropdowns limpos
     verificarLoginMonitor(); 
 };
 
@@ -470,7 +524,9 @@ function renderDetalhes() {
   const n  = td.notasEquipe || {};
 
   const turnoBadge = td.turno === 'tarde' ? '<span style="color:#ff1f8e; font-size:1.5rem; margin-left:15px;">[🌙 TARDE]</span>' : '<span style="color:#ffd600; font-size:1.5rem; margin-left:15px;">[☀️ MANHÃ]</span>';
-  document.getElementById('equipe-nome-display').innerHTML = `SQUAD: ${(td.nomeEquipe||'').toUpperCase()} ${turnoBadge}`;
+  const modBadge = td.mesa === 'ONLINE' ? '<span style="color:var(--cyan); font-size:1.5rem; margin-left:10px;">[🌐 ONLINE]</span>' : `<span style="color:#00ff99; font-size:1.5rem; margin-left:10px;">[🏢 MESA ${td.mesa||'--'}]</span>`;
+  
+  document.getElementById('equipe-nome-display').innerHTML = `SQUAD: ${(td.nomeEquipe||'').toUpperCase()} ${turnoBadge} ${modBadge}`;
   
   let vertenteDisplay = `VERTENTE: ${td.vertente || 'AGUARDANDO SORTEIO'}`;
   
