@@ -478,7 +478,7 @@
       ]},
       promptExemplo: "Sugira 3 designs para um sistema de sustentação ergonômico passivo (sem motores) com polias e elásticos, que ajude a suportar o peso dos braços de operadores de montagem de painéis."
     },
-    { vertente: "Produção", titulo: "Dosador Seletivo de Parafusos", imagem: "/assets/img/desafios/producao-inspecao-visual.png",
+    { vertente: "Produção", titulo: "Dosador Seletivo de Parafusos", imagem: "/assets/img/desafios/producao-parafuso-motor.png",
       dor: "Cena: Na montagem de um motor, operadores usam parafusos de classes diferentes (ex: 8.8, 12.9) que acabam por ser misturados acidentalmente nas caixas.\nDor: Um parafuso com a classe errada (resistência menor) causa quebra do motor em operação, originando prejuízos acima de R$ 10.000 por evento.",
       desafio: "Missão: Desenvolver um dispositivo dosador puramente mecânico que separe e libere apenas parafusos de uma classe específica, impedindo misturas perigosas.",
       starterData: { dadoReal: "Eventos de misturas de parafusos ocorrem em média 2 vezes por mês, causando retrabalho e riscos de recall de motores inteiros.", restricao: "A máquina não pode usar sensores eletrônicos ou câmaras. Deve distinguir o parafuso por geometria (cabeça/corpo) ou magnetismo.", perguntaGatilho: "Quais pequenas características físicas distinguem um parafuso do outro? Como criar um 'Poka-Yoke' que trave ao abastecer a máquina com a peça errada?", 
@@ -491,7 +491,7 @@
     },   
 
     // 📦 VERTENTE: LOGÍSTICA
-    { vertente: "Logística", titulo: "Picking - Contador de Parafusos", imagem: "/assets/img/desafios/logistica-caca-tesouro.png",
+    { vertente: "Logística", titulo: "Picking - Contador de Parafusos", imagem: "/assets/img/desafios/logistica-paraf-contador.png",
       dor: "Cena: No almoxarifado, operadores de picking separam kits com exatos 10 parafusos contando-os um a um manualmente a partir de caixas gigantes.\nDor: A contagem gera cansaço visual, demora excessiva (15 min perdidos por operador/turno) e o envio da quantidade errada para a linha.",
       desafio: "Missão: Desenvolver um dispositivo fixo na caixa que, ao ser acionado manualmente, libere uma quantidade exata de parafusos e registe a contagem visualmente.",
       starterData: { dadoReal: "O processo de conferência manual rouba em média 15 minutos de produtividade por turno de CADA funcionário logístico.", restricao: "Funcionamento puramente mecânico (alavancas, engrenagens). Deve ser fácil de recarregar e ter custo de fabrico menor que R$ 50.", perguntaGatilho: "Como garantir que a 'catraca' não trave se o parafuso cair torto? É possível ajustar para tamanhos diferentes?", 
@@ -501,8 +501,8 @@
       ]},
       promptExemplo: "Atue como desenhador industrial. Como adaptar o princípio de um distribuidor mecânico de doces ou moedas, para libertar com precisão lotes de 10 parafusos sempre que a manivela der uma volta completa?"
     },
-    { vertente: "Logística", titulo: "Compartimentação Modular de Caminhões", imagem: "/assets/img/desafios/logistica-gargalo-doca.png",
-      dor: "Cena: O centro de distribuição carrega camiões com caixas de todos os tamanhos, e o espaço vazio obriga a empilhar desordenadamente a carga menor.\nDor: Caminhões saem com até 20% do espaço desperdiçado e a carga solta danifica-se seriamente nas curvas da estrada.",
+    { vertente: "Logística", titulo: "Compartimentação Modular de Caminhões", imagem: "/assets/img/desafios/logistica-modulo-carga.png",
+      dor: "Cena: O centro de distribuição carrega caminhões com caixas de todos os tamanhos, e o espaço vazio obriga a empilhar desordenadamente a carga menor.\nDor: Caminhões saem com até 20% do espaço desperdiçado e a carga solta danifica-se seriamente nas curvas da estrada.",
       desafio: "Missão: Projetar um sistema modular de compartimentos ajustáveis para dividir o interior do baú do caminhão sem deixar espaços vazios.",
       starterData: { dadoReal: "A má alocação de espaço e a carga solta geram um prejuízo silencioso no aumento de rotas e devolução de mercadorias amassadas.", restricao: "Módulos têm de ser removíveis à mão (sem ferramentas), leves (plástico/alumínio) e não podem furar ou aparafusar a parede do caminhão.", perguntaGatilho: "Como fixar painéis sanfonados à parede usando pressão (molas) ou fitas de amarração já existentes no caminhão?", 
       fontes: [
@@ -512,7 +512,7 @@
       ]},
       promptExemplo: "Dê 3 ideias de estruturas modulares baseadas em 'barras de tensão' ou biombos dobráveis de colmeia para organizar pequenas caixas soltas no meio do baú de um caminhão."
     },
-    { vertente: "Logística", titulo: "Descarga Ergonômica de Sacarias", imagem: "/assets/img/desafios/logistica-corrida-estoque.png",
+    { vertente: "Logística", titulo: "Descarga Ergonômica de Sacarias", imagem: "/assets/img/desafios/logistica-descarga-sacaria.png",
       dor: "Cena: Camiões chegam carregados de sacos de resina pesando 25 kg cada. Os operadores puxam tudo à mão durante horas a fio.\nDor: Exaustão brutal, riscos de lesões lombares graves na equipa, e filas enormes de camiões a poluir o pátio enquanto esperam a sua vez.",
       desafio: "Missão: Desenvolver um equipamento auxiliar que possa ser encaixado entre o caminhão e a esteira para facilitar a descida das sacarias sem exigir elevação humana.",
       starterData: { dadoReal: "Uma descarga manual tradicional leva de 2 a 3 horas. Reduzir esse tempo elimina o engarrafamento e reduz drasticamente o risco do trabalho.", restricao: "A solução tem de se adaptar a alturas de camiões variados, ser facilmente removível e não pode rasgar a embalagem plástica do produto.", perguntaGatilho: "Como um escorregador telescópico com roletes ou lona deslizante poderia levar o saco da carroçaria até o chão suavemente?", 
@@ -525,7 +525,7 @@
     },   
 
     // 🔧 VERTENTE: MANUTENÇÃO
-    { vertente: "Manutenção", titulo: "Dispositivo de Contenção de Peças", imagem: "/assets/img/desafios/manutencao-painel-sombras.png",
+    { vertente: "Manutenção", titulo: "Dispositivo de Contenção de Peças", imagem: "/assets/img/desafios/manutencao-Contenção-pecas.png",
       dor: "Cena: Técnicos de manutenção desmontam as máquinas industriais e acabam pousando as porcas e os parafusos na própria estrutura do equipamento ou no chão.\nDor: Peças minúsculas perdem-se ou caem dentro das engrenagens, o que gera explosões mecânicas quando a máquina é religada.",
       desafio: "Missão: Projetar um dispositivo de contenção portátil, de rápida fixação temporária ao lado do trabalho, para segurar todas as ferramentas e parafusos de forma segura.",
       starterData: { dadoReal: "A perda de pequenos componentes gera não só o custo do parafuso novo, mas também danos na ordem de milhares de euros se este for mastigado pela máquina.", restricao: "Deve custar menos de R$ 150 por unidade, resistir a líquidos industriais (óleo de corte) e não arranhar a pintura das máquinas.", perguntaGatilho: "Como uma bandeja magnética emborrachada flexível, ou um 'tapete com bordas' acoplável, poderia envolver a peça em conserto?", 
@@ -536,7 +536,7 @@
       ]},
       promptExemplo: "Desenhe uma bandeja de trabalho flexível, feita de neoprene com poderosos ímanes costurados. Ela deve conseguir abraçar cantos de tubos ou ficar presa a 90 graus na chapa da máquina sem que as peças escorreguem."
     },
-    { vertente: "Manutenção", titulo: "Sistema Portátil de Ventilação", imagem: "/assets/img/desafios/manutencao-maquina-barulhenta.png",
+    { vertente: "Manutenção", titulo: "Sistema Portátil de Ventilação", imagem: "/assets/img/desafios/manutencao-Ventilacao-Portatil.png",
       dor: "Cena: Técnicos precisam de entrar constantemente em tanques químicos ou silos apertados (Espaços Confinados) onde o ar não circula.\nDor: Gases tóxicos mortais acumulam-se no fundo destes poços, criando um risco letal iminente por asfixia ou explosão à menor faísca.",
       desafio: "Missão: Projetar um sistema de ventilação 100% portátil, rápido de prender à porta do tanque e capaz de garantir um ambiente seguro de imediato.",
       starterData: { dadoReal: "A imobilidade de frentes de serviço em áreas distantes inviabiliza exaustores de parede. Equipamentos têm de ser montados e ligados em menos de 2 minutos.", restricao: "Precisa de ter fluxo de ar reversível (sugador/soprador) e indicar visualmente por meios físicos se a pressão está correta.", perguntaGatilho: "O ventilador funcionaria a bateria ou a manivela mecânica? Como vedar a estrutura na abertura redonda do buraco (bueiro)?", 
@@ -546,9 +546,9 @@
       ]},
       promptExemplo: "Imagine um insuflador/exaustor a bateria com tubos flexíveis sanfonados, onde o ar que passa por ele faz girar uma pequena catavento no painel visual: se o catavento parar, o técnico tem de fugir do poço!"
     },
-    { vertente: "Manutenção", titulo: "Organizador de Ordens de Serviço (OS)", imagem: "/assets/img/desafios/manutencao-manual-perdido.png",
-      dor: "Cena: As tarefas do dia dos técnicos circulam num formato de papéis impressos. Estes papéis andam esquecidos nos bolsos sujos de massa consistente, expostos à chuva ou em pilhas de secretária.\nDor: Ordens cruciais são perdidas ou rasgam-se, gerando um efeito dominó de máquinas que não foram reparadas a tempo por pura falta de comunicação e esquecimento.",
-      desafio: "Missão: Projetar um sistema organizador físico fixo na parede da oficina, que proteja o papel da humidade e mostre visualmente o status exato daquele conserto.",
+    { vertente: "Manutenção", titulo: "Organizador de Ordens de Serviço (OS)", imagem: "/assets/img/desafios/manutencao-org-os.png",
+      dor: "Cena: Em manutenção industrial, as ordens de serviço (OS) são impressas em papel e circulam entre planejamento, almoxarifado, equipe de manutenção e supervisão. Os papéis ficam em bolsos de macacões, sobre bancadas úmidas ou presos em pranchetas expostas à chuva, óleo e umidade.\nDor: OS se perdem, rasgam ou molham, gerando retrabalho, atrasos e falta de rastreabilidade. A equipe perde tempo procurando ou solicitando reimpressão. Além disso, a falta de visibilidade do status (planejado, em execução, concluído) dificulta o acompanhamento das atividades.",
+      desafio: "Missão: Projete um sistema de organização físico para ordens de serviço que proteja os documentos contra umidade e sujeira, mantenha-os visíveis e permita identificar rapidamente o status de cada OS.",
       starterData: { dadoReal: "A 'perda de rasto' das Ordens de Serviço no chão de fábrica é a causa n.º 1 de atrasos na reparação de equipamento de apoio vital da fábrica.", restricao: "Tem de permitir que o papel seja inserido em 2 segundos e que seja atualizado para (Pendente/Concluído) de forma rápida e visual de longe.", perguntaGatilho: "Como micas plásticas fixas num rail magnético com 'bandeiras de cor' giratórias podem substituir a prancheta de madeira e as molas enferrujadas?", 
       fontes: [
           {nome: "🔗 Quadros Visuais Lean", link: "https://www.lean.org.br/quadro-visual"},
@@ -558,7 +558,7 @@
     },   
 
     // ♻️ VERTENTE: SUSTENTABILIDADE
-    { vertente: "Sustentabilidade", titulo: "Captação de Água de Chuva", imagem: "/assets/img/desafios/sustentabilidade-misterio-descarte.png",
+    { vertente: "Sustentabilidade", titulo: "Captação de Água de Chuva", imagem: "/assets/img/desafios/sustentabilidade-agua-chuva.png",
       dor: "Cena: Quando chove, o galpão industrial recebe litros intermináveis de água que escoam pelo telhado diretamente para o esgoto pluvial municipal da rua.\nDor: Desperdício revoltante da água enquanto a fábrica consome a cara água potável tratada pela autarquia para regar os jardins e despejar em sanitas.",
       desafio: "Missão: Projetar um sistema simples, inteiramente sem eletricidade ou motores, para captar do cano do teto, filtrar sujidades do telhado e armazenar esta água.",
       starterData: { dadoReal: "Substituir usos secundários por água pluvial reduz a conta municipal em até 40% na indústria moderna.", restricao: "A gravidade deve ser a única força a agir. O primeiro jato d'água da chuva (cheio de poeiras) deve ser rejeitado automaticamente por uma boia mecânica.", perguntaGatilho: "Como um cano em 'Y' com uma bola de esponja interna bloqueia a passagem de água até o lodo descer por inteiro, filtrando de seguida?", 
@@ -568,7 +568,7 @@
       ]},
       promptExemplo: "Esboce um 'Filtro Ciclone de Telhado'. A água de uma calha desce em espiral mecânica que atira as folhas e pedras para o lado de fora do cano antes de cair cristalina no depósito principal!"
     },
-    { vertente: "Sustentabilidade", titulo: "Compactação e Triagem de Retalhos", imagem: "/assets/img/desafios/sustentabilidade-vazamento-ar.png",
+    { vertente: "Sustentabilidade", titulo: "Compactação e Triagem de Retalhos", imagem: "/assets/img/desafios/sustentabilidade-compact-retalho.png",
       dor: "Cena: Sacos gigantes na estamparia estão transbordar com todo o tipo de retalhos de tecidos atirados ao calhas e misturados.\nDor: O camião da reciclagem cobra fortunas para recolher 'sacos que são 70% ar' e deita muito material no aterro por estar irremediavelmente misturado.",
       desafio: "Missão: Projetar um sistema físico de compactação (Prensa Manual) e organização com divisórias por tipo de material.",
       starterData: { dadoReal: "Ao comprimir tecidos para 1/3 do seu tamanho, a logística reversa da indústria de fast-fashion atinge o seu 'break-even' económico e viabiliza a reciclagem.", restricao: "O processo deve usar a alavancagem manual, gerar blocos/fardos em formato de caixas iguais, e ser rápido de amarrar.", perguntaGatilho: "Uma alavanca tipo prensa com 2 metros de braço aumenta a força humana drasticamente. Como dividi-la em 3 caixotes (Algodão, Nylon e Malha)?", 
@@ -578,19 +578,20 @@
       ]},
       promptExemplo: "Desenhe uma enfardadeira manual (sem hidráulica). Uma haste comprida aciona uma placa metálica de grande superfície que espalma pilhas inteiras de tecidos, permitindo que a linha trespasse o bloco no final."
     },
-    { vertente: "Sustentabilidade", titulo: "Redirecionamento de Luz Solar", imagem: "/assets/img/desafios/sustentabilidade-fabrica-inclusiva.png",
-      dor: "Cena: Meio-dia com sol a pino lá fora. E o pavilhão industrial gigantesco encontra-se inteiramente iluminado com mil potentes lâmpadas fluorescentes para que se consiga trabalhar nas máquinas.\nDor: Conta de luz na estratosfera sem necessidade (responsável por 25% da energia total) e um ambiente com luz sem vibração artificial que suga a energia humana.",
-      desafio: "Missão: Desenvolver um captador puramente físico para telhados, ou calhas de reflexão para janelas altas, que apanhe o sol externo e espalhe a sua luz internamente.",
-      starterData: { dadoReal: "A 'Síndrome do Prédio Doente' ataca mais severamente colaboradores que não recebem luz solar natural durante os seus turnos de 8 horas.", restricao: "Sem peças motorizadas a seguir o sol. O feixe não pode cruzar como um laser e encandear ninguém nos olhos. Tem de ser difuso.", perguntaGatilho: "Garrafas com água no teto dão certo para casas, e para fábricas de 10 metros de altura? Domos refletores de alumínio brilhante tipo espelho no cano do teto?", 
+    { vertente: "Sustentabilidade", titulo: "RProtetor de Cantos Reutilizável", imagem: "/assets/img/desafios/sustentabilidade-prot-cant.png",
+      dor: "Cena: Em centros de distribuição e operações de transporte, as caixas de papelão são empilhadas em paletes e amarradas com cintas. Durante o manuseio e o transporte, os cantos das caixas sofrem impactos e pressão das cintas, amassando ou rasgando o papelão.\nDor: Os cantos danificados comprometem a integridade da embalagem, expondo o produto a riscos de avaria e prejudicando a imagem da empresa. Atualmente, utilizam-se protetores de canto descartáveis (papelão ou plástico), que geram resíduos e custos recorrentes. A substituição frequente aumenta o desperdício e o custo logístico.",
+      desafio: "Missão: Projete um protetor de cantos reutilizável que se encaixe nos cantos das caixas ou paletes, protegendo‑os contra impactos e pressão das cintas.",
+      starterData: { dadoReal: "Os dados mostram que um protetor de cantos reutilizável pode eliminar até 88% dos danos em cantos de embalagens", perguntaGatilho: "O protetor pode ser universal para diferentes espessuras de papelão?", 
       fontes: [
-          {nome: "🔗 Solatube", link: "https://www.solatube.com/"},
-          {nome: "🔗 Velux Brasil", link: "https://www.velux.com.br/"}
+          {nome: "🔗 Cosimo", link: "https://www.cosimocataldo.com.br/produtos/csm-20-protetor-para-cantos/"},
+          {nome: "🔗 Borini", link: "https://www.borini.com.br/produto/protetores-para-cantos-de-caixas/"}
       ]},
-      promptExemplo: "Sugira como materiais baratos e recicláveis como cones de folha de alumínio polida, cobertos por um acrílico translúcido contra a chuva, poderiam chover luz num diâmetro enorme dentro do pavilhão."
+      promptExemplo: "Projete um protetor de cantos reutilizável para caixas/paletes"
+• Material: plástico resistente ou borracha"
     },   
 
     // 🏢 VERTENTE: ADMINISTRATIVO
-    { vertente: "Administrativo", titulo: "Controle de Chaves por Turno", imagem: "/assets/img/desafios/administrativo-integracao-fria.png",
+    { vertente: "Administrativo", titulo: "Controle de Chaves por Turno", imagem: "/assets/img/desafios/administrativo-chave-turno.png",
       dor: "Cena: Um calhamaço de chaves de arranque das máquinas atirado para a última gaveta. O operador da noite vai para casa e leva a chave-mestra no bolso por distração.\nDor: O trabalhador da manhã chega, não acha a chave e o setor de produção fica parado 3 horas a arrombar fechaduras com um martelo e a procurar as chaves.",
       desafio: "Missão: Projetar um armário visual de chaves com uma fechadura genial de mecânica por turnos (Turno A não pode pegar as chaves do Turno B e vice-versa).",
       starterData: { dadoReal: "Esquecimentos de chaves ou chaves 'emprestadas' param as rotinas vitais em dezenas de fábricas diariamente.", restricao: "O painel tem de expor visivelmente todas as argolas num relance (nada de cofres cegos), e o mecanismo tem de trancar a devolução.", perguntaGatilho: "Como painéis de correr que se abrem apenas com uma 'Super-Chave' de mestre que fica com a coordenação evitam este conflito diário?", 
@@ -600,7 +601,7 @@
       ]},
       promptExemplo: "Desenhe um quadro de chaves onde as abas verdes correm lateralmente tampando a secção do turno A com um pino. Ao fim da tarde, o supervisor arrasta a grade vermelha que só deixa o turno B mexer nos ganchos visíveis."
     },
-    { vertente: "Administrativo", titulo: "Vending Machine Industrial (EPIs)", imagem: "/assets/img/desafios/administrativo-labirinto-notas.png",
+    { vertente: "Administrativo", titulo: "Vending Machine Industrial (EPIs)", imagem: "/assets/img/desafios/administrativo-epi.png",
       dor: "Cena: Batem as 08:00h e dezenas de pessoas correm ao portão do almoxarifado para receber um par de luvas novo ou tampões nos ouvidos, fazendo o senhor anotar todos os nomes num caderno.\nDor: A empresa paga uma verdadeira fortuna nos salários desses 20 minutos de fila matinal que são repetidos todos os santos dias e ainda fica sem stock porque o registo falhou no papel.",
       desafio: "Missão: Projetar um dispensador de Equipamento de Proteção (EPI) mecânico que substitua a entrega humana sem perder as anotações visuais.",
       starterData: { dadoReal: "Distribuidores automáticos ('Vending') economizam até 40% de gastos totais em EPIs só por garantirem o registo visual rigoroso na entrega sem esforço humano.", restricao: "Não tem ligação à tomada. A liberação do produto pode usar moedas, cartões com furos ou alavancas empurradas num registador de papel interno.", perguntaGatilho: "A luva fica num carrossel espiral como batatas fritas? Ou num sistema de molas gravítico onde só sai um óculo se o crachá bater na trava?", 
@@ -610,7 +611,7 @@
       ]},
       promptExemplo: "Como fabricar um dispensador por gravidade (como aqueles porta-copos plásticos de máquina de água) que solte os protetores de ouvido embalados um a um ao clicar de uma ficha?"
     },
-    { vertente: "Administrativo", titulo: "Crachá Físico de Habilitações", imagem: "/assets/img/desafios/administrativo-silo-informacao.png",
+    { vertente: "Administrativo", titulo: "Crachá Físico de Habilitações", imagem: "/assets/img/desafios/administrativo-cracha.png",
       dor: "Cena: O encarregado de logística grita: 'Quem é que tem habilitação de grua atualizada?'. Ninguém responde de pronto e um amador voluntaria-se sem estar habilitado para agradar ao chefe.\nDor: O controlo de validade das licenças de máquinas perigosas (Empilhadeiras/Pontes Rolantes) repousa em pastas cegas do escritório de RH. Isto causa mortes trágicas quando alguém toca no que não tem capacidade para operar.",
       desafio: "Missão: Projetar a mecânica visual de um novo 'Crachá Pessoal' fixo ao peito que berre visualmente, à distância de 10 metros, quais as validades ou categorias atuais daquela pessoa.",
       starterData: { dadoReal: "O Risco de Operação Não Qualificada é combatido instantaneamente com Gestão à Vista: o próprio grupo repreende se o crachá não estiver brilhante e válido para o cargo.", restricao: "A prova plástica tem de ser atualizável (nada de deitar fora e imprimir outro plástico novo todos os meses), ser selada a ponto do operador não adulterar com a unha, e suportar calor e poeira.", perguntaGatilho: "E se por trás do papel do crachá girar uma minúscula roda dentada com cores ou letras? Ou cartões finos sobrepostos de pregos cegos?", 
