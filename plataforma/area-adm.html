@@ -51,11 +51,16 @@
     .turno-tag { font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
     .turno-manha { background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.3); color: var(--yellow); }
     .turno-tarde { background: rgba(255,31,142,0.1); border: 1px solid rgba(255,31,142,0.3); color: #ff1f8e; }
+    
+    .mod-tag { font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 4px; vertical-align: middle; }
+    .mod-online { background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); color: var(--cyan); }
+    .mod-presencial { background: rgba(0,200,81,0.1); border: 1px solid rgba(0,200,81,0.3); color: #00C851; }
 
     /* ESTILO DO FILTRO */
     .filtro-select { background: rgba(0,0,0,0.5); border: 1px solid var(--purple); color: #fff; padding: 8px 15px; border-radius: 6px; font-family: 'Bebas Neue'; font-size: 1.2rem; outline: none; cursor: pointer; letter-spacing: 1px; transition: 0.2s; }
     .filtro-select:focus { box-shadow: 0 0 15px rgba(213,0,249,0.3); }
     .filtro-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
+    .filtros-agrupados { display: flex; gap: 10px; }
 
     @media (max-width: 900px) {
         .dash-grid-top { grid-template-columns: 1fr 1fr; }
@@ -66,6 +71,7 @@
         .topbar { flex-direction: column; text-align: center; gap: 10px; }
         .main { padding-top: 140px; }
         .filtro-container { flex-direction: column; gap: 10px; align-items: stretch; }
+        .filtros-agrupados { flex-direction: column; }
     }
     
     @media (max-width: 600px) {
@@ -132,22 +138,29 @@
 
   <div id="tab-dashboard" class="tab-content">
     <div class="dash-grid-top">
-      <div class="kpi-card"><span class="kpi-lbl">Equipes</span><span class="kpi-val" id="kpi-teams">0</span></div>
-      <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
+      <div class="kpi-card"><span class="kpi-lbl">Equipes (Filtro)</span><span class="kpi-val" id="kpi-teams">0</span></div>
+      <div class="kpi-card" style="border-color:var(--cyan)"><span class="kpi-lbl">Social Total (Filtro)</span><span class="kpi-val" id="kpi-eng" style="color:var(--cyan)">0</span></div>
       <div class="kpi-card" style="border-color:var(--yellow)"><span class="kpi-lbl">Sprint Atual</span><span class="kpi-val" id="kpi-phase" style="color:var(--yellow)">1</span></div>
       <div class="kpi-card" style="border-color:#00C851"><span class="kpi-lbl">Status DB</span><span class="kpi-val" style="color:#00C851">ONLINE</span></div>
     </div>
     
     <div class="table-container">
       <div class="filtro-container">
-        <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">ENTREGAS DE RENDER (DASHBOARD)</div>
-        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
-            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
-            <option value="manha">☀️ SOMENTE MANHÃ</option>
-            <option value="tarde">🌙 SOMENTE TARDE</option>
-        </select>
+        <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">ENTREGAS DE RENDER</div>
+        <div class="filtros-agrupados">
+            <select class="filtro-select filtro-turno" onchange="mudarFiltroTurno(this.value)">
+                <option value="todos">🌍 TODOS OS TURNOS</option>
+                <option value="manha">☀️ SOMENTE MANHÃ</option>
+                <option value="tarde">🌙 SOMENTE TARDE</option>
+            </select>
+            <select class="filtro-select filtro-modalidade" onchange="mudarFiltroModalidade(this.value)">
+                <option value="todas">👥 TODAS AS MODALIDADES</option>
+                <option value="presencial">🏢 SOMENTE PRESENCIAL</option>
+                <option value="online">🌐 SOMENTE ONLINE</option>
+            </select>
+        </div>
       </div>
-      <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px;"></div>
+      <div id="dash-team-status" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; padding: 20px;"></div>
     </div>
   </div>
 
@@ -155,13 +168,20 @@
     <div class="table-container">
       <div class="filtro-container">
         <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">CLASSIFICAÇÃO GERAL</div>
-        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
-            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
-            <option value="manha">☀️ SOMENTE MANHÃ</option>
-            <option value="tarde">🌙 SOMENTE TARDE</option>
-        </select>
+        <div class="filtros-agrupados">
+            <select class="filtro-select filtro-turno" onchange="mudarFiltroTurno(this.value)">
+                <option value="todos">🌍 TODOS OS TURNOS</option>
+                <option value="manha">☀️ SOMENTE MANHÃ</option>
+                <option value="tarde">🌙 SOMENTE TARDE</option>
+            </select>
+            <select class="filtro-select filtro-modalidade" onchange="mudarFiltroModalidade(this.value)">
+                <option value="todas">👥 TODAS AS MODALIDADES</option>
+                <option value="presencial">🏢 SOMENTE PRESENCIAL</option>
+                <option value="online">🌐 SOMENTE ONLINE</option>
+            </select>
+        </div>
       </div>
-      <table>
+      <table style="min-width: 800px;">
         <thead>
           <tr>
             <th style="width: 80px;">POS</th>
@@ -181,13 +201,20 @@
     <div class="table-container">
       <div class="filtro-container">
         <div style="font-family:'Bebas Neue'; color:var(--purple); font-size: 1.5rem; letter-spacing: 1px;">LISTA DE EQUIPES</div>
-        <select class="filtro-select" onchange="mudarFiltroADM(this.value)">
-            <option value="todos">🌍 MOSTRAR TODOS OS TURNOS</option>
-            <option value="manha">☀️ SOMENTE MANHÃ</option>
-            <option value="tarde">🌙 SOMENTE TARDE</option>
-        </select>
+        <div class="filtros-agrupados">
+            <select class="filtro-select filtro-turno" onchange="mudarFiltroTurno(this.value)">
+                <option value="todos">🌍 TODOS OS TURNOS</option>
+                <option value="manha">☀️ SOMENTE MANHÃ</option>
+                <option value="tarde">🌙 SOMENTE TARDE</option>
+            </select>
+            <select class="filtro-select filtro-modalidade" onchange="mudarFiltroModalidade(this.value)">
+                <option value="todas">👥 TODAS AS MODALIDADES</option>
+                <option value="presencial">🏢 SOMENTE PRESENCIAL</option>
+                <option value="online">🌐 SOMENTE ONLINE</option>
+            </select>
+        </div>
       </div>
-      <table>
+      <table style="min-width: 800px;">
         <thead>
           <tr><th># ID</th><th>NOME DO SQUAD</th><th>MESA</th><th>INTEGRANTES</th></tr>
         </thead>
@@ -215,7 +242,8 @@
   }, 100);
 
   let teams = [];
-  let filtroTurnoGlobal = 'todos'; // Variável de controle do filtro
+  let filtroTurnoGlobal = 'todos'; 
+  let filtroModalidadeGlobal = 'todas'; // Novo controle de modalidade
   const sprintNames = ['Empatia Humana','Co-Piloto IA','Toque Humano 5.0','Ponte Digital','Pitch Final'];
 
   function iniciarPainelADM() {
@@ -235,10 +263,15 @@
       });
   }
 
-  window.mudarFiltroADM = function(valor) {
+  window.mudarFiltroTurno = function(valor) {
       filtroTurnoGlobal = valor;
-      // Sincroniza todos os selects da tela
-      document.querySelectorAll('.filtro-select').forEach(el => el.value = valor);
+      document.querySelectorAll('.filtro-turno').forEach(el => el.value = valor);
+      renderTudo();
+  };
+
+  window.mudarFiltroModalidade = function(valor) {
+      filtroModalidadeGlobal = valor;
+      document.querySelectorAll('.filtro-modalidade').forEach(el => el.value = valor);
       renderTudo();
   };
 
@@ -246,18 +279,36 @@
       if (turno === 'tarde') return '<span class="turno-tag turno-tarde">🌙 TARDE</span>';
       return '<span class="turno-tag turno-manha">☀️ MANHÃ</span>'; // Fallback
   }
+  
+  function formatarModalidadeBadge(mesa) {
+      if (mesa === 'ONLINE') return '<span class="mod-tag mod-online">🌐 ONLINE</span>';
+      return '<span class="mod-tag mod-presencial">🏢 PRESENCIAL</span>';
+  }
 
-  function renderTudo() {
-      // 1. APLICA O FILTRO ANTES DE RENDERIZAR
-      let equipesFiltradas = teams;
+  function aplicarFiltros(listaEquipes) {
+      let filtradas = listaEquipes;
+      
+      // Filtro de Turno
       if (filtroTurnoGlobal === 'manha') {
-          // Assume que vazio ou 'manha' é do turno da manhã
-          equipesFiltradas = teams.filter(t => !t.turno || t.turno === 'manha');
+          filtradas = filtradas.filter(t => !t.turno || t.turno === 'manha');
       } else if (filtroTurnoGlobal === 'tarde') {
-          equipesFiltradas = teams.filter(t => t.turno === 'tarde');
+          filtradas = filtradas.filter(t => t.turno === 'tarde');
       }
 
-      // 2. ORDENA PARA O RANKING
+      // Filtro de Modalidade (Presencial/Online)
+      if (filtroModalidadeGlobal === 'online') {
+          filtradas = filtradas.filter(t => t.mesa === 'ONLINE');
+      } else if (filtroModalidadeGlobal === 'presencial') {
+          filtradas = filtradas.filter(t => t.mesa !== 'ONLINE');
+      }
+      
+      return filtradas;
+  }
+
+  function renderTudo() {
+      const equipesFiltradas = aplicarFiltros(teams);
+
+      // ORDENA PARA O RANKING
       const sorted = [...equipesFiltradas].sort((a,b) => calcularTotal(b) - calcularTotal(a));
 
       // RANKING E NOTAS
@@ -268,10 +319,10 @@
           
           return `<tr>
             <td style="font-family:'Bebas Neue'; font-size:1.5rem; color:var(--muted)">${i+1}º</td>
-            <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()} ${formatarTurnoBadge(t.turno)}</td>
+            <td style="font-weight:700; color:#fff">${t.nomeEquipe.toUpperCase()} <br> ${formatarTurnoBadge(t.turno)} ${formatarModalidadeBadge(t.mesa)}</td>
             <td style="text-align:center">
-                <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)">
-                <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)">
+                <input type="number" class="adm-score-input" value="${t.eng_likes||0}" onchange="updateSocial('${t.id}','eng_likes',this.value)" title="Likes">
+                <input type="number" class="adm-score-input" value="${t.eng_comments||0}" onchange="updateSocial('${t.id}','eng_comments',this.value)" title="Comentários">
             </td>
             <td style="text-align:center; color:var(--cyan)">${mon.toFixed(1)}</td>
             <td style="text-align:center; color:var(--yellow)">${cli.toFixed(1)}</td>
@@ -285,7 +336,7 @@
           const selectedOnline = (t.mesa === 'ONLINE') ? 'selected' : '';
           optionsMesa += `<option value="ONLINE" ${selectedOnline}>🌐 SQUAD ONLINE</option>`;
 
-          for(let m = 1; m <= 20; m++) {
+          for(let m = 1; m <= 30; m++) {
               const numMesa = m.toString().padStart(2, '0');
               const selected = (t.mesa === numMesa) ? 'selected' : '';
               optionsMesa += `<option value="${numMesa}" ${selected}>MESA ${numMesa}</option>`;
@@ -294,7 +345,7 @@
           return `
           <tr>
             <td style="font-family:'Space Mono'; color:var(--muted);">${i+1}</td>
-            <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()} ${formatarTurnoBadge(t.turno)}</td>
+            <td style="font-weight:bold; font-size: 1.1rem; color: var(--cyan);">${t.nomeEquipe.toUpperCase()} <br> ${formatarTurnoBadge(t.turno)}</td>
             <td>
                 <select class="adm-score-input" style="width: 150px; cursor: pointer; text-align: left; padding-left: 15px;" onchange="atribuirMesa('${t.id}', this.value)">
                     ${optionsMesa}
@@ -309,16 +360,17 @@
       document.getElementById('dash-team-status').innerHTML = equipesFiltradas.map(t => `
         <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
             <span class="status-dot ${t.renderEnviado ? 'active' : ''}"></span>
-            <span style="font-size:0.8rem; font-weight:600;">${t.nomeEquipe}</span>
+            <div style="display:flex; flex-direction:column; line-height: 1.3;">
+                <span style="font-size:0.85rem; font-weight:600; color:#fff;">${t.nomeEquipe}</span>
+                <span style="font-size:0.65rem; color:var(--muted); font-family: 'Space Mono';">${t.mesa === 'ONLINE' ? '🌐 ONLINE' : '🏢 MESA ' + (t.mesa||'--')}</span>
+            </div>
         </div>
       `).join('');
   }
 
   function updateDashboardKPIs() {
-      // Os KPIs (Número de Equipes e Social Total) refletem APENAS o turno selecionado!
-      let equipesAtuais = teams;
-      if (filtroTurnoGlobal === 'manha') equipesAtuais = teams.filter(t => !t.turno || t.turno === 'manha');
-      if (filtroTurnoGlobal === 'tarde') equipesAtuais = teams.filter(t => t.turno === 'tarde');
+      // Os KPIs agora respeitam AMBOS os filtros (Turno e Modalidade) simultaneamente
+      const equipesAtuais = aplicarFiltros(teams);
 
       if(equipesAtuais.length === 0) {
           document.getElementById('kpi-teams').textContent = 0;
@@ -469,7 +521,7 @@
       updates[`equipes/${equipeId}/mesa`] = numeroMesa;
       
       window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
-          .then(() => { window.toast(`Mesa ${numeroMesa} atribuída com sucesso!`, 'success'); })
+          .then(() => { window.toast(`Mesa atribuída com sucesso!`, 'success'); })
           .catch((err) => { console.error(err); window.toast('Erro ao salvar a mesa. Verifique a conexão.', 'error'); });
   };
 
