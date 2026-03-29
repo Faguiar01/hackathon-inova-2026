@@ -191,7 +191,7 @@
 
   <div class="mission-choice-wrapper" id="view-escolha" style="display:none;">
     <div class="choice-header">
-        <h2 class="choice-title">SELECIONEM O VOSSO DESAFIO</h2>
+        <h2 class="choice-title">SELECIONEM O  DESAFIO</h2>
         <p class="choice-subtitle" id="intro-vertente"></p>
     </div>
     <div class="choice-cards" id="cards-container"></div>
@@ -354,7 +354,7 @@
         <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
             <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
-                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
+                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final dorascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
                 <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
                     <div style="display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap;">
@@ -795,7 +795,7 @@
 
   function mostrarEscolhaMissao(vertente) {
       document.getElementById('view-lobby').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'none'; document.getElementById('view-escolha').style.display = 'flex';
-      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O vosso papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o vosso desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
+      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
 
       const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertente));
@@ -930,7 +930,7 @@
       
       const modal = document.getElementById('ai-modal'); const content = document.getElementById('ai-modal-content');
       modal.style.display = 'flex';
-      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">O Jota está a analisar o vosso desafio...</span>';
+      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">O Jota está a analisar o desafio...</span>';
 
       setTimeout(() => {
           content.innerHTML = `<span style="color:var(--muted)">// DIRETRIZES DO JOTA:</span><br><br><strong style="color:var(--cyan); font-size:1.1rem;">[1]</strong> ${ideias[0]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[2]</strong> ${ideias[1]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[3]</strong> ${ideias[2]}`;
