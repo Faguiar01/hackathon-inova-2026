@@ -55,7 +55,7 @@
     .boss-title{font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--yellow); letter-spacing:2px; display:block; margin-bottom:8px;}
     .challenge-card{background:rgba(0,240,255,.05); border:1px solid rgba(0,240,255,.3); padding:20px; border-radius:8px;}
     .challenge-title{font-family:'Bebas Neue', sans-serif; font-size:1.5rem; color:var(--cyan); letter-spacing:1px; margin-bottom:10px;}
-  
+    
     .lobby-wrapper { padding: 40px 20px; min-height: 600px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .lobby-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; width: 100%; max-width: 900px; margin-bottom: 40px; }
     .jota-container { display: flex; flex-direction: column; align-items: center; position: relative; }
@@ -112,7 +112,24 @@
     .role-info h4 { font-family: 'Bebas Neue'; color: var(--cyan); margin: 0 0 4px 0; font-size: 1.3rem; letter-spacing: 1px; }
     .role-info p { margin: 0; color: var(--muted); font-size: 0.85rem; font-family: 'Syne'; }
 
-    @media (max-width: 900px) { .choice-cards { grid-template-columns: 1fr; } }
+    /* ESTILOS DO CANVAS DIGITAL (ONLINE SQUADS) */
+    .cv-sprint-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 20px; margin-bottom: 25px; transition: all 0.5s ease; overflow: hidden; }
+    .cv-sprint-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px; }
+    .cv-sprint-num { font-family: 'Bebas Neue'; font-size: 2.5rem; color: var(--cyan); line-height: 1; }
+    .cv-sprint-title { font-family: 'Space Mono'; font-size: 0.9rem; color: var(--yellow); letter-spacing: 1px; text-transform: uppercase; }
+    .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .cv-grid.full { grid-template-columns: 1fr; }
+    .cv-field { display: flex; flex-direction: column; gap: 8px; }
+    .cv-field label { font-family: 'Space Mono'; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .cv-field textarea, .cv-field input { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: 'Syne'; font-size: 0.9rem; padding: 12px; border-radius: 6px; outline: none; transition: 0.2s; resize: vertical; min-height: 80px; width: 100%; box-sizing: border-box; }
+    .cv-field input { min-height: 45px; }
+    .cv-field textarea:focus, .cv-field input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,240,255,0.1); }
+    .cv-locked-msg { font-family: 'Space Mono'; font-size: 0.8rem; color: #ff4444; text-align: center; padding: 20px; border: 1px dashed #ff4444; border-radius: 6px; background: rgba(255,68,68,0.05); }
+
+    @media (max-width: 900px) { 
+        .choice-cards { grid-template-columns: 1fr; } 
+        .cv-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
         .topbar { grid-template-columns: 1fr; text-align: center; gap: 8px; padding: 10px; }
         .tb-left { justify-content: center; flex-direction: row; gap: 8px; }
@@ -149,7 +166,7 @@
 
 <header class="topbar">
   <div class="tb-left">
-    <img src="../assets/img/logo.jpg" alt="Logo Inova+" class="tb-logo-img" onerror="this.src='../assets/img/logo.png'">
+    <img src="../assets/img/logo.png" alt="Logo Inova+" class="tb-logo-img" onerror="this.style.display='none'">
     <span class="tb-logo">INOVA+</span>
     <span class="tb-team" id="team-name-display"></span>
   </div>
@@ -191,7 +208,7 @@
 
   <div class="mission-choice-wrapper" id="view-escolha" style="display:none;">
     <div class="choice-header">
-        <h2 class="choice-title">SELECIONEM O  DESAFIO</h2>
+        <h2 class="choice-title">SELECIONEM O VOSSO DESAFIO</h2>
         <p class="choice-subtitle" id="intro-vertente"></p>
     </div>
     <div class="choice-cards" id="cards-container"></div>
@@ -200,11 +217,11 @@
   <div id="roles-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(4, 6, 10, 0.95); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
       <div style="background:var(--panel); border:1px solid var(--cyan); box-shadow:0 0 40px rgba(0,240,255,0.15); width:90%; max-width:600px; border-radius:8px; overflow:hidden; position:relative; padding: 30px;">
           <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--yellow); margin:0 0 10px 0; text-align:center; letter-spacing: 2px;">⚠️ ASSINATURA DE CONTRATO</h2>
-          <p style="color:var(--text); text-align:center; font-size:0.95rem; margin-bottom:20px;">Vocês escolheram o desafio <strong id="modal-missao-nome" style="color:var(--cyan);"></strong>. Antes de iniciarem, decidam as responsabilidades e anotem no Canvas de papel:</p>
+          <p style="color:var(--text); text-align:center; font-size:0.95rem; margin-bottom:20px;">Vocês escolheram o desafio <strong id="modal-missao-nome" style="color:var(--cyan);"></strong>. Antes de iniciarem, decidam as responsabilidades da equipa:</p>
           <div class="roles-list">
               <div class="role-item">
                   <div class="role-icon">⏱️</div>
-                  <div class="role-info"><h4>LÍDER (Scrum Master)</h4><p>Controla o tempo e preenche as informações no Canvas de papel.</p></div>
+                  <div class="role-info"><h4>LÍDER (Scrum Master)</h4><p>Controla o tempo e digita as informações oficiais (no papel ou no Canvas Digital).</p></div>
               </div>
               <div class="role-item">
                   <div class="role-icon">🤖</div>
@@ -216,7 +233,7 @@
               </div>
               <div class="role-item">
                   <div class="role-icon">📊</div>
-                  <div class="role-info"><h4>ANALISTA DE VIABILIDADE</h4><p>Garante que a ideia não é ficção científica. Avalia os riscos.</p></div>
+                  <div class="role-info"><h4>ANALISTA DE VIABILIDADE</h4><p>Garante que a ideia não é ficção científica. Avalia os riscos reais.</p></div>
               </div>
               <div class="role-item">
                   <div class="role-icon">🎤</div>
@@ -243,6 +260,147 @@
       <button class="page-tab" data-tab="regras" id="tab-btn-regras">📘 Viabilidade 5.0</button>
       <button class="page-tab" data-tab="mockup" id="tab-btn-mockup">🖼️ Mockup Digital</button>
       <button class="page-tab" data-tab="pitch" id="tab-btn-pitch">🎤 Entrega Pitch</button>
+      <button class="page-tab" data-tab="canvas" id="tab-btn-canvas" style="display:none; border-color:var(--yellow); color:var(--yellow);">📝 Canvas Digital</button>
+    </div>
+
+    <div class="content-box" id="tab-canvas" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+            <h2 style="font-family:'Bebas Neue', sans-serif; font-size:2.2rem; color:var(--yellow); margin:0; letter-spacing: 1px;">📝 CANVAS OFICIAL DO SQUAD (ONLINE)</h2>
+            <span style="font-family:'Space Mono'; font-size:0.7rem; color:var(--cyan); padding:4px 8px; border:1px solid var(--cyan); border-radius:4px;">AUTO-SAVE ATIVO</span>
+        </div>
+        <p style="color:var(--muted); font-size:0.9rem; margin-bottom: 30px;">Apenas o <strong>LÍDER</strong> da equipa deve preencher os campos abaixo. O sistema salva automaticamente ao sair de cada caixa de texto. Os dados são sincronizados com a banca de jurados. Novos campos são libertados conforme o tempo avança.</p>
+
+        <div class="cv-sprint-section" id="cv-section-1" style="display:none;">
+            <div class="cv-sprint-header">
+                <span class="cv-sprint-num">01</span>
+                <span class="cv-sprint-title">EMPATIA HUMANA (O Problema)</span>
+            </div>
+            <div class="cv-grid">
+                <div class="cv-field">
+                    <label>Persona do Trabalhador</label>
+                    <input type="text" id="cv-persona" onchange="salvarCanvas('persona', this.value)" placeholder="Quem é a pessoa afetada? Ex: Carlos, operador de solda de 45 anos.">
+                </div>
+                <div class="cv-field">
+                    <label>Dor do Trabalhador Identificada</label>
+                    <input type="text" id="cv-dor" onchange="salvarCanvas('dor', this.value)" placeholder="Qual é a queixa principal dele?">
+                </div>
+                <div class="cv-field">
+                    <label>Causa Raiz da Dor (Porquê?)</label>
+                    <textarea id="cv-causa" onchange="salvarCanvas('causa', this.value)" placeholder="O que realmente causa este problema no dia a dia?"></textarea>
+                </div>
+                <div class="cv-field">
+                    <label>Perspectiva: Quem mais é afetado?</label>
+                    <textarea id="cv-afetados" onchange="salvarCanvas('afetados', this.value)" placeholder="A empresa? O cliente? Os colegas do turno seguinte?"></textarea>
+                </div>
+                <div class="cv-field">
+                    <label>Impacto Direto ao Trabalhador</label>
+                    <textarea id="cv-impacto" onchange="salvarCanvas('impacto', this.value)" placeholder="Dores físicas? Desmotivação? Risco de acidente?"></textarea>
+                </div>
+                <div class="cv-field">
+                    <label>Dados/Estatística Real (Com Fonte)</label>
+                    <textarea id="cv-dados" onchange="salvarCanvas('dados', this.value)" placeholder="Cole o dado que valida a dor e a fonte (URL)"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cv-lock-2" class="cv-locked-msg">🔒 O SPRINT 2 (Co-Piloto IA) AINDA NÃO COMEÇOU. AGUARDEM.</div>
+
+        <div class="cv-sprint-section" id="cv-section-2" style="display:none; border-color: rgba(0,240,255,0.3);">
+            <div class="cv-sprint-header">
+                <span class="cv-sprint-num">02</span>
+                <span class="cv-sprint-title">CO-PILOTO IA (Ideação)</span>
+            </div>
+            <div class="cv-grid full">
+                <div class="cv-field">
+                    <label>Prompt Principal Utilizado (Copie e Cole)</label>
+                    <textarea id="cv-prompt-ia" onchange="salvarCanvas('prompt_ia', this.value)" placeholder="Cole aqui a pergunta exata que vocês fizeram ao ChatGPT/Gemini" style="min-height:60px;"></textarea>
+                </div>
+            </div>
+            <div class="cv-grid" style="margin-top:15px;">
+                <div class="cv-field">
+                    <label>Top 3 Ideias Geradas Pela IA</label>
+                    <textarea id="cv-top3" onchange="salvarCanvas('top3', this.value)" placeholder="1. \n2. \n3. "></textarea>
+                </div>
+                <div class="cv-field" style="justify-content: space-between;">
+                    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;">
+                        <label>O que a IA acertou?</label>
+                        <input type="text" id="cv-ia-acertou" onchange="salvarCanvas('ia_acertou', this.value)" placeholder="Onde ela foi genial?">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <label>O que a IA ERROU?</label>
+                        <input type="text" id="cv-ia-errou" onchange="salvarCanvas('ia_errou', this.value)" placeholder="O que vocês precisaram refinar/corrigir?">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cv-lock-3" class="cv-locked-msg">🔒 O SPRINT 3 (Viabilidade 5.0) AINDA NÃO COMEÇOU. AGUARDEM.</div>
+
+        <div class="cv-sprint-section" id="cv-section-3" style="display:none; border-color: rgba(0,200,81,0.3);">
+            <div class="cv-sprint-header">
+                <span class="cv-sprint-num">03</span>
+                <span class="cv-sprint-title">TOQUE HUMANO 5.0 (A Solução)</span>
+            </div>
+            <div class="cv-grid full">
+                <div class="cv-field">
+                    <label>O Problema Original (Resumo em 1 frase)</label>
+                    <input type="text" id="cv-problema-resumo" onchange="salvarCanvas('problema_resumo', this.value)" placeholder="Nós resolvemos a dor de...">
+                </div>
+                <div class="cv-field">
+                    <label>A Nossa Solução (Resumo em 1 frase)</label>
+                    <input type="text" id="cv-solucao-resumo" onchange="salvarCanvas('solucao_resumo', this.value)" placeholder="Através de um equipamento que...">
+                </div>
+            </div>
+            <div class="cv-grid" style="margin-top:15px;">
+                <div class="cv-field">
+                    <label>Ética e Segurança (NRs)</label>
+                    <textarea id="cv-etica" onchange="salvarCanvas('etica', this.value)" placeholder="Como a solução protege o trabalhador e respeita as normas de segurança?"></textarea>
+                </div>
+                <div class="cv-field">
+                    <label>Viabilidade Real (Custo/Prazo estimado)</label>
+                    <textarea id="cv-viabilidade" onchange="salvarCanvas('viabilidade', this.value)" placeholder="Do que é feito? Quanto custaria fabricar um protótipo?"></textarea>
+                </div>
+                <div class="cv-field full">
+                    <label style="color:#ff4444;">Riscos: O que pode dar errado com a ideia?</label>
+                    <input type="text" id="cv-riscos" onchange="salvarCanvas('riscos', this.value)" placeholder="Ex: A mola pode quebrar com o tempo, o pó pode travar a engrenagem...">
+                </div>
+            </div>
+        </div>
+
+        <div id="cv-lock-4" class="cv-locked-msg">🔒 O SPRINT 4 (Mockup 3D) AINDA NÃO COMEÇOU. AGUARDEM.</div>
+
+        <div class="cv-sprint-section" id="cv-section-4" style="display:none;">
+            <div class="cv-sprint-header">
+                <span class="cv-sprint-num">04</span>
+                <span class="cv-sprint-title">PONTE DIGITAL (Geração 3D)</span>
+            </div>
+            <div class="cv-grid full">
+                <div class="cv-field">
+                    <label>Prompt usado para gerar o Mockup 3D</label>
+                    <textarea id="cv-prompt-3d" onchange="salvarCanvas('prompt_3d', this.value)" placeholder="Cole aqui as instruções visuais que enviaram ao Copilot Image para gerar o render." style="min-height:60px;"></textarea>
+                </div>
+                <span style="font-family:'Space Mono'; font-size:0.75rem; color:var(--muted);">👉 O envio da Imagem final é feito na aba "🖼️ Mockup Digital".</span>
+            </div>
+        </div>
+
+        <div id="cv-lock-5" class="cv-locked-msg">🔒 O SPRINT FINAL (Pitch) AINDA NÃO COMEÇOU. AGUARDEM.</div>
+
+        <div class="cv-sprint-section" id="cv-section-5" style="display:none; border-color: rgba(255,68,68,0.3);">
+            <div class="cv-sprint-header">
+                <span class="cv-sprint-num">05</span>
+                <span class="cv-sprint-title">IMPACTO & PITCH FINAL</span>
+            </div>
+            <div class="cv-grid full">
+                <div class="cv-field">
+                    <label>Roteiro do Pitch (Guia para o Porta-Voz - Máx 2 Minutos)</label>
+                    <textarea id="cv-roteiro" onchange="salvarCanvas('roteiro', this.value)" placeholder="Anotem os tópicos de fala: 1. A Dor... 2. O Erro da Indústria atual... 3. A Nossa Solução..." style="min-height:120px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 30px; text-align: center; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 20px;">
+            <button class="btn-action" style="background:#fff; color:#000; font-size:1.2rem;" onclick="exportarCanvasPDF()">🖨️ EXPORTAR CANVAS PARA PDF</button>
+            <p style="font-family:'Space Mono'; font-size:0.75rem; color:var(--muted); margin-top:10px;">Clique no botão acima e selecione "Salvar como PDF" na janela de impressão para gerar o documento final da sua equipa.</p>
+        </div>
     </div>
 
     <div class="content-box" id="tab-cenario">
@@ -296,7 +454,7 @@
               <h3 class="guide-title" id="guide-title">GUIA DO SPRINT</h3>
           </div>
           <div class="guide-content" id="guide-content"></div>
-          <div class="guide-alert">⚠️ LEMBRETE: ANOTEM AS DEFINIÇÕES NO PAINEL FÍSICO DO SQUAD!</div>
+          <div class="guide-alert">⚠️ LEMBRETE: O LÍDER DEVE ANOTAR AS DECISÕES NO CANVAS (PAPEL OU DIGITAL)!</div>
       </div>
     </div>
 
@@ -354,7 +512,7 @@
         <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
             <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
-                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final dorascunho.</li>
+                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
                 <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
                     <div style="display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap;">
@@ -362,7 +520,7 @@
                         <a href="https://drive.google.com/drive/folders/1YmGjoG2Jmq9qjoXJ9icWY7uz4OI04c1_?usp=sharing" target="_blank" class="btn-action" style="font-size: 1.2rem; background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);">🌙 ABRIR DRIVE (TARDE) ↗</a>
                     </div>
                 </li>
-                <li>Volte aqui, cole o link de partilha do seu ficheiro no Google Drive, cole abaixo e envie!</li>
+                <li>Volte aqui, cole o link de partilha do seu ficheiro no Google Drive abaixo e envie!</li>
             </ol>
         </div>
         <input type="url" id="link-mockup" placeholder="Cole o link do seu Render 3D aqui (https://...)" style="width:100%; padding:16px; background:rgba(0,0,0,0.6); border:1px solid #00C851; color:#fff; border-radius:6px; font-family:'Space Mono'; outline:none; margin-bottom:20px; box-sizing:border-box; transition: 0.3s;">
@@ -404,7 +562,6 @@
   </div>
 
 </main>
-</main>
 
 <script type="module" src="../assets/js/app.js"></script>
 <script>
@@ -427,16 +584,21 @@
           links: document.getElementById('tab-btn-links'),
           regras: document.getElementById('tab-btn-regras'),
           mockup: document.getElementById('tab-btn-mockup'),
-          pitch: document.getElementById('tab-btn-pitch')
+          pitch: document.getElementById('tab-btn-pitch'),
+          canvas: document.getElementById('tab-btn-canvas')
       };
 
+      // Desativar todas as abas (menos Cenário e Canvas se existirem)
       Object.values(tabs).forEach(btn => {
-          if (btn && btn.id !== 'tab-btn-cenario') {
+          if (btn && btn.id !== 'tab-btn-cenario' && btn.id !== 'tab-btn-canvas') {
               btn.style.opacity = "0.4"; btn.style.pointerEvents = "none"; btn.style.filter = "grayscale(1)"; btn.title = "Aguarde o Sprint correto para desbloquear";
           }
       });
 
       if (tabs.cenario) { tabs.cenario.style.opacity = "1"; tabs.cenario.style.pointerEvents = "auto"; tabs.cenario.style.filter = "none"; }
+      if (tabs.canvas) { tabs.canvas.style.opacity = "1"; tabs.canvas.style.pointerEvents = "auto"; tabs.canvas.style.filter = "none"; }
+      
+      // Libertação Progressiva das Abas Extras
       if (sprint >= 2 && tabs.links) { tabs.links.style.opacity = "1"; tabs.links.style.pointerEvents = "auto"; tabs.links.style.filter = "none"; tabs.links.title = ""; }
       if (sprint >= 3 && tabs.regras) { tabs.regras.style.opacity = "1"; tabs.regras.style.pointerEvents = "auto"; tabs.regras.style.filter = "none"; tabs.regras.title = ""; }
       if (sprint >= 4 && tabs.mockup) { tabs.mockup.style.opacity = "1"; tabs.mockup.style.pointerEvents = "auto"; tabs.mockup.style.filter = "none"; tabs.mockup.title = ""; }
@@ -445,6 +607,21 @@
       const activeTab = document.querySelector('.page-tab.active');
       if (activeTab && activeTab.style.pointerEvents === 'none') {
           if (tabs.cenario) tabs.cenario.click();
+      }
+
+      // Libertação Progressiva dentro do Canvas Digital
+      for (let i = 1; i <= 5; i++) {
+          const section = document.getElementById('cv-section-' + i);
+          const lockMsg = document.getElementById('cv-lock-' + i);
+          if(section) {
+              if(sprint >= i || state.sprint === 0) { // Mostra se o sprint já chegou (ou em testes com sprint 0)
+                  section.style.display = 'block';
+                  if(lockMsg) lockMsg.style.display = 'none';
+              } else {
+                  section.style.display = 'none';
+                  if(lockMsg) lockMsg.style.display = 'block';
+              }
+          }
       }
 
       const promptCard = document.getElementById('prompt-starter-card');
@@ -631,7 +808,7 @@
       document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       
-      ['cenario', 'links', 'regras', 'mockup', 'pitch'].forEach(id => {
+      ['cenario', 'links', 'regras', 'mockup', 'pitch', 'canvas'].forEach(id => {
         const divAba = document.getElementById('tab-' + id);
         if(divAba) divAba.style.display = tab.dataset.tab === id ? 'block' : 'none';
       });
@@ -683,7 +860,6 @@
 
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'controle/liberarEquipes'), (snapshot) => {
           const liberado = snapshot.val() === true;
-
           const ehEquipeDeTeste = equipSaved && equipSaved.toLowerCase().includes('teste');
 
           if (liberado || ehEquipeDeTeste) {
@@ -749,7 +925,7 @@
       } else {
         mostrarEscolhaMissao(vertenteNome);
       }
-      verificarEntrega(equipeNome);
+      sincronizarDadosEquipe(equipeNome); // Carrega canvas e verifica entregas
   }
 
   function atualizarCronometroLobby() {
@@ -769,24 +945,66 @@
       }
   }
 
-  function verificarEntrega(equipeNome) {
+  function sincronizarDadosEquipe(equipeNome) {
+      // Usamos onValue contínuo para manter os ecrãs da equipa sincronizados em tempo real!
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           if (!data) return;
           const equipeId = Object.keys(data).find(key => data[key].nomeEquipe && data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase());
           
-          if (equipeId && data[equipeId].notasEquipe) {
-              if (data[equipeId].notasEquipe.renderEnviado) {
-                  const link = document.getElementById('link-mockup'); const btn = document.getElementById('btn-enviar-mockup');
-                  if(link && btn) { link.value = data[equipeId].notasEquipe.renderLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ MOCKUP ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+          if (equipeId) {
+              const eqData = data[equipeId];
+              
+              // 1. Mostrar aba Canvas APENAS se for ONLINE
+              const tabCanvasBtn = document.getElementById('tab-btn-canvas');
+              if(tabCanvasBtn) {
+                  tabCanvasBtn.style.display = (eqData.mesa === 'ONLINE') ? 'inline-block' : 'none';
               }
-              if (data[equipeId].notasEquipe.pitchEnviado) {
-                  const link = document.getElementById('link-pitch'); const btn = document.getElementById('btn-enviar-pitch');
-                  if(link && btn) { link.value = data[equipeId].notasEquipe.pitchLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ PITCH ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+
+              // 2. Popular campos do Canvas (sem apagar o que o utilizador está a escrever)
+              if (eqData.canvas) {
+                  Object.keys(eqData.canvas).forEach(campo => {
+                      const inputEl = document.getElementById('cv-' + campo);
+                      // Só atualiza o campo se o rato do aluno NÃO estiver dentro dele a digitar
+                      if (inputEl && document.activeElement !== inputEl) {
+                          inputEl.value = eqData.canvas[campo];
+                      }
+                  });
+              }
+
+              // 3. Verificar Botões de Entrega
+              if (eqData.notasEquipe) {
+                  if (eqData.notasEquipe.renderEnviado) {
+                      const link = document.getElementById('link-mockup'); const btn = document.getElementById('btn-enviar-mockup');
+                      if(link && btn) { link.value = eqData.notasEquipe.renderLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ MOCKUP ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+                  }
+                  if (eqData.notasEquipe.pitchEnviado) {
+                      const link = document.getElementById('link-pitch'); const btn = document.getElementById('btn-enviar-pitch');
+                      if(link && btn) { link.value = eqData.notasEquipe.pitchLink || "Enviado."; link.disabled = true; link.style.opacity = "0.6"; btn.textContent = "✅ PITCH ENTREGUE"; btn.style.background = "transparent"; btn.style.color = "#00C851"; btn.style.border = "1px solid #00C851"; btn.disabled = true; }
+                  }
               }
           }
-      }, { onlyOnce: true });
+      });
   }
+
+  // NOVA FUNÇÃO: Salvar Canvas no Firebase
+  window.salvarCanvas = function(campo, valor) {
+      const equipeNome = sessionStorage.getItem('inova_equipe');
+      if (!equipeNome) return;
+      
+      window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
+          const data = snapshot.val();
+          if(!data) return;
+          const equipeId = Object.keys(data).find(key => data[key].nomeEquipe.toLowerCase() === equipeNome.toLowerCase());
+          
+          if(equipeId) {
+              const updates = {};
+              updates[`equipes/${equipeId}/canvas/${campo}`] = valor;
+              window.InovaDB.update(window.InovaDB.ref(window.InovaDB.db), updates)
+                  .catch(err => console.error("Erro ao salvar canvas:", err));
+          }
+      }, {onlyOnce: true});
+  };
 
   function showTeamName(nome) {
     if(!nome) return;
@@ -795,7 +1013,7 @@
 
   function mostrarEscolhaMissao(vertente) {
       document.getElementById('view-lobby').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'none'; document.getElementById('view-escolha').style.display = 'flex';
-      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
+      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O vosso papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o vosso desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
 
       const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertente));
@@ -925,12 +1143,50 @@
 
   document.getElementById('btn-ai-mentor').onclick = () => {
       const tituloMissao = document.getElementById('m-titulo').textContent.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      let ideias = ["Sair da caixa: O que a indústria faz hoje que está ultrapassado?", "Foque no utilizador final, não na máquina.", "Qual é o atalho mais barato e seguro para a solução?"];
-      if (tituloMissao.includes('montagem')) ideias = ["Exoesqueleto passivo", "Bancada ergonómica", "Apoio modular"];
       
-      const modal = document.getElementById('ai-modal'); const content = document.getElementById('ai-modal-content');
+      let ideias = [
+          "Sair da caixa: O que a indústria faz hoje que está ultrapassado?", 
+          "Foque no utilizador final, não apenas na máquina.", 
+          "Qual é o atalho mais barato e fisicamente seguro para a solução?"
+      ]; // Mensagem genérica de fallback
+      
+      // Dicas específicas mapeadas para os 15 desafios
+      if (tituloMissao.includes('ferramentas')) {
+          ideias = ["Painéis de sombra (Shadow boards) tridimensionais.", "O uso de suportes com molas que expõem uma cor de alerta quando vazios.", "Ímãs com cores fortes para destacar a ausência."];
+      } else if (tituloMissao.includes('esforco')) {
+          ideias = ["Exoesqueletos passivos com cintas e elásticos.", "Trilhos suspensos no teto com contrapesos.", "Apoios mecânicos articulados para segurar a ferramenta pesada."];
+      } else if (tituloMissao.includes('parafusos') && tituloMissao.includes('dosador')) {
+          ideias = ["Filtros por gravidade com ranhuras calibradas.", "Pistas vibratórias exatas para o diâmetro da cabeça da peça.", "Poka-Yoke: um gabarito físico na entrada do funil."];
+      } else if (tituloMissao.includes('contador')) {
+          ideias = ["Mecanismo giratório tipo máquina de pastilhas.", "Uma engrenagem com exatos 10 dentes/nichos de recolha.", "Catraca manual que tranca ao atingir a quantidade exata."];
+      } else if (tituloMissao.includes('compartimentacao') || tituloMissao.includes('caminhoes')) {
+          ideias = ["Barras de tensão pesadas (tipo varão de banho) com molas grossas.", "Biombos sanfonados de alumínio expandíveis.", "Divisórias em colmeia acopláveis à mão sem ferramentas."];
+      } else if (tituloMissao.includes('descarga') || tituloMissao.includes('sacarias')) {
+          ideias = ["Rampa telescópica com roletes de borracha.", "Lona deslizante resistente acoplável à carroçaria.", "Esteira de gravidade sem motor, montável em blocos."];
+      } else if (tituloMissao.includes('contencao')) {
+          ideias = ["Manta de silicone com ímanes de neodímio costurados nas pontas.", "Bandeja flexível com abas que se molda à máquina.", "Tapete de trabalho acoplável com potentes ventosas industriais."];
+      } else if (tituloMissao.includes('ventilacao')) {
+          ideias = ["Tubo sanfonado leve ligado a um exaustor a bateria.", "Catavento ou aba visual dentro do cano para provar de longe que há fluxo de ar.", "Aba cónica de borracha para vedar qualquer bueiro redondo."];
+      } else if (tituloMissao.includes('ordens')) {
+          ideias = ["Envelopes rígidos de policarbonato selados contra óleo.", "Trilhos magnéticos na parede para prender os papéis.", "Botões deslizantes embutidos no plástico para indicar status (Pendente/Pronto)."];
+      } else if (tituloMissao.includes('chuva') || tituloMissao.includes('captacao')) {
+          ideias = ["Filtro ciclone: a água roda e a sujidade pesada é cuspida para fora.", "Sistema mecânico que descarta a água barrenta inicial com uma boia.", "Tanque modular com indicador visual (bola vermelha flutuante)."];
+      } else if (tituloMissao.includes('compactacao')) {
+          ideias = ["Prensa baseada num mecanismo de alavanca comprida (física pura).", "Caixa de moldagem com ranhuras para passar a fita de amarração.", "Fundo do caixote com dobradiça para ejetar o fardo."];
+      } else if (tituloMissao.includes('cantos') || tituloMissao.includes('protetor')) {
+          ideias = ["Cantoneiras de borracha alveolar para absorção profunda de impacto.", "Design em 'V' articulado que se autoajusta à caixa.", "Peça com guias para prender perfeitamente a cinta de tensão."];
+      } else if (tituloMissao.includes('chaves')) {
+          ideias = ["Painel com aba deslizante (quando um lado abre, o outro esconde).", "Fechadura mestre que só tranca o quadro se as chaves estiverem nos pinos.", "Identificadores físicos de cor que impedem a devolução no lugar errado."];
+      } else if (tituloMissao.includes('vending') || tituloMissao.includes('epis')) {
+          ideias = ["Distribuidor em coluna por gravidade (puxar e cair).", "Carrossel mecânico ativado com uma ficha (token) de plástico da fábrica.", "Gavetas com molas destravadas por catraca giratória."];
+      } else if (tituloMissao.includes('cracha')) {
+          ideias = ["Crachá base rígido com buracos para rebites coloridos inamovíveis.", "Roda dentada escondida que mostra cor verde/vermelha numa janelinha.", "Plástico de alto impacto trancado, onde só o RH tem a peça-chave para abrir."];
+      }
+      
+      const modal = document.getElementById('ai-modal'); 
+      const content = document.getElementById('ai-modal-content');
       modal.style.display = 'flex';
-      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">O Jota está a analisar o desafio...</span>';
+      content.innerHTML = '<span style="color:var(--yellow); font-family: \'Space Mono\'; font-size: 1rem; animation: pulse-opacity 1s infinite;">O Jota está a analisar os manuais do SENAI para este desafio específico...</span>';
 
       setTimeout(() => {
           content.innerHTML = `<span style="color:var(--muted)">// DIRETRIZES DO JOTA:</span><br><br><strong style="color:var(--cyan); font-size:1.1rem;">[1]</strong> ${ideias[0]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[2]</strong> ${ideias[1]}<br><br><strong style="color:var(--cyan); font-size:1.1rem;">[3]</strong> ${ideias[2]}`;
@@ -961,6 +1217,90 @@
       htmlList += `</ul>`;
       guideContent.innerHTML = htmlList;
   }
+// NOVA FUNÇÃO: Exportar o Canvas para PDF
+  window.exportarCanvasPDF = function() {
+      const equipeNome = sessionStorage.getItem('inova_equipe') || 'Equipe Desconhecida';
+      const vertenteNome = sessionStorage.getItem('inova_vertente') || 'Sem Vertente';
+      
+      // Função auxiliar para pegar o valor ou colocar um texto padrão
+      const getVal = (id) => {
+          const el = document.getElementById(id);
+          return (el && el.value.trim() !== '') ? el.value.replace(/\n/g, '<br>') : '<em style="color:#999;">Não preenchido</em>';
+      };
+      
+      const conteudoHTML = `
+          <html>
+          <head>
+              <title>Canvas Inova+ - ${equipeNome}</title>
+              <style>
+                  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #222; line-height: 1.6; padding: 30px; max-width: 900px; margin: 0 auto; }
+                  .header { text-align: center; border-bottom: 3px solid #00bcd4; padding-bottom: 20px; margin-bottom: 30px; }
+                  h1 { color: #00bcd4; letter-spacing: 2px; margin: 0 0 10px 0; font-size: 2.5em; text-transform: uppercase;}
+                  .sub-header { font-size: 1.1em; color: #555; background: #f4f4f4; padding: 10px; border-radius: 5px;}
+                  h2 { color: #fff; background: #333; padding: 10px 15px; border-radius: 5px; font-size: 1.2em; margin-top: 40px; text-transform: uppercase; letter-spacing: 1px;}
+                  .box { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); page-break-inside: avoid; }
+                  .label { font-weight: bold; color: #00bcd4; display: block; margin-bottom: 8px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;}
+                  .val { font-size: 1.05em; color: #333; }
+                  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+                  .full { grid-column: span 2; }
+                  @media print { body { padding: 0; } .box { border: 1px solid #ccc; box-shadow: none; } }
+              </style>
+          </head>
+          <body>
+              <div class="header">
+                  <h1>DOCUMENTO OFICIAL SQUAD</h1>
+                  <div class="sub-header"><strong>SQUAD:</strong> ${equipeNome.toUpperCase()} &nbsp;|&nbsp; <strong>VERTENTE:</strong> ${vertenteNome.toUpperCase()}</div>
+              </div>
+              
+              <h2>SPRINT 1: EMPATIA HUMANA</h2>
+              <div class="grid">
+                  <div class="box"><span class="label">Persona do Trabalhador</span><div class="val">${getVal('cv-persona')}</div></div>
+                  <div class="box"><span class="label">Dor Identificada</span><div class="val">${getVal('cv-dor')}</div></div>
+                  <div class="box"><span class="label">Causa Raiz</span><div class="val">${getVal('cv-causa')}</div></div>
+                  <div class="box"><span class="label">Perspectiva (Outros Afetados)</span><div class="val">${getVal('cv-afetados')}</div></div>
+                  <div class="box full"><span class="label">Impacto Direto</span><div class="val">${getVal('cv-impacto')}</div></div>
+                  <div class="box full"><span class="label">Dados Reais</span><div class="val">${getVal('cv-dados')}</div></div>
+              </div>
+
+              <h2>SPRINT 2: CO-PILOTO IA</h2>
+              <div class="box full"><span class="label">Prompt Principal Utilizado</span><div class="val">${getVal('cv-prompt-ia')}</div></div>
+              <div class="box full"><span class="label">Top 3 Ideias</span><div class="val">${getVal('cv-top3')}</div></div>
+              <div class="grid">
+                  <div class="box"><span class="label">O que a IA acertou?</span><div class="val">${getVal('cv-ia-acertou')}</div></div>
+                  <div class="box"><span class="label">O que a IA errou?</span><div class="val">${getVal('cv-ia-errou')}</div></div>
+              </div>
+
+              <h2>SPRINT 3: TOQUE HUMANO 5.0</h2>
+              <div class="grid">
+                  <div class="box full"><span class="label">Problema (1 frase)</span><div class="val">${getVal('cv-problema-resumo')}</div></div>
+                  <div class="box full"><span class="label">Solução (1 frase)</span><div class="val">${getVal('cv-solucao-resumo')}</div></div>
+                  <div class="box"><span class="label">Ética e Segurança</span><div class="val">${getVal('cv-etica')}</div></div>
+                  <div class="box"><span class="label">Viabilidade Real</span><div class="val">${getVal('cv-viabilidade')}</div></div>
+                  <div class="box full"><span class="label">Riscos da Solução</span><div class="val">${getVal('cv-riscos')}</div></div>
+              </div>
+
+              <h2>SPRINT 4 & 5: MOCKUP E PITCH</h2>
+              <div class="box"><span class="label">Prompt do Mockup 3D</span><div class="val">${getVal('cv-prompt-3d')}</div></div>
+              <div class="box"><span class="label">Roteiro do Pitch</span><div class="val">${getVal('cv-roteiro')}</div></div>
+              
+              <div style="margin-top: 40px; text-align: center; color: #999; font-size: 0.8em;">
+                  Gerado automaticamente via Centro de Comando Inova+ 2026.
+              </div>
+          </body>
+          </html>
+      `;
+
+      // Cria uma aba em branco, injeta o HTML e chama o imprimir
+      const janelaImpressao = window.open('', '_blank');
+      janelaImpressao.document.write(conteudoHTML);
+      janelaImpressao.document.close();
+      janelaImpressao.focus();
+      
+      // Um pequeno delay para garantir que o CSS carregou antes de imprimir
+      setTimeout(() => {
+          janelaImpressao.print();
+      }, 500);
+  };
 </script>
 </body>
 </html>
