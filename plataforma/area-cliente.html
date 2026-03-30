@@ -130,14 +130,21 @@
       let equipesFiltradas = teams.filter(t => {
           let passaMod = true;
           let passaTurno = true;
+          
+          // Correção: a modalidade no banco de dados é salva no campo "t.mesa" 
+          // (Se t.mesa for igual a 'ONLINE', então é modalidade online)
+          const isOnline = (t.mesa === 'ONLINE');
 
-          if (filtroMod !== 'todos') {
-              const modEq = t.modalidade ? t.modalidade.toLowerCase() : '';
-              passaMod = (modEq === filtroMod);
+          if (filtroMod === 'online') {
+              passaMod = isOnline;
+          } else if (filtroMod === 'presencial') {
+              passaMod = !isOnline;
           }
-          if (filtroTurno !== 'todos') {
-              const turnoEq = t.turno ? t.turno.toLowerCase() : 'manha'; // Assiste manhã se vazio
-              passaTurno = (turnoEq === filtroTurno);
+
+          if (filtroTurno === 'manha') {
+              passaTurno = (!t.turno || t.turno === 'manha'); // Assume manhã como padrão se vazio
+          } else if (filtroTurno === 'tarde') {
+              passaTurno = (t.turno === 'tarde');
           }
 
           return passaMod && passaTurno;
@@ -168,7 +175,7 @@
 
           // TAGS DE IDENTIFICAÇÃO NA TELA DO JURADO
           const turnoBadge = t.turno === 'tarde' ? '<span class="badge-info badge-tarde">🌙 TARDE</span>' : '<span class="badge-info badge-manha">☀️ MANHÃ</span>';
-          const modBadge = t.modalidade === 'online' ? '<span class="badge-info badge-online">🌐 ONLINE</span>' : '<span class="badge-info badge-presencial">🏢 PRESENCIAL</span>';
+          const modBadge = t.mesa === 'ONLINE' ? '<span class="badge-info badge-online">🌐 ONLINE</span>' : `<span class="badge-info badge-presencial">🏢 MESA ${t.mesa || '--'}</span>`;
 
           return `
           <div class="team-card">

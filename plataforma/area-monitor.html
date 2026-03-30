@@ -113,6 +113,11 @@
     .toast-custom{position:fixed;bottom:30px;right:30px;background:#0d1117;border:1px solid rgba(0,200,81,.5);color:#00ff99;font-family:'Space Mono',monospace;font-size:.8rem;padding:16px 24px;border-radius:8px;z-index:9999;opacity:0;transform:translateY(15px);transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none;letter-spacing:1px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);}
     .toast-custom.show{opacity:1;transform:translateY(0)}
     .toast-custom.error{border-color:rgba(255,60,60,.5);color:#ff6b6b}
+    
+    /* Dropdown de Troca Rápida */
+    .quick-switch { background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: #fff; font-family: 'Bebas Neue'; font-size: 1.2rem; padding: 5px 10px; border-radius: 4px; outline: none; cursor: pointer; letter-spacing: 1px; max-width: 250px; }
+    .quick-switch option { background: #000; color: #fff; font-family: 'Space Mono'; font-size: 0.8rem; }
+
     @media(max-width:768px){ .topbar { flex-direction: column; padding: 12px; gap: 10px; align-items: stretch; } .topbar > div { width: 100%; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; } #user-info-box { border-right: none; padding-right: 0; text-align: left; } .main { padding-top: 160px; padding-left: 15px; padding-right: 15px; } .sprint-alert { top: 110px; font-size: 0.7rem; padding: 8px; } .squad-detail-header { flex-direction: column; align-items: flex-start; padding: 20px; gap: 15px; } .squad-detail-header h3 { font-size: 1.8rem; } #squad-render-badge { width: 100%; } .render-status-tag { display: block; width: 100%; padding: 10px; } .cl-body-inner, .nota-sprint { padding-left: 15px; padding-right: 0; } .sprint-cl-header { padding: 12px 15px; } .cl-num { width: 36px; height: 36px; font-size: 1.2rem; } .render-actions { flex-direction: column; } .btn-render-ok, .btn-render-rej { width: 100%; } .mobile-scroll-hint { display: block; } .criterio-tooltip { left: 50%; transform: translateX(-50%); width: 85vw; max-width: 300px; margin-left: 0; } }
   </style>
 </head>
@@ -149,7 +154,7 @@
             </div>
         </div>
 
-        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">SELECIONE O SQUAD:</label>
+        <label style="font-family:'Space Mono'; font-size:0.75rem; color:var(--yellow); display:block; margin-bottom:5px; letter-spacing: 1px;">SELECIONE O SQUAD INICIAL:</label>
         <select id="select-monitor-squad" style="width:100%; padding:14px; background:rgba(0,0,0,0.5); border:1px solid var(--yellow); color:#fff; border-radius:6px; margin-bottom:30px; font-family:'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; outline: none; box-sizing: border-box; cursor:pointer;">
             <option value="">Carregando mesas da Arena...</option>
         </select>
@@ -165,7 +170,7 @@
   <div style="margin-left:auto;display:flex;align-items:center;gap:25px">
     <div style="text-align:right;border-right:1px solid rgba(255,255,255,.1);padding-right:25px;display:none" id="user-info-box">
       <span id="nome-avaliador-display" style="display:block;font-family:'Space Mono',monospace;font-size:.75rem;color:var(--cyan);font-weight:bold; letter-spacing: 1px;">Avaliador: ---</span>
-      <a href="#" onclick="window.trocarAvaliador()" style="font-size:.6rem;color:var(--yellow);text-decoration:none;text-transform:uppercase;letter-spacing:1px; margin-top: 4px; display: inline-block;">(Trocar de Mesa)</a>
+      <a href="#" onclick="window.trocarAvaliador()" style="font-size:.6rem;color:var(--yellow);text-decoration:none;text-transform:uppercase;letter-spacing:1px; margin-top: 4px; display: inline-block;">(Trocar de Monitor)</a>
     </div>
     <div style="text-align:right">
       <span style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);letter-spacing:2px;line-height:1;display:block" id="crono-display">--:--</span>
@@ -184,7 +189,12 @@
 
   <div class="squad-detail-header" id="squad-detail-header">
     <div>
-      <h3 id="equipe-nome-display">CARREGANDO MESA...</h3>
+      <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+          <h3 id="equipe-nome-display" style="margin-right: 10px;">CARREGANDO MESA...</h3>
+          <select id="quick-switch-squad" class="quick-switch" onchange="trocarSquadRapido(this.value)">
+              <option value="">🔄 MUDAR EQUIPE RÁPIDO...</option>
+          </select>
+      </div>
       <p id="equipe-vertente-display">VERTENTE: —</p>
     </div>
     <div id="squad-render-badge"></div>
@@ -387,9 +397,9 @@
 let dbEquipes   = {};
 let currentTeamId = null;
 
-// Variáveis de filtro do Avaliador
-let filtroMonitorTurno = 'todos';
-let filtroMonitorModalidade = 'todas';
+// Variáveis de filtro do Avaliador (Sempre salva no cache)
+let filtroMonitorTurno = sessionStorage.getItem('inova_filtro_turno') || 'todos';
+let filtroMonitorModalidade = sessionStorage.getItem('inova_filtro_mod') || 'todas';
 
 const checkLoad = setInterval(() => {
   if (window.AUTH && window.SprintTimer && window.InovaDB) {
@@ -400,6 +410,13 @@ const checkLoad = setInterval(() => {
 
 function iniciarMonitor() {
   window.AUTH.require('monitor');
+  
+  // Setar dropdowns de login com os valores da sessão
+  const elFiltroTurno = document.getElementById('filtro-monitor-turno');
+  const elFiltroMod = document.getElementById('filtro-monitor-modalidade');
+  if(elFiltroTurno) elFiltroTurno.value = filtroMonitorTurno;
+  if(elFiltroMod) elFiltroMod.value = filtroMonitorModalidade;
+
   carregarEquipes(true);
 
   setInterval(() => {
@@ -424,19 +441,23 @@ function iniciarMonitor() {
 // Funções para alterar e renderizar filtros
 window.mudarFiltroMonitorTurno = function(valor) {
     filtroMonitorTurno = valor;
+    sessionStorage.setItem('inova_filtro_turno', valor);
     renderDropdownEquipes();
 };
 
 window.mudarFiltroMonitorModalidade = function(valor) {
     filtroMonitorModalidade = valor;
+    sessionStorage.setItem('inova_filtro_mod', valor);
     renderDropdownEquipes();
 };
 
 function renderDropdownEquipes() {
     const select = document.getElementById('select-monitor-squad');
-    if (!select) return;
+    const quickSelect = document.getElementById('quick-switch-squad');
     
-    select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
+    if (select) select.innerHTML = '<option value="">-- Selecione o Squad --</option>';
+    if (quickSelect) quickSelect.innerHTML = '<option value="">🔄 MUDAR EQUIPE RÁPIDO...</option>';
+    
     let qtdEncontrada = 0;
 
     Object.keys(dbEquipes).forEach(k => {
@@ -454,22 +475,39 @@ function renderDropdownEquipes() {
         const turnoFormatado = eq.turno === 'tarde' ? '🌙 TARDE' : '☀️ MANHÃ';
         const modFormatado = isOnline ? '🌐 ONLINE' : ('🏢 MESA ' + (eq.mesa || '--'));
         
-        select.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()} - ${turnoFormatado} - ${modFormatado}</option>`;
+        if (select) select.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()} - ${turnoFormatado} - ${modFormatado}</option>`;
+        if (quickSelect && k !== currentTeamId) quickSelect.innerHTML += `<option value="${k}">SQUAD ${(eq.nomeEquipe||'').toUpperCase()} - ${modFormatado}</option>`;
+        
         qtdEncontrada++;
     });
 
-    if (qtdEncontrada === 0) {
+    if (qtdEncontrada === 0 && select) {
         select.innerHTML = '<option value="">❌ NENHUM SQUAD NESTES FILTROS</option>';
     }
 }
 
+// NOVA FUNÇÃO: Troca Rápida de Equipa sem Logout
+window.trocarSquadRapido = function(novoId) {
+    if(!novoId) return;
+    sessionStorage.setItem('inova_squad_monitor', novoId);
+    currentTeamId = novoId;
+    
+    toastMsg("Equipe alterada com sucesso!", "success");
+    
+    // Reseta o dropdown para a opção "Mudar Rápido..."
+    document.getElementById('quick-switch-squad').value = "";
+    
+    // Recarrega o dropdown para não mostrar a si mesmo e os detalhes
+    renderDropdownEquipes();
+    renderDetalhes();
+};
+
 function carregarEquipes(isInitialLoad = false) {
   window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snap) => {
-    if (!snap.exists()) return; // Validação adicionada para evitar erros caso o banco esteja vazio
+    if (!snap.exists()) return; 
     
     dbEquipes = snap.val() || {};
-    
-    renderDropdownEquipes(); // Usa a nova função com filtro
+    renderDropdownEquipes(); 
 
     if (isInitialLoad) {
         verificarLoginMonitor();
@@ -494,6 +532,7 @@ function verificarLoginMonitor() {
         document.getElementById('nome-avaliador-display').textContent = 'Monitor: ' + avaliador;
         
         currentTeamId = squad;
+        renderDropdownEquipes(); // Atualiza o switch rápido
         renderDetalhes();
     }
 }
@@ -516,7 +555,7 @@ window.trocarAvaliador = () => {
     sessionStorage.removeItem('inova_nome_monitor'); 
     sessionStorage.removeItem('inova_squad_monitor'); 
     
-    renderDropdownEquipes(); // Recarrega os dropdowns limpos
+    renderDropdownEquipes(); 
     verificarLoginMonitor(); 
 };
 

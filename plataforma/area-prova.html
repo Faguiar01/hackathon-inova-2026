@@ -208,7 +208,7 @@
 
   <div class="mission-choice-wrapper" id="view-escolha" style="display:none;">
     <div class="choice-header">
-        <h2 class="choice-title">SELECIONEM O VOSSO DESAFIO</h2>
+        <h2 class="choice-title">SELECIONEM O DESAFIO</h2>
         <p class="choice-subtitle" id="intro-vertente"></p>
     </div>
     <div class="choice-cards" id="cards-container"></div>
@@ -512,7 +512,7 @@
         <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--yellow);">
             <strong style="color: var(--yellow); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 1px;">📂 PASSO A PASSO PARA O UPLOAD:</strong>
             <ol style="color: var(--muted); font-size: 0.9rem; font-family: 'Space Mono'; padding-left: 20px; margin-top: 15px; line-height: 1.8;">
-                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do vosso rascunho.</li>
+                <li>Usem o Copilot Image (na Central IA) para gerar a imagem final do rascunho.</li>
                 <li><strong style="color:#fff; border-bottom: 1px solid #ff4444;">SALVE O ARQUIVO COM O NOME DA SUA EQUIPE (Ex: SQUAD-ALFA.png).</strong></li>
                 <li><strong>CLIQUE NO SEU TURNO ABAIXO</strong> para abrir o Google Drive e fazer o upload do ficheiro:
                     <div style="display: flex; gap: 12px; margin-top: 15px; margin-bottom: 15px; flex-wrap: wrap;">
@@ -789,7 +789,7 @@
       promptExemplo: "Como fabricar um dispensador por gravidade (como aqueles porta-copos plásticos de máquina de água) que solte os protetores de ouvido embalados um a um ao clicar de uma ficha?"
     },
     { vertente: "Administrativo", titulo: "Crachá Físico de Habilitações", imagem: "/assets/img/desafios/administrativo-cracha.png",
-      dor: "Cena: O encarregado de logística grita: 'Quem é que tem habilitação de grua atualizada?'. Ninguém responde de pronto e um amador voluntaria-se sem estar habilitado para agradar ao chefe.\nDor: O controlo de validade das licenças de máquinas perigosas (Empilhadeiras/Pontes Rolantes) repousa em pastas cegas do escritório de RH. Isto causa mortes trágicas quando alguém toca no que não tem capacidade para operar.",
+      dor: "Cena: O encarregado de logística grita: 'Quem é que tem habilitação de grua atualizada?'. Ninguém responde de pronto e um amador voluntaria-se sem estar habilitado para agradar ao chefe.\nDor: O controle de validade das licenças de máquinas perigosas (Empilhadeiras/Pontes Rolantes) repousa em pastas cegas do escritório de RH. Isto causa mortes trágicas quando alguém toca no que não tem capacidade para operar.",
       desafio: "Missão: Projetar a mecânica visual de um novo 'Crachá Pessoal' fixo ao peito que berre visualmente, à distância de 10 metros, quais as validades ou categorias atuais daquela pessoa.",
       starterData: { dadoReal: "O Risco de Operação Não Qualificada é combatido instantaneamente com Gestão à Vista: o próprio grupo repreende se o crachá não estiver brilhante e válido para o cargo.", restricao: "A prova plástica tem de ser atualizável (nada de deitar fora e imprimir outro plástico novo todos os meses), ser selada a ponto do operador não adulterar com a unha, e suportar calor e poeira.", perguntaGatilho: "E se por trás do papel do crachá girar uma minúscula roda dentada com cores ou letras? Ou cartões finos sobrepostos de pregos cegos?", 
       fontes: [
@@ -1013,7 +1013,7 @@
 
   function mostrarEscolhaMissao(vertente) {
       document.getElementById('view-lobby').style.display = 'none'; document.getElementById('view-dashboard').style.display = 'none'; document.getElementById('view-escolha').style.display = 'flex';
-      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O vosso papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o vosso desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
+      document.getElementById('intro-vertente').innerHTML = `Vocês são o Squad de <strong style="color:var(--cyan);">${vertente.toUpperCase()}</strong>. Em Joinville, grandes gigantes movem a economia industrial. O papel é trazer a inovação. Leiam atentamente os 3 níveis abaixo, debatam em equipa e escolham o desafio. <br><span style="color:var(--yellow);">Atenção: A escolha não pode ser desfeita!</span>`;
 
       const normalizar = (texto) => texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       let missoesFiltradas = missoes.filter(m => normalizar(m.vertente) === normalizar(vertente));
