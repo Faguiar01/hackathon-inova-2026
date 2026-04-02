@@ -639,35 +639,34 @@
       desafio: "Missão: Desenvolver um dispositivo físico no posto de trabalho que indique de forma imediata e visual quando uma ferramenta não foi devolvida ao seu local após o uso.",
       starterData: { dadoReal: "Ferramentas perdidas causam 12 minutos de inatividade diária por funcionário, além do custo de R$ 8.000 ao ano em reposição na área.", restricao: "A solução deve ser de baixo custo, não interferir na operação ou segurança, e a indicação visual tem de ser clara à distância.", perguntaGatilho: "Como garantir que o operador perceba a falta sem precisar contar? Como identificar cada ferramenta individualmente sem telas?", 
       fontes: [
-           {nome: "🔗 ABNT", link: "https://www.abnt.org.br/"},
-          {nome: "🔗 SOMATECH", link: "https://www.somatech.com.br/"},
-          {nome: "🔗 gestão de ferramentas", link: "https://www.youtube.com/watch?v=M_HT2IyIGsc"}
+          {nome: "🔗 Kromi", link: "https://www.kromi.com.br/"},
+          {nome: "🔗 Gühring (Gestão)", link: "https://guehring.com/es-pt/servico-de-assistencia/gestao-de-ferramentas/"},
+          {nome: "🔗 Leitz (Logística de Ferramentas)", link: "https://www.leitz.org/pt-br/servicos/gerenciamento-e-logistica-de-ferramentas"}
       ]},
-      promptExemplo:  "Atue como especialista em Lean Manufacturing. Sugira 3 conceitos de quadros de sombras magnéticos tridimensionais (ou suportes com molas) que acendam um alerta visual puramente mecânico se a ferramenta for removida e não devolvida."
+      promptExemplo: "Atue como especialista em Lean Manufacturing. Sugira 3 conceitos de quadros de sombras magnéticos tridimensionais (ou suportes com molas) que acendam um alerta visual puramente mecânico se a ferramenta for removida e não devolvida."
     },
     { vertente: "Produção", titulo: "Redução de Esforço Repetitivo", imagem: "/assets/img/desafios/producao-linha-montagem.png",
       dor: "Cena: Carlos trabalha em uma linha de montagem e precisa manter os braços elevados durante boa parte do turno.\nDor: Com as horas, a fadiga física por esforço repetitivo e má postura reduz drasticamente a precisão e gera falhas na peça final.",
       desafio: "Missão: Desenvolver uma forma física de reduzir o esforço durante tarefas repetitivas, ajudando o operador a manter a precisão e o conforto a longo prazo.",
       starterData: { dadoReal: "A fadiga motora nos ombros reduz a precisão de montagem em quase 30% nas duas últimas horas do turno.", restricao: "A solução não pode restringir os movimentos essenciais. Deve ser confortável, segura e adaptável a diferentes alturas/biotipos.", perguntaGatilho: "Que tipo de dispositivo de assistência física pode ser utilizado? Exoesqueletos passivos, suportes suspensos ou contrapesos?", 
       fontes: [
-          {nome: "🔗 Vicon Exoskeleton - Casos de Implementação", link: "https://www.vicon.com/"},
-          {nome: "🔗 universal-robots.", link: "https://www.universal-robots.com/br/"},
-          {nome: "🔗 ESS - Exoesqueleto Multitarefa Integrado", link: "https://ess.ind.br/apresentamos-o-auxivo-omnisuit-exoesqueleto-multitarefa-integrado/"}
+          {nome: "🔗 Linak - Ergonomia na linha de produção", link: "https://www.linak.com.br/"},
+          {nome: "🔗 Baroig - Ergonomia Industrial", link: "https://www.baroig.com/"},
+          {nome: "🔗 Cenea - Ergonomia Laboral", link: "https://www.cenea.com/"}
       ]},
-      promptExemplo: "Atue como especialista em Biomecânica e projete 3 sistemas passivos para aliviar a fadiga de um operador que sustenta 3kg a 140cm de altura por 8h (NR-17)."
+      promptExemplo: "Atue como especialista em Biomecânica e projete 3 sistemas passivos (polias de teto, colete com molas e braço articulado com contrapeso) para aliviar a fadiga de um operador que sustenta 3kg a 140cm de altura por 8h (NR-17). Para cada solução, detalhe: a redução da força exigida, se impede o movimento natural (e por quê), o custo do protótipo e o método para vestir/retirar em até 20 segundos."
     },
     { vertente: "Produção", titulo: "Dosador Seletivo de Parafusos", imagem: "/assets/img/desafios/producao-parafuso-motor.png",
       dor: "Cena: Na montagem de um motor, operadores usam parafusos de classes diferentes (ex: 8.8, 12.9) que acabam por ser misturados acidentalmente nas caixas.\nDor: Um parafuso com a classe errada (resistência menor) causa quebra do motor em operação, originando prejuízos acima de R$ 10.000 por evento.",
       desafio: "Missão: Desenvolver um dispositivo dosador puramente mecânico que separe e libere apenas parafusos de uma classe específica, impedindo misturas perigosas.",
       starterData: { dadoReal: "Eventos de misturas de parafusos ocorrem em média 2 vezes por mês, causando retrabalho e riscos de recall de motores inteiros.", restricao: "A máquina não pode usar sensores eletrônicos ou câmaras. Deve distinguir o parafuso por geometria (cabeça/corpo) ou magnetismo.", perguntaGatilho: "Quais pequenas características físicas distinguem um parafuso do outro? Como criar um 'Poka-Yoke' que trave ao abastecer a máquina com a peça errada?", 
       fontes: [
-          fontes: [
           {nome: "🔗 ABNT NBR 13273 - Resistência (Site Oficial)", link: "https://www.abnt.org.br/"},
           {nome: "🔗 Guia: Vibratory Feeder Design (Busca PDF)", link: "https://www.google.com/search?q=vibratory+feeder+design+guide+PDF+mechanics"},
           {nome: "🎥 YouTube: Poka-Yoke Design Examples", link: "https://www.youtube.com/results?search_query=poka+yoke+design+industrial+examples"},
           {nome: "🏭 Caso Siemens: Prevenção de Erros", link: "https://www.google.com/search?q=siemens+screw+selection+error+prevention"}
-            ]},
-      promptExemplo: "Liste 3 conceitos de mecanismos puramente físicos (ex: trilhos com ranhuras em formato de 'V' e ímanes de neodímio) que consigam filtrar parafusos que têm apenas 2 milímetros de diferença na cabeça."
+      ]},
+      promptExemplo: "Atue como engenheiro de manufatura e sugira 3 mecanismos Poka-Yoke 100% físicos (sem eletrônica) para separar parafusos misturados na montagem de motores. Explique como usar trilhos em 'V', gabaritos de passagem ou ímãs para bloquear peças com diferenças milimétricas na cabeça."
     },   
 
     // 📦 VERTENTE: LOGÍSTICA
@@ -693,7 +692,7 @@
           {nome: "🎥 YouTube: Truck Packing 3D Tetris", link: "https://www.youtube.com/results?search_query=truck+packing+optimization+3D+tetris+logistics"},
           {nome: "📊 Estudo: Modular Compartments for LTL", link: "https://www.google.com/search?q=researchgate+modular+truck+compartment+design"}
       ]},
-      promptExemplo: "Atue como engenheiro logístico e desenhe 3 sistemas de divisórias modulares (painéis sanfona com molas, cintas magnéticas ou caixas empilháveis) para eliminar espaços vazios em caminhões e suportar frenagens  (NBR 14094). Para cada opção, detalhe a mecânica de travamento,  facilidade de desmontagem (<2 min) e a % de redução do desperdício.""
+      promptExemplo: "Atue como engenheiro logístico e desenhe 3 sistemas de divisórias modulares (painéis sanfona com molas, cintas magnéticas ou caixas empilháveis) para eliminar espaços vazios em caminhões e suportar frenagens de 8.8 m/s² (NBR 14094). Para cada opção, detalhe a mecânica de travamento, custo estimado, facilidade de desmontagem (<2 min) e a % de redução do desperdício."
     },
     { vertente: "Logística", titulo: "Descarga Ergonômica de Sacarias", imagem: "/assets/img/desafios/logistica-descarga-sacaria.png",
       dor: "Cena: Camiões chegam carregados de sacos de resina pesando 25 kg cada. Os operadores puxam tudo à mão durante horas a fio.\nDor: Exaustão brutal, riscos de lesões lombares graves na equipa, e filas enormes de camiões a poluir o pátio enquanto esperam a sua vez.",
@@ -776,7 +775,7 @@
       desafio: "Missão: Projete um protetor de cantos reutilizável que se encaixe nos cantos das caixas ou paletes, protegendo‑os contra impactos e pressão das cintas.",
       starterData: { dadoReal: "Os dados mostram que um protetor de cantos reutilizável pode eliminar até 88% dos danos em cantos de embalagens.", perguntaGatilho: "O protetor pode ser universal para diferentes espessuras de papelão?", 
       fontes: [
-    {nome: "🔗 ABNT NBR 13968 - Papelão Ondulado", link: "https://www.google.com/search?q=ABNT+NBR+13968+Embalagens+de+Papel%C3%A3o+Ondulado"},
+          {nome: "🔗 ABNT NBR 13968 - Papelão Ondulado", link: "https://www.google.com/search?q=ABNT+NBR+13968+Embalagens+de+Papel%C3%A3o+Ondulado"},
           {nome: "🔗 ABPO - Redução de Danos", link: "https://www.google.com/search?q=ABPO+casos+reducao+dano+embalagem+papelao"},
           {nome: "🎥 YouTube: Corner Protectors Case Study", link: "https://www.youtube.com/results?search_query=corner+protectors+reducing+shipping+damage+case+study"},
           {nome: "📊 KPMG - Perdas em Logística (Brasil)", link: "https://www.google.com/search?q=kpmg+pesquisa+perdas+danos+logistica+brasil"}
