@@ -639,32 +639,34 @@
       desafio: "Missão: Desenvolver um dispositivo físico no posto de trabalho que indique de forma imediata e visual quando uma ferramenta não foi devolvida ao seu local após o uso.",
       starterData: { dadoReal: "Ferramentas perdidas causam 12 minutos de inatividade diária por funcionário, além do custo de R$ 8.000 ao ano em reposição na área.", restricao: "A solução deve ser de baixo custo, não interferir na operação ou segurança, e a indicação visual tem de ser clara à distância.", perguntaGatilho: "Como garantir que o operador perceba a falta sem precisar contar? Como identificar cada ferramenta individualmente sem telas?", 
       fontes: [
-          {nome: "🔗 Kromi", link: "https://www.kromi.com.br/"},
-          {nome: "🔗 Gühring (Gestão)", link: "https://guehring.com/es-pt/servico-de-assistencia/gestao-de-ferramentas/"},
-          {nome: "🔗 Leitz (Logística de Ferramentas)", link: "https://www.leitz.org/pt-br/servicos/gerenciamento-e-logistica-de-ferramentas"}
+           {nome: "🔗 ABNT", link: "https://www.abnt.org.br/"},
+          {nome: "🔗 SOMATECH", link: "https://www.somatech.com.br/"},
+          {nome: "🔗 gestão de ferramentas", link: "https://www.youtube.com/watch?v=M_HT2IyIGsc"}
       ]},
-      promptExemplo: "Atue como especialista em Lean Manufacturing. Sugira 3 conceitos de quadros de sombras magnéticos tridimensionais (ou suportes com molas) que acendam um alerta visual puramente mecânico se a ferramenta for removida e não devolvida."
+      promptExemplo:  "Atue como especialista em Lean Manufacturing. Sugira 3 conceitos de quadros de sombras magnéticos tridimensionais (ou suportes com molas) que acendam um alerta visual puramente mecânico se a ferramenta for removida e não devolvida."
     },
     { vertente: "Produção", titulo: "Redução de Esforço Repetitivo", imagem: "/assets/img/desafios/producao-linha-montagem.png",
       dor: "Cena: Carlos trabalha em uma linha de montagem e precisa manter os braços elevados durante boa parte do turno.\nDor: Com as horas, a fadiga física por esforço repetitivo e má postura reduz drasticamente a precisão e gera falhas na peça final.",
       desafio: "Missão: Desenvolver uma forma física de reduzir o esforço durante tarefas repetitivas, ajudando o operador a manter a precisão e o conforto a longo prazo.",
       starterData: { dadoReal: "A fadiga motora nos ombros reduz a precisão de montagem em quase 30% nas duas últimas horas do turno.", restricao: "A solução não pode restringir os movimentos essenciais. Deve ser confortável, segura e adaptável a diferentes alturas/biotipos.", perguntaGatilho: "Que tipo de dispositivo de assistência física pode ser utilizado? Exoesqueletos passivos, suportes suspensos ou contrapesos?", 
       fontes: [
-          {nome: "🔗 Linak - Ergonomia na linha de produção", link: "https://www.linak.com.br/"},
-          {nome: "🔗 Baroig - Ergonomia Industrial", link: "https://www.baroig.com/"},
-          {nome: "🔗 Cenea - Ergonomia Laboral", link: "https://www.cenea.com/"}
+          {nome: "🔗 Vicon Exoskeleton - Casos de Implementação", link: "https://www.vicon.com/"},
+          {nome: "🔗 universal-robots.", link: "https://www.universal-robots.com/br/"},
+          {nome: "🔗 ESS - Exoesqueleto Multitarefa Integrado", link: "https://ess.ind.br/apresentamos-o-auxivo-omnisuit-exoesqueleto-multitarefa-integrado/"}
       ]},
-      promptExemplo: "Sugira 3 designs para um sistema de sustentação ergonômico passivo (sem motores) com polias e elásticos, que ajude a suportar o peso dos braços de operadores de montagem de painéis."
+      promptExemplo: "Atue como especialista em Biomecânica e projete 3 sistemas passivos para aliviar a fadiga de um operador que sustenta 3kg a 140cm de altura por 8h (NR-17)."
     },
     { vertente: "Produção", titulo: "Dosador Seletivo de Parafusos", imagem: "/assets/img/desafios/producao-parafuso-motor.png",
       dor: "Cena: Na montagem de um motor, operadores usam parafusos de classes diferentes (ex: 8.8, 12.9) que acabam por ser misturados acidentalmente nas caixas.\nDor: Um parafuso com a classe errada (resistência menor) causa quebra do motor em operação, originando prejuízos acima de R$ 10.000 por evento.",
       desafio: "Missão: Desenvolver um dispositivo dosador puramente mecânico que separe e libere apenas parafusos de uma classe específica, impedindo misturas perigosas.",
       starterData: { dadoReal: "Eventos de misturas de parafusos ocorrem em média 2 vezes por mês, causando retrabalho e riscos de recall de motores inteiros.", restricao: "A máquina não pode usar sensores eletrônicos ou câmaras. Deve distinguir o parafuso por geometria (cabeça/corpo) ou magnetismo.", perguntaGatilho: "Quais pequenas características físicas distinguem um parafuso do outro? Como criar um 'Poka-Yoke' que trave ao abastecer a máquina com a peça errada?", 
       fontes: [
-          {nome: "🔗 Deprag - Screwdriving Technology", link: "https://www.deprag.com/pt/"},
-          {nome: "🔗 Visumatic - Industrial Feeders", link: "https://www.visumatic.com/"},
-          {nome: "🔗 Weber-online - Feeding Systems", link: "https://www.weber-online.com/"}
-      ]},
+          fontes: [
+          {nome: "🔗 ABNT NBR 13273 - Resistência (Site Oficial)", link: "https://www.abnt.org.br/"},
+          {nome: "🔗 Guia: Vibratory Feeder Design (Busca PDF)", link: "https://www.google.com/search?q=vibratory+feeder+design+guide+PDF+mechanics"},
+          {nome: "🎥 YouTube: Poka-Yoke Design Examples", link: "https://www.youtube.com/results?search_query=poka+yoke+design+industrial+examples"},
+          {nome: "🏭 Caso Siemens: Prevenção de Erros", link: "https://www.google.com/search?q=siemens+screw+selection+error+prevention"}
+            ]},
       promptExemplo: "Liste 3 conceitos de mecanismos puramente físicos (ex: trilhos com ranhuras em formato de 'V' e ímanes de neodímio) que consigam filtrar parafusos que têm apenas 2 milímetros de diferença na cabeça."
     },   
 
@@ -674,8 +676,10 @@
       desafio: "Missão: Desenvolver um dispositivo fixo na caixa que, ao ser acionado manualmente, libere uma quantidade exata de parafusos e registe a contagem visualmente.",
       starterData: { dadoReal: "O processo de conferência manual rouba em média 15 minutos de produtividade por turno de CADA funcionário logístico.", restricao: "Funcionamento puramente mecânico (alavancas, engrenagens). Deve ser fácil de recarregar e ter custo de fabrico menor que R$ 50.", perguntaGatilho: "Como garantir que a 'catraca' não trave se o parafuso cair torto? É possível ajustar para tamanhos diferentes?", 
       fontes: [
-          {nome: "🔗 Vention Material Handling", link: "https://vention.io/"},
-          {nome: "🔗 Misumi Brasil - Automação", link: "https://br.misumi-ec.com/"}
+          {nome: "🔗 Manual MERVIS - Máquinas de Contagem", link: "https://www.mervis.com.br/maquinas-contagem"},
+          {nome: "🔗 Guia: Vibratory Bowl Feeder Design", link: "https://www.google.com/search?q=vibratory+bowl+counter+mechanism+design"},
+          {nome: "🎥 YouTube: DIY Parts Counter Mechanism", link: "https://www.youtube.com/results?search_query=DIY+mechanical+parts+counter+design+manual"},
+          {nome: "📊 Datasheet: Catraca Mecânica de Precisão", link: "https://www.google.com/search?q=ratchet+mechanism+datasheet+PDF+one-way+clutch"}
       ]},
       promptExemplo: "Atue como desenhador industrial. Como adaptar o princípio de um distribuidor mecânico de doces ou moedas, para libertar com precisão lotes de 10 parafusos sempre que a manivela der uma volta completa?"
     },
@@ -684,20 +688,22 @@
       desafio: "Missão: Projetar um sistema modular de compartimentos ajustáveis para dividir o interior do baú do caminhão sem deixar espaços vazios.",
       starterData: { dadoReal: "A má alocação de espaço e a carga solta geram um prejuízo silencioso no aumento de rotas e devolução de mercadorias amassadas.", restricao: "Módulos têm de ser removíveis à mão (sem ferramentas), leves (plástico/alumínio) e não podem furar ou aparafusar a parede do caminhão.", perguntaGatilho: "Como fixar painéis sanfonados à parede usando pressão (molas) ou fitas de amarração já existentes no caminhão?", 
       fontes: [
-          {nome: "🔗 Sortimo Organizadores de Carga", link: "https://www.mysortimo.com/"},
-          {nome: "🔗 Bott Brasil - Equipamentos", link: "https://www.bott-group.com/"},
-          {nome: "🔗 Ancra Systems - Cargo Restraint", link: "https://www.ancrasystems.com/"}
+          {nome: "🔗 ABNT NBR 14094 - Segurança de Carga", link: "https://www.google.com/search?q=ABNT+NBR+14094+Seguran%C3%A7a+de+Carga"},
+          {nome: "🔗 Sistema Sortimo ILC (Vídeo Demo)", link: "https://www.google.com/search?q=Sistema+Sortimo+ILC+Integrated+Logistics+Containers+video"},
+          {nome: "🎥 YouTube: Truck Packing 3D Tetris", link: "https://www.youtube.com/results?search_query=truck+packing+optimization+3D+tetris+logistics"},
+          {nome: "📊 Estudo: Modular Compartments for LTL", link: "https://www.google.com/search?q=researchgate+modular+truck+compartment+design"}
       ]},
-      promptExemplo: "Dê 3 ideias de estruturas modulares baseadas em 'barras de tensão' ou biombos dobráveis de colmeia para organizar pequenas caixas soltas no meio do baú de um caminhão."
+      promptExemplo: "Atue como engenheiro logístico e desenhe 3 sistemas de divisórias modulares (painéis sanfona com molas, cintas magnéticas ou caixas empilháveis) para eliminar espaços vazios em caminhões e suportar frenagens  (NBR 14094). Para cada opção, detalhe a mecânica de travamento,  facilidade de desmontagem (<2 min) e a % de redução do desperdício.""
     },
     { vertente: "Logística", titulo: "Descarga Ergonômica de Sacarias", imagem: "/assets/img/desafios/logistica-descarga-sacaria.png",
       dor: "Cena: Camiões chegam carregados de sacos de resina pesando 25 kg cada. Os operadores puxam tudo à mão durante horas a fio.\nDor: Exaustão brutal, riscos de lesões lombares graves na equipa, e filas enormes de camiões a poluir o pátio enquanto esperam a sua vez.",
       desafio: "Missão: Desenvolver um equipamento auxiliar que possa ser encaixado entre o caminhão e a esteira para facilitar a descida das sacarias sem exigir elevação humana.",
       starterData: { dadoReal: "Uma descarga manual tradicional leva de 2 a 3 horas. Reduzir esse tempo elimina o engarrafamento e reduz drasticamente o risco do trabalho.", restricao: "A solução tem de se adaptar a alturas de camiões variados, ser facilmente removível e não pode rasgar a embalagem plástica do produto.", perguntaGatilho: "Como um escorregador telescópico com roletes ou lona deslizante poderia levar o saco da carroçaria até o chão suavemente?", 
       fontes: [
-          {nome: "🔗 Moveit - Correias e Roletes", link: "https://www.moveit.com.br/"},
-          {nome: "🔗 Dalmec - Manipuladores Industriais", link: "https://www.dalmec.com/"},
-          {nome: "🔗 Hytrol - Truck Unloading Solutions", link: "https://hytrol.com/"}
+          {nome: "🔗 NR-17 - Levantamento de Carga Manual", link: "https://www.gov.br/trabalho/normas-regulamentadoras"},
+          {nome: "🔗 Joloda Hydro - Unloading Systems", link: "https://www.jolodalift.com/unloading-systems"},
+          {nome: "🎥 YouTube: Gravity Roller System", link: "https://www.youtube.com/results?search_query=gravity+roller+unloading+system+design"},
+          {nome: "📊 SESI - Caso Reposicionamento Ergonômico", link: "https://www.google.com/search?q=sesi.org.br+caso+logistica+descarga+manual"}
       ]},
       promptExemplo: "Projete o esboço físico de uma 'rampa de roletes telescópica' dobrável que possa ser rapidamente presa ao piso de qualquer caminhão para fazer deslizar sacos de 25kg em segurança."
     },   
@@ -708,9 +714,10 @@
       desafio: "Missão: Projetar um dispositivo de contenção portátil, de rápida fixação temporária ao lado do trabalho, para segurar todas as ferramentas e parafusos de forma segura.",
       starterData: { dadoReal: "A perda de pequenos componentes gera não só o custo do parafuso novo, mas também danos na ordem de milhares de euros se este for mastigado pela máquina.", restricao: "Deve custar menos de R$ 150 por unidade, resistir a líquidos industriais (óleo de corte) e não arranhar a pintura das máquinas.", perguntaGatilho: "Como uma bandeja magnética emborrachada flexível, ou um 'tapete com bordas' acoplável, poderia envolver a peça em conserto?", 
       fontes: [
-          {nome: "🔗 Mechanix Wear - Magnetic Trays", link: "https://www.mechanix.com/"},
-          {nome: "🔗 Grip-On Locking Tools", link: "https://www.grip-on.com/"},
-          {nome: "🔗 Norbar - Torque Tools", link: "https://www.norbar.com/"}
+          {nome: "🔗 ISO 14644 - Contaminação (Resumo)", link: "https://www.iso.org/standard/58885.html"},
+          {nome: "🔗 MagLab - Soluções Magnéticas", link: "https://www.maglabmagnets.com.br/"},
+          {nome: "🎥 YouTube: Magnetic Tool Mat Demo", link: "https://www.youtube.com/results?search_query=magnetic+tool+mat+industrial+demonstration"},
+          {nome: "📚 Estudo: Prevenção de FOD (Detritos)", link: "https://www.google.com/search?q=researchgate+FOD+prevention+manufacturing+strategies"}
       ]},
       promptExemplo: "Desenhe uma bandeja de trabalho flexível, feita de neoprene com poderosos ímanes costurados. Ela deve conseguir abraçar cantos de tubos ou ficar presa a 90 graus na chapa da máquina sem que as peças escorreguem."
     },
@@ -719,8 +726,10 @@
       desafio: "Missão: Projetar um sistema de ventilação 100% portátil, rápido de prender à porta do tanque e capaz de garantir um ambiente seguro de imediato.",
       starterData: { dadoReal: "A imobilidade de frentes de serviço em áreas distantes inviabiliza exaustores de parede. Equipamentos têm de ser montados e ligados em menos de 2 minutos.", restricao: "Precisa de ter fluxo de ar reversível (sugador/soprador) e indicar visualmente por meios físicos se a pressão está correta.", perguntaGatilho: "O ventilador funcionaria a bateria ou a manivela mecânica? Como vedar a estrutura na abertura redonda do buraco (bueiro)?", 
       fontes: [
-          {nome: "🔗 Allegro Industries - Blower Systems", link: "https://www.allegrosafety.com/"},
-          {nome: "🔗 Nederman - Portable Fans", link: "https://www.nederman.com/"}
+          {nome: "🔗 NR-33 - Espaços Confinados (Brasil)", link: "https://www.gov.br/trabalho/normas-regulamentadoras"},
+          {nome: "🔗 ANSI Z535 - Sinalização de Risco", link: "https://www.ansi.org/standards/z535"},
+          {nome: "🎥 YouTube: Confined Space Ventilation", link: "https://www.youtube.com/results?search_query=confined+space+ventilation+SCBA+safety+video"},
+          {nome: "📊 SESI - Manual Espaços Confinados", link: "https://www.google.com/search?q=sesi.org.br+manual+espa%C3%A7os+confinados+pdf+download"}
       ]},
       promptExemplo: "Imagine um insuflador/exaustor a bateria com tubos flexíveis sanfonados, onde o ar que passa por ele faz girar uma pequena catavento no painel visual: se o catavento parar, o técnico tem de fugir do poço!"
     },
@@ -729,8 +738,10 @@
       desafio: "Missão: Projete um sistema de organização físico para ordens de serviço que proteja os documentos contra umidade e sujeira, mantenha-os visíveis e permita identificar rapidamente o status de cada OS.",
       starterData: { dadoReal: "A 'perda de rasto' das Ordens de Serviço no chão de fábrica é a causa n.º 1 de atrasos na reparação de equipamento de apoio vital da fábrica.", restricao: "Tem de permitir que o papel seja inserido em 2 segundos e que seja atualizado para (Pendente/Concluído) de forma rápida e visual de longe.", perguntaGatilho: "Como micas plásticas fixas num rail magnético com 'bandeiras de cor' giratórias podem substituir a prancheta de madeira e as molas enferrujadas?", 
       fontes: [
-          {nome: "🔗 Quadros Visuais Lean", link: "https://www.lean.org.br/quadro-visual"},
-          {nome: "🔗 Treston", link: "https://www.treston.com.br"}
+          {nome: "🔗 Método Kanban (Toyota Lean)", link: "https://www.lean.org.br/kanban"},
+          {nome: "📚 Estudo: 5S Visual Management", link: "https://www.google.com/search?q=5s+visual+management+manufacturing+case+study"},
+          {nome: "🎥 YouTube: Gemba Walk Visual Examples", link: "https://www.youtube.com/results?search_query=gemba+walk+visual+management+effective+examples"},
+          {nome: "🔗 ABNT NBR 14175 - Armários de Segurança", link: "https://www.google.com/search?q=ABNT+NBR+14175+Arm%C3%A1rios+de+Seguran%C3%A7a"}
       ]},
       promptExemplo: "Desenvolva o conceito de um quadro físico 'Kanban da Pesada', com envelopes de policarbonato vedados, de onde o técnico retira uma OS e move um pino vermelho (Avariado) para verde (Testado)."
     },   
@@ -741,8 +752,10 @@
       desafio: "Missão: Projetar um sistema simples, inteiramente sem eletricidade ou motores, para captar do cano do teto, filtrar sujidades do telhado e armazenar esta água.",
       starterData: { dadoReal: "Substituir usos secundários por água pluvial reduz a conta municipal em até 40% na indústria moderna.", restricao: "A gravidade deve ser a única força a agir. O primeiro jato d'água da chuva (cheio de poeiras) deve ser rejeitado automaticamente por uma boia mecânica.", perguntaGatilho: "Como um cano em 'Y' com uma bola de esponja interna bloqueia a passagem de água até o lodo descer por inteiro, filtrando de seguida?", 
       fontes: [
-          {nome: "🔗 Rainwater Harvesting Solutions", link: "https://www.rainwaterharvesting.com/"},
-          {nome: "🔗 Aquahouse", link: "https://www.aquahouse.com.br/"}
+          {nome: "🔗 ABNT NBR 15527 - Água de Chuva", link: "https://www.google.com/search?q=ABNT+NBR+15527+Coleta+e+Aproveitamento+de+Agua+de+Chuva"},
+          {nome: "🔗 SABESP - Guia de Aproveitamento", link: "https://www.google.com/search?q=SABESP+Guia+de+Implantacao+de+Sistemas+de+Chuva"},
+          {nome: "🎥 YouTube: DIY Rainwater Filter Design", link: "https://www.youtube.com/results?search_query=DIY+rainwater+harvesting+filter+design+first+flush"},
+          {nome: "📊 FINEP - ROI de Sistemas Hídricos", link: "https://www.google.com/search?q=FINEP+projetos+agua+reuso+industrial"}
       ]},
       promptExemplo: "Esboce um 'Filtro Ciclone de Telhado'. A água de uma calha desce em espiral mecânica que atira as folhas e pedras para o lado de fora do cano antes de cair cristalina no depósito principal!"
     },
@@ -751,8 +764,10 @@
       desafio: "Missão: Projetar um sistema físico de compactação (Prensa Manual) e organização com divisórias por tipo de material.",
       starterData: { dadoReal: "Ao comprimir tecidos para 1/3 do seu tamanho, a logística reversa da indústria de fast-fashion atinge o seu 'break-even' económico e viabiliza a reciclagem.", restricao: "O processo deve usar a alavancagem manual, gerar blocos/fardos em formato de caixas iguais, e ser rápido de amarrar.", perguntaGatilho: "Uma alavanca tipo prensa com 2 metros de braço aumenta a força humana drasticamente. Como dividi-la em 3 caixotes (Algodão, Nylon e Malha)?", 
       fontes: [
-          {nome: "🔗 Miltek", link: "https://www.miltek.com/"},
-          {nome: "🔗 Harmony Enterprises", link: "https://www.harmony1.com/"}
+          {nome: "🔗 CONAMA 275 - Resíduos Sólidos", link: "https://www.google.com/search?q=CONAMA+275+Classificacao+de+Residuos+Solidos"},
+          {nome: "🔗 ABRELPE - Diagnóstico Têxtil", link: "https://www.google.com/search?q=ABRELPE+diagnostico+texteis"},
+          {nome: "🎥 YouTube: Textile Baling Press", link: "https://www.youtube.com/results?search_query=textile+baling+press+machine+operation"},
+          {nome: "📊 Estudo C40: Textile Waste Reduction", link: "https://www.google.com/search?q=c40+cities+textile+waste+reduction+economic"}
       ]},
       promptExemplo: "Desenhe uma enfardadeira manual (sem hidráulica). Uma haste comprida aciona uma placa metálica de grande superfície que espalma pilhas inteiras de tecidos, permitindo que a linha trespasse o bloco no final."
     },
@@ -761,8 +776,10 @@
       desafio: "Missão: Projete um protetor de cantos reutilizável que se encaixe nos cantos das caixas ou paletes, protegendo‑os contra impactos e pressão das cintas.",
       starterData: { dadoReal: "Os dados mostram que um protetor de cantos reutilizável pode eliminar até 88% dos danos em cantos de embalagens.", perguntaGatilho: "O protetor pode ser universal para diferentes espessuras de papelão?", 
       fontes: [
-          {nome: "🔗 Cosimo", link: "https://www.cosimocataldo.com.br/produtos/csm-20-protetor-para-cantos/"},
-          {nome: "🔗 Borini", link: "https://www.borini.com.br/produto/protetores-para-cantos-de-caixas/"}
+    {nome: "🔗 ABNT NBR 13968 - Papelão Ondulado", link: "https://www.google.com/search?q=ABNT+NBR+13968+Embalagens+de+Papel%C3%A3o+Ondulado"},
+          {nome: "🔗 ABPO - Redução de Danos", link: "https://www.google.com/search?q=ABPO+casos+reducao+dano+embalagem+papelao"},
+          {nome: "🎥 YouTube: Corner Protectors Case Study", link: "https://www.youtube.com/results?search_query=corner+protectors+reducing+shipping+damage+case+study"},
+          {nome: "📊 KPMG - Perdas em Logística (Brasil)", link: "https://www.google.com/search?q=kpmg+pesquisa+perdas+danos+logistica+brasil"}
       ]},
       promptExemplo: "Projete um protetor de cantos reutilizável para caixas/paletes com material flexível e durável que se encaixe firmemente sem danificar os produtos."
     },   
@@ -773,8 +790,10 @@
       desafio: "Missão: Projetar um armário visual de chaves com uma fechadura genial de mecânica por turnos (Turno A não pode pegar as chaves do Turno B e vice-versa).",
       starterData: { dadoReal: "Esquecimentos de chaves ou chaves 'emprestadas' param as rotinas vitais em dezenas de fábricas diariamente.", restricao: "O painel tem de expor visivelmente todas as argolas num relance (nada de cofres cegos), e o mecanismo tem de trancar a devolução.", perguntaGatilho: "Como painéis de correr que se abrem apenas com uma 'Super-Chave' de mestre que fica com a coordenação evitam este conflito diário?", 
       fontes: [
-          {nome: "🔗 Morse Watchmans - Key Control", link: "https://www.morsewatchmans.com/"},
-          {nome: "🔗 Nilko - Armários", link: "https://www.nilko.com.br/"}
+          {nome: "🔗 ISO 27001 - Acesso Físico (Resumo)", link: "https://www.iso.org/standard/27001.html"},
+          {nome: "🔗 Kaizen Institute - 5S e Organização", link: "https://www.google.com/search?q=Kaizen+Institute+5S+organizacao+de+chaves"},
+          {nome: "🎥 YouTube: Smart Tool Shadow Board", link: "https://www.youtube.com/results?search_query=tool+shadow+board+smart+lock+demonstration"},
+          {nome: "📊 ABNT NBR 17801 - Segurança de Chaves", link: "https://www.google.com/search?q=ABNT+NBR+ISO+17801+Seguran%C3%A7a+de+Chaves"}
       ]},
       promptExemplo: "Desenhe um quadro de chaves onde as abas verdes correm lateralmente tampando a secção do turno A com um pino. Ao fim da tarde, o supervisor arrasta a grade vermelha que só deixa o turno B mexer nos ganchos visíveis."
     },
@@ -783,8 +802,10 @@
       desafio: "Missão: Projetar um dispensador de Equipamento de Proteção (EPI) mecânico que substitua a entrega humana sem perder as anotações visuais.",
       starterData: { dadoReal: "Distribuidores automáticos ('Vending') economizam até 40% de gastos totais em EPIs só por garantirem o registo visual rigoroso na entrega sem esforço humano.", restricao: "Não tem ligação à tomada. A liberação do produto pode usar moedas, cartões com furos ou alavancas empurradas num registador de papel interno.", perguntaGatilho: "A luva fica num carrossel espiral como batatas fritas? Ou num sistema de molas gravítico onde só sai um óculo se o crachá bater na trava?", 
       fontes: [
-          {nome: "🔗 Fastenal - Industrial Vending", link: "https://www.fastenal.com/"},
-          {nome: "🔗 Cintas - PPE Services", link: "https://www.cintas.com/"}
+          {nome: "🔗 NR-6 - Equipamentos de Proteção (EPI)", link: "https://www.gov.br/trabalho/normas-regulamentadoras"},
+          {nome: "🔗 ABNT NBR 15635 - Dispensa de EPIs", link: "https://www.google.com/search?q=ABNT+NBR+15635+Sistema+de+Dispensa+de+EPIs"},
+          {nome: "🎥 YouTube: EPI Vending Machine Case", link: "https://www.youtube.com/results?search_query=EPI+vending+machine+industrial+implementation+case"},
+          {nome: "📊 INMETRO - Catálogo de EPIs", link: "https://www.google.com/search?q=INMETRO+Cat%C3%A1logo+de+EPIs+Certificados"}
       ]},
       promptExemplo: "Como fabricar um dispensador por gravidade (como aqueles porta-copos plásticos de máquina de água) que solte os protetores de ouvido embalados um a um ao clicar de uma ficha?"
     },
@@ -793,8 +814,9 @@
       desafio: "Missão: Projetar a mecânica visual de um novo 'Crachá Pessoal' fixo ao peito que berre visualmente, à distância de 10 metros, quais as validades ou categorias atuais daquela pessoa.",
       starterData: { dadoReal: "O Risco de Operação Não Qualificada é combatido instantaneamente com Gestão à Vista: o próprio grupo repreende se o crachá não estiver brilhante e válido para o cargo.", restricao: "A prova plástica tem de ser atualizável (nada de deitar fora e imprimir outro plástico novo todos os meses), ser selada a ponto do operador não adulterar com a unha, e suportar calor e poeira.", perguntaGatilho: "E se por trás do papel do crachá girar uma minúscula roda dentada com cores ou letras? Ou cartões finos sobrepostos de pregos cegos?", 
       fontes: [
-          {nome: "🔗 Brady", link: "https://www.brady.com.br/"},
-          {nome: "🔗 Praxio", link: "https://www.praxio.com/"}
+          {nome: "🔗 NR-18 - Operação de Equipamentos", link: "https://www.gov.br/trabalho/normas-regulamentadoras"},
+          {nome: "🔗 ABNT NBR 10898 - Identificação (Crachás)", link: "https://www.google.com/search?q=ABNT+NBR+10898+Identifica%C3%A7%C3%A3o+Pessoal+Crach%C3%A1s"},
+          {nome: "🎥 YouTube: Visual Management Badge Safety", link: "https://www.youtube.com/results?search_query=visual+management+badge+capability+matrix+safety"}
       ]},
       promptExemplo: "Crie o molde 3D para um crachá plástico industrial com ranhuras vazadas ao longo da base, onde o RH encaixa rebites coloridos redondos (Verde/Empilhadeira, Laranja/Solda) que trancam permanentemente atrás por clique."
     }
