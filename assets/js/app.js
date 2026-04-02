@@ -101,7 +101,7 @@ window.AUTH = {
 };
 
 // =======================================================================
-// 3. CRONÔMETRO MESTRE (GLOBAL TIMEBOXING)
+// 3. CRONÔMETRO MESTRE (GLOBAL TIMEBOXING) - BLINDADO
 // =======================================================================
 const SPRINT_TIMES = [900, 900, 900, 1800, 900]; // 15m, 15m, 15m, 30m, 15m
 let timerState = { sprint: 1, timeLeft: 900, running: false, lastUpdate: Date.now() };
@@ -117,25 +117,27 @@ window.SprintTimer = {
     start: () => {
         timerState.running = true;
         timerState.lastUpdate = Date.now();
-        set(timerRef, timerState);
+        // Usa 'update' para não apagar o número do sprint atual sem querer
+        update(timerRef, { running: true, lastUpdate: timerState.lastUpdate });
     },
     pause: () => {
         timerState.timeLeft = window.SprintTimer.getRemaining();
         timerState.running = false;
-        set(timerRef, timerState);
+        // Usa 'update' para não apagar o número do sprint atual sem querer
+        update(timerRef, { timeLeft: timerState.timeLeft, running: false });
     },
     reset: () => {
         timerState.timeLeft = SPRINT_TIMES[timerState.sprint - 1];
         timerState.running = false;
         timerState.lastUpdate = Date.now();
-        set(timerRef, timerState);
+        update(timerRef, { timeLeft: timerState.timeLeft, running: false, lastUpdate: timerState.lastUpdate });
     },
     nextSprint: () => {
         if (timerState.sprint < 5) {
             timerState.sprint++;
             timerState.timeLeft = SPRINT_TIMES[timerState.sprint - 1];
             timerState.running = false;
-            set(timerRef, timerState);
+            set(timerRef, timerState); // Aqui tem de ser 'set' pois o sprint mudou de facto
         }
     },
     setSprint: (n) => {
@@ -156,9 +158,19 @@ window.SprintTimer = {
 setInterval(() => {
     if (timerState.running) {
         if (window.SprintTimer.getRemaining() <= 0) {
-            window.SprintTimer.pause();
-            if(window.location.pathname.includes('area-adm')) {
+            
+            // CORREÇÃO CRÍTICA: Apenas o Painel do ADMIN tem autorização para pausar o banco de dados.
+            // Isso impede que os computadores dos alunos mandem pausas atrasadas que resetam o Sprint.
+            const userData = sessionStorage.getItem('inova_user');
+            const isAdm = userData && JSON.parse(userData).role === 'adm';
+            
+            if (isAdm) {
+                window.SprintTimer.pause();
                 window.toast("Sprint Finalizado!", "info");
+            } else {
+                // No ecrã do aluno, congela visualmente no zero para não dar números negativos
+                timerState.running = false;
+                timerState.timeLeft = 0;
             }
         }
     }
