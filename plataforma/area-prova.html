@@ -588,7 +588,6 @@
           canvas: document.getElementById('tab-btn-canvas')
       };
 
-      // Desativar todas as abas (menos Cenário e Canvas se existirem)
       Object.values(tabs).forEach(btn => {
           if (btn && btn.id !== 'tab-btn-cenario' && btn.id !== 'tab-btn-canvas') {
               btn.style.opacity = "0.4"; btn.style.pointerEvents = "none"; btn.style.filter = "grayscale(1)"; btn.title = "Aguarde o Sprint correto para desbloquear";
@@ -598,7 +597,6 @@
       if (tabs.cenario) { tabs.cenario.style.opacity = "1"; tabs.cenario.style.pointerEvents = "auto"; tabs.cenario.style.filter = "none"; }
       if (tabs.canvas) { tabs.canvas.style.opacity = "1"; tabs.canvas.style.pointerEvents = "auto"; tabs.canvas.style.filter = "none"; }
       
-      // Libertação Progressiva das Abas Extras
       if (sprint >= 2 && tabs.links) { tabs.links.style.opacity = "1"; tabs.links.style.pointerEvents = "auto"; tabs.links.style.filter = "none"; tabs.links.title = ""; }
       if (sprint >= 3 && tabs.regras) { tabs.regras.style.opacity = "1"; tabs.regras.style.pointerEvents = "auto"; tabs.regras.style.filter = "none"; tabs.regras.title = ""; }
       if (sprint >= 4 && tabs.mockup) { tabs.mockup.style.opacity = "1"; tabs.mockup.style.pointerEvents = "auto"; tabs.mockup.style.filter = "none"; tabs.mockup.title = ""; }
@@ -609,12 +607,11 @@
           if (tabs.cenario) tabs.cenario.click();
       }
 
-      // Libertação Progressiva dentro do Canvas Digital
       for (let i = 1; i <= 5; i++) {
           const section = document.getElementById('cv-section-' + i);
           const lockMsg = document.getElementById('cv-lock-' + i);
           if(section) {
-              if(sprint >= i || state.sprint === 0) { // Mostra se o sprint já chegou (ou em testes com sprint 0)
+              if(sprint >= i || state.sprint === 0) { 
                   section.style.display = 'block';
                   if(lockMsg) lockMsg.style.display = 'none';
               } else {
@@ -946,7 +943,7 @@
       } else {
         mostrarEscolhaMissao(vertenteNome);
       }
-      sincronizarDadosEquipe(equipeNome); // Carrega canvas e verifica entregas
+      sincronizarDadosEquipe(equipeNome);
   }
 
   function atualizarCronometroLobby() {
@@ -967,7 +964,6 @@
   }
 
   function sincronizarDadosEquipe(equipeNome) {
-      // Usamos onValue contínuo para manter os ecrãs da equipa sincronizados em tempo real!
       window.InovaDB.onValue(window.InovaDB.ref(window.InovaDB.db, 'equipes'), (snapshot) => {
           const data = snapshot.val();
           if (!data) return;
@@ -976,24 +972,20 @@
           if (equipeId) {
               const eqData = data[equipeId];
               
-              // 1. Mostrar aba Canvas APENAS se for ONLINE
               const tabCanvasBtn = document.getElementById('tab-btn-canvas');
               if(tabCanvasBtn) {
                   tabCanvasBtn.style.display = (eqData.mesa === 'ONLINE') ? 'inline-block' : 'none';
               }
 
-              // 2. Popular campos do Canvas (sem apagar o que o utilizador está a escrever)
               if (eqData.canvas) {
                   Object.keys(eqData.canvas).forEach(campo => {
                       const inputEl = document.getElementById('cv-' + campo);
-                      // Só atualiza o campo se o rato do aluno NÃO estiver dentro dele a digitar
                       if (inputEl && document.activeElement !== inputEl) {
                           inputEl.value = eqData.canvas[campo];
                       }
                   });
               }
 
-              // 3. Verificar Botões de Entrega
               if (eqData.notasEquipe) {
                   if (eqData.notasEquipe.renderEnviado) {
                       const link = document.getElementById('link-mockup'); const btn = document.getElementById('btn-enviar-mockup');
@@ -1008,7 +1000,6 @@
       });
   }
 
-  // NOVA FUNÇÃO: Salvar Canvas no Firebase
   window.salvarCanvas = function(campo, valor) {
       const equipeNome = sessionStorage.getItem('inova_equipe');
       if (!equipeNome) return;
@@ -1169,9 +1160,8 @@
           "Sair da caixa: O que a indústria faz hoje que está ultrapassado?", 
           "Foque no utilizador final, não apenas na máquina.", 
           "Qual é o atalho mais barato e fisicamente seguro para a solução?"
-      ]; // Mensagem genérica de fallback
+      ]; 
       
-      // Dicas específicas mapeadas para os 15 desafios
       if (tituloMissao.includes('ferramentas')) {
           ideias = ["Painéis de sombra (Shadow boards) tridimensionais.", "O uso de suportes com molas que expõem uma cor de alerta quando vazios.", "Ímãs com cores fortes para destacar a ausência."];
       } else if (tituloMissao.includes('esforco')) {
@@ -1238,12 +1228,11 @@
       htmlList += `</ul>`;
       guideContent.innerHTML = htmlList;
   }
-// NOVA FUNÇÃO: Exportar o Canvas para PDF
+
   window.exportarCanvasPDF = function() {
       const equipeNome = sessionStorage.getItem('inova_equipe') || 'Equipe Desconhecida';
       const vertenteNome = sessionStorage.getItem('inova_vertente') || 'Sem Vertente';
       
-      // Função auxiliar para pegar o valor ou colocar um texto padrão
       const getVal = (id) => {
           const el = document.getElementById(id);
           return (el && el.value.trim() !== '') ? el.value.replace(/\n/g, '<br>') : '<em style="color:#999;">Não preenchido</em>';
@@ -1311,13 +1300,11 @@
           </html>
       `;
 
-      // Cria uma aba em branco, injeta o HTML e chama o imprimir
       const janelaImpressao = window.open('', '_blank');
       janelaImpressao.document.write(conteudoHTML);
       janelaImpressao.document.close();
       janelaImpressao.focus();
       
-      // Um pequeno delay para garantir que o CSS carregou antes de imprimir
       setTimeout(() => {
           janelaImpressao.print();
       }, 500);
